@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>字幕库 · bqtj.cc.cd</title>
+<meta name="description" content="大量 ASS / SSA / SRT / VTT 字幕文件，支持按番剧、语言、格式搜索筛选并一键下载。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/"><span class="brand-logo">📚</span><span>bqtj.cc.cd</span></a>
+    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+    <nav class="nav" id="siteNav">
+      <a href="/" data-nav="home">首页</a>
+      <a href="/games/" data-nav="games">小游戏</a>
+      <a href="/anime/" data-nav="anime">动漫</a>
+      <a href="/subs/" data-nav="subs">字幕库</a>
+      <a href="/about.html" data-nav="about">关于</a>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题">☀️</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="page-head">
+      <div class="breadcrumb"><a href="/">首页</a> / 字幕库</div>
+      <h1>📝 字幕库</h1>
+      <p>
+        全部字幕文件，按作品分目录存放。支持关键词（空格分隔多个词，同时命中才算）、
+        语言、格式、作品四个维度组合筛选。
+      </p>
+      <div class="notice" style="margin-top:16px">
+        <span>⌨️</span>
+        <div>按 <kbd>/</kbd> 快速跳到搜索框，按 <kbd>Esc</kbd> 清空关键词。筛选条件会写进网址，可以直接把筛选结果转发给别人。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ 工具栏 ============================ -->
+  <div class="toolbar">
+    <div class="container">
+      <div class="toolbar-row">
+        <div class="search-box">
+          <span class="s-icon">🔍</span>
+          <input type="search" id="search" autocomplete="off"
+                 placeholder="搜索字幕：番名 / 集数 / 字幕组，多个词用空格分隔…">
+          <button class="s-clear" id="clear" aria-label="清空">✕</button>
+        </div>
+
+        <select class="control" id="group"><option value="">全部作品</option></select>
+
+        <select class="control" id="sort">
+          <option value="mtime-desc">最新上传</option>
+          <option value="mtime-asc">最早上传</option>
+          <option value="name-asc">名称 A→Z</option>
+          <option value="name-desc">名称 Z→A</option>
+          <option value="size-desc">体积大→小</option>
+          <option value="size-asc">体积小→大</option>
+        </select>
+      </div>
+
+      <div class="chips" id="langChips"></div>
+      <div class="chips" id="extChips"></div>
+    </div>
+  </div>
+
+  <!-- ============================ 列表 ============================ -->
+  <div class="container">
+    <div class="result-info" id="info">加载中…</div>
+    <div id="list"><div class="spinner"></div></div>
+    <div class="pager" id="pager"></div>
+
+    <div class="notice" style="margin-top:36px">
+      <span>📥</span>
+      <div>
+        <b>批量下载：</b>浏览器一次只能下一个文件。要一次拿一个作品的全部字幕，
+        建议直接装 <code>files/subs/&lt;作品名&gt;</code> 整个目录（用 Git 或网盘同步），
+        或者在本地用 <code>wget -r -np -nH --cut-dirs=2 https://bqtj.cc.cd/files/subs/作品名/</code>。
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© <span data-year></span> bqtj.cc.cd · 个人分享站</div>
+    <div>
+      <a href="/games/">小游戏</a> ·
+      <a href="/anime/">动漫</a> ·
+      <a href="/subs/">字幕库</a> ·
+      <a href="/about.html">关于</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/site.js"></script>
+<script src="/assets/js/subs.js"></script>
+</body>
+</html>

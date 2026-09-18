@@ -1,0 +1,19 @@
+# 忽略系统 / 编辑器垃圾文件
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+
+# Node（本项目零依赖，但保险起见）
+node_modules/
+npm-debug.log*
+
+# 编辑器
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+
+# 大文件提醒：如果你不想把游戏包 / 大压缩包提交到 Git，取消下面注释
+# files/games/*.zip
+# files/games/*.7z

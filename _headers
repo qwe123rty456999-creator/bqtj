@@ -1,0 +1,24 @@
+# Cloudflare Pages 用的响应头配置（其它平台会忽略这个文件）
+# 部署到 Netlify 改成 _headers 同名文件也生效；Vercel 用 vercel.json
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# 静态资源长缓存（改了样式记得改文件名或加 ?v=2）
+/assets/*
+  Cache-Control: public, max-age=604800
+
+# 数据文件短缓存，方便更新后立刻生效
+/assets/data/*
+  Cache-Control: public, max-age=300
+
+# 字幕文件：允许跨域下载，缓存久一点
+/files/subs/*
+  Cache-Control: public, max-age=86400
+  Access-Control-Allow-Origin: *
+
+# 游戏资源
+/files/games/*
+  Cache-Control: public, max-age=86400

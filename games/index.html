@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小游戏 · bqtj.cc.cd</title>
+<meta name="description" content="轻量免安装的小游戏与离线小游戏合集，点开就能玩。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/"><span class="brand-logo">📚</span><span>bqtj.cc.cd</span></a>
+    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+    <nav class="nav" id="siteNav">
+      <a href="/" data-nav="home">首页</a>
+      <a href="/games/" data-nav="games">小游戏</a>
+      <a href="/anime/" data-nav="anime">动漫</a>
+      <a href="/subs/" data-nav="subs">字幕库</a>
+      <a href="/about.html" data-nav="about">关于</a>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题">☀️</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="page-head">
+      <div class="breadcrumb"><a href="/">首页</a> / 小游戏</div>
+      <h1>🎮 小游戏</h1>
+      <p>轻量、免安装、点开就能玩。网页游戏直接开，离线合集可打包下载。</p>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="container">
+      <div class="toolbar-row">
+        <div class="search-box">
+          <span class="s-icon">🔍</span>
+          <input type="search" id="search" autocomplete="off" placeholder="搜索游戏名、标签…">
+          <button class="s-clear" id="clear" aria-label="清空">✕</button>
+        </div>
+        <select class="control" id="sort">
+          <option value="updated-desc">最近更新</option>
+          <option value="updated-asc">最早上传</option>
+          <option value="title-asc">名称 A→Z</option>
+          <option value="title-desc">名称 Z→A</option>
+        </select>
+      </div>
+      <div class="chips" id="chips"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="result-info" id="info">加载中…</div>
+    <div id="grid"><div class="spinner"></div></div>
+
+    <div class="notice" style="margin-top:36px">
+      <span>📦</span>
+      <div>
+        <b>怎么加游戏？</b>把游戏文件放进 <code>files/games/&lt;游戏名&gt;/</code>，
+        再在 <code>assets/data/games.json</code> 里加一条记录即可（格式见 <code>README.md</code>）。
+        网页游戏把 <code>play</code> 填成该目录的 <code>index.html</code> 就能直接在线玩。
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© <span data-year></span> bqtj.cc.cd · 个人分享站</div>
+    <div>
+      <a href="/games/">小游戏</a> ·
+      <a href="/anime/">动漫</a> ·
+      <a href="/subs/">字幕库</a> ·
+      <a href="/about.html">关于</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/site.js"></script>
+<script>
+  window.COLLECTION = {
+    source: '/assets/data/games.json',
+    kind: 'game',
+    placeholder: '搜索游戏名、标签…',
+  };
+</script>
+<script src="/assets/js/collection.js"></script>
+</body>
+</html>

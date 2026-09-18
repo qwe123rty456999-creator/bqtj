@@ -1,0 +1,26 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 2560
+PlayResY: 1440
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,100,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,5,5,2,67,67,50,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.51,0:00:02.65,Default,,0,0,0,,{\pos(1281,1165)}{\b1}嘿，我能跟你说点事儿吗，合成器对合成器？
+Dialogue: 0,0:00:03.07,0:00:04.19,Default,,0,0,0,,{\pos(1281,1226)}{\b1}行啊，没问题
+Dialogue: 0,0:00:05.31,0:00:08.57,Default,,0,0,0,,{\pos(1281,1116)}{\b1}有时候我会幻想自己被一群野生的狼女部落绑架
+Dialogue: 0,0:00:08.69,0:00:10.43,Default,,0,0,0,,{\pos(1280,1164)}{\b1}然后她们把我带到她们的巢穴里
+Dialogue: 0,0:00:10.43,0:00:12.05,Default,,0,0,0,,{\pos(1281,1170)}{\b1}就在森林深处的某个地方
+Dialogue: 0,0:00:12.25,0:00:14.01,Default,,0,0,0,,{\pos(1281,1155)}{\b1}然后我有点希望她们全都-
+Dialogue: 0,0:00:16.01,0:00:16.14,Default,,0,0,0,,{\pos(1281,1234)}{\b1}并且-
+Dialogue: 0,0:00:17.21,0:00:19.37,Default,,0,0,0,,{\pos(1280,1167)}{\b1}-一次又一次一次又一次，这样我就能-
+Dialogue: 0,0:00:20.47,0:00:21.98,Default,,0,0,0,,{\pos(1281,1216)}{\b1}-她们整个族群
+Dialogue: 0,0:00:24.31,0:00:25.12,Default,,0,0,0,,{\pos(1281,1219)}{\b1}Miku
+Dialogue: 0,0:00:27.68,0:00:28.43,Default,,0,0,0,,{\pos(1280,1231)}{\b1}这**什么鬼-

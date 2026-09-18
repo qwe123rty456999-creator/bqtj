@@ -1,0 +1,48 @@
+{
+  "generated": "2026-09-18T13:05:51.370Z",
+  "root": "files/subs",
+  "count": 2,
+  "stats": {
+    "languages": {
+      "简中": 2
+    },
+    "formats": {
+      "ass": 2
+    },
+    "groups": {
+      "示例番剧": 2
+    }
+  },
+  "items": [
+    {
+      "name": "Miku's sick fantasy",
+      "file": "Miku's sick fantasy [0wuGD-S7QlY].ass",
+      "path": "/files/subs/示例番剧/Miku's sick fantasy [0wuGD-S7QlY].ass",
+      "ext": "ass",
+      "size": 1790,
+      "mtime": "2026-08-13T20:25:25.292Z",
+      "lang": "简中",
+      "langClass": "zh-hans",
+      "langSource": "content",
+      "group": "示例番剧",
+      "groupTitle": "示例番剧",
+      "tags": [],
+      "url": ""
+    },
+    {
+      "name": "ミクを撃ってみたら後悔した……【点.mp4】",
+      "file": "ミクを撃ってみたら後悔した……【点.mp4】 #hatsunemiku #shorts [v8WurlIh19Y].ass",
+      "path": "/files/subs/示例番剧/ミクを撃ってみたら後悔した……【点.mp4】 #hatsunemiku #shorts [v8WurlIh19Y].ass",
+      "ext": "ass",
+      "size": 1641,
+      "mtime": "2026-08-13T05:18:02.827Z",
+      "lang": "简中",
+      "langClass": "zh-hans",
+      "langSource": "content",
+      "group": "示例番剧",
+      "groupTitle": "示例番剧",
+      "tags": [],
+      "url": ""
+    }
+  ]
+}

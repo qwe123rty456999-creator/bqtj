@@ -1,0 +1,18 @@
+{
+  "files.associations": {
+    "CNAME": "plaintext",
+    "_headers": "plaintext"
+  },
+  "files.exclude": {
+    "**/.git": true
+  },
+  "editor.formatOnSave": false,
+  "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "livePreview.defaultPreviewPath": "/index.html",
+  "search.exclude": {
+    "files/games/**": true
+  }
+}

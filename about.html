@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>关于本站 · bqtj.cc.cd</title>
+<meta name="description" content="关于 bqtj.cc.cd：一个分享小游戏、动漫与字幕文件的个人站点。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/"><span class="brand-logo">📚</span><span>bqtj.cc.cd</span></a>
+    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+    <nav class="nav" id="siteNav">
+      <a href="/" data-nav="home">首页</a>
+      <a href="/games/" data-nav="games">小游戏</a>
+      <a href="/anime/" data-nav="anime">动漫</a>
+      <a href="/subs/" data-nav="subs">字幕库</a>
+      <a href="/about.html" data-nav="about">关于</a>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题">☀️</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container" style="max-width:820px">
+    <div class="page-head">
+      <div class="breadcrumb"><a href="/">首页</a> / 关于</div>
+      <h1>关于本站</h1>
+      <p>一个个人向的收藏与分享站。</p>
+    </div>
+
+    <section class="section" style="padding-top:20px">
+      <h2 style="font-size:20px">这里有什么</h2>
+      <p style="color:var(--text-muted)">
+        <b>小游戏</b>：轻量的网页小游戏和离线小游戏合集，点开就能玩，不需要注册。<br>
+        <b>动漫</b>：看过的和在追的番剧整理，每条都挂着对应的字幕入口。<br>
+        <b>字幕库</b>：站内的重头戏。整理了大量 ASS / SSA / SRT / VTT 字幕，
+        按作品分目录，支持关键词、语言、格式组合检索，一键下载。
+      </p>
+
+      <h2 style="font-size:20px;margin-top:34px">文件命名约定</h2>
+      <p style="color:var(--text-muted)">
+        为了让字幕库的搜索和语言识别正常工作，文件名里最好包含三样东西：
+      </p>
+      <ul style="color:var(--text-muted);line-height:2">
+        <li>作品名（中文名即可）</li>
+        <li>集数，两位数字，如 <code>第01话</code> 或 <code>01</code></li>
+        <li>语言标记，如 <code>简</code> / <code>繁</code> / <code>简繁</code> / <code>中日</code></li>
+      </ul>
+      <p style="color:var(--text-muted)">
+        例如：<code>孤独摇滚 第01话 [简][星空字幕组].ass</code>
+      </p>
+
+      <h2 style="font-size:20px;margin-top:34px">版权与免责</h2>
+      <div class="notice">
+        <span>⚖️</span>
+        <div>
+          本站所有资源均来自互联网或个人整理，仅供学习交流与试看，
+          请于下载后 24 小时内删除，不得用于任何商业用途。<br>
+          字幕版权归原字幕组所有，我在文件名中尽量保留了署名。
+          若你是版权方且不希望内容出现在本站，请联系我，我会立即下架。
+        </div>
+      </div>
+
+      <h2 style="font-size:20px;margin-top:34px">联系方式</h2>
+      <p style="color:var(--text-muted)">
+        有想找的字幕、报错、或者想投稿，可以通过以下方式找我：<br>
+        <!-- ↓ 换成你自己的联系方式 -->
+        📧 邮箱：<code>你的邮箱@example.com</code><br>
+        💬 其他：<code>（Telegram / QQ / 微博，按需填写）</code>
+      </p>
+
+      <h2 style="font-size:20px;margin-top:34px">技术信息</h2>
+      <p style="color:var(--text-muted)">
+        纯静态站点，零依赖、零构建，托管在静态托管平台上。<br>
+        全站无跟踪脚本、无第三方统计、无广告。
+      </p>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© <span data-year></span> bqtj.cc.cd · 个人分享站</div>
+    <div>
+      <a href="/games/">小游戏</a> ·
+      <a href="/anime/">动漫</a> ·
+      <a href="/subs/">字幕库</a> ·
+      <a href="/about.html">关于</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "_说明": "小游戏列表。加一条就多一张卡片。字段：title 名称 / desc 简介 / tags 标签数组 / thumb 缩略图路径(可省) / platform 平台 / play 在线玩链接 / download 下载链接 / updated 更新日期(YYYY-MM-DD) / size 体积字节(可省)",
+  "updated": "2026-09-18",
+  "items": [
+    {
+      "title": "贪吃蛇",
+      "desc": "经典贪吃蛇，方向键 / WASD 控制，手机可滑动屏幕。吃满 50 分提速一档，最高分存在本地。纯单文件实现，离线也能跑。",
+      "tags": ["经典", "休闲", "在线玩"],
+      "platform": "网页 · 手机可玩",
+      "play": "/files/games/snake/index.html",
+      "updated": "2026-09-18"
+    },
+    {
+      "title": "打字练习",
+      "desc": "练习打字速度，带实时 WPM、正确率与进度统计。三档难度：英文单词 / 代码符号 / 中文短句。",
+      "tags": ["练习", "工具向", "在线玩"],
+      "platform": "网页",
+      "play": "/files/games/typing/index.html",
+      "updated": "2026-09-18"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "_说明": "动漫列表。字段：title 中文名 / titleJa 原名 / year 年份 / episodes 话数 / status 观看状态 / tags 标签 / desc 简介 / subs 找字幕链接（留空则不带按钮）/ link 外部详情页 / date 收录日期",
+  "updated": "2026-09-18",
+  "items": [
+    {
+      "title": "示例番剧",
+      "titleJa": "サンプルアニメ",
+      "year": 2026,
+      "episodes": 3,
+      "status": "已看完",
+      "tags": ["示例", "演示"],
+      "desc": "这条对应字幕库里那个「示例番剧」文件夹。删掉示例内容、换成你实际收藏的番剧即可——subs 字段填 /subs/?q=番名，点按钮就会跳过去自动搜索。",
+      "subs": "/subs/?q=示例番剧",
+      "date": "2026-09-18"
+    }
+  ]
+}
