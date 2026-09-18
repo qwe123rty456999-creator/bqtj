@@ -139,18 +139,33 @@ node tools/build-subs-index.mjs --src "D:\我的字幕" --copy
 
 三选一，都免费、都自动 HTTPS。
 
-### 方案 A：Cloudflare Pages ⭐ 推荐
+### 方案 A：Cloudflare Pages ⭐ 推荐（本项目采用）
 
-1. 把整个项目目录推到 GitHub 仓库
-2. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Pages** → 连接这个仓库
-3. 构建设置：**Framework preset = None**，**Build command 留空**，**Output directory = `/`**
-4. 部署完成后进 **Custom domains** → 添加 `bqtj.cc.cd`
-5. 按提示去域名 DNS 添加它给出的 `CNAME` 记录
+1. 把整个项目目录推到 GitHub 仓库（已完成：`qwe123rty456999-creator/bqtj`）
+2. Cloudflare Dashboard → **Workers & Pages** → **Create application** → **Pages**
+   → **Import an existing Git repository** → 选 `bqtj` → **Begin setup**
+3. **Set up builds and deployments** 按官方「Static HTML」指南填：
 
-**优势**：自动支持 `_headers`、404.html、无限带宽、国内访问相对友好。
+   | 配置项 | 值 |
+   |---|---|
+   | Production branch | `main` |
+   | Framework preset | `None` |
+   | Build command | `exit 0` |
+   | Build output directory | `/` |
 
-> 如果你的字幕文件特别多、仓库很大，可以在 Cloudflare 用 **R2 对象存储** 放 `files/`，
-> 然后用一个自定义域 `files.bqtj.cc.cd` 指向它，页面里的 `/files/...` 改成绝对地址即可。
+   > 注意：官方文档明确建议无构建站点把 Build command 填 `exit 0`（而不是留空），
+   > 这样才能使用 Pages Functions 等特性。
+   > Build output directory 填 `/` 表示站点内容就在仓库根目录。
+
+4. 部署完成后进 **Custom domains** → **Set up a custom domain** → 填 `bqtj.cc.cd`
+5. **因为域名的 NS 已经在 Cloudflare，DNS 记录会自动创建**，无需手写
+
+**优势**：自动支持 `_headers`、`404.html`、免费 HTTPS、无限带宽。
+
+**限制（官方文档）**：免费版单站点 **20,000 个文件**、单文件 **25 MiB**。
+字幕文件都很小（几 KB～几十 KB），2 万条以内完全够用；
+只有超过这个量级、或有几十 MB 的游戏包时，才需要把 `files/` 挪到其它存储，
+那时只需改 `assets/js/config.js` 里的 `fileBase` 一行。
 
 ### 方案 B：GitHub Pages
 
