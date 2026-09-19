@@ -84,6 +84,20 @@ a:hover { text-decoration: underline; }
 
 img { max-width: 100%; display: block; }
 
+/* 去掉浏览器给 <input type="search"> 画的原生清除按钮。
+   不去掉的话，它会和字幕库自己那个「×」同时出现，看起来像两个删除号。
+   注意：必须分开写 —— 如果在选择器列表里塞进引擎不认识的伪元素（比如 ::-ms-clear），
+   整条规则会被直接丢弃，等于没写。 */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 code, kbd { font-family: var(--font-mono); font-size: 0.88em; }
 code {
   background: var(--code-bg);
@@ -138,7 +152,7 @@ kbd {
 .brand-logo {
   width: 26px;
   height: 26px;
-  border-radius: 6px;
+  border-radius: 50%;
   object-fit: cover;
   flex: 0 0 auto;
   border: 1px solid var(--border);
