@@ -339,6 +339,26 @@ async function main() {
   // 按时间倒序
   items.sort((a, b) => b.mtime.localeCompare(a.mtime));
 
+  /* 保留管理员在 /admin/ 里写的「说明」。
+     脚本是整份重建索引的，不把旧文件里的 desc 搬过来就会把说明冲掉。
+     按 path 对齐（path 唯一），文件被删掉的自然不会保留。 */
+  if (existsSync(OUT_FILE)) {
+    try {
+      const old = JSON.parse(await readFile(OUT_FILE, 'utf8'));
+      const descByPath = new Map(
+        (old.items || []).filter((x) => x && x.desc).map((x) => [x.path, x.desc])
+      );
+      let kept = 0;
+      for (const it of items) {
+        const d = descByPath.get(it.path);
+        if (d) { it.desc = d; kept++; }
+      }
+      if (kept) console.log(`   保留已有说明 ${kept} 条`);
+    } catch {
+      console.warn('   ⚠  读取旧索引失败，本次未保留说明（旧文件已损坏或不是 JSON）');
+    }
+  }
+
   /* 统计 */
   const byLang = {};
   const byExt = {};
