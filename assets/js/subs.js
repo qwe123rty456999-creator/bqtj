@@ -26,11 +26,30 @@
 
   /* ----------------------------- 筛选与排序 ----------------------------- */
 
-  /** 空格分隔的多关键词 = AND 匹配 */
+  /**
+   * 空格分隔的多关键词 = AND 匹配。
+   *
+   * ⚠️ 只能匹配「屏幕上看得见的东西」。
+   * search-scope: name + desc + ext
+   *
+   * 2026-09-19 修：原来还把原始文件名和文件的完整路径一起拼进 hay，
+   * 等于能搜到用户根本看不到的文字 ——
+   *   · 路径里的 /files/subs/ 和文件名末尾的 .ass
+   *     → 搜 a / s / . / files 都会命中全部 93 条
+   *   · 文件名里的视频 ID（如 [NNS6ndyMhxI]）在显示名里已经被 cleanName 去掉了
+   *     → 搜一个数字会返回一片「名字里根本没有这个数字」的结果
+   *     （用户报的「输入数字会导致搜索错误」就是这个）
+   * 根子是「显示的名字」和「拿来搜的名字」不是同一份文字，两边必须一致。
+   * 以后若想让视频 ID 也能搜，要同时把它显示在列表行里，不能再偷着加回 hay。
+   */
   function matchKeywords(item, kw) {
     if (!kw) return true;
-    const hay = (item.name + ' ' + (item.file || '') + ' ' + item.path + ' ' + (item.desc || '')).toLowerCase();
-    return kw.toLowerCase().split(/\s+/).filter(Boolean).every((w) => hay.includes(w));
+    const hay = (item.name + ' ' + (item.desc || '')).toLowerCase();
+    // 格式（ass / srt）单独按「整个词相等」比：它显示在列表行的角标上。
+    // 用 includes 的话搜 "s" 会把所有 .ass 都带出来，那就又回到上面那个坑了。
+    return kw.toLowerCase().split(/\s+/).filter(Boolean).every((w) =>
+      hay.includes(w) || String(item.ext || '').toLowerCase() === w
+    );
   }
 
   function filtered() {
@@ -95,6 +114,7 @@
       $list.className = '';
       $list.innerHTML = `<div class="empty"><h3>没找到匹配的字幕</h3>
         <p>换个更短的关键词试试。</p>
+        <p>搜索范围是字幕名称、说明和格式（ass / srt）。</p>
         <p style="margin-top:14px"><button class="btn btn-sm" id="resetAll">清空搜索</button></p></div>`;
       document.getElementById('resetAll')?.addEventListener('click', resetAll);
       $pager.innerHTML = '';

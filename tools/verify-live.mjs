@@ -8,10 +8,12 @@ const CHECKS = [
   ['/assets/js/admin.js', ['sendState', 'netError', 'data-name', 'withShaRetry']],
   ['/assets/js/games-admin.js', ['sendState', 'withShaRetry', 'LIST_PWD', 'link-code', '无需码']],
   ['/assets/js/config.js', ['defaultExtractCode']],
+  // 搜索只能匹配看得见的内容：haystack 里不能再出现原始文件名 / path（见 subs.js 注释）
+  ['/assets/js/subs.js', ['matchKeywords', 'search-scope: name + desc + ext', '!item.path', '!item.file']],
   ['/games/admin/', ['listPwd', 'sendToast', '无需提取码', 'style.css?v=14', 'site.js?v=12', 'config.js?v=4', 'games-admin.js?v=8']],
   ['/admin/', ['sendToast', 'style.css?v=14', 'site.js?v=12', 'config.js?v=4', 'admin.js?v=5']],
   ['/games/', ['按自己喜好下载', 'style.css?v=14', 'site.js?v=12', 'games.js?v=5']],
-  ['/subs/', ['style.css?v=14', 'site.js?v=12', 'subs.js?v=3']],
+  ['/subs/', ['style.css?v=14', 'site.js?v=12', 'subs.js?v=4']],
   ['/', ['style.css?v=14', 'site.js?v=12']],
   [
     '/about',
