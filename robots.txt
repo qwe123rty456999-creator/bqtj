@@ -1,8 +1,7 @@
 User-agent: *
 Allow: /
 
-# 不想被搜索引擎收录的目录（按需修改）
-Disallow: /files/games/
+# 不想被搜索引擎收录的目录
 Disallow: /tools/
 Disallow: /admin/
 

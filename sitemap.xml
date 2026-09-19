@@ -8,17 +8,7 @@
   <url>
     <loc>https://bqtj.cc.cd/subs/</loc>
     <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://bqtj.cc.cd/games/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bqtj.cc.cd/anime/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://bqtj.cc.cd/about.html</loc>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>上传助手 · bqtj.cc.cd</title>
-<!-- 本页是管理工具，不让搜索引擎收录 -->
+<!-- 管理工具页，不让搜索引擎收录 -->
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠</text></svg>">
 <link rel="stylesheet" href="/assets/css/style.css">
@@ -13,12 +13,10 @@
 
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="/"><span class="brand-logo">📚</span><span>bqtj.cc.cd</span></a>
+    <a class="brand" href="/"><span class="brand-logo">📝</span><span>bqtj.cc.cd</span></a>
     <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">☰</button>
     <nav class="nav" id="siteNav">
       <a href="/" data-nav="home">首页</a>
-      <a href="/games/" data-nav="games">游戏</a>
-      <a href="/anime/" data-nav="anime">动漫</a>
       <a href="/subs/" data-nav="subs">字幕库</a>
       <a href="/about.html" data-nav="about">关于</a>
       <button class="icon-btn" id="themeBtn" aria-label="切换主题">☀️</button>
@@ -31,7 +29,7 @@
   <div class="page-head">
     <div class="breadcrumb"><a href="/">首页</a> / 上传助手</div>
     <h1>🛠 上传助手</h1>
-    <p>在浏览器里选文件 → 小文件直接提交到 GitHub 仓库 → Cloudflare 自动重新部署，约 1 分钟上线。</p>
+    <p>在浏览器里选字幕文件 → 直接提交到仓库 → 自动更新字幕库索引 → Cloudflare 自动部署，约 1 分钟后线上可搜。</p>
   </div>
 
   <div class="notice">
@@ -46,9 +44,7 @@
   <!-- ================= ① 连接 ================= -->
   <section class="admin-card">
     <h2><span class="num">1</span>连接 GitHub 仓库</h2>
-    <p class="hint">
-      仓库：<code id="repoText">—</code>
-    </p>
+    <p class="hint">仓库：<code id="repoText">—</code></p>
 
     <div class="conn" id="connBox">
       <span class="dot-state"></span>
@@ -73,30 +69,32 @@
     </div>
   </section>
 
-  <!-- ================= ② 选文件 ================= -->
+  <!-- ================= ② 选字幕 ================= -->
   <section class="admin-card">
-    <h2><span class="num">2</span>选择文件</h2>
+    <h2><span class="num">2</span>上传字幕</h2>
     <p class="hint">
-      把文件拖进来，或点击选择。系统会按体积自动分流：
-      <span class="state ok">≤ 20 MB</span> 直接进仓库，<b>天生自带直链</b>，访客点一下就下载；
-      <span class="state skip">&gt; 20 MB</span> 走网盘（硬盘版游戏包、动画视频都在这类）。
+      把字幕文件拖进来，或点击选择（支持多选）。上传后会<b>自动追加到字幕库索引</b>并触发部署。
+      单个文件 ≤ 20 MB 走这条；更大的文件会被标出来，请手动处理。
     </p>
 
     <div class="drop" id="drop">
-      <div class="big">📁</div>
-      <b>拖文件到这里，或点击选择</b>
-      <span>支持多选 · 字幕 .ass/.srt · 图片 · 视频 · 压缩包</span>
+      <div class="big">📝</div>
+      <b>拖字幕文件到这里，或点击选择</b>
+      <span>.ass · .ssa · .srt · .vtt · .sub · .idx · .sup</span>
     </div>
     <input type="file" id="picker" multiple hidden>
 
     <div class="field-row" style="margin-top:18px">
       <div class="field">
-        <label for="dest">上传到仓库目录</label>
-        <input class="input" id="dest" spellcheck="false" placeholder="files/subs/作品名">
-        <div class="tip">字幕一般填 <code>files/subs/作品名</code>；其它填 <code>files/uploads</code></div>
+        <label for="dest">上传到哪个作品目录</label>
+        <input class="input" id="dest" spellcheck="false" value="files/subs/" placeholder="files/subs/作品名">
+        <div class="tip">
+          <b>一个文件夹 = 一部作品</b>，例如 <code>files/subs/孤独摇滚</code>。
+          末尾留成 <code>files/subs/</code> 的话，文件会直接落在字幕根目录（归入「未分类」）。
+        </div>
       </div>
       <div class="field">
-        <label for="batchLang">这批字幕的语言（用于更新字幕库）</label>
+        <label for="batchLang">这批字幕的语言</label>
         <select class="input" id="batchLang">
           <option value="">自动判断（看文件名）</option>
           <option value="简中">简中</option>
@@ -106,116 +104,48 @@
           <option value="日语">日语</option>
           <option value="英语">英语</option>
         </select>
-        <div class="tip">文件名里没有 简/繁/CHS/ja 这类标记时，用这个兜底</div>
+        <div class="tip">
+          文件名里有 <code>简</code>/<code>繁</code>/<code>CHS</code>/<code>ja</code> 这类标记时会自动识别；
+          没有标记就用这里选的兜底。
+        </div>
       </div>
     </div>
 
     <div class="up-list" id="upList"></div>
 
     <div class="file-actions" style="margin-top:18px" id="upActions" hidden>
-      <button class="btn btn-primary" id="btnUploadAll">⬆ 全部上传到仓库</button>
-      <button class="btn" id="btnBigHelp">📦 大文件怎么处理？</button>
+      <button class="btn btn-primary" id="btnUploadAll">⬆ 全部上传</button>
       <button class="btn" id="btnClearList">清空列表</button>
     </div>
 
     <div class="log" id="log" hidden></div>
   </section>
 
-  <!-- ================= ③ 大文件 → 网盘 ================= -->
+  <!-- ================= ③ 说明 ================= -->
   <section class="admin-card">
-    <h2><span class="num">3</span>大文件 → 网盘（硬盘版游戏包 / 视频）</h2>
-    <p class="hint" id="panHelp">—</p>
+    <h2><span class="num">3</span>命名建议</h2>
+    <p class="hint">文件名带的信息越多，字幕库的搜索和语言识别就越准。</p>
+    <div class="log" style="max-height:none">
+较好的命名：
+  孤独摇滚 第01话 [简][星空字幕组].ass
+  Bocchi the Rock 01 [繁中].ass
+  作品名 第03话 [简繁][字幕组].srt
 
-    <div class="file-actions" style="margin-bottom:18px">
-      <a class="btn btn-primary" id="btnOpenPan" target="_blank" rel="noopener">打开网盘上传页 ↗</a>
-      <button class="btn" id="btnCopyNames">复制待上传文件名</button>
-    </div>
+不推荐的命名：
+  1.ass                    ← 搜不到，也认不出语言
+  subtitle_final_v2.ass    ← 同上
 
-    <div class="log" id="bigList" style="max-height:180px">（还没有超过 10 MB 的文件）</div>
-  </section>
+识别规则（看文件名里的标记，顺序从上到下）：
+  简繁 / 简+繁 / CHS&CHT / GB&BIG5  → 简繁
+  中日 / 日中 / JPSC                → 中日
+  简 / 简体 / CHS / GB / GBK        → 简中
+  繁 / 繁體 / CHT / BIG5            → 繁中
+  日语 / JP / JPN                   → 日语
+  英语 / ENG                        → 英语
+  zh-Hans / zh-CN                   → 简中
+  zh-Hant / zh-TW / zh-HK           → 繁中
 
-  <!-- ================= ④ 生成条目 ================= -->
-  <section class="admin-card">
-    <h2><span class="num">4</span>生成站点条目</h2>
-    <p class="hint">
-      网盘上传完，拿到「分享链接」和「提取码」后填在这里，点一下就直接写进站点数据文件，
-      首页和列表页立刻更新。
-    </p>
-
-    <div class="field-row">
-      <div class="field">
-        <label for="kind">条目类型</label>
-        <select class="input" id="kind">
-          <option value="game">🎮 游戏（硬盘版压缩包）</option>
-          <option value="anime">🎬 动漫（视频）</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="f-title">名称 <span style="color:var(--accent-3)">*</span></label>
-        <input class="input" id="f-title" placeholder="例：某游戏中文版">
-      </div>
-    </div>
-
-    <div class="field-row">
-      <div class="field" id="wrap-sub">
-        <label for="f-sub">原名 / 副标题</label>
-        <input class="input" id="f-sub" placeholder="可选">
-      </div>
-      <div class="field">
-        <label for="f-tags">标签（逗号分隔）</label>
-        <input class="input" id="f-tags" placeholder="RPG, 汉化, 冒险">
-      </div>
-    </div>
-
-    <div class="field-row">
-      <div class="field" id="wrap-plat">
-        <label for="f-plat">平台</label>
-        <input class="input" id="f-plat" placeholder="Windows">
-      </div>
-      <div class="field" id="wrap-ver">
-        <label for="f-ver">版本</label>
-        <input class="input" id="f-ver" placeholder="v1.0">
-      </div>
-      <div class="field" id="wrap-year">
-        <label for="f-year">年份</label>
-        <input class="input" id="f-year" placeholder="2026" hidden>
-      </div>
-      <div class="field" id="wrap-eps">
-        <label for="f-eps">话数</label>
-        <input class="input" id="f-eps" placeholder="12">
-      </div>
-    </div>
-
-    <div class="field">
-      <label for="f-desc">简介</label>
-      <textarea class="textarea" id="f-desc" placeholder="几句话说明这个资源是什么、怎么用"></textarea>
-    </div>
-
-    <div class="field">
-      <label for="f-cover">封面图地址（可选）</label>
-      <input class="input" id="f-cover" spellcheck="false" placeholder="/files/covers/xxx.jpg（也可以先用第 2 步传图，再把地址粘过来）">
-    </div>
-
-    <div class="field-row">
-      <div class="field">
-        <label for="f-pan">网盘分享链接 <span style="color:var(--accent-3)">*</span></label>
-        <input class="input" id="f-pan" spellcheck="false" placeholder="https://www.123pan.com/s/xxxxx">
-      </div>
-      <div class="field">
-        <label for="f-code">提取码</label>
-        <input class="input" id="f-code" placeholder="abcd">
-      </div>
-      <div class="field">
-        <label for="f-pwd">解压密码（可选）</label>
-        <input class="input" id="f-pwd" placeholder="没有就留空">
-      </div>
-    </div>
-
-    <div class="preview" id="preview">在左边填几项，这里会实时显示将要写入的 JSON。</div>
-
-    <div class="file-actions" style="margin-top:16px">
-      <button class="btn btn-primary" id="btnSubmitItem">✅ 写入站点数据</button>
-      <button class="btn" id="btnCopyJSON">复制 JSON</button>
+都没标？上传时用第 2 步的「这批字幕的语言」下拉框兜底。
     </div>
   </section>
 

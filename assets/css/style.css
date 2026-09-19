@@ -1041,3 +1041,89 @@ html[data-theme="light"] .log { background: #0f1520; }
   max-height: 320px;
   overflow: auto;
 }
+
+/* ==========================================================================
+   首页：首屏搜索框 + 数据概览
+   ========================================================================== */
+
+.hero-search {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  max-width: 580px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero-search .s-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.hero-search input {
+  flex: 1;
+  padding: 13px 18px 13px 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: 0.16s;
+}
+.hero-search input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(91, 140, 255, 0.16);
+}
+.hero-search input::placeholder { color: var(--text-dim); }
+.hero-search .btn { padding: 13px 24px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 14px;
+  text-align: center;
+}
+
+.stat b {
+  display: block;
+  font-size: clamp(22px, 3.4vw, 30px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat span {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* 语言分布用 <a> 当 chip，去掉下划线 */
+a.chip { text-decoration: none; }
+a.chip:hover { text-decoration: none; }
+
+@media (max-width: 640px) {
+  .stats { grid-template-columns: repeat(2, 1fr); gap: 9px; }
+  .hero-search { flex-wrap: wrap; }
+  .hero-search input { flex: 1 1 100%; }
+  .hero-search .btn { flex: 1 1 100%; justify-content: center; }
+}

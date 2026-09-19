@@ -13,7 +13,3 @@ npm-debug.log*
 !.vscode/settings.json
 !.vscode/extensions.json
 !.vscode/tasks.json
-
-# 大文件提醒：如果你不想把游戏包 / 大压缩包提交到 Git，取消下面注释
-# files/games/*.zip
-# files/games/*.7z

@@ -18,7 +18,3 @@
 /files/subs/*
   Cache-Control: public, max-age=86400
   Access-Control-Allow-Origin: *
-
-# 游戏资源
-/files/games/*
-  Cache-Control: public, max-age=86400
