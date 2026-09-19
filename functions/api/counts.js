@@ -4,10 +4,15 @@
  * GET /api/counts
  *   返回 { enabled, total, counts: { "/files/subs/xxx.ass": 12, ... } }
  *
- *  - 没绑定 D1（变量名 COUNTS）时返回 enabled: false，前端据此隐藏次数。
+ *  - 没绑定 D1 时返回 enabled: false，前端据此隐藏次数。
+ *  - 绑定名优先看 COUNTS，其次 DB / bqtj —— 名字对不上会让统计静默失效，
+ *    这是最容易踩的坑（本项目就踩过：绑定时起了项目名 bqtj）。
  *  - 永不缓存，保证读数及时。
  * ---------------------------------------------------------------------------
  */
+
+/* 取 D1 绑定 */
+const dbOf = (env) => env.COUNTS || env.DB || env.bqtj || null;
 
 let schemaReady = false;
 
@@ -37,19 +42,20 @@ const json = (obj, status = 200) =>
   });
 
 export async function onRequestGet({ env }) {
-  if (!env.COUNTS) {
+  const db = dbOf(env);
+  if (!db) {
     return json({
       enabled: false,
       reason: 'not-bound',
-      hint: '在 Pages 项目的 设置 → 绑定 里添加一个 D1 数据库，变量名填 COUNTS，即可开启下载统计。',
+      hint: '在 Pages 项目的 设置 → 绑定 里添加一个 D1 数据库，变量名填 COUNTS（DB / bqtj 也认），即可开启下载统计。',
       total: 0,
       counts: {},
     });
   }
 
   try {
-    await ensureSchema(env.COUNTS);
-    const { results } = await env.COUNTS
+    await ensureSchema(db);
+    const { results } = await db
       .prepare('SELECT path, count FROM downloads ORDER BY count DESC')
       .all();
 

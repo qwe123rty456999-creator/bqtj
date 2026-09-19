@@ -1,7 +1,7 @@
 /**
  * functions/_middleware.js
  * ---------------------------------------------------------------------------
- * 统计 /files/subs/* 的下载次数，写入 D1（绑定名 COUNTS）。
+ * 统计 /files/subs/* 的下载次数，写入 D1（绑定名 COUNTS / DB / bqtj 都能认）。
  *
  * 设计要点：
  *  - 用 waitUntil 异步记录，**不阻塞下载**，统计失败也绝不影响访客。
@@ -19,6 +19,10 @@
 const COUNT_PREFIX = '/files/subs/';
 const DEDUPE_WINDOW = 12 * 60 * 60; // 秒，同一访客 12 小时内只算一次
 const SALT = 'bqtj-cc-cd-download-counter';
+
+/* 取 D1 绑定：优先 COUNTS，其次 DB / bqtj。
+   绑定名对不上时统计会静默失效（本项目的绑定就叫 bqtj），把常见名字都认一遍。 */
+const dbOf = (env) => env.COUNTS || env.DB || env.bqtj || null;
 
 /* 表结构只建一次，避免每个请求都跑一遍 DDL */
 let schemaReady = false;
@@ -49,7 +53,8 @@ async function fingerprint(ip, ua) {
 
 async function recordDownload(env, request, path) {
   try {
-    const db = env.COUNTS;
+    const db = dbOf(env);
+    if (!db) return;
     await ensureSchema(db);
 
     const ip =
@@ -91,7 +96,7 @@ export async function onRequest(context) {
   const path = new URL(request.url).pathname;
   const isSubFile = path.startsWith(COUNT_PREFIX) && !path.endsWith('/');
 
-  if (isSubFile && request.method === 'GET' && env.COUNTS) {
+  if (isSubFile && request.method === 'GET' && dbOf(env)) {
     waitUntil(recordDownload(env, request, path));
   }
 
