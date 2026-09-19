@@ -6,4 +6,4 @@ Disallow: /tools/
 Disallow: /admin/
 
 # 站点地图
-Sitemap: https://bqtj.cc.cd/sitemap.xml
+Sitemap: https://bqtj.pages.dev/sitemap.xml

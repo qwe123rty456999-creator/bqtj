@@ -1,4 +1,4 @@
-# 爆枪突击字幕库（bqtj.cc.cd）
+# 爆枪突击字幕库（bqtj.pages.dev）
 
 只做一件事：**把爆枪突击的字幕整理好，让人点一下就能下载。**
 
@@ -27,12 +27,49 @@ node tools/build-subs-index.mjs
 
 ---
 
+## 访问地址（重要）
+
+| 地址 | 国内直连 | 用途 |
+| --- | --- | --- |
+| **https://bqtj.pages.dev** | ✅ 可直连 | **对外分享用这个** |
+| https://bqtj.cc.cd | ❌ 连接被重置 | 备用地址，需代理 |
+
+**2026-09 排查记录**（症状：手机不挂代理报「网络错误」，挂上代理才能打开）：
+
+实测 `bqtj.cc.cd` 是被**按域名**阻断的。同一台 Cloudflare IP（`104.21.49.87`）上：
+
+```text
+明文 HTTP  Host: bqtj.pages.dev  → 301   正常
+明文 HTTP  Host: bqtj.cc.cd      → RST   被重置
+HTTPS      SNI = bqtj.pages.dev  → 200   正常
+HTTPS      SNI = bqtj.cc.cd      → RST   被重置
+```
+
+结论：**与 Cloudflare 无关、与 IP 无关**，被封的是域名本身 ——
+所以换 IP、换 CDN 都无效，只能换域名。裸域名 `cc.cd` 同样被 RST。
+
+> 由此还顺带解释了「挂代理看到的是缓存的旧页面」：域名连不上时，
+> 浏览器会把磁盘里那份旧页面拿出来顶替（或直接提示网络错误），
+> 并不是服务器发错了内容。
+
+随时可用脚本复查某个域名能不能直连（**记得先关代理**）：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\net-check.ps1 bqtj.cc.cd
+```
+
+换域名时，这几处要一起改（都指向「对外分享的那个域名」）：
+各页面的 `canonical`、首页的 `og:url` / `og:image`、`sitemap.xml`、`robots.txt`。
+页面内链一律用根相对路径（`/assets/...`、`/subs/`），所以网址本身不影响功能。
+
+---
+
 ## 目录结构
 
 ```
 bqtj.cc.cd/
 ├── index.html              首页（搜索框 + 数据概览 + 最新收录）
-├── about.html              关于页
+├── about.html              关于页（对外链接写 /about：Pages 会把 /about.html 做 308 跳转，多一个往返）
 ├── 404.html                404 页
 ├── subs/index.html         字幕库（搜索 + 排序 + 分页）
 ├── admin/index.html        上传助手（浏览器选文件直传仓库 + 下载统计）
@@ -54,6 +91,7 @@ bqtj.cc.cd/
 │
 └── tools/
     ├── build-subs-index.mjs  扫字幕 → 生成 subs.json
+    ├── net-check.ps1         检查某域名国内能否直连（区分「域名被封」和「IP 被封」）
     └── serve.mjs             本地预览服务器
 ```
 
