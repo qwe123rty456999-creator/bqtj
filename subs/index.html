@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>字幕库 · 爆枪突击字幕库</title>
-<meta name="description" content="爆枪突击字幕库 —— 整理好的字幕文件，支持关键词搜索，点一下直接下载，无提取码、不跳网盘。">
+<meta name="description" content="爆枪突击字幕库 —— 全部字幕文件，支持关键词搜索，点一下直接下载。">
 <meta name="keywords" content="爆枪突击,字幕,字幕下载,ASS字幕,SRT字幕">
 <link rel="canonical" href="https://bqtj.cc.cd/subs/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="/"><span class="brand-logo">📝</span><span>爆枪突击字幕库</span></a>
-    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/assets/img/logo.png" alt="">
+      <span>爆枪突击字幕库</span>
+    </a>
+    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">菜单</button>
     <nav class="nav" id="siteNav">
       <a href="/" data-nav="home">首页</a>
       <a href="/subs/" data-nav="subs">字幕库</a>
       <a href="/about.html" data-nav="about">关于</a>
-      <button class="icon-btn" id="themeBtn" aria-label="切换主题">☀️</button>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题">深色</button>
     </nav>
   </div>
 </header>
@@ -29,7 +34,7 @@
   <div class="container">
     <div class="page-head">
       <div class="breadcrumb"><a href="/">首页</a> / 字幕库</div>
-      <h1>📝 字幕库</h1>
+      <h1>字幕库</h1>
       <p>全部字幕文件，点「下载」即刻开始，不用提取码、不跳网盘。</p>
     </div>
   </div>
@@ -39,10 +44,9 @@
     <div class="container">
       <div class="toolbar-row">
         <div class="search-box">
-          <span class="s-icon">🔍</span>
           <input type="search" id="search" autocomplete="off"
                  placeholder="搜索字幕：集数 / 关键词，多个词用空格分隔…">
-          <button class="s-clear" id="clear" aria-label="清空">✕</button>
+          <button class="s-clear" id="clear" aria-label="清空">×</button>
         </div>
 
         <select class="control" id="sort">
@@ -64,8 +68,7 @@
     <div id="list"><div class="spinner"></div></div>
     <div class="pager" id="pager"></div>
 
-    <div class="notice" style="margin-top:36px">
-      <span>📥</span>
+    <div class="notice" style="margin-top:32px">
       <div>
         <b>批量下载：</b>浏览器一次只能下一个文件。要一次拿全部，可以装整个
         <code>files/subs/</code> 目录，或者用

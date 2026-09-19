@@ -1,24 +1,28 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>上传助手 · 爆枪突击字幕库</title>
 <meta name="robots" content="noindex, nofollow, noarchive">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠</text></svg>">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="/"><span class="brand-logo">📝</span><span>爆枪突击字幕库</span></a>
-    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/assets/img/logo.png" alt="">
+      <span>爆枪突击字幕库</span>
+    </a>
+    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">菜单</button>
     <nav class="nav" id="siteNav">
       <a href="/" data-nav="home">首页</a>
       <a href="/subs/" data-nav="subs">字幕库</a>
       <a href="/about.html" data-nav="about">关于</a>
-      <button class="icon-btn" id="themeBtn" aria-label="切换主题">☀️</button>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题">深色</button>
     </nav>
   </div>
 </header>
@@ -27,13 +31,13 @@
 
   <div class="page-head">
     <div class="breadcrumb"><a href="/">首页</a> / 上传助手</div>
-    <h1>🛠 上传助手</h1>
-    <p>拖入字幕 → 自动提交并更新索引 → Cloudflare 自动部署，约 1 分钟后线上可搜。</p>
+    <h1>上传助手</h1>
+    <p>拖入字幕，自动提交并更新索引，Cloudflare 随后自动部署，约 1 分钟后线上可搜。</p>
   </div>
 
   <!-- ============ 设置（默认折叠，没配过令牌时自动展开） ============ -->
   <details class="admin-card" id="setupCard">
-    <summary>⚙️ 上传设置</summary>
+    <summary>上传设置</summary>
     <p class="hint" style="margin-top:0">
       只配一次。需要一个 GitHub 令牌 —— 上传就是靠它写入仓库的，没法省略。
       <b>令牌只保存在你这台浏览器的本地存储中</b>，不会写进仓库、不会发给任何第三方。
@@ -49,14 +53,14 @@
       </div>
     </div>
 
-    <div class="conn" id="connBox" style="margin-bottom:14px">
+    <div class="conn" id="connBox" style="margin-bottom:13px">
       <span class="dot-state"></span>
       <span class="conn-msg" id="connMsg">尚未配置</span>
     </div>
 
     <div class="file-actions">
       <button class="btn btn-primary" id="btnSave">保存令牌</button>
-      <a class="btn" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">去创建令牌 ↗</a>
+      <a class="btn" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">去创建令牌</a>
       <button class="btn" id="btnForget">清除令牌</button>
     </div>
   </details>
@@ -67,11 +71,10 @@
     <p class="hint">
       把字幕文件拖进来，或点击选择（支持多选）。文件会放进 <code>files/subs/</code>，
       语言按文件名自动判断（认不出就按<b>简体中文</b>），上传后<b>自动追加到字幕库索引</b>并触发部署。
-      单个文件上限 <b id="maxSize">20 MB</b>，超过的会被标出来。
+      单个文件上限 <b id="maxSize">20 MB</b>。
     </p>
 
     <div class="drop" id="drop">
-      <div class="big">📝</div>
       <b>拖字幕文件到这里，或点击选择</b>
       <span>.ass · .ssa · .srt · .vtt · .sub · .idx · .sup</span>
     </div>
@@ -79,27 +82,34 @@
 
     <div class="up-list" id="upList"></div>
 
-    <div class="file-actions" style="margin-top:18px" id="upActions" hidden>
-      <button class="btn btn-primary" id="btnUploadAll">⬆ 全部上传</button>
+    <div class="file-actions" style="margin-top:16px" id="upActions" hidden>
+      <button class="btn btn-primary" id="btnUploadAll">全部上传</button>
       <button class="btn" id="btnClearList">清空列表</button>
     </div>
 
     <div class="log" id="log" hidden></div>
   </section>
 
-  <!-- ============ ② 下载统计 ============ -->
+  <!-- ============ ② 数据概览 + 下载统计 ============ -->
   <section class="admin-card">
-    <h2><span class="num">2</span>下载统计</h2>
+    <h2><span class="num">2</span>数据概览</h2>
     <p class="hint">
-      来自访客的真实下载请求。同一访客 12 小时内重复下载同一个文件只计一次，
+      下载次数来自访客的真实下载请求。同一访客 12 小时内重复下载同一个文件只计一次，
       所以这个数字更接近「有多少人下过」。
     </p>
 
+    <div class="stats" id="overview" style="margin-bottom:16px">
+      <div class="stat"><b>—</b><span>个字幕</span></div>
+      <div class="stat"><b>—</b><span>次下载</span></div>
+      <div class="stat"><b>—</b><span>最近更新</span></div>
+    </div>
+
     <div class="result-info" id="statSummary">加载中…</div>
     <div class="table-wrap" id="statTable"></div>
+
     <div class="file-actions" style="margin-top:14px">
       <button class="btn btn-sm" id="btnReloadStats">刷新</button>
-      <a class="btn btn-sm" href="/subs/?sort=count-desc">在字幕库里按下载量排序 ↗</a>
+      <a class="btn btn-sm" href="/subs/?sort=count-desc">按下载量排序查看</a>
     </div>
   </section>
 
@@ -108,7 +118,7 @@
 <footer class="site-footer">
   <div class="container">
     <div>© <span data-year></span> 爆枪突击字幕库 · 上传助手</div>
-    <div><a href="/">← 回首页</a></div>
+    <div><a href="/">回首页</a></div>
   </div>
 </footer>
 

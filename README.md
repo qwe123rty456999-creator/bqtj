@@ -258,20 +258,42 @@ Resolve-DnsName bqtj.cc.cd -Type A
 
 ---
 
-## 改外观
+## 外观
 
-配色集中在 `assets/css/style.css` 开头：
+设计原则：**浅色默认、无渐变、不用表情符号**，尽量简洁。
+
+配色集中在 `assets/css/style.css` 顶部两个变量块 —— `:root` 是浅色（默认），
+`html[data-theme="dark"]` 是深色：
 
 ```css
 :root {
-  --accent: #5b8cff;     /* 主色 */
-  --accent-2: #a06bff;   /* 渐变中间色 */
-  --accent-3: #ff6b9d;   /* 渐变收尾色 */
-  --radius: 14px;        /* 圆角 */
+  --accent: #2563eb;   /* 主色 */
+  --bg: #ffffff;       /* 背景 */
+  --border: #e4e7ec;   /* 描边 */
+  --radius: 10px;      /* 圆角 */
 }
 ```
 
-右上角 ☀️/🌙 可切换深浅主题，用户偏好存在浏览器本地。
+右上角的「深色 / 浅色」文字按钮可切换，用户偏好存在浏览器本地
+（localStorage 键名 `bqtj-theme`）。**默认不跟随系统的深浅色设置**，
+这样所有人看到的是同一套设计。
+
+### 站点图标
+
+| 文件 | 用途 |
+|---|---|
+| `assets/img/favicon-32.png` | 浏览器标签页图标 |
+| `assets/img/favicon-180.png` | iOS 添加到主屏幕 / 社交分享缩略图 |
+| `assets/img/logo.png` | 页头左侧的品牌图标 |
+
+改图标：把新图放进 `assets/img/` 覆盖同名文件即可（保持尺寸一致）。
+如果原图是 webp，可以用 ffmpeg 转：
+
+```powershell
+ffmpeg -y -i 原图.webp -vf "scale=32:32:flags=lanczos" assets/img/favicon-32.png
+ffmpeg -y -i 原图.webp -vf "scale=180:180:flags=lanczos" assets/img/favicon-180.png
+ffmpeg -y -i 原图.webp -vf "scale=96:96:flags=lanczos" assets/img/logo.png
+```
 
 ---
 

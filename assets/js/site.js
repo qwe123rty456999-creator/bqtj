@@ -4,23 +4,31 @@
    ========================================================================== */
 
 /* ----------------------------- 主题 ----------------------------- */
+/* 用新键名，避免旧的深浅色偏覆盖新的「默认浅色」 */
+const THEME_KEY = 'bqtj-theme';
+
 (function initTheme() {
-  // 默认深色（与站点设计一致）。只有用户手动点过切换按钮，才用保存的偏好。
-  // 故意不跟随系统的 prefers-color-scheme，否则浅色系统下看到的会是完全不同的另一套配色。
-  const saved = localStorage.getItem('theme');
+  // 默认浅色。只有用户手动点过切换按钮，才用保存的偏好。
+  // 不跟随系统的 prefers-color-scheme，保证所有人看到的是同一套设计。
+  const saved = localStorage.getItem(THEME_KEY);
   document.documentElement.setAttribute(
     'data-theme',
-    saved === 'light' || saved === 'dark' ? saved : 'dark'
+    saved === 'light' || saved === 'dark' ? saved : 'light'
   );
 })();
+
+function themeLabel(theme) {
+  // 按钮上显示的是「点了会切到哪个模式」
+  return theme === 'light' ? '深色' : '浅色';
+}
 
 function toggleTheme() {
   const cur = document.documentElement.getAttribute('data-theme');
   const next = cur === 'light' ? 'dark' : 'light';
   document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
+  localStorage.setItem(THEME_KEY, next);
   const btn = document.getElementById('themeBtn');
-  if (btn) btn.textContent = next === 'light' ? '🌙' : '☀️';
+  if (btn) btn.textContent = themeLabel(next);
 }
 
 /* ----------------------------- 导航 ----------------------------- */
@@ -72,9 +80,9 @@ function encodePath(p) {
  * 数据里统一存 /files/... 形式；若 config.js 里配了 fileBase（CDN / 对象存储），
  * 就自动换成外部地址，页面代码无需改动。
  *
- * ⚠ 必须做编码：字幕文件名里常有 # ? 空格 等字符。
- *   不编码的话浏览器会把 # 之后当锚点，请求路径被截断 → 404。
- * ⚠ 只对「文件路径」调用，不要对带查询串的页面链接（如 /subs/?q=x）调用。
+ * 注意：必须做编码。字幕文件名里常有 # ? 空格 等字符，
+ * 不编码的话浏览器会把 # 之后当锚点，请求路径被截断 → 404。
+ * 注意：只对「文件路径」调用，不要对带查询串的页面链接（如 /subs/?q=x）调用。
  */
 function fileUrl(p) {
   if (!p) return '';
@@ -132,8 +140,8 @@ async function loadJSON(url) {
 /** 渲染错误态 */
 function renderError(el, err) {
   el.innerHTML =
-    '<div class="empty"><div class="big">⚠️</div><h3>内容加载失败</h3>' +
-    '<p style="white-space:pre-line;text-align:left;max-width:560px;margin:10px auto 0">' +
+    '<div class="empty"><h3>内容加载失败</h3>' +
+    '<p style="white-space:pre-line;max-width:620px;margin:10px auto 0">' +
     esc(err.message) + '</p></div>';
 }
 
@@ -179,10 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
   markActiveNav();
 
   const btn = document.getElementById('themeBtn');
-  if (btn) {
-    btn.textContent =
-      document.documentElement.getAttribute('data-theme') === 'light' ? '🌙' : '☀️';
-  }
+  if (btn) btn.textContent = themeLabel(document.documentElement.getAttribute('data-theme'));
 
   document.getElementById('navToggle')?.addEventListener('click', toggleNav);
   btn?.addEventListener('click', toggleTheme);

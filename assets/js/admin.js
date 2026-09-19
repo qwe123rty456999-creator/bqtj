@@ -23,6 +23,7 @@
     drop: $('drop'), picker: $('picker'),
     upList: $('upList'), upActions: $('upActions'), log: $('log'),
     statSummary: $('statSummary'), statTable: $('statTable'), maxSize: $('maxSize'),
+    overview: $('overview'),
   };
 
   const state = { token: '', files: [], tree: null };
@@ -160,7 +161,9 @@
     const res = await gh(`/contents/${encodePath(path)}`, {
       method: 'PUT', body: JSON.stringify(body),
     });
-    state.tree = null;  // 内容变了，缓存作废
+    // 只让这个路径的 sha 失效，其余文件在本次提交里没变，缓存仍然有效。
+    // （之前是整个 tree 清空，导致批量上传时每个文件都多一次 GET）
+    state.tree?.delete(path);
     return res;
   }
 
@@ -268,7 +271,7 @@
 
     ui.upList.innerHTML = state.files.map((it) => `
       <div class="up-row" data-id="${it.id}">
-        <span class="up-icon">📝</span>
+        <span class="up-icon">${esc(it.ext)}</span>
         <div class="up-main">
           <div class="up-name">${esc(it.name)}</div>
           <div class="up-sub">
@@ -286,7 +289,7 @@
 
     const pending = state.files.filter((f) => f.size <= MAX && f.status !== 'ok').length;
     $('btnUploadAll').disabled = pending === 0;
-    $('btnUploadAll').textContent = pending ? `⬆ 上传 ${pending} 个字幕` : '⬆ 全部已上传';
+    $('btnUploadAll').textContent = pending ? `上传 ${pending} 个字幕` : '全部已上传';
   }
 
   ui.upList.addEventListener('click', (e) => {
@@ -325,12 +328,12 @@
         it.note = path;
         done.push(it);
         ok++;
-        log(`✓ ${it.name} → ${path}`, 'ok');
+        log(`完成 ${it.name} → ${path}`, 'ok');
       } catch (e) {
         it.status = 'err';
         it.note = e.message;
         fail++;
-        log(`✗ ${it.name}：${e.message}`, 'err');
+        log(`失败 ${it.name}：${e.message}`, 'err');
       }
       renderList();
     }
@@ -405,6 +408,20 @@
     ui.statSummary.textContent = '加载中…';
     ui.statTable.innerHTML = '';
 
+    /* 概览：字幕总数 / 最近更新（来自 subs.json） */
+    const ov = ui.overview ? ui.overview.querySelectorAll('.stat b') : [];
+    try {
+      const sres = await fetch('/assets/data/subs.json', { cache: 'no-store' });
+      const sdata = await sres.json();
+      const items = sdata.items || [];
+      const latest = items.map((i) => i.mtime || '').filter(Boolean).sort().pop() || '';
+      if (ov[0]) ov[0].textContent = items.length;
+      if (ov[2]) ov[2].textContent = latest ? latest.slice(5, 10).replace('-', '/') : '—';
+    } catch {
+      if (ov[0]) ov[0].textContent = '—';
+      if (ov[2]) ov[2].textContent = '—';
+    }
+
     let timer;
     try {
       const ctrl = new AbortController();
@@ -412,6 +429,7 @@
 
       const res = await fetch('/api/counts', { cache: 'no-store', signal: ctrl.signal });
       const data = await res.json();
+      if (ov[1]) ov[1].textContent = data.enabled ? data.total : '—';
 
       if (!data.enabled) {
         ui.statSummary.innerHTML = data.reason === 'not-bound'

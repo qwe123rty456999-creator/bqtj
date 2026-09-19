@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "▶ 预览站点（本地服务器）",
+      "label": "预览站点（本地服务器）",
       "type": "shell",
       "command": "node tools/serve.mjs",
       "options": { "cwd": "${workspaceFolder}" },
@@ -13,7 +13,7 @@
       "detail": "启动 http://localhost:5173 —— 改完文件刷新浏览器即可看到效果"
     },
     {
-      "label": "🔄 重新生成字幕索引",
+      "label": "重新生成字幕索引",
       "type": "shell",
       "command": "node tools/build-subs-index.mjs",
       "options": { "cwd": "${workspaceFolder}" },
@@ -22,7 +22,7 @@
       "detail": "扫描 files/subs/ 并写入 assets/data/subs.json"
     },
     {
-      "label": "📊 只看字幕统计（不写文件）",
+      "label": "只看字幕统计（不写文件）",
       "type": "shell",
       "command": "node tools/build-subs-index.mjs --stats",
       "options": { "cwd": "${workspaceFolder}" },

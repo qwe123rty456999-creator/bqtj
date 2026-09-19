@@ -1,34 +1,38 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>爆枪突击字幕库</title>
-<meta name="description" content="爆枪突击字幕库 —— 整理好的字幕文件分享，支持关键词搜索，点一下直接下载，无提取码、不跳网盘。">
+<meta name="description" content="爆枪突击字幕库 —— 整理好的字幕文件，支持关键词搜索，点一下直接下载。">
 <meta name="keywords" content="爆枪突击,字幕,字幕下载,ASS字幕,SRT字幕">
-<meta name="author" content="爆枪突击字幕库">
 <link rel="canonical" href="https://bqtj.cc.cd/">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="爆枪突击字幕库">
 <meta property="og:description" content="整理好的爆枪突击字幕文件，点一下直接下载。">
 <meta property="og:url" content="https://bqtj.cc.cd/">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://bqtj.cc.cd/assets/img/favicon-180.png">
+<meta name="twitter:card" content="summary">
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="/"><span class="brand-logo">📝</span><span>爆枪突击字幕库</span></a>
-    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/assets/img/logo.png" alt="">
+      <span>爆枪突击字幕库</span>
+    </a>
+    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">菜单</button>
     <nav class="nav" id="siteNav">
       <a href="/" data-nav="home">首页</a>
       <a href="/subs/" data-nav="subs">字幕库</a>
       <a href="/about.html" data-nav="about">关于</a>
-      <button class="icon-btn" id="themeBtn" aria-label="切换主题">☀️</button>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题">深色</button>
     </nav>
   </div>
 </header>
@@ -38,32 +42,19 @@
   <!-- ============================ 首屏 ============================ -->
   <section class="hero">
     <div class="container">
-      <div class="eyebrow"><span class="dot"></span> 字幕持续整理中</div>
-      <h1>爆枪突击<span class="grad-text">字幕库</span></h1>
+      <h1>爆枪突击字幕库</h1>
       <p class="lead">
         整理好的字幕文件，支持关键词搜索。<b>不用提取码，不跳网盘</b> —— 点一下就开始下载。
       </p>
 
       <form class="hero-search" action="/subs/" method="get">
-        <span class="s-icon">🔍</span>
         <input type="search" name="q" placeholder="搜索字幕：集数 / 关键词…" autocomplete="off" aria-label="搜索字幕">
         <button class="btn btn-primary" type="submit">搜索</button>
       </form>
 
-      <p style="margin:14px 0 0;color:var(--text-dim);font-size:13px">
+      <p style="margin:12px 0 0;color:var(--text-dim);font-size:13px">
         多个关键词用空格分隔，例：<code>第01 简</code>
       </p>
-    </div>
-  </section>
-
-  <!-- ============================ 数据概览 ============================ -->
-  <section class="section" style="padding-top:14px">
-    <div class="container">
-      <div class="stats" id="stats">
-        <div class="stat"><b>—</b><span>个字幕</span></div>
-        <div class="stat"><b>—</b><span>次下载</span></div>
-        <div class="stat"><b>—</b><span>最近更新</span></div>
-      </div>
     </div>
   </section>
 
@@ -75,7 +66,7 @@
           <h2>最新收录</h2>
           <p class="sub">按上传时间倒序</p>
         </div>
-        <a class="btn btn-sm" href="/subs/">全部字幕 →</a>
+        <a class="btn btn-sm" href="/subs/">全部字幕</a>
       </div>
       <div id="latestSubs"><div class="spinner"></div></div>
     </div>
@@ -85,10 +76,9 @@
   <section class="section">
     <div class="container">
       <div class="notice">
-        <span>📄</span>
         <div>
           <b>关于本站：</b>只做一件事 —— 把爆枪突击的字幕整理好，让人能直接下载。
-          字幕版权归原作者所有；请勿用于商业用途。
+          字幕版权归原作者所有，请勿用于商业用途。
           若你是版权方且不希望内容出现在本站，请联系我下架。
         </div>
       </div>
@@ -110,34 +100,16 @@
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/site.js"></script>
 <script>
-/* 首页：数据概览 + 最新收录 */
+/* 首页：最新收录 */
 (async function () {
   const $latest = document.getElementById('latestSubs');
-  const $stats = document.getElementById('stats');
 
   try {
     const data = await loadJSON('/assets/data/subs.json');
     const items = data.items || [];
 
-    /* ---- 概览：字幕总数 / 总下载次数 / 最近更新 ---- */
-    const latestTime = items.map((i) => i.mtime || '').filter(Boolean).sort().pop() || '';
-
-    let totalDownloads = '—';
-    try {
-      const c = await loadJSON('/api/counts');
-      if (c && c.enabled) totalDownloads = c.total;
-    } catch { /* 统计没开就算了 */ }
-
-    const vals = [
-      items.length,
-      totalDownloads,
-      latestTime ? latestTime.slice(5, 10).replace('-', '/') : '—',
-    ];
-    $stats.querySelectorAll('.stat b').forEach((el, i) => { el.textContent = vals[i]; });
-
-    /* ---- 最新收录 ---- */
     if (!items.length) {
-      $latest.innerHTML = `<div class="empty"><div class="big">📭</div><h3>字幕库还是空的</h3>
+      $latest.innerHTML = `<div class="empty"><h3>字幕库还是空的</h3>
         <p>去 <a href="/admin/">上传助手</a> 传几个字幕就会出现在这里。</p></div>`;
       return;
     }

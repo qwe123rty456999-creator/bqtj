@@ -61,7 +61,7 @@
             <span>${humanSize(f.size)}</span>
             <span>·</span>
             <span title="${esc(f.mtime)}">${relTime(f.mtime)}</span>
-            ${n ? `<span class="count-badge" title="统计到的下载次数">⬇ ${n}</span>` : ''}
+            ${n ? `<span class="count-badge">${n} 次下载</span>` : ''}
           </div>
         </div>
         <div class="file-actions">
@@ -89,7 +89,7 @@
 
     if (!list.length) {
       $list.className = '';
-      $list.innerHTML = `<div class="empty"><div class="big">🔍</div><h3>没找到匹配的字幕</h3>
+      $list.innerHTML = `<div class="empty"><h3>没找到匹配的字幕</h3>
         <p>换个更短的关键词试试。</p>
         <p style="margin-top:14px"><button class="btn btn-sm" id="resetAll">清空搜索</button></p></div>`;
       document.getElementById('resetAll')?.addEventListener('click', resetAll);
@@ -217,7 +217,7 @@
 
       if (!state.all.length) {
         $list.className = '';
-        $list.innerHTML = `<div class="empty"><div class="big">📭</div><h3>字幕库还是空的</h3>
+        $list.innerHTML = `<div class="empty"><h3>字幕库还是空的</h3>
           <p>去 <a href="/admin/">上传助手</a> 传几个字幕，或者把文件放进
           <code>files/subs/</code> 后跑 <code>node tools/build-subs-index.mjs</code>。</p></div>`;
         $info.textContent = '共 0 个字幕';
