@@ -219,13 +219,29 @@
     if (!state.token) { setConn('off', '还没填令牌'); return false; }
     setConn('', '正在验证…');
     try {
-      const repo = await gh('');
+      // 这里直接用 fetch 而不是 gh()，因为需要读响应头来判断令牌类型
+      const res = await fetch(repoBase(), { headers: { Authorization: `Bearer ${state.token}` } });
+      const repo = await res.json();
+      if (!res.ok) throw new Error(`HTTP ${res.status}：${repo.message || res.status}`);
+
+      /* 细粒度令牌（fine-grained）不会返回 x-oauth-scopes 头。
+         它的 permissions 字段反映的是「你账号」对仓库的权限，而不是令牌被授予的权限 ——
+         所以这里显示 push:true 并不代表真能写，上传时仍可能 403。必须提醒。 */
+      const fineGrained = res.headers.get('x-oauth-scopes') === null;
+
       if (!(repo.permissions && repo.permissions.push)) {
         setConn('off', `连上了 <b>${esc(repo.full_name)}</b>，但这个令牌<b>没有写入权限</b>，请检查 Contents 权限`);
         return false;
       }
+
       const tree = await loadTree(true);
-      setConn('on', `已连接 <b>${esc(repo.full_name)}</b> · 分支 <b>${esc(repo.default_branch)}</b> · 仓库内 ${tree.size} 个文件`);
+      setConn('on',
+        `已连接 <b>${esc(repo.full_name)}</b> · 分支 <b>${esc(repo.default_branch)}</b> · 仓库内 ${tree.size} 个文件` +
+        (fineGrained
+          ? '<br><span style="color:var(--warn)">细粒度令牌：此处只验证了<b>读取</b>权限。' +
+            '上传/保存若报 403，请到令牌设置里把 <b>Contents</b> 改成 <b>Read and write</b>。</span>'
+          : '')
+      );
       if (!silent) log(`连接成功：${repo.full_name}（${tree.size} 个文件）`, 'ok');
       return true;
     } catch (e) {
