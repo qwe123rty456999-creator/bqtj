@@ -93,7 +93,13 @@ async function recordDownload(env, request, path) {
 
 export async function onRequest(context) {
   const { request, env, next, waitUntil } = context;
-  const path = new URL(request.url).pathname;
+
+  // URL.pathname 是 percent-encoded 的，而 subs.json 里存的是原始文件名
+  // （含空格、日文、[] 等）。不还原就录的话，统计的 key 和数据里的 path 对不上，
+  // 页面上那个「N 次下载」徒章永远查不到。
+  let path = new URL(request.url).pathname;
+  try { path = decodeURIComponent(path); } catch { /* 含非法 % 序列就保持原样 */ }
+
   const isSubFile = path.startsWith(COUNT_PREFIX) && !path.endsWith('/');
 
   if (isSubFile && request.method === 'GET' && dbOf(env)) {

@@ -59,10 +59,15 @@ export async function onRequestGet({ env }) {
       .prepare('SELECT path, count FROM downloads ORDER BY count DESC')
       .all();
 
+    /* 归一化 key：早期版本存的是 percent-encoded 路径，解码一下才能和
+       subs.json 里的 path 对上（顺便把同一文件的新旧两条记录合并） */
+    const norm = (p) => { try { return decodeURIComponent(p); } catch { return p; } };
+
     const counts = {};
     let total = 0;
     for (const r of results || []) {
-      counts[r.path] = r.count;
+      const k = norm(r.path);
+      counts[k] = (counts[k] || 0) + r.count;
       total += r.count;
     }
     return json({ enabled: true, total, counts });
