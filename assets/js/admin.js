@@ -834,10 +834,10 @@
                  placeholder="说明（显示在名字下方，留空则清除）"
                  value="${esc(it.desc || '')}">
           <input class="input" data-video maxlength="600"
-                 placeholder="原视频链接（留空则列表里不显示「原视频」）"
+                 placeholder="原视频链接，如 YouTube / B站（需 VPN 才能看；留空则不显示）"
                  value="${esc(it.videoUrl || '')}">
           <input class="input" data-videodl maxlength="2000"
-                 placeholder="下载视频直链·蓝奏云（留空则列表里不显示「下载视频」）"
+                 placeholder="下载原视频链接，如蓝奏云（提取码 bqtj；只填链接，别把「密码:xxxx」一起粘进来）"
                  value="${esc(it.videoDl || '')}">
           <div class="mg-btns">
             <button class="btn btn-sm btn-primary" data-act="save">保存</button>

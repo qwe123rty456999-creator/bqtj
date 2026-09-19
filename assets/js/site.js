@@ -178,14 +178,23 @@ async function copyText(text, btn) {
 /* ----------------------------- 列表里的「更多」菜单 ----------------------------- */
 
 /**
- * 生成「更多」菜单。顺序固定：1 分享链接 → 2 原视频 → 3 下载视频。
+ * 净化管理员粘进来的链接。
+ * 常见的错法：把网盘分享页的提示一起粘了 —— 如「https://xxx 密码:1111」。
+ * URL 里不该有空格，带着它整条链接会失效，所以这里只取第一段。
+ */
+function cleanUrl(u) {
+  return String(u || '').trim().split(/\s+/)[0] || '';
+}
+
+/**
+ * 生成「更多」菜单。顺序固定：1 分享链接 → 2 原视频链接 → 3 下载原视频。
  * 后两项由管理员在 /admin/ 里填，没填就不出现。
  * 只有一项时不加编号 —— 孤零零一个「1」看着很怪。
  */
 function moreMenuHTML(f) {
   const list = [{ kind: 'copy', label: '分享链接', path: f.path }];
-  if (f.videoUrl) list.push({ kind: 'link', label: '原视频', href: f.videoUrl, blank: true });
-  if (f.videoDl) list.push({ kind: 'link', label: '下载视频', href: f.videoDl, dl: true });
+  if (f.videoUrl) list.push({ kind: 'link', label: '原视频链接（需 VPN）', href: cleanUrl(f.videoUrl), blank: true });
+  if (f.videoDl) list.push({ kind: 'link', label: '下载原视频（提取码 bqtj）', href: cleanUrl(f.videoDl), dl: true });
 
   const numbered = list.length > 1;
   const body = list.map((it, i) => {
