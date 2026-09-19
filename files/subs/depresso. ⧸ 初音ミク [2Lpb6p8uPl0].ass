@@ -1,0 +1,72 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1446
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0.0,0,1,3.8,3.8,2,38,38,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.83,0:00:03.03,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}只是想要一点 depresso——
+Dialogue: 0,0:00:03.03,0:00:06.13,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}depresso——不是浓缩咖啡——
+Dialogue: 0,0:00:06.13,0:00:08.89,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}浓郁的味道，恋爱的味道，depresso——
+Dialogue: 0,0:00:08.89,0:00:12.18,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}depresso——就像浓缩咖啡——
+Dialogue: 0,0:00:13.20,0:00:14.68,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}视野变得狭窄
+Dialogue: 0,0:00:14.69,0:00:16.26,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}深夜十二点
+Dialogue: 0,0:00:16.26,0:00:19.21,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}模糊的记忆
+Dialogue: 0,0:00:19.21,0:00:20.86,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}在昏暗的房间里
+Dialogue: 0,0:00:20.86,0:00:22.38,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}数着数字消磨时间
+Dialogue: 0,0:00:22.38,0:00:24.29,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}1 2 3 4 5
+Dialogue: 0,0:00:24.29,0:00:26.18,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}毫无意义
+Dialogue: 0,0:00:26.18,0:00:27.61,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}尴尬的台词
+Dialogue: 0,0:00:27.61,0:00:29.13,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}头好痛
+Dialogue: 0,0:00:29.13,0:00:29.86,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}夜色深深
+Dialogue: 0,0:00:29.87,0:00:31.43,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}试想如果，喂
+Dialogue: 0,0:00:31.43,0:00:32.17,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}dizzy dizzy
+Dialogue: 0,0:00:32.17,0:00:34.28,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}好苦
+Dialogue: 0,0:00:35.19,0:00:38.00,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}只是 只是 只是想要一点 depresso——
+Dialogue: 0,0:00:38.00,0:00:41.21,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}depresso——不是浓缩咖啡——
+Dialogue: 0,0:00:41.21,0:00:44.08,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}浓郁的味道，恋爱的味道，depresso——
+Dialogue: 0,0:00:44.08,0:00:47.39,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}depresso——就像浓缩咖啡——
+Dialogue: 0,0:00:47.39,0:00:50.36,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}夜色深深，试想如果——
+Dialogue: 0,0:00:50.36,0:00:51.91,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啊——
+Dialogue: 0,0:00:52.00,0:00:53.09,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啊——
+Dialogue: 0,0:00:53.09,0:00:55.09,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}陷入咖啡因中毒
+Dialogue: 0,0:00:55.09,0:00:56.47,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啊——
+Dialogue: 0,0:00:56.55,0:00:58.06,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啊——
+Dialogue: 0,0:00:58.06,0:00:59.63,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}只是 只是 只是 只是……
+Dialogue: 0,0:00:59.63,0:01:02.73,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}只是 只是 只是想要一点 depresso——
+Dialogue: 0,0:01:04.54,0:01:05.31,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}熬夜
+Dialogue: 0,0:01:05.31,0:01:06.49,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}已经是第二天了
+Dialogue: 0,0:01:06.49,0:01:07.23,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}睡不着
+Dialogue: 0,0:01:07.23,0:01:10.46,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}只是摆弄着无害的Feed
+Dialogue: 0,0:01:10.46,0:01:13.59,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}甜蜜、甜蜜的只有最初那会儿
+Dialogue: 0,0:01:13.59,0:01:15.72,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}黑暗中 cryin', cryin'
+Dialogue: 0,0:01:16.89,0:01:18.23,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}尴尬的台词
+Dialogue: 0,0:01:18.23,0:01:19.47,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}头好痛
+Dialogue: 0,0:01:19.47,0:01:20.26,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}夜色深深
+Dialogue: 0,0:01:20.27,0:01:21.79,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}试想如果，喂
+Dialogue: 0,0:01:21.79,0:01:22.58,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}dizzy dizzy
+Dialogue: 0,0:01:22.58,0:01:25.02,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}苦得要命
+Dialogue: 0,0:01:27.21,0:01:30.00,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}只是 只是 只是想要一点 depresso——
+Dialogue: 0,0:01:30.00,0:01:33.20,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}depresso——就像浓缩咖啡——
+Dialogue: 0,0:01:33.20,0:01:36.00,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}浓郁的味道，恋爱的味道，depresso——
+Dialogue: 0,0:01:36.00,0:01:39.24,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}depresso——就像浓缩咖啡——
+Dialogue: 0,0:01:39.24,0:01:42.38,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}夜色深深，想象一下，如果……
+Dialogue: 0,0:01:42.38,0:01:43.83,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啊——
+Dialogue: 0,0:01:43.92,0:01:45.14,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啊——
+Dialogue: 0,0:01:45.14,0:01:47.00,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}陷入咖啡因中毒
+Dialogue: 0,0:01:47.00,0:01:48.51,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啊——
+Dialogue: 0,0:01:48.59,0:01:49.95,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啊——
+Dialogue: 0,0:01:49.96,0:01:51.59,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}只是 只是 只是 只是……
+Dialogue: 0,0:01:51.59,0:01:53.00,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}只是 只是 只是想要一点
+Dialogue: 0,0:01:53.00,0:01:56.26,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}depresso。
+Dialogue: 0,0:02:02.32,0:02:03.83,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}只是 只是 只是 只是……
+Dialogue: 0,0:02:03.83,0:02:05.18,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}只是 只是 只是想要一点
+Dialogue: 0,0:02:05.18,0:02:06.87,Default,,0,0,0,,{\fn香萃自在舒畅黑\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}depresso。

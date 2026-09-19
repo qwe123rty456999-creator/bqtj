@@ -1,0 +1,60 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2.8,1.3,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:09.82,0:00:12.73,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}彼此分离的城镇
+Dialogue: 0,0:00:12.75,0:00:16.17,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}连接它们的列车早已远去
+Dialogue: 0,0:00:16.19,0:00:19.39,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}若不知晓我遗失的话语
+Dialogue: 0,0:00:19.41,0:00:22.19,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}就攥紧在口袋里
+Dialogue: 0,0:00:22.69,0:00:25.48,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,200)}丢掉挣扎的喘息
+Dialogue: 0,0:00:25.48,0:00:28.73,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,200)}用睡梦搪塞这漫长的一天
+Dialogue: 0,0:00:28.76,0:00:31.92,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,200)}若不知晓我遗失的话语
+Dialogue: 0,0:00:31.95,0:00:34.83,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}就搭乘各站停靠的列车吧
+Dialogue: 0,0:00:48.59,0:00:50.82,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}拒绝
+Dialogue: 0,0:00:50.84,0:00:54.67,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}黄昏与无聊的邀约
+Dialogue: 0,0:00:54.69,0:00:56.77,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}独自一人
+Dialogue: 0,0:00:56.79,0:01:00.54,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}千万别在小巷里匆忙
+Dialogue: 0,0:01:00.81,0:01:07.17,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(960,975)}{\fad(100,100)}你看　连斑马线都在叫你再等等
+Dialogue: 0,0:01:07.19,0:01:13.66,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(960,975)}{\fad(100,100)}守望的街角都在挽留你
+Dialogue: 0,0:01:13.94,0:01:16.94,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}{\pos(960,975)}彼此分离的城镇
+Dialogue: 0,0:01:17.36,0:01:20.87,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}连接它们的列车早已远去
+Dialogue: 0,0:01:20.95,0:01:23.94,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}若不知晓我遗失的话语
+Dialogue: 0,0:01:24.15,0:01:26.81,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}就攥紧在口袋里
+Dialogue: 0,0:01:27.49,0:01:30.08,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}丢掉挣扎的梦想
+Dialogue: 0,0:01:30.17,0:01:33.39,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}用睡梦搪塞这摇晃的一天
+Dialogue: 0,0:01:33.43,0:01:36.47,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}若不知晓我遗失的话语
+Dialogue: 0,0:01:36.49,0:01:39.54,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}就搭乘各站停靠的列车吧
+Dialogue: 0,0:01:53.86,0:02:00.25,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}{\pos(960,975)}黄昏时分的站台拥挤不堪
+Dialogue: 0,0:02:00.28,0:02:06.24,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}{\pos(960,975)}希望你能休息到独享这片空间
+Dialogue: 0,0:02:06.41,0:02:10.31,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}放学的学生队伍
+Dialogue: 0,0:02:12.90,0:02:16.29,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}又在催促你了
+Dialogue: 0,0:02:19.58,0:02:25.58,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}你看　连自动检票口都在叫你再等等
+Dialogue: 0,0:02:25.60,0:02:31.89,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}塞满东西的双手在挽留你
+Dialogue: 0,0:02:32.39,0:02:35.02,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}丢掉挣扎的梦想
+Dialogue: 0,0:02:35.28,0:02:38.43,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}用睡梦搪塞这摇晃的一天
+Dialogue: 0,0:02:38.46,0:02:41.47,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}若不知晓我遗失的话语
+Dialogue: 0,0:02:41.50,0:02:44.40,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}就搭乘各站停靠的列车吧
+Dialogue: 0,0:02:59.57,0:03:06.15,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}连接彼此分离的城镇的列车啊
+Dialogue: 0,0:03:06.15,0:03:12.82,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}请不要被它唤来的风吹散
+Dialogue: 0,0:03:13.68,0:03:19.52,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}遗失的话语　就这样放着也好
+Dialogue: 0,0:03:19.55,0:03:25.04,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}因为我希望你把自己交给摇晃的列车
+Dialogue: 0,0:03:25.56,0:03:28.80,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}彼此分离的城镇
+Dialogue: 0,0:03:29.24,0:03:32.10,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}彼此分离的城镇
+Dialogue: 0,0:03:32.13,0:03:35.38,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}连接它们的列车早已远去
+Dialogue: 0,0:03:35.53,0:03:38.47,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}若不知晓我遗失的话语
+Dialogue: 0,0:03:38.69,0:03:41.44,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}就攥紧在口袋里
+Dialogue: 0,0:03:41.88,0:03:44.52,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,200)}丢掉挣扎的喘息
+Dialogue: 0,0:03:44.55,0:03:47.93,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,200)}用睡梦搪塞这漫长的一天
+Dialogue: 0,0:03:47.96,0:03:51.16,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}若不知晓我遗失的话语
+Dialogue: 0,0:03:51.18,0:03:55.09,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}搭乘各站停靠的列车去旅行吧

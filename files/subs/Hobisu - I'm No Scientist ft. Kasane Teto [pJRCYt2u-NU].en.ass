@@ -1,0 +1,62 @@
+[Script Info]
+Title: Hobisu - I'm No Scientist ft. Kasane Teto
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1440
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Microsoft YaHei,75,&H00FFFFFF,&H00000000,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,4.0,2.0,2,30,30,107,1
+Style: Default - 复制,Microsoft YaHei,120,&H00000000,&H00000000,&H004B3D63,&H004B3D63,-1,0,0,0,100,100,0,0,1,1.0,3.0,2,30,30,107,1
+Style: Default - 复制 - 复制,Microsoft YaHei,120,&H00000000,&H00000000,&H0016242C,&H0016242C,-1,0,0,0,100,100,0,0,1,1.0,3.0,2,30,30,107,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:09.46,0:00:12.31,Default,,0,0,0,,{\fad(200,200)}我知道我总是当成理所当然
+Dialogue: 0,0:00:13.83,0:00:17.08,Default,,0,0,0,,{\fad(200,200)}能稳稳站在这片地面上
+Dialogue: 0,0:00:18.25,0:00:20.25,Default,,0,0,0,,{\fad(200,200)}可当天就高高挂在头顶
+Dialogue: 0,0:00:20.42,0:00:22.50,Default,,0,0,0,,{\fad(200,200)}我却只会抓狂扯头发
+Dialogue: 0,0:00:22.54,0:00:25.29,Default,,0,0,0,,{\fad(200,200)}哦，这真的公平吗？
+Dialogue: 0,0:00:26.42,0:00:30.17,Default,,0,0,0,,{\fad(200,200)}只给我几秒钟来反应
+Dialogue: 0,0:00:30.88,0:00:34.38,Default,,0,0,0,,{\fad(200,200)}完全不管什么前因后果
+Dialogue: 0,0:00:35.13,0:00:37.63,Default,,0,0,0,,{\fad(200,200)}你非说把算术搞对就行
+Dialogue: 0,0:00:37.67,0:00:39.96,Default,,0,0,0,,{\fad(200,200)}今晚就要把火箭发射出去
+Dialogue: 0,0:00:40.00,0:00:42.63,Default,,0,0,0,,{\fad(200,200)}哦，我觉得够呛
+Dialogue: 0,0:00:44.58,0:00:48.55,Default - 复制,,0,0,0,,{\fad(200,100)\blur3}我该逃走吗？
+Dialogue: 0,0:00:48.83,0:00:52.06,Default - 复制,,0,0,0,,{\fad(200,200)\blur3}我该害怕吗？
+Dialogue: 0,0:00:52.08,0:00:56.34,Default - 复制,,0,0,0,,{\fad(200,200)\blur3}我无可救药、心不在焉，我清楚得很
+Dialogue: 0,0:00:56.54,0:01:00.44,Default - 复制,,0,0,0,,{\fad(200,200)\blur3}我发过誓想成为有出息的人
+Dialogue: 0,0:01:01.44,0:01:02.97,Default - 复制 - 复制,,0,0,0,,{\pos(960,1430)}{\fad(200,200)}但把你曾寄托的信任都丢了吧
+Dialogue: 0,0:01:02.99,0:01:06.00,Default - 复制 - 复制,,0,0,0,,{\pos(960,1430)}{\fad(200,200)}拜托，我又不是科学家
+Dialogue: 0,0:01:15.04,0:01:16.88,Default,,0,0,0,,{\fad(200,200)}说不清我是怎么走到这步的
+Dialogue: 0,0:01:17.21,0:01:19.00,Default,,0,0,0,,{\fad(200,200)}到底是谁信了我，我也搞不懂
+Dialogue: 0,0:01:19.38,0:01:21.00,Default,,0,0,0,,{\fad(200,200)}盯着那些数字，盼着
+Dialogue: 0,0:01:21.04,0:01:22.04,Default,,0,0,0,,{\fad(200,200)}一天，就一天
+Dialogue: 0,0:01:22.08,0:01:23.46,Default,,0,0,0,,{\fad(200,200)}够我糊弄过去就行
+Dialogue: 0,0:01:23.67,0:01:25.46,Default,,0,0,0,,{\fad(200,200)}我知道这种感受是相互的
+Dialogue: 0,0:01:25.83,0:01:27.63,Default,,0,0,0,,{\fad(200,200)}改不掉我养成的习惯
+Dialogue: 0,0:01:28.00,0:01:29.83,Default,,0,0,0,,{\fad(200,200)}你怎么会不懂呢，我也不懂
+Dialogue: 0,0:01:30.17,0:01:32.96,Default,,0,0,0,,{\fad(200,200)}能不能拖到明天再说
+Dialogue: 0,0:01:34.54,0:01:37.46,Default,,0,0,0,,{\fad(200,200)}让我好好沉浸在自己的悲伤里
+Dialogue: 0,0:01:38.88,0:01:41.00,Default,,0,0,0,,{\fad(200,200)}人类都把人送上月球了
+Dialogue: 0,0:01:41.13,0:01:43.25,Default,,0,0,0,,{\fad(200,200)}而我到中午就觉得累
+Dialogue: 0,0:01:43.46,0:01:46.71,Default,,0,0,0,,{\fad(200,200)}哦，我觉得我们完蛋了
+Dialogue: 0,0:01:47.92,0:01:50.71,Default - 复制,,0,0,0,,{\fad(200,200)\blur3}我该逃走吗？
+Dialogue: 0,0:01:52.00,0:01:55.13,Default - 复制,,0,0,0,,{\fad(200,200)\blur3}我该害怕吗？
+Dialogue: 0,0:01:55.67,0:01:59.50,Default - 复制,,0,0,0,,{\fad(200,200)\blur3}我无可救药、心不在焉，我清楚得很
+Dialogue: 0,0:01:59.83,0:02:03.79,Default - 复制,,0,0,0,,{\fad(200,200)\blur3}我发过誓想成为有出息的人
+Dialogue: 0,0:02:04.33,0:02:07.67,Default - 复制 - 复制,,0,0,0,,{\fad(200,200)\blur3}但把你曾寄托的信任都丢了吧，我——
+Dialogue: 0,0:02:07.69,0:02:09.23,Default,,0,0,0,,{\fad(200,200)\b1}又不是科学家
+Dialogue: 0,0:02:26.00,0:02:30.46,Default,,0,0,0,,{\fad(200,200)}我知道，我知道，这是我自己的问题
+Dialogue: 0,0:02:30.50,0:02:34.79,Default,,0,0,0,,{\fad(200,200)}我自己设计的潜水器
+Dialogue: 0,0:02:34.83,0:02:38.92,Default,,0,0,0,,{\fad(200,200)}我配得上你给我的爱吗
+Dialogue: 0,0:02:38.96,0:02:42.50,Default,,0,0,0,,{\fad(200,200)}当我自己都还没法相信自己的时候
+Dialogue: 0,0:02:42.88,0:02:46.17,Default,,0,0,0,,{\fad(200,200)}我根本不属于这里
+Dialogue: 0,0:02:52.21,0:02:56.21,Default - 复制,,0,0,0,,{\fad(200,200)\blur3}你说过我可以的，但我没做到
+Dialogue: 0,0:02:56.46,0:03:00.25,Default - 复制,,0,0,0,,{\fad(200,200)\blur3}你给了我机会，我却搞砸了
+Dialogue: 0,0:03:00.88,0:03:04.42,Default,,0,0,0,,{\fad(200,200)}我知道失败的根源就是我
+Dialogue: 0,0:03:05.29,0:03:08.63,Default,,0,0,0,,{\fad(200,200)}是我亲手从中间撕开的船壳
+Dialogue: 0,0:03:09.67,0:03:13.00,Default,,0,0,0,,{\fad(200,200)}可我就是个失败者
+Dialogue: 0,0:03:13.21,0:03:14.71,Default,,0,0,0,,{\fad(200,200)}哪是什么科学家呢

@@ -103,6 +103,7 @@ bqtj.cc.cd/
 │
 └── tools/
     ├── build-subs-index.mjs  扫字幕 → 生成 subs.json
+    ├── check-subs.mjs        校验索引与文件是否对得上（--fix 删掉顶层重名副本）
     ├── net-check.ps1         检查某域名国内能否直连（区分「域名被封」和「IP 被封」）
     └── serve.mjs             本地预览服务器
 ```
@@ -115,7 +116,7 @@ bqtj.cc.cd/
 
 ### 方式一：网页上传（推荐，不用碰命令行）
 
-打开 **`https://bqtj.cc.cd/admin/`**（本地是 `http://localhost:5173/admin/`），
+打开 **`https://bqtj.pages.dev/admin/`**（本地是 `http://localhost:5173/admin/`），
 首次需要配一个 GitHub 令牌：
 
 > GitHub → Settings → Developer settings → Personal access tokens →
@@ -144,15 +145,69 @@ Cloudflare 随后自动部署，约 1 分钟后线上可搜。
    ```
 4. 提交并推送
 
-**如果字幕现在散落在别处**（比如 `D:\我的字幕`），不用手动搬：
+> **作品分组只是给文件归类用的，页面上不显示。**
+> 直接放在 `files/subs/` 根目录的文件会被归为「未分类」，效果完全一样。
+
+---
+
+## 批量导入（字幕在别的盘 / 别的文件夹）
+
+字幕散落在别处（比如 `D:\音乐\字幕`）时，**不用手动一个个拷**。一条命令搞定复制 + 建索引：
 
 ```powershell
-# 只看统计，不写文件（先确认识别是否正常）
-node tools/build-subs-index.mjs --src "D:\我的字幕" --stats
-
-# 复制进项目再建索引（推荐）
-node tools/build-subs-index.mjs --src "D:\我的字幕" --copy
+node tools/build-subs-index.mjs --src "D:\音乐\字幕" --copy
 ```
+
+| 参数 | 作用 |
+| --- | --- |
+| `--src "目录"` | 扫描任意目录（不填就是 `files/subs/`） |
+| `--copy` | 先把字幕复制进 `files/subs/` 再建索引（已存在的会跳过） |
+| `--stats` | 只打统计、不写文件（先试跑可以看语言识别对不对） |
+
+复制规则：**保持源目录的相对结构**。源目录根下的文件 → `files/subs/` 根；
+源目录的子文件夹 → `files/subs/子文件夹/`。
+
+然后提交推送，Cloudflare 约 1 分钟后自动上线：
+
+```powershell
+node tools/check-subs.mjs      # 先体检
+node tools/serve.mjs           # 想先本地看一眼就跑这个
+
+git add -A
+git commit -m "新增 N 个字幕"
+git push
+```
+
+### ⚠ 批量导入唯一的坑：同名文件会变成两条重复记录
+
+复制是**按文件名**过去的。如果源目录里有 `A.ass`，而站上 `files/subs/某文件夹/A.ass`
+已经存在，就会多出一份 `files/subs/A.ass` —— 页面上出现两条一模一样的。
+
+该删的是**新导入的顶层副本**，不是原有那份：原有那份上面挂着管理员写的
+说明 / 缩略图 / 视频链接，而且下载统计（D1）是按**路径**记的，换了路径统计就断了。
+
+用体检工具自动处理（会先把重复项列出来再删）：
+
+```powershell
+tools\check-subs.mjs --fix   # 即 node tools/check-subs.mjs --fix
+node tools/build-subs-index.mjs   # 重跑索引
+```
+
+### 导入后必看的两个数字
+
+```
+node tools/check-subs.mjs
+```
+
+```
+索引条数        : 92
+文件缺失        : 0      ← 不是 0 就是有死链，访客点了会 404
+体积不一致      : 0
+重复 path       : 0
+顶层重名副本    : 0      ← 不是 0 就是有重复条目
+```
+
+这条命令退出码为 0 才算全部通过，可以放心推送。
 
 ---
 

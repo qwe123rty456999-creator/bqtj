@@ -1,0 +1,23 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1080
+PlayResY: 1920
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,125.3,&H00000000,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0.0,0.0,2,28,28,67,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:03.02,0:00:04.79,Default,,0,0,0,,{\fn楷体}{\pos(540,1620)}{\fad(200,0)}{\b1}三球冰淇淋 {\fn仿宋}Teto{\fn}
+Dialogue: 0,0:00:08.69,0:00:10.21,Default,,0,0,0,,{\fn楷体}{\fad(200,0)}{\b1}{\pos(540,1620)}海螺 {\fn仿宋}Teto{\fn}
+Dialogue: 0,0:00:14.08,0:00:15.63,Default,,0,0,0,,{\fn楷体}{\fad(200,0)}{\b1}{\pos(540,1620)}巧克力可颂 {\fn仿宋}Teto{\fn}
+Dialogue: 0,0:00:19.82,0:00:21.48,Default,,0,0,0,,{\fn楷体}{\fad(200,0)}{\b1}{\pos(540,1620)}钻头 {\fn仿宋}Teto{\fn}
+Dialogue: 0,0:00:25.05,0:00:26.92,Default,,0,0,0,,{\fn楷体}{\fad(200,0)}{\b1}{\pos(540,1620)}草莓三明治 {\fn仿宋}Teto{\fn}
+Dialogue: 0,0:00:30.62,0:00:32.41,Default,,0,0,0,,{\fn楷体}{\fad(200,0)}{\b1}{\pos(540,1620)}交通锥 {\fn仿宋}Teto{\fn}
+Dialogue: 0,0:00:35.87,0:00:37.67,Default,,0,0,0,,{\fn楷体}{\b1}{\pos(540,1620)}停车标志 {\fn仿宋}Teto{\fn}
+Dialogue: 0,0:00:39.91,0:00:41.77,Default,,0,0,0,,{\fn楷体}{\fad(200,0)}{\b1}{\pos(540,1620)}重音 {\fn仿宋}Teto{\fn}

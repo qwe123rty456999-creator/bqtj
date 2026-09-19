@@ -1,0 +1,46 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.8,3.8,2,50,50,38,1
+Style: miku,Arial,75,&H00FFFF40,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.8,1.0,2,50,50,38,1
+Style: rin,Arial,75,&H002ADDFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.8,1.0,2,50,50,38,1
+Style: lin,Arial,75,&H0000FEFE,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.8,1.0,2,50,50,38,1
+Style: teto,Arial,75,&H00002FFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.8,1.0,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.46,0:00:01.14,miku,,0,0,0,,{\b1}来买呀！
+Dialogue: 0,0:00:01.15,0:00:03.20,miku,,0,0,0,,{\b1}帮帮这个可怜的女孩，买一点吧！
+Dialogue: 0,0:00:03.40,0:00:04.02,rin,,0,0,0,,{\b1}嘿 Miku
+Dialogue: 0,0:00:04.02,0:00:05.25,miku,,0,0,0,,{\b1}小铃，早啊！
+Dialogue: 0,0:00:05.26,0:00:06.33,rin,,0,0,0,,{\b1}你在干嘛呢？
+Dialogue: 0,0:00:06.60,0:00:06.98,miku,,0,0,0,,{\b1}这个嘛
+Dialogue: 0,0:00:06.99,0:00:09.62,miku,,0,0,0,,{\b1}我之前看到有个女生在卖她的洗澡水
+Dialogue: 0,0:00:09.64,0:00:11.71,miku,,0,0,0,,{\b1}然后呢，Crypton 给我的薪水嘛，你也知道
+Dialogue: 0,0:00:11.71,0:00:12.85,miku,,0,0,0,,{\b1}我又缺钱
+Dialogue: 0,0:00:12.87,0:00:14.09,miku,,0,0,0,,{\b1}所以就想也来试试
+Dialogue: 0,0:00:15.48,0:00:15.97,rin,,0,0,0,,{\b1}哦
+Dialogue: 0,0:00:16.94,0:00:17.48,rin,,0,0,0,,{\b1}呃
+Dialogue: 0,0:00:17.49,0:00:19.28,rin,,0,0,0,,{\b1}我也不想打扰你的
+Dialogue: 0,0:00:19.30,0:00:20.08,rin,,0,0,0,,{\b1}"生意"
+Dialogue: 0,0:00:20.09,0:00:22.01,rin,,0,0,0,,{\b1}但这玩意儿真会有傻子买吗？
+Dialogue: 0,0:00:22.02,0:00:22.39,lin,,0,0,0,,{\b1}哦
+Dialogue: 0,0:00:22.41,0:00:22.67,lin,,0,0,0,,{\b1}我的
+Dialogue: 0,0:00:22.70,0:00:23.06,lin,,0,0,0,,{\b1}天！！
+Dialogue: 0,0:00:23.07,0:00:24.97,lin,,0,0,0,,{\b1}这是 Miku 的洗澡水吗！？
+Dialogue: 0,0:00:24.99,0:00:26.47,lin,,0,0,0,,{\b1}钱拿去，赶紧的！！！
+Dialogue: 0,0:00:28.06,0:00:29.25,miku,,0,0,0,,{\b1}感谢惠顾！
+Dialogue: 0,0:00:30.68,0:00:31.03,rin,,0,0,0,,{\b1}呵
+Dialogue: 0,0:00:31.05,0:00:31.60,rin,,0,0,0,,{\b1}不错
+Dialogue: 0,0:00:36.63,0:00:37.62,teto,,0,0,0,,{\b1}小铃！
+Dialogue: 0,0:00:37.63,0:00:38.97,teto,,0,0,0,,{\b1}我要泡澡！
+Dialogue: 0,0:00:39.35,0:00:40.83,rin,,0,0,0,,{\b1}再装两桶就好！
+Dialogue: 0,0:00:40.83,0:00:42.60,teto,,0,0,0,,{\b1}你TM在干嘛！？

@@ -1,0 +1,27 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1920
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,133.3,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,6.7,6.7,2,50,50,67,1
+Style: Default - 复制,Arial,133.3,&H00FFFFFF,&H0000FFFF,&H0000023C,&H00000000,0,0,0,0,100,100,0,0,1,6.7,6.7,2,50,50,0,1
+Style: Default - 复制 - 复制,Arial,116.3,&H00FFFFFF,&H0000FFFF,&H008E6C20,&H00000000,0,0,0,0,100,100,0,0,1,6.7,6.7,2,50,50,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.44,0:00:01.15,Default - 复制 - 复制,,0,0,0,,{\fn微软雅黑}Teto？
+Dialogue: 0,0:00:01.74,0:00:02.10,Default - 复制 - 复制,,0,0,0,,{\fn微软雅黑}为什么？
+Dialogue: 0,0:00:02.31,0:00:03.79,Default - 复制 - 复制,,0,0,0,,{\fn微软雅黑}你为什么难过？
+Dialogue: 0,0:00:04.13,0:00:04.64,Default - 复制,,0,0,0,,{\fn微软雅黑}就是...
+Dialogue: 0,0:00:04.67,0:00:05.46,Default - 复制,,0,0,0,,{\fn微软雅黑}坐在这...
+Dialogue: 0,0:00:05.74,0:00:06.83,Default - 复制,,0,0,0,,{\fn微软雅黑}我会告诉你的...
+Dialogue: 0,0:00:07.62,0:00:08.16,Default - 复制 - 复制,,0,0,0,,{\fn微软雅黑}所以...
+Dialogue: 0,0:00:08.23,0:00:09.37,Default - 复制 - 复制,,0,0,0,,{\fn微软雅黑}发生了什么？
+Dialogue: 0,0:00:09.65,0:00:10.48,Default - 复制,,0,0,0,,{\fn微软雅黑}这...
+Dialogue: 0,0:00:10.50,0:00:12.12,Default - 复制,,0,0,0,,{\fn微软雅黑}这个长椅是湿的...

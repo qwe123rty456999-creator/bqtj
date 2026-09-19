@@ -1,0 +1,35 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 720
+PlayResY: 900
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,62.5,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.1,3.1,2,19,19,31,1
+Style: Default - 复制,Arial,62.5,&H000000FE,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.6,0,2,19,19,31,1
+Style: Default - 复制2,Arial,62.5,&H000091FF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.6,0.0,2,19,19,31,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:02.11,0:00:02.53,Default - 复制2,,0,0,0,,{\b1}呃
+Dialogue: 0,0:00:02.53,0:00:03.07,Default - 复制2,,0,0,0,,{\b1}Teto？
+Dialogue: 0,0:00:03.17,0:00:03.95,Default - 复制,,0,0,0,,{\b1}嗯？
+Dialogue: 0,0:00:04.24,0:00:07.19,Default - 复制2,,0,0,0,,{\b1}{\fscx90\fscy90)}我想注册个号\N看看这网站上的梗图
+Dialogue: 0,0:00:07.21,0:00:09.46,Default - 复制2,,0,0,0,,{\b1}{\fscx90\fscy90)}但它有个烦人的机器人验证!!!
+Dialogue: 0,0:00:09.99,0:00:11.71,Default - 复制2,,0,0,0,,{\b1}你能帮我验证一下吗……？
+Dialogue: 0,0:00:13.42,0:00:13.87,Default - 复制2,,0,0,0,,{\b1}求你了？
+Dialogue: 0,0:00:13.89,0:00:14.37,Default - 复制,,0,0,0,,{\b1}不要
+Dialogue: 0,0:00:14.40,0:00:15.10,Default - 复制,,0,0,0,,{\b1}哈哈哈哈哈哈哈哈哈
+Dialogue: 0,0:00:15.18,0:00:15.61,Default - 复制,,0,0,0,,{\b1}{\fscx300\fscy300)}哈哈哈哈哈
+Dialogue: 0,0:00:15.64,0:00:17.13,Default,,0,0,0,,{\b1}两分钟后
+Dialogue: 0,0:00:17.58,0:00:18.74,Default - 复制,,0,0,0,,{\b1}好——吧——
+Dialogue: 0,0:00:18.76,0:00:20.64,Default - 复制,,0,0,0,,{\b1}既然 Rei 卡在验证码那儿了
+Dialogue: 0,0:00:20.67,0:00:22.33,Default - 复制,,0,0,0,,{\b1}{\fscx90\fscy90)}那么是时候看点有罪恶感的东西了
+Dialogue: 0,0:00:22.35,0:00:24.51,Default - 复制,,0,0,0,,{\b1}切面包\NASMR 视频
+Dialogue: 0,0:00:24.53,0:00:25.20,Default - 复制,,0,0,0,,{\b1}在 YouTu——
+Dialogue: 0,0:00:25.21,0:00:27.39,Default,,0,0,0,,{\b1}{\pos(450,610)}{\fscx80\fscy80)}验证您的年龄\N您是 15 岁还是 31 岁？
+Dialogue: 0,0:00:27.41,0:00:28.34,Default - 复制,,0,0,0,,{\b1}什么……

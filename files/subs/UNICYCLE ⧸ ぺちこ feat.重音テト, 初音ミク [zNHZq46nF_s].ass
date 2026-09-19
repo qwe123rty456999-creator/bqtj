@@ -1,0 +1,61 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1440
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,4,3.8,3.8,2,38,38,170,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:03.58,0:00:05.43,Default,,0,0,0,,{\b1}{\pos(721,912)}独轮车
+Dialogue: 0,0:00:05.42,0:00:07.29,Default,,0,0,0,,{\b1}{\pos(721,912)}作者：ぺちこ
+Dialogue: 0,0:00:07.28,0:00:09.13,Default,,0,0,0,,{\b1}{\pos(721,912)}feat. Teto, Miku
+Dialogue: 0,0:00:18.84,0:00:20.60,Default,,0,0,0,,{\pos(721,920)}{\b1}这是哪儿啊？
+Dialogue: 0,0:00:20.60,0:00:22.36,Default,,0,0,0,,{\pos(721,920)}{\b1}VR
+Dialogue: 0,0:00:22.61,0:00:23.55,Default,,0,0,0,,{\pos(721,920)}{\b1}摘不下来！
+Dialogue: 0,0:00:23.55,0:00:24.41,Default,,0,0,0,,{\pos(721,920)}{\b1}该死！
+Dialogue: 0,0:00:24.41,0:00:25.26,Default,,0,0,0,,{\pos(721,929)}{\b1}靠！
+Dialogue: 0,0:00:26.44,0:00:29.74,Default,,0,0,0,,{\b1}肮脏的思绪渐渐模糊
+Dialogue: 0,0:00:30.18,0:00:32.94,Default,,0,0,0,,{\b1}{\pos(721,920)}没有边界的梦幻岛
+Dialogue: 0,0:00:33.54,0:00:36.22,Default,,0,0,0,,{\b1}{\pos(721,918)}不回去是有理由的
+Dialogue: 0,0:00:36.22,0:00:37.11,Default,,0,0,0,,{\b1}{\pos(721,920)}Paraiso
+Dialogue: 0,0:00:37.18,0:00:38.86,Default,,0,0,0,,{\b1}{\pos(721,920)}独轮车
+Dialogue: 0,0:00:38.86,0:00:41.88,Default,,0,0,0,,{\b1}{\pos(721,912)}就像杂技一样
+Dialogue: 0,0:00:41.92,0:00:48.51,Default,,0,0,0,,{\b1}{\pos(721,912)}它就这么被取了名字
+Dialogue: 0,0:00:48.51,0:00:51.06,Default,,0,0,0,,{\b1}脆弱的现实什么的
+Dialogue: 0,0:00:51.06,0:00:52.21,Default,,0,0,0,,{\b1}{\pos(721,920)}谁需要啊
+Dialogue: 0,0:00:52.21,0:00:53.97,Default,,0,0,0,,{\b1}只要沉迷其中
+Dialogue: 0,0:00:53.97,0:00:56.81,Default,,0,0,0,,{\b1}{\pos(721,912)}不就没问题了吗
+Dialogue: 0,0:00:56.81,0:01:03.30,Default,,0,0,0,,{\b1}{\pos(721,912)}真是个无比美好的容身之处
+Dialogue: 0,0:01:11.28,0:01:13.78,Default,,0,0,0,,{\b1}{\pos(721,916)}至少，像廉价的希望
+Dialogue: 0,0:01:13.78,0:01:15.07,Default,,0,0,0,,{\b1}{\pos(721,920)}这种东西要是守着不放
+Dialogue: 0,0:01:15.07,0:01:17.72,Default,,0,0,0,,{\b1}{\pos(721,923)}心可是会碎掉，扭曲成奇怪的形状
+Dialogue: 0,0:01:17.72,0:01:18.79,Default,,0,0,0,,{\b1}{\pos(721,929)}这种事也是有的
+Dialogue: 0,0:01:18.79,0:01:20.08,Default,,0,0,0,,{\b1}{\pos(721,920)}啊——净想着
+Dialogue: 0,0:01:20.07,0:01:20.84,Default,,0,0,0,,{\b1}{\pos(721,926)}开心的事
+Dialogue: 0,0:01:20.84,0:01:22.65,Default,,0,0,0,,{\b1}{\pos(721,923)}反正没有光也没有出口
+Dialogue: 0,0:01:22.93,0:01:24.69,Default,,0,0,0,,{\b1}{\pos(721,923)}那就永远在这回不去的马戏团里
+Dialogue: 0,0:01:24.69,0:01:26.41,Default,,0,0,0,,{\b1}{\pos(721,920)}尽情享受就好
+Dialogue: 0,0:01:26.41,0:01:28.17,Default,,0,0,0,,{\b1}{\pos(721,919)}这是哪儿啊？
+Dialogue: 0,0:01:28.17,0:01:29.94,Default,,0,0,0,,{\b1}{\pos(721,920)}VR
+Dialogue: 0,0:01:30.17,0:01:31.10,Default,,0,0,0,,{\b1}{\pos(721,920)}摘不下来！
+Dialogue: 0,0:01:31.10,0:01:31.98,Default,,0,0,0,,{\b1}{\pos(721,920)}该死！
+Dialogue: 0,0:01:31.98,0:01:32.83,Default,,0,0,0,,{\b1}{\pos(721,929)}靠！
+Dialogue: 0,0:01:34.00,0:01:37.30,Default,,0,0,0,,{\b1}肮脏的思绪渐渐模糊
+Dialogue: 0,0:01:37.76,0:01:40.51,Default,,0,0,0,,{\b1}{\pos(721,920)}没有边界的梦幻岛
+Dialogue: 0,0:01:40.57,0:01:43.42,Default,,0,0,0,,{\b1}{\pos(721,930)}{\fad(0,40)}纠缠在
+Dialogue: 0,0:01:43.41,0:01:44.55,Default,,0,0,0,,{\b1}{\pos(721,930)}{\fad(0,40)}无聊的文字游戏里
+Dialogue: 0,0:01:44.55,0:01:45.50,Default,,0,0,0,,{\b1}{\pos(721,935)}{\fad(0,50)}明知如此
+Dialogue: 0,0:01:45.49,0:01:49.20,Default,,0,0,0,,{\b1}{\pos(721,935)}在这个不断下沉的世界中
+Dialogue: 0,0:01:49.20,0:01:55.70,Default,,0,0,0,,{\b1}{\pos(721,939)}今天我也继续挣扎着
+Dialogue: 0,0:01:55.70,0:01:58.36,Default,,0,0,0,,{\b1}满溢着快乐的
+Dialogue: 0,0:01:58.36,0:01:59.26,Default,,0,0,0,,{\b1}{\pos(721,910)}梦
+Dialogue: 0,0:01:59.34,0:02:02.48,Default,,0,0,0,,{\b1}即使醒来，也不会消失
+Dialogue: 0,0:02:02.47,0:02:05.98,Default,,0,0,0,,{\b1}{\pos(721,920)}就是有这样一种感觉
+Dialogue: 0,0:02:05.97,0:02:10.54,Default,,0,0,0,,{\b1}{\pos(721,936)}把它送给你吧

@@ -1,0 +1,51 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00724340,&H00000000,0,0,0,0,100,100,0,0,1,2.3,1.8,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:22.86,0:00:24.15,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(428,428)}{\fad(428,428)}{\blur10}只是静静地等待时间流逝
+Dialogue: 0,0:00:24.15,0:00:25.73,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}今天逐渐化为过去
+Dialogue: 0,0:00:25.73,0:00:27.57,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}心里不禁涌起了一丝悲伤
+Dialogue: 0,0:00:28.38,0:00:29.72,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(445,445)}{\blur10}单凭文字已无法填满内心的空虚
+Dialogue: 0,0:00:29.72,0:00:31.24,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}渐渐感到痛苦
+Dialogue: 0,0:00:31.24,0:00:33.44,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}只能仰望着漫天星光
+Dialogue: 0,0:00:39.83,0:00:42.26,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}明天在如此的世界里
+Dialogue: 0,0:00:42.26,0:00:43.85,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}我们依旧不得不继续呼吸着啊
+Dialogue: 0,0:00:45.32,0:00:45.89,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(188,188)}{\blur10}融化于夜色中
+Dialogue: 0,0:00:45.89,0:00:47.89,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}那如冰块般的寂寞尽头
+Dialogue: 0,0:00:48.09,0:00:50.11,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}真的能寻见所谓的幸福吗？
+Dialogue: 0,0:00:50.11,0:00:50.96,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(285,285)}{\blur10}只要祈求着
+Dialogue: 0,0:00:50.96,0:00:53.55,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}总有一天一定能与你相视而笑吧
+Dialogue: 0,0:00:53.55,0:00:56.28,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}遥远彼方星辰的闪烁
+Dialogue: 0,0:00:56.39,0:00:59.21,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}而我们绝不会忘记今天这个日子
+Dialogue: 0,0:00:59.21,0:01:01.89,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}以及那寂静尽头的歌声
+Dialogue: 0,0:01:13.22,0:01:14.66,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(482,482)}{\blur10}无能为力的我
+Dialogue: 0,0:01:14.66,0:01:15.80,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(379,379)}{\blur10}只能一直等待着
+Dialogue: 0,0:01:15.80,0:01:18.08,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}啊啊、我会永远记得
+Dialogue: 0,0:01:18.78,0:01:20.07,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(431,431)}{\blur10}「即使是这样的今天 也依旧美丽喔」
+Dialogue: 0,0:01:20.07,0:01:21.51,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(478,478)}{\blur10}是你这样告诉了我
+Dialogue: 0,0:01:21.51,0:01:23.64,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}伴随着你悄悄缭绕的香气
+Dialogue: 0,0:01:24.42,0:01:29.26,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}当空荡荡的我迈出脚步
+Dialogue: 0,0:01:29.27,0:01:31.25,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}「至少在今夜
+Dialogue: 0,0:01:31.25,0:01:32.68,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(476,476)}{\blur10}「至少在今夜 一起唱歌吧」
+Dialogue: 0,0:01:32.68,0:01:34.86,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}又响起了你的声音
+Dialogue: 0,0:01:41.25,0:01:43.70,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}明天在如此的世界里
+Dialogue: 0,0:01:43.70,0:01:45.44,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}哪怕泪眼婆娑也唱着哈利路亚企盼放晴
+Dialogue: 0,0:01:46.62,0:01:48.00,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(461,461)}{\blur10}就算在暗夜里暗自哭泣
+Dialogue: 0,0:01:48.00,0:01:49.31,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(434,434)}{\blur10}至少在最后的最后
+Dialogue: 0,0:01:49.43,0:01:51.40,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}真的能找到所谓的幸福吗？
+Dialogue: 0,0:01:51.40,0:01:52.10,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(232,232)}{\blur10}只要祈求着
+Dialogue: 0,0:01:52.10,0:01:54.82,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}总有一天一定能与你相视而笑吧
+Dialogue: 0,0:01:54.91,0:01:57.70,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}遥远彼方星辰的闪烁
+Dialogue: 0,0:01:57.75,0:02:00.60,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}而我们绝不会忘记今天这个日子
+Dialogue: 0,0:02:00.60,0:02:03.45,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}{\blur10}以及那寂静尽头的歌声

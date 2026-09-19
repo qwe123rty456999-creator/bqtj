@@ -1,0 +1,120 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,61,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.5,0.8,2,50,50,38,1
+Style: hong,Arial,61,&H006643C3,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.8,0,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:14.98,0:00:18.64,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\move(951,900,951,940,0,3700)}{\fad(300,300)}cut! cut! cut!   食谱里可没写着
+Dialogue: 0,0:00:18.68,0:00:22.40,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\move(951,900,951,940,0,3700)}{\fad(300,300)}Let's pop! pop! pop! 教科书上可没记载
+Dialogue: 0,0:00:22.43,0:00:26.17,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\move(951,900,951,940,0,3700)}{\fad(300,300)}全都一个色一个味一个样 早就腻了
+Dialogue: 0,0:00:26.25,0:00:29.48,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\move(951,900,951,940,0,3200)}{\fad(300,300)}那就麻利地 从头到尾 mix it up\N
+Dialogue: 0,0:00:30.01,0:00:33.69,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1400,700)\fscx90\fscy90)\fad(900,800)}只挑喜欢的
+Dialogue: 0,0:00:32.57,0:00:33.69,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1400,930)\fscx90\fscy90)\fad(300,800)}往里塞
+Dialogue: 0,0:00:33.93,0:00:37.40,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(800,800)}前所未有的大杂烩
+Dialogue: 0,0:00:37.45,0:00:38.74,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}搅一搅
+Dialogue: 0,0:00:38.76,0:00:41.17,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}越搅越
+Dialogue: 0,0:00:41.25,0:00:43.01,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}危险又鲜艳
+Dialogue: 0,0:00:43.08,0:00:44.89,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}刺激的风味
+Dialogue: 0,0:00:45.23,0:00:46.85,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}一口就跳起来
+Dialogue: 0,0:00:47.34,0:00:48.25,hong,,0,0,0,,{\fnZCOOL XiaoWei}{\fn@Arial\frz-90\an7\bord1\shad3\fscx475\fscy475)}{\move(1600,0,1550,0,0,900)}(太棒了...）
+Dialogue: 0,0:00:48.27,0:00:48.65,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}给我那
+Dialogue: 0,0:00:48.69,0:00:50.11,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(858,1030){\frz10}{\fad(100,100)}香料! 
+Dialogue: 0,0:00:49.02,0:00:50.11,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1000,1000){\frz10}{\fad(100,100)}香料!
+Dialogue: 0,0:00:49.17,0:00:50.11,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1142,970){\frz10}{\fad(100,100)}香料!
+Dialogue: 0,0:00:49.42,0:00:50.11,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1286,940){\frz10}{\fad(100,100)}香料!
+Dialogue: 0,0:00:49.65,0:00:50.11,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1426,910){\frz10}{\fad(100,100)}香料!
+Dialogue: 0,0:00:50.21,0:00:50.42,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(50,50)}怪异的
+Dialogue: 0,0:00:50.67,0:00:52.08,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(858,1030){\frz-10}{\fad(100,100)}风格
+Dialogue: 0,0:00:50.90,0:00:52.08,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(740,1000){\frz-10}{\fad(100,100)}风格
+Dialogue: 0,0:00:51.08,0:00:52.08,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(622,970){\frz-10}{\fad(100,100)}风格
+Dialogue: 0,0:00:51.41,0:00:52.08,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(504,940){\frz-10}{\fad(100,100)}风格
+Dialogue: 0,0:00:51.70,0:00:52.08,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(386,910){\frz-10}{\fad(100,100)}风格
+Dialogue: 0,0:00:52.14,0:00:55.46,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}沉醉在迸发的香味里
+Dialogue: 0,0:00:55.49,0:00:56.08,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}想要引发
+Dialogue: 0,0:00:56.34,0:00:59.95,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1000,1050){\frz-10}{\fad(100,100)}想要引发
+Dialogue: 0,0:00:56.63,0:00:59.96,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(800,1010){\frz-10}{\fad(100,100)}想要引发
+Dialogue: 0,0:00:56.85,0:00:59.96,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(600,970){\frz-10}{\fad(100,100)}想要引发
+Dialogue: 0,0:00:57.11,0:00:59.96,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(400,930){\frz-10}{\fad(100,100)}想要引发
+Dialogue: 0,0:00:57.33,0:00:59.96,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(200,890){\frz-10}{\fad(100,100)}想要引发
+Dialogue: 0,0:00:58.18,0:00:59.96,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(950,800)\fscx290\fscy290\t(0,2000,\fscx130\fscy130)}{\fad(100,100)}化 学 反 应 式
+Dialogue: 0,0:00:59.99,0:01:02.99,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}无人知晓的绝妙搭配
+Dialogue: 0,0:01:03.03,0:01:03.72,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}让我听到你说！
+Dialogue: 0,0:01:03.74,0:01:18.25,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1700,100)}拟声词不再翻译
+Dialogue: 0,0:01:10.53,0:01:11.16,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(950,880)}更多! 
+Dialogue: 0,0:01:11.02,0:01:11.16,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(950,940)}更多!
+Dialogue: 0,0:01:18.74,0:01:19.63,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}简直像黑暗火锅
+Dialogue: 0,0:01:19.65,0:01:20.29,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}大实验
+Dialogue: 0,0:01:20.31,0:01:22.01,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}不试试哪能懂呢
+Dialogue: 0,0:01:22.04,0:01:23.17,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}没工夫睡 
+Dialogue: 0,0:01:23.18,0:01:24.44,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}计时器响了
+Dialogue: 0,0:01:24.47,0:01:26.52,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}第二条，就位，开始！
+Dialogue: 0,0:01:26.78,0:01:27.37,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}又炸了
+Dialogue: 0,0:01:27.39,0:01:28.28,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}失败品
+Dialogue: 0,0:01:28.30,0:01:29.01,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}彻底清空
+Dialogue: 0,0:01:29.03,0:01:29.72,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}abandon
+Dialogue: 0,0:01:29.74,0:01:30.32,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}晕晕乎乎
+Dialogue: 0,0:01:30.34,0:01:31.89,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}视野里甜甜的气体
+Dialogue: 0,0:01:31.92,0:01:33.25,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}又吸又吐的
+Dialogue: 0,0:01:33.26,0:01:33.59,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}失去意识
+Dialogue: 0,0:01:33.66,0:01:33.95,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,0)}Why
+Dialogue: 0,0:01:33.95,0:01:34.24,Default,,0,0,0,,{\fnZCOOL XiaoWei}Why don't
+Dialogue: 0,0:01:34.24,0:01:34.53,Default,,0,0,0,,{\fnZCOOL XiaoWei}Why don't you
+Dialogue: 0,0:01:34.53,0:01:34.82,Default,,0,0,0,,{\fnZCOOL XiaoWei}Why don't you taste
+Dialogue: 0,0:01:34.82,0:01:35.11,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(0,100)}Why don't you taste it?
+Dialogue: 0,0:01:35.22,0:01:35.77,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}和洋中
+Dialogue: 0,0:01:35.83,0:01:36.47,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,50)}啥都不是
+Dialogue: 0,0:01:36.49,0:01:37.21,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(50,100)}要小心
+Dialogue: 0,0:01:37.32,0:01:37.96,Default,,0,0,0,,{\fnZCOOL XiaoWei}最高级
+Dialogue: 0,0:01:37.99,0:01:38.43,Default,,0,0,0,,{\fnZCOOL XiaoWei}毫不吝惜
+Dialogue: 0,0:01:38.45,0:01:39.32,Default,,0,0,0,,{\fnZCOOL XiaoWei}调配
+Dialogue: 0,0:01:39.41,0:01:41.17,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}改造得跟半机器人似的
+Dialogue: 0,0:01:41.25,0:01:44.45,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(1000,100)\pos(950,970)}毒药一起搅和
+Dialogue: 0,0:01:44.46,0:01:45.89,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(600,100)\pos(950,970)}从头搅和个遍
+Dialogue: 0,0:01:45.91,0:01:46.56,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(300,100)\pos(950,970)}内啡肽
+Dialogue: 0,0:01:46.59,0:01:47.29,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(200,100)\pos(950,970)}停不下来
+Dialogue: 0,0:01:49.18,0:01:51.10,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}灵感不断涌现
+Dialogue: 0,0:01:51.13,0:01:52.01,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}脑内
+Dialogue: 0,0:01:52.01,0:01:53.17,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}接得住吗？
+Dialogue: 0,0:01:53.18,0:01:54.25,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}不可思议的幽会
+Dialogue: 0,0:01:54.27,0:01:56.18,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}给我
+Dialogue: 0,0:02:17.29,0:02:18.23,hong,,0,0,0,,{\fnZCOOL XiaoWei}{\fn@Arial\frz-90\an7\bord1\shad3\fscx475\fscy475)}{\move(1600,0,1550,0,0,900)}(太棒了...）
+Dialogue: 0,0:02:18.69,0:02:20.01,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}给我那香料！
+Dialogue: 0,0:02:20.03,0:02:22.44,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}摇曳的镜球灯光
+Dialogue: 0,0:02:25.49,0:02:27.51,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}像霓虹灯管一样
+Dialogue: 0,0:02:27.53,0:02:29.47,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}闪耀的舞池
+Dialogue: 0,0:02:29.50,0:02:31.66,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}还远远不够！
+Dialogue: 0,0:02:33.25,0:02:33.73,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}给我那
+Dialogue: 0,0:02:33.75,0:02:35.14,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(858,1030){\frz10}{\fad(100,100)}香料!
+Dialogue: 0,0:02:33.97,0:02:35.14,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1000,1000){\frz10}{\fad(100,100)}香料!
+Dialogue: 0,0:02:34.21,0:02:35.14,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1142,970){\frz10}{\fad(100,100)}香料!
+Dialogue: 0,0:02:34.53,0:02:35.14,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1286,940){\frz10}{\fad(100,100)}香料!
+Dialogue: 0,0:02:34.86,0:02:35.15,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1426,910){\frz10}{\fad(100,100)}香料!\N
+Dialogue: 0,0:02:35.17,0:02:35.49,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}怪异的
+Dialogue: 0,0:02:35.50,0:02:37.04,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(858,1030){\frz-10}{\fad(100,100)}风格
+Dialogue: 0,0:02:35.85,0:02:37.04,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(740,1000){\frz-10}{\fad(100,100)}风格
+Dialogue: 0,0:02:36.11,0:02:37.04,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(622,970){\frz-10}{\fad(100,100)}风格
+Dialogue: 0,0:02:36.41,0:02:37.04,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(504,940){\frz-10}{\fad(100,100)}风格
+Dialogue: 0,0:02:36.64,0:02:37.04,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(386,910){\frz-10}{\fad(100,100)}风格
+Dialogue: 0,0:02:37.09,0:02:40.50,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}沉醉在迸发的香味里
+Dialogue: 0,0:02:40.53,0:02:41.13,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}想要引发
+Dialogue: 0,0:02:41.19,0:02:45.00,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1000,1050){\frz-10}{\fad(100,100)}想要引发
+Dialogue: 0,0:02:41.50,0:02:45.00,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(800,1010){\frz-10}{\fad(100,100)}想要引发
+Dialogue: 0,0:02:41.74,0:02:45.00,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(600,970){\frz-10}{\fad(100,100)}想要引发
+Dialogue: 0,0:02:41.88,0:02:45.00,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(400,930){\frz-10}{\fad(100,100)}想要引发
+Dialogue: 0,0:02:42.30,0:02:45.00,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(200,890){\frz-10}{\fad(100,100)}想要引发
+Dialogue: 0,0:02:43.16,0:02:44.99,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(950,800)\fscx290\fscy290\t(0,2000,\fscx130\fscy130)}{\fad(100,100)}化 学 反 应 式
+Dialogue: 0,0:02:45.02,0:02:47.96,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(500,500)}无人知晓的绝妙搭配
+Dialogue: 0,0:02:47.98,0:02:48.68,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\fad(100,100)}让我听到你说！
+Dialogue: 0,0:02:48.69,0:03:03.20,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(1700,100)}拟声词不再翻译\N
+Dialogue: 0,0:02:55.50,0:02:56.11,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(950,880)}更多! 
+Dialogue: 0,0:02:55.98,0:02:56.11,Default,,0,0,0,,{\fnZCOOL XiaoWei}{\pos(950,940)}更多!

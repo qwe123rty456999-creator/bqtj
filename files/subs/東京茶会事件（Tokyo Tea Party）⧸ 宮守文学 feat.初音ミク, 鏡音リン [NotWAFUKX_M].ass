@@ -1,0 +1,88 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00C0FFFF,&H00FFFFFF,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,3.8,3.8,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.22,0:00:02.36,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K35}晕{\K35}开{\K35}，{\K35}又{\K35}融{\K39}化
+Dialogue: 0,0:00:02.36,0:00:04.20,Default,,0,0,0,region=r1,{\c&HAEFCFF&}{\fad(100,100)\blur2\K30}我{\K30}会{\K30}漂{\K30}向{\K30}何{\K34}方
+Dialogue: 0,0:00:04.20,0:00:06.16,Default,,0,0,0,region=r1,{\c&HE34CFF&}{\fad(100,100)\blur2\K24}谁{\K24}也{\K24}永{\K24}远{\K24}不{\K24}会{\K24}知{\K28}道
+Dialogue: 0,0:00:06.16,0:00:10.00,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K12}（{\K12}W{\K12}e{\K12} {\K12}A{\K12}r{\K12}e{\K12} {\K12}T{\K12}o{\K12}k{\K12}y{\K12}o{\K12} {\K12}T{\K12}e{\K12}a{\K12} {\K12}P{\K12}a{\K12}r{\K12}t{\K12}y{\K12}!{\K12}!{\K84}）
+Dialogue: 0,0:00:24.04,0:00:27.59,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K32}浮{\K32}华{\K32}、{\K32}涂{\K32}抹{\K32}过{\K32}的{\K32}城{\K32}市{\K32}灯{\K35}光
+Dialogue: 0,0:00:27.59,0:00:32.17,Default,,0,0,0,region=r1,{\c&HAEFCFF&}{\fad(100,100)\blur2\K24}连{\K24}我{\K24}们{\K24}这{\K24}种{\K24}被{\K24}盯{\K24}上{\K24}的{\K24}孩{\K24}子{\K24} {\K24}也{\K24}会{\K24}褪{\K24}进{\K24}风{\K24}景{\K26}里
+Dialogue: 0,0:00:32.17,0:00:34.27,Default,,0,0,0,region=r1,{\c&HAEFCFF&}{\fad(100,100)\blur2\K30}安{\K30}全{\K30}？{\K30}真{\K30}无{\K30}聊{\K30}！
+Dialogue: 0,0:00:34.27,0:00:35.70,Default,,0,0,0,region=r1,{\c&HAEFCFF&}{\fad(100,100)\blur2\K14}残{\K14}缺{\K14}的{\K14}色{\K14}彩{\K14}染{\K14}上{\K14}这{\K14}一{\K17}夜
+Dialogue: 0,0:00:35.70,0:00:39.79,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K37}这{\K37}座{\K37}城{\K37}太{\K37}冷{\K37} {\K37}还{\K37}缺{\K37}一{\K37}点{\K39}火
+Dialogue: 0,0:00:39.79,0:00:40.41,Default,,0,0,0,region=r1,{\c&H61FDFF&\fad(100,100)\blur2\K62}喂— (>_<)
+Dialogue: 0,0:00:40.41,0:00:42.17,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K19}我{\K19}们{\K19}只{\K19}知{\K19}道{\K19}这{\K19}种{\K19}活{\K24}法
+Dialogue: 0,0:00:42.17,0:00:44.33,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K14}第{\K14}几{\K14}次{\K14}用{\K14}假{\K14}名{\K14}了{\K14}？{\K14} {\K14}{\c&H61FDFF&}危{\c&HC0FFFF&}{\K14}{\c&H61FDFF&}险{\c&HC0FFFF&}{\K14} {\K14}{\c&HFF5ACA&}{\c&HFF8AEA&}{\c&HFF7AE1&}{\c&HFF7CDE&}{\c&HFF6ED0&}有{\c&HC0FFFF&}{\c&HC0FFFF&}{\c&HC0FFFF&}{\c&HC0FFFF&}{\c&HC0FFFF&}{\K14}{\c&HFF5ACA&}{\c&HFF6ED0&}案{\c&HC0FFFF&}{\c&HC0FFFF&}{\K20}{\c&HFF5ACA&}{\c&HFF6ED0&}情{\c&HC0FFFF&}{\c&HC0FFFF&}
+Dialogue: 0,0:00:44.33,0:00:46.19,Default,,0,0,0,region=r1,{\c&H995DFF&}{\fad(100,100)\blur2\K18}逃{\K18}向{\K18}阳{\K18}光{\K18}照{\K18}不{\K18}到{\K18}的{\K18}地{\K24}方
+Dialogue: 0,0:00:46.19,0:00:48.61,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K18}一{\K18}直{\K18}不{\K18}被{\K18}发{\K18}现{\K18}，{\K18}也{\K18}会{\K18}觉{\K18}得{\K18}{\c&H995DFF&}无{\c&HC0FFFF&}{\K26}{\c&H995DFF&}聊{\c&HC0FFFF&}
+Dialogue: 0,0:00:48.61,0:00:49.78,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K23}不{\K23}变{\K23}的{\K23}街{\K25}道
+Dialogue: 0,0:00:49.78,0:00:51.67,Default,,0,0,0,region=r1,{\c&HAEFCFF&}{\fad(100,100)\blur2\K18}今{\K18}天{\K18}是{\K18}加{\K18}满{\K18}糖{\K18}的{\K18}热{\K18}红{\K27}茶
+Dialogue: 0,0:00:51.67,0:00:53.57,Default,,0,0,0,region=r1,{\c&HFF6ED0&}{\fad(100,100)\blur2\K19}再{\K19}次{\K19}{\c&H61FDFF&}穿{\c&H61FDFF&}{\K19}{\c&H61FDFF&}过{\c&HFF6ED0&}{\K19}人{\K19}群{\K19}去{\K19}{\c&H995DFF&}跳{\c&HC0FFFF&}{\K19}{\c&H995DFF&}一{\c&HC0FFFF&}{\K19}{\c&H995DFF&}场{\c&HC0FFFF&}
+Dialogue: 0,0:00:53.57,0:00:56.43,Default,,0,0,0,region=r1,{\c&HAEFCFF&}{\fad(100,100)\blur2\K26}比{\K26}昨{\K26}天{\K26}稍{\K26}微{\K26}好{\K26}一{\K26}点{\K26}了{\K26}吗{\K26}？
+Dialogue: 0,0:00:56.43,0:00:58.35,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K32}晕{\K32}开{\K32}，{\K32}又{\K32}融{\K32}化
+Dialogue: 0,0:00:58.35,0:01:00.41,Default,,0,0,0,region=r1,{\c&HAEFCFF&}{\fad(100,100)\blur2\K34}我{\K34}会{\K34}漂{\K34}向{\K34}何{\K36}方
+Dialogue: 0,0:01:00.41,0:01:02.09,Default,,0,0,0,region=r1,{\c&H995DFF&}{\fad(100,100)\blur2\K21}谁{\K21}也{\K21}永{\K21}远{\K21}不{\K21}会{\K21}知{\K21}道
+Dialogue: 0,0:01:02.09,0:01:03.73,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K5}（{\K5}W{\K5}e{\K5} {\K5}A{\K5}r{\K5}e{\K5} {\K5}T{\K5}o{\K5}k{\K5}y{\K5}o{\K5} {\K5}T{\K5}e{\K5}a{\K5} {\K5}P{\K5}a{\K5}r{\K5}t{\K5}y{\K5}!{\K5}!{\K39}）
+Dialogue: 0,0:01:03.73,0:01:05.74,Default,,0,0,0,region=r1,{\fad(100,100)\blur2\K16}{\c&HFFFFFF&}{\c&H61FDFF&}拜{\c&HC0FFFF&}{\c&HC0FFFF&}{\K16}{\c&HFFFFFF&}{\c&H61FDFF&}拜{\c&HC0FFFF&}{\c&HC0FFFF&}{\K16}{\c&HFFFFFF&}{\c&H61FDFF&}了{\c&HC0FFFF&}{\c&HC0FFFF&}{\K16}，{\K16}{\c&H995DFF&}{\c&H995DFF&}s{\c&HC0FFFF&}{\c&HC0FFFF&}{\K16}{\c&H995DFF&}u{\c&HC0FFFF&}{\K16}{\c&H995DFF&}n{\c&HC0FFFF&}{\K16}{\c&H995DFF&}l{\c&HC0FFFF&}{\K16}{\c&H995DFF&}i{\c&HC0FFFF&}{\K16}{\c&H995DFF&}g{\c&HC0FFFF&}{\K16}{\c&H995DFF&}h{\c&HC0FFFF&}{\K25}{\c&H995DFF&}t{\c&HC0FFFF&}
+Dialogue: 0,0:01:05.74,0:01:07.71,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K24}我{\K24}们{\K24}总{\K24}是{\K24}在{\K24}失{\K24}去{\K29}呢
+Dialogue: 0,0:01:07.71,0:01:08.81,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K22}霓{\K22}虹{\K22}、{\K22}阴{\K22}影
+Dialogue: 0,0:01:08.81,0:01:11.91,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K34}在{\K34}秘{\K34}密{\K34}的{\K34}地{\K34}方{\K34}再{\K34}见{\K38}吧
+Dialogue: 0,0:01:11.91,0:01:13.71,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K20}那{\K20}些{\K20}朦{\K20}胧{\K20}的{\K20}小{\K20}小{\K20}{\c&H995DFF&}心{\c&HC0FFFF&}{\K20}{\c&H995DFF&}情{\c&HC0FFFF&}
+Dialogue: 0,0:01:13.71,0:01:16.17,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K9}别{\K9}把{\K9}它{\K9}们{\K9}丢{\K9}掉{\K9}—{\K9}m{\K9}o{\K9}t{\K9}t{\K9}a{\K9}i{\K9}n{\K9}a{\K9}i{\K9}！{\K9} {\K9}（{\K9}珍{\K9}贵{\K9}到{\K9}不{\K9}该{\K9}浪{\K12}费）
+Dialogue: 0,0:01:16.17,0:01:18.19,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K28}像{\K28}魔{\K28}法{\K28}一{\K28}样{\K28}消{\K34}失
+Dialogue: 0,0:01:18.19,0:01:20.56,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K8}H{\K8}E{\K8}L{\K8}L{\K8}O{\K8},{\K8} {\K8}H{\K8}E{\K8}L{\K8}L{\K8}O{\K8},{\K8} {\K8}{\c&HFFF078&}M{\K8}E{\K8}L{\K8}L{\K8}O{\K8}W{\c&HC0FFFF&}{\K8},{\K8} {\K8}{\c&H995DFF&}F{\K8}E{\K8}L{\K8}L{\K8}O{\K21}W{\c&HC0FFFF&}
+Dialogue: 0,0:01:20.56,0:01:23.59,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K25}成{\K25}群{\K25}的{\K25}老{\K25}鼠{\K25}，{\K25}乌{\K25}鸦{\K25}，{\K25}你{\K25}和{\K28}我
+Dialogue: 0,0:01:23.59,0:01:26.50,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K24}在{\K24}满{\K24}是{\K24}垃{\K24}圾{\K24}的{\K24}城{\K24}里{\K24}闪{\K24}闪{\K24}发{\K27}亮
+Dialogue: 0,0:01:26.50,0:01:28.08,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K15}“{\K15}一{\K15}定{\K15}，{\K15}很{\K15}难{\K15}过{\K15}吧{\K15}。{\K23}”
+Dialogue: 0,0:01:28.08,0:01:30.15,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K18}喜{\K18}欢{\K18}讨{\K18}厌{\K18}？{\K18}又{\K18}不{\K18}是{\K18}小{\K18}孩{\K27}子
+Dialogue: 0,0:01:30.15,0:01:32.28,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K19}酸{\K19}甜{\K19}苦{\K19}辣{\K19}—{\K19}是{\K19}大{\K19}人{\K19}的{\K19}礼{\K23}数
+Dialogue: 0,0:01:32.28,0:01:33.75,Default,,0,0,0,region=r1,{\c&H995DFF&}{\fad(100,100)\blur2\K16}d{\K16}r{\K16}i{\K16}p{\K16}—{\K16}把{\K16}证{\K16}物{\K19}喝{\K19}干
+Dialogue: 0,0:01:33.75,0:01:34.54,Default,,0,0,0,region=r1,{\c&HFF6EBF&}{\fad(100,100)\blur2\K19}睡{\K19}不{\K19}着{\K22}？
+Dialogue: 0,0:01:34.54,0:01:36.28,Default,,0,0,0,region=r1,{\fad(100,100)\blur2\K15}一{\K15}定{\K15}是{\K15}坏{\K15}家{\K15}伙{\K15}们{\K15}的{\K15}指{\K15}示{\K24}！
+Dialogue: 0,0:01:36.28,0:01:37.72,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K18}末{\K18}期{\K18}症{\K18}状{\K18}的{\K18}摩{\K18}天{\K18}楼
+Dialogue: 0,0:01:37.72,0:01:39.13,Default,,0,0,0,region=r1,{\fad(100,100)\blur2\K17}{\c&H61FDFF&}人{\K17}人{\c&HC0FFFF&}{\K17}{\c&H61FDFF&}都{\c&HC0FFFF&}{\K17}{\c&H61FDFF&}{\c&HFFF078&}装{\K17}作{\K17}夜{\K17}惊{\K22}症{\c&HC0FFFF&}
+Dialogue: 0,0:01:39.13,0:01:39.88,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K15}一{\K15}场{\K15}时{\K15}装{\K15}秀
+Dialogue: 0,0:01:39.88,0:01:41.84,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K15}来{\K15}，{\K15}请{\K15}收{\K15}下{\K15}—{\K15} {\K15}{\c&HFF6EBF&}无{\K15}声{\K15}的{\K15}条{\K15}形{\K16}码{\c&HC0FFFF&}
+Dialogue: 0,0:01:41.84,0:01:42.73,Default,,0,0,0,region=r1,{\fad(100,100)\blur2\K6{\c&H995DFF&}I{\K6} {\K6}d{\K6}o{\K6}n{\K6}'{\K6}t{\K6} {\K6}k{\K6}n{\K6}o{\K6}w{\K6}.{\K6}.{\K11}.{\c&HC0FFFF&}
+Dialogue: 0,0:01:42.73,0:01:44.59,Default,,0,0,0,region=r1,{\c&H995DFF&}{\fad(100,100)\blur2\K20}这{\K20}不{\K20}是{\K20}学{\K20}校{\K20}会{\K20}教{\K20}的{\K26}事
+Dialogue: 0,0:01:44.59,0:01:45.78,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K11}成{\K11}瘾{\K11}性{\K11}，{\K11}正{\K11}如{\K11}他{\K11}们{\K11}所{\K20}说
+Dialogue: 0,0:01:45.78,0:01:47.74,Default,,0,0,0,region=r1,{\c&HFF6EBF&}{\fad(100,100)\blur2\K21}那{\K21}阵{\K21}甜{\K21}香{\K21}，{\K21}配{\K21}乌{\K21}龙{\K28}茶
+Dialogue: 0,0:01:47.74,0:01:49.73,Default,,0,0,0,region=r1,{\c&H995DFF&}{\fad(100,100)\blur2\K24}泼{\K24}出{\K24}去{\K24}的{\K24}水{\K24}回{\K24}不{\K31}来
+Dialogue: 0,0:01:49.73,0:01:52.14,Default,,0,0,0,region=r1,{\fad(100,100)\blur2\K8}{\c&HFFF078&}所{\K8}以{\c&HC0FFFF&}{\K8}{\c&HFF6EBF&}就{\K8} {\K8}s{\K8}c{\K8}r{\K8}a{\K8}p{\K8} {\K8}&{\K8} {\K8}b{\K8}u{\K8}i{\K8}l{\K8}d{\K8} {\K8}吧{\K8}—{\K8} {\K8}准{\K8}备{\K8}好{\K8}了{\K8}吗{\K33}？{\c&HC0FFFF&}
+Dialogue: 0,0:01:52.14,0:01:54.10,Default,,0,0,0,region=r1,{\c&H86F2FF&}{\fad(100,100)\blur2\K16}连{\K16}那{\K16}些{\K16}为{\K16}遗{\K16}忘{\K16}而{\K16}浸{\K16}泡{\K16}的{\K16}记{\K20}忆
+Dialogue: 0,0:01:54.10,0:01:56.17,Default,,0,0,0,region=r1,{\c&H86F2FF&}{\fad(100,100)\blur2\K17}夺{\K17}回{\K17}来{\K17}就{\K17}好{\K17}了{\K17}，{\K17}所{\K17}以{\K17}逃{\K17}吧{\K20}！
+Dialogue: 0,0:01:56.17,0:01:59.62,Default,,0,0,0,region=r1,{\c&H995DFF&}{\fad(100,100)\blur2\K34}刺{\K34}耳{\K34}的{\K34}哔{\K34}声{\K34}和{\K34}突{\K34}发{\K34}新{\K39}闻
+Dialogue: 0,0:01:59.62,0:02:02.16,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K18}是{\K18}啊{\K18}，{\K18}我{\K18}们{\K18}谁{\K18}都{\K18}已{\K18}经{\K18}退{\K18}不{\K18}回{\K18}去{\K20}了
+Dialogue: 0,0:02:02.16,0:02:04.11,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K12}志{\K12}向{\K12}不{\K12}同{\K12}，{\K12}同{\K12}一{\K12}个{\K12} {\K12}s{\K12}u{\K12}n{\K12}r{\K12}i{\K12}s{\K15}e
+Dialogue: 0,0:02:04.11,0:02:06.10,Default,,0,0,0,region=r1,{\c&H86F2FF&}{\fad(100,100)\blur2\K13}手{\K13}握{\K13}茶{\K13}杯{\K13} {\K13}为{\K13}这{\K13}可{\K13}爱{\K13}的{\K13}烂{\K13}摊{\K13}子{\K13}{\c&H995DFF&}干{\K17}杯{\c&HC0FFFF&}
+Dialogue: 0,0:02:06.10,0:02:09.92,Default,,0,0,0,region=r1,{\c&H62F2FF&}{\fad(100,100)\blur2\K14}我{\K14}们{\K14}的{\K14}秘{\K14}密{\K14}暗{\K14}号{\K14}是{\K14} {\K14}“{\K14}T{\K14}o{\K14}k{\K14}y{\K14}o{\K14} {\K14}T{\K14}e{\K14}a{\K14} {\K14}P{\K14}a{\K14}r{\K14}t{\K14}y{\K14}!{\K18}”
+Dialogue: 0,0:02:16.24,0:02:18.40,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K108}告{\K108}别
+Dialogue: 0,0:02:18.40,0:02:20.36,Default,,0,0,0,region=r1,{\c&H86F2FF&}{\fad(100,100)\blur2\K32}你{\K32}会{\K32}漂{\K32}向{\K32}何{\K36}方
+Dialogue: 0,0:02:20.36,0:02:24.00,Default,,0,0,0,region=r1,{\c&H995DFF&}{\fad(100,100)\blur2\K45}黎{\K45}明{\K45}永{\K45}远{\K45}不{\K45}会{\K45}到{\K49}来
+Dialogue: 0,0:02:24.00,0:02:25.96,Default,,0,0,0,region=r1,{\c&H62F2FF&}{\fad(100,100)\blur2\K6}（{\K6}W{\K6}e{\K6} {\K6}A{\K6}r{\K6}e{\K6} {\K6}T{\K6}o{\K6}k{\K6}y{\K6}o{\K6} {\K6}T{\K6}e{\K6}a{\K6} {\K6}P{\K6}a{\K6}r{\K6}t{\K6}y{\K6}!{\K6}!{\K46}）
+Dialogue: 0,0:02:25.96,0:02:27.76,Default,,0,0,0,region=r1,{\fad(100,100)\blur2\K15}{\c&H62F2FF&}拜{\K15}拜{\K15}了{\c&HC0FFFF&}{\K15}，{\K15}{\c&H995DFF&}s{\K15}u{\K15}n{\K15}l{\K15}i{\K15}g{\K15}h{\K15}t{\c&HC0FFFF&}
+Dialogue: 0,0:02:27.76,0:02:29.72,Default,,0,0,0,region=r1,{\c&H62F2FF&}{\fad(100,100)\blur2\K24}我{\K24}们{\K24}总{\K24}是{\K24}在{\K24}失{\K24}去{\K28}呢
+Dialogue: 0,0:02:29.75,0:02:31.35,Default,,0,0,0,region=r1,{\c&H86F2FF&}{\fad(100,100)\blur2\K32}霓{\K32}虹{\K32}、{\K32}阴{\K32}影
+Dialogue: 0,0:02:31.35,0:02:33.86,Default,,0,0,0,region=r1,{\c&H62F2FF&}{\fad(100,100)\blur2\K27}在{\K27}秘{\K27}密{\K27}的{\K27}地{\K27}方{\K27}再{\K27}见{\K35}吧
+Dialogue: 0,0:02:33.86,0:02:35.74,Default,,0,0,0,region=r1,{\c&H62F2FF&}{\fad(100,100)\blur2\K20}那{\K20}些{\K20}朦{\K20}胧{\K20}的{\K20}小{\K20}小{\K20}{\c&H995DFF&}心{\K28}情{\c&HC0FFFF&}
+Dialogue: 0,0:02:35.74,0:02:38.16,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K8}别{\K8}把{\K8}它{\K8}们{\K8}丢{\K8}掉{\K8}—{\K8}m{\K8}o{\K8}t{\K8}t{\K8}a{\K8}i{\K8}n{\K8}a{\K8}i{\K8}！{\K8} {\K8}（{\K8}珍{\K8}贵{\K8}到{\K8}不{\K8}该{\K8}浪{\K34}费）
+Dialogue: 0,0:02:38.16,0:02:40.12,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K28}像{\K28}魔{\K28}法{\K28}一{\K28}样{\K28}消{\K28}失
+Dialogue: 0,0:02:40.12,0:02:41.80,Default,,0,0,0,region=r1,{\fad(100,100)\blur2\K6}{\c&H62F2FF&}H{\K6}E{\K6}L{\K6}L{\K6}O{\K6},{\K6} {\K6}H{\K6}E{\K6}L{\K6}L{\K6}O{\c&HC0FFFF&}{\K6},{\K6} {\K6}{\c&HFFF078&}M{\K6}E{\K6}L{\K6}L{\K6}O{\K6}W{\c&HC0FFFF&}{\K6},{\K6} {\K6}{\c&H995DFF&}F{\K6}E{\K6}L{\K6}L{\K6}O{\K6}W{\c&HC0FFFF&}
+Dialogue: 0,0:02:41.80,0:02:43.53,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K24}你{\K24}最{\K24}爱{\K24}的{\K24}是{\K24}谁{\K29}？
+Dialogue: 0,0:02:43.53,0:02:46.08,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K21}别{\K21}卖{\K21}关{\K21}子{\K21}！{\K21}喂{\K21}，{\K21}告{\K21}诉{\K21}我{\K21}嘛{\K24}？
+Dialogue: 0,0:02:46.08,0:02:49.04,Default,,0,0,0,region=r1,{\c&H995DFF&}{\fad(100,100)\blur2\K24}{\c&H86F2FF&}来{\K24}交{\K24}换{\K24}些{\c&HC0FFFF&}{\K24}{\c&H995DFF&}傻{\K24}乎{\K24}乎{\c&HC0FFFF&}{\K24}{\c&H86F2FF&}的{\K24}小{\K24}秘{\K24}密{\K32}吧{\c&HC0FFFF&}
+Dialogue: 0,0:02:49.04,0:02:50.50,Default,,0,0,0,region=r1,{\fad(100,100)\blur2\K10}{\c&HFF6EBF&}M{\K10}E{\K10}L{\K10}L{\K10}O{\K10}W{{\c&HC0FFFF&},{\K10} {\K10}{\c&H995DFF&}F{\K10}E{\K10}L{\K10}L{\K10}O{\K16}W{\c&HC0FFFF&}
+Dialogue: 0,0:02:56.12,0:02:59.05,Default,,0,0,0,region=r1,{\c&HFFF078&}{\fad(100,100)\blur2\K9}（{\K9}W{\K9}e{\K9} {\K9}A{\K9}r{\K9}e{\K9} {\K9}T{\K9}o{\K9}k{\K9}y{\K9}o{\K9} {\K9}T{\K9}e{\K9}a{\K9} {\K9}P{\K9}a{\K9}r{\K9}t{\K9}y{\K9}!{\K9}!{\K68}）
+Dialogue: 0,0:03:03.78,0:03:06.24,Default,,0,0,0,region=r1,{\c&H61FDFF&}{\fad(100,100)\blur2\K7}H{\K7}E{\K7}L{\K7}L{\K7}O{\K7},{\K7} {\K7}H{\K7}E{\K7}L{\K7}L{\K7}O{\K7}{\K7} ,{\K7} {\K7}H{\K7}E{\K7}L{\K7}L{\K7}O{\K7}{\K7}  ,{\K7} {\K7}H{\K7}E{\K7}L{\K7}L{\K7}O{\K7}{\K7}

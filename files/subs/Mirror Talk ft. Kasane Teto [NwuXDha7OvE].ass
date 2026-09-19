@@ -1,0 +1,528 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H0084151E,&H00000000,0,0,0,0,100,100,0,0,1,7.8,0,2,50,50,110,1
+Style: Default - 复制,Arial,75,&H00FFFFFF,&H0000FFFF,&H001B0908,&H00000000,0,0,0,0,100,100,0,0,1,7.8,0,2,50,50,110,1
+Style: Default - 复制2,Arial,75,&H00FFFFFF,&H0000FFFF,&H0052070F,&H00000000,0,0,0,0,100,100,0,0,1,7.8,0,2,50,50,110,1
+Style: Default - 复制2 - 复制,Arial,75,&H00FFFFFF,&H0000FFFF,&H00380509,&H00000000,0,0,0,0,100,100,0,0,1,7.8,0,2,50,50,110,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:05.06,0:00:06.06,Default,,0,0,0,,{\pos(961,972)}想一想
+Dialogue: 0,0:00:06.59,0:00:09.88,Default,,0,0,0,,{\pos(961,972)}镜面之中 我名字是什么？
+Dialogue: 0,0:00:10.36,0:00:13.52,Default,,0,0,0,,{\pos(961,972)}请就这样把我置于火焰之中
+Dialogue: 0,0:00:14.01,0:00:15.85,Default,,0,0,0,,{\pos(961,972)}他们的影子在我门口呼吸
+Dialogue: 0,0:00:15.86,0:00:17.02,Default,,0,0,0,,{\pos(961,972)}别眨眼？
+Dialogue: 0,0:00:17.26,0:00:20.01,Default,,0,0,0,,{\pos(961,972)}我想他们要让我的世界缩水
+Dialogue: 0,0:00:20.02,0:00:20.84,Default,,0,0,0,,那么为什么
+Dialogue: 0,0:00:21.46,0:00:24.47,Default,,0,0,0,,我的镜框上有裂痕？
+Dialogue: 0,0:00:25.09,0:00:28.11,Default,,0,0,0,,这些问题穿过迷雾从玻璃中出现
+Dialogue: 0,0:00:28.84,0:00:30.69,Default,,0,0,0,,一个陌生人在我内心深处歌唱
+Dialogue: 0,0:00:30.70,0:00:31.63,Default,,0,0,0,,所以别扭曲...
+Dialogue: 0,0:00:31.97,0:00:32.76,Default,,0,0,0,,我的幸福...
+Dialogue: 0,0:00:32.76,0:00:34.27,Default - 复制,,0,0,0,,这是我唯一的愿望？！
+Dialogue: 0,0:00:34.28,0:00:35.06,Default - 复制,,0,0,0,,没错...
+Dialogue: 0,0:00:35.05,0:00:35.61,Default,,0,0,0,,就现在！
+Dialogue: 0,0:00:36.14,0:00:38.28,Default,,0,0,0,,我只说(你没事的!)
+Dialogue: 0,0:00:38.29,0:00:40.44,Default,,0,0,0,,我自己的映像(我的映像)
+Dialogue: 0,0:00:40.45,0:00:42.45,Default,,0,0,0,,就像白昼一样清晰(所以呢?)
+Dialogue: 0,0:00:42.45,0:00:45.76,Default,,0,0,0,,舞动起来 我会感觉超棒(你会感觉超棒!)
+Dialogue: 0,0:00:45.76,0:00:49.26,Default,,0,0,0,,我希望我能学会甩掉仇恨
+Dialogue: 0,0:00:49.26,0:00:50.36,Default,,0,0,0,,(你还不晚!)
+Dialogue: 0,0:00:58.09,0:00:58.99,Default,,0,0,0,,现在...
+Dialogue: 0,0:00:59.00,0:01:01.59,Default,,0,0,0,,当他们的裂痕进入我的脑海
+Dialogue: 0,0:01:01.59,0:01:02.67,Default,,0,0,0,,在我脑海里...
+Dialogue: 0,0:01:02.68,0:01:04.60,Default,,0,0,0,,{\i1\pos(961,972)}在我脑海里...
+Dialogue: 0,0:01:02.68,0:01:04.60,Default,,0,0,0,,{\i1\pos(961,972)}在我脑海里...
+Dialogue: 0,0:01:02.68,0:01:03.10,Default,,0,0,0,,{\i1\fax0.08\1c&HFFFFFF&\alpha&HBA&\blur0.3\shad0\pos(963,970)}在我脑海里...
+Dialogue: 0,0:01:02.71,0:01:03.20,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur2\fscx110\shad0\alpha&HC2&\pos(959,973)}在我脑海里...
+Dialogue: 0,0:01:02.73,0:01:03.08,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HB5&\xshad5\yshad0\blur0.3\pos(960,969)}在我脑海里...
+Dialogue: 0,0:01:02.75,0:01:03.30,Default,,0,0,0,,{\i1\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H78&\pos(962,974)}在我脑海里...
+Dialogue: 0,0:01:02.78,0:01:03.15,Default,,0,0,0,,{\i1\fax-0.10\1c&HFFFFFF&\alpha&HA8&\blur0.3\shad0\pos(959,971)}在我脑海里...
+Dialogue: 0,0:01:02.80,0:01:03.40,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur3\fscx118\shad0\alpha&HA0&\pos(964,970)}在我脑海里...
+Dialogue: 0,0:01:02.83,0:01:03.12,Default,,0,0,0,,{\i1\fax0.06\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\fscx103\fscy105\pos(958,973)}在我脑海里...
+Dialogue: 0,0:01:02.85,0:01:03.50,Default,,0,0,0,,{\i1\pos(961,969)\blur0.5}在我脑海里...
+Dialogue: 0,0:01:02.88,0:01:03.25,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HBC&\xshad7\yshad0\blur0.3\pos(965,972)}在我脑海里...
+Dialogue: 0,0:01:02.90,0:01:03.60,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur2\fscx114\shad0\alpha&H95&\pos(960,968)}在我脑海里...
+Dialogue: 0,0:01:02.93,0:01:03.35,Default,,0,0,0,,{\i1\fax-0.12\1c&HFFFFFF&\alpha&HB2&\blur0.3\shad0\pos(963,975)}在我脑海里...
+Dialogue: 0,0:01:02.95,0:01:03.70,Default,,0,0,0,,{\i1\fscx97\fscy148\1c&HFFFFFF&\alpha&HA4&\blur1\shad0\pos(959,972)}在我脑海里...
+Dialogue: 0,0:01:02.98,0:01:03.45,Default,,0,0,0,,{\i1\fax0.09\1c&HFFFFFF&\alpha&HBB&\blur0.3\shad0\fscx101\fscy99\pos(962,969)}在我脑海里...
+Dialogue: 0,0:01:03.00,0:01:03.80,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur3\fscx112\shad0\alpha&H8E&\pos(964,974)}在我脑海里...
+Dialogue: 0,0:01:03.03,0:01:03.38,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HB8&\xshad6\yshad1\blur0.3\pos(958,970)}在我脑海里...
+Dialogue: 0,0:01:03.05,0:01:03.55,Default,,0,0,0,,{\i1\fax-0.07\1c&HFFFFFF&\alpha&HAD&\blur0.5\shad0\pos(961,973)}在我脑海里...
+Dialogue: 0,0:01:03.08,0:01:03.90,Default,,0,0,0,,{\i1\pos(965,971)\blur0.5}在我脑海里...
+Dialogue: 0,0:01:03.10,0:01:03.65,Default,,0,0,0,,{\i1\fscx104\fscy143\1c&HFFFFFF&\alpha&HAC&\blur1\shad0\pos(960,969)}在我脑海里...
+Dialogue: 0,0:01:03.13,0:01:03.48,Default,,0,0,0,,{\i1\fax0.10\1c&HFFFFFF&\alpha&HB6&\blur0.3\shad0\pos(963,972)}在我脑海里...
+Dialogue: 0,0:01:03.15,0:01:03.75,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur2\fscx108\shad0\alpha&H98&\pos(962,967)}在我脑海里...
+Dialogue: 0,0:01:03.18,0:01:03.42,Default,,0,0,0,,{\i1\fax-0.11\1c&HFFFFFF&\alpha&HB0&\blur0.3\shad0\pos(957,974)}在我脑海里...
+Dialogue: 0,0:01:03.20,0:01:03.85,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HBF&\xshad8\yshad0\blur0.3\pos(965,968)}在我脑海里...
+Dialogue: 0,0:01:03.23,0:01:03.58,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur3\fscx122\shad0\alpha&H8C&\pos(958,976)}在我脑海里...
+Dialogue: 0,0:01:03.25,0:01:04.00,Default,,0,0,0,,{\i1\fax0.07\1c&HFFFFFF&\alpha&HBA&\blur0.3\shad0\fscx106\fscy109\pos(964,970)}在我脑海里...
+Dialogue: 0,0:01:03.28,0:01:03.68,Default,,0,0,0,,{\i1\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H70&\pos(960,972)}在我脑海里...
+Dialogue: 0,0:01:03.30,0:01:03.95,Default,,0,0,0,,{\i1\pos(959,974)\blur0.5}在我脑海里...
+Dialogue: 0,0:01:03.33,0:01:03.62,Default,,0,0,0,,{\i1\fax-0.09\1c&HFFFFFF&\alpha&HA5&\blur0.3\shad0\pos(966,969)}在我脑海里...
+Dialogue: 0,0:01:03.35,0:01:04.10,Default,,0,0,0,,{\i1\fscx98\fscy155\1c&HFFFFFF&\alpha&HA2&\blur1\shad0\pos(957,975)}在我脑海里...
+Dialogue: 0,0:01:03.38,0:01:03.78,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HB4&\xshad9\yshad0\blur0.3\pos(963,968)}在我脑海里...
+Dialogue: 0,0:01:03.40,0:01:03.72,Default,,0,0,0,,{\i1\fax0.11\1c&HFFFFFF&\alpha&HBD&\blur0.3\shad0\fscx100\fscy97\pos(961,973)}在我脑海里...
+Dialogue: 0,0:01:03.43,0:01:04.15,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur3\fscx116\shad0\alpha&H92&\pos(965,971)}在我脑海里...
+Dialogue: 0,0:01:03.45,0:01:03.88,Default,,0,0,0,,{\i1\fax-0.13\1c&HFFFFFF&\alpha&HAB&\blur0.5\shad0\pos(958,970)}在我脑海里...
+Dialogue: 0,0:01:03.48,0:01:04.20,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur2\fscx120\shad0\alpha&H8A&\pos(964,974)}在我脑海里...
+Dialogue: 0,0:01:03.50,0:01:03.96,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HBA&\xshad7\yshad1\blur0.3\pos(959,967)}在我脑海里...
+Dialogue: 0,0:01:03.53,0:01:03.82,Default,,0,0,0,,{\i1\fax0.08\1c&HFFFFFF&\alpha&HB5&\blur0.3\shad0\pos(962,976)}在我脑海里...
+Dialogue: 0,0:01:03.55,0:01:04.25,Default,,0,0,0,,{\i1\pos(966,972)\blur0.5}在我脑海里...
+Dialogue: 0,0:01:03.58,0:01:04.05,Default,,0,0,0,,{\i1\fscx102\fscy147\1c&HFFFFFF&\alpha&HA8&\blur1\shad0\pos(960,970)}在我脑海里...
+Dialogue: 0,0:01:03.60,0:01:03.92,Default,,0,0,0,,{\i1\fax-0.10\1c&HFFFFFF&\alpha&HB1&\blur0.3\shad0\fscx105\fscy102\pos(963,974)}在我脑海里...
+Dialogue: 0,0:01:03.63,0:01:04.30,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur3\fscx115\shad0\alpha&H94&\pos(958,968)}在我脑海里...
+Dialogue: 0,0:01:03.65,0:01:04.10,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HBD&\xshad11\yshad0\blur0.3\pos(964,976)}在我脑海里...
+Dialogue: 0,0:01:03.68,0:01:04.00,Default,,0,0,0,,{\i1\fax0.12\1c&HFFFFFF&\alpha&HA7&\blur0.3\shad0\pos(961,969)}在我脑海里...
+Dialogue: 0,0:01:03.70,0:01:04.35,Default,,0,0,0,,{\i1\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H74&\pos(965,973)}在我脑海里...
+Dialogue: 0,0:01:03.73,0:01:04.18,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur2\fscx110\shad0\alpha&H9C&\pos(959,972)}在我脑海里...
+Dialogue: 0,0:01:03.75,0:01:04.08,Default,,0,0,0,,{\i1\fax-0.14\1c&HFFFFFF&\alpha&HB0&\blur0.5\shad0\pos(962,971)}在我脑海里...
+Dialogue: 0,0:01:03.78,0:01:04.40,Default,,0,0,0,,{\i1\pos(958,975)\blur0.5}在我脑海里...
+Dialogue: 0,0:01:03.80,0:01:04.22,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HB8&\xshad6\yshad1\blur0.3\pos(966,968)}在我脑海里...
+Dialogue: 0,0:01:03.83,0:01:04.28,Default,,0,0,0,,{\i1\fax0.09\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\fscx99\fscy101\pos(960,974)}在我脑海里...
+Dialogue: 0,0:01:03.85,0:01:04.45,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur4\fscx125\shad0\alpha&H86&\pos(964,970)}在我脑海里...
+Dialogue: 0,0:01:03.88,0:01:04.32,Default,,0,0,0,,{\i1\fax-0.08\1c&HFFFFFF&\alpha&HB2&\blur0.3\shad0\pos(957,969)}在我脑海里...
+Dialogue: 0,0:01:03.90,0:01:04.50,Default,,0,0,0,,{\i1\fscx96\fscy152\1c&HFFFFFF&\alpha&HA6&\blur1\shad0\pos(963,975)}在我脑海里...
+Dialogue: 0,0:01:03.93,0:01:04.38,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur2\fscx118\shad0\alpha&H90&\pos(959,971)}在我脑海里...
+Dialogue: 0,0:01:03.95,0:01:04.25,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HBB&\xshad10\yshad0\blur0.3\pos(965,972)}在我脑海里...
+Dialogue: 0,0:01:03.98,0:01:04.55,Default,,0,0,0,,{\i1\fax0.07\1c&HFFFFFF&\alpha&HBA&\blur0.3\shad0\fscx107\fscy106\pos(962,968)}在我脑海里...
+Dialogue: 0,0:01:04.00,0:01:04.42,Default,,0,0,0,,{\i1\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H76&\pos(958,973)}在我脑海里...
+Dialogue: 0,0:01:04.03,0:01:04.48,Default,,0,0,0,,{\i1\pos(964,969)\blur0.5}在我脑海里...
+Dialogue: 0,0:01:04.05,0:01:04.35,Default,,0,0,0,,{\i1\fax-0.12\1c&HFFFFFF&\alpha&HAC&\blur0.5\shad0\pos(961,976)}在我脑海里...
+Dialogue: 0,0:01:04.08,0:01:04.52,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur3\fscx113\shad0\alpha&H8E&\pos(965,970)}在我脑海里...
+Dialogue: 0,0:01:04.10,0:01:04.38,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HB6&\xshad8\yshad1\blur0.3\pos(960,974)}在我脑海里...
+Dialogue: 0,0:01:04.13,0:01:04.58,Default,,0,0,0,,{\i1\fscx100\fscy144\1c&HFFFFFF&\alpha&HAA&\blur1\shad0\pos(963,971)}在我脑海里...
+Dialogue: 0,0:01:04.15,0:01:04.45,Default,,0,0,0,,{\i1\fax0.11\1c&HFFFFFF&\alpha&HBB&\blur0.3\shad0\pos(958,968)}在我脑海里...
+Dialogue: 0,0:01:04.18,0:01:04.60,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur2\fscx120\shad0\alpha&H88&\pos(962,975)}在我脑海里...
+Dialogue: 0,0:01:04.20,0:01:04.50,Default,,0,0,0,,{\i1\fax-0.06\1c&HFFFFFF&\alpha&HBD&\blur0.3\shad0\pos(966,973)}在我脑海里...
+Dialogue: 0,0:01:04.23,0:01:04.58,Default,,0,0,0,,{\i1\pos(959,970)\blur0.5}在我脑海里...
+Dialogue: 0,0:01:04.25,0:01:04.52,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HBF&\xshad7\yshad0\blur0.3\pos(965,975)}在我脑海里...
+Dialogue: 0,0:01:04.28,0:01:04.60,Default,,0,0,0,,{\i1\fax0.08\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\fscx104\fscy108\pos(961,972)}在我脑海里...
+Dialogue: 0,0:01:04.30,0:01:04.55,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur3\fscx110\shad0\alpha&H8C&\pos(958,974)}在我脑海里...
+Dialogue: 0,0:01:04.33,0:01:04.60,Default,,0,0,0,,{\i1\fax-0.09\1c&HFFFFFF&\alpha&HB3&\blur0.3\shad0\pos(964,968)}在我脑海里...
+Dialogue: 0,0:01:04.35,0:01:04.58,Default,,0,0,0,,{\i1\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H7A&\pos(960,973)}在我脑海里...
+Dialogue: 0,0:01:04.38,0:01:04.60,Default,,0,0,0,,{\i1\fscx99\fscy149\1c&HFFFFFF&\alpha&HAE&\blur1\shad0\pos(962,970)}在我脑海里...
+Dialogue: 0,0:01:04.40,0:01:04.60,Default,,0,0,0,,{\i1\pos(965,971)\blur0.5}在我脑海里...
+Dialogue: 0,0:01:04.43,0:01:04.60,Default,,0,0,0,,{\i1\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HBC&\xshad5\yshad1\blur0.3\pos(959,969)}在我脑海里...
+Dialogue: 0,0:01:04.45,0:01:04.60,Default,,0,0,0,,{\i1\fax0.06\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(963,972)}在我脑海里...
+Dialogue: 0,0:01:04.48,0:01:04.60,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur2\fscx106\shad0\alpha&H96&\pos(961,975)}在我脑海里...
+Dialogue: 0,0:01:04.50,0:01:04.60,Default,,0,0,0,,{\i1\fax-0.07\1c&HFFFFFF&\alpha&HB5&\blur0.3\shad0\pos(964,970)}在我脑海里...
+Dialogue: 0,0:01:04.53,0:01:04.60,Default,,0,0,0,,{\i1\pos(960,968)\blur0.5}在我脑海里...
+Dialogue: 0,0:01:04.55,0:01:04.60,Default,,0,0,0,,{\i1\1c&HFFFFFF&\blur3\fscx115\shad0\alpha&H8A&\pos(962,972)}在我脑海里...
+Dialogue: 0,0:01:04.58,0:01:04.60,Default,,0,0,0,,{\i1\fax0.05\1c&HFFFFFF&\alpha&HBB&\blur0.3\shad0\pos(959,973)}在我脑海里...
+Dialogue: 0,0:01:04.59,0:01:05.47,Default,,0,0,0,,我...
+Dialogue: 0,0:01:06.22,0:01:07.13,Default,,0,0,0,,感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.13,0:01:07.72,Default,,0,0,0,,{\pos(961,972)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.13,0:01:07.40,Default,,0,0,0,,{\fax0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(963,970)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.15,0:01:07.50,Default,,0,0,0,,{\1c&HFFFFFF&\blur2\fscx112\shad0\alpha&HC5&\pos(959,973)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.18,0:01:07.42,Default,,0,0,0,,{\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HB0&\xshad6\yshad0\blur0.3\pos(960,969)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.20,0:01:07.60,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H75&\pos(962,974)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.22,0:01:07.45,Default,,0,0,0,,{\fax-0.12\1c&HFFFFFF&\alpha&HA5&\blur0.3\shad0\pos(959,971)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.25,0:01:07.65,Default,,0,0,0,,{\1c&HFFFFFF&\blur3\fscx120\shad0\alpha&H9E&\pos(964,970)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.27,0:01:07.48,Default,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBF&\blur0.3\shad0\fscx104\fscy106\pos(958,973)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.30,0:01:07.68,Default,,0,0,0,,{\pos(961,969)\blur0.5}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.32,0:01:07.52,Default,,0,0,0,,{\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HBA&\xshad8\yshad0\blur0.3\pos(965,972)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.35,0:01:07.70,Default,,0,0,0,,{\1c&HFFFFFF&\blur2\fscx116\shad0\alpha&H92&\pos(960,968)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.37,0:01:07.55,Default,,0,0,0,,{\fax-0.14\1c&HFFFFFF&\alpha&HB0&\blur0.3\shad0\pos(963,975)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.40,0:01:07.72,Default,,0,0,0,,{\fscx96\fscy150\1c&HFFFFFF&\alpha&HA2&\blur1\shad0\pos(959,972)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.42,0:01:07.62,Default,,0,0,0,,{\fax0.11\1c&HFFFFFF&\alpha&HBC&\blur0.3\shad0\fscx102\fscy98\pos(962,969)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.45,0:01:07.72,Default,,0,0,0,,{\1c&HFFFFFF&\blur3\fscx110\shad0\alpha&H8C&\pos(964,974)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.48,0:01:07.65,Default,,0,0,0,,{\1c&HFFFF99&\3c&HFFFF99&\4c&H0000CC&\alpha&HB5&\xshad7\yshad1\blur0.3\pos(958,970)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.50,0:01:07.72,Default,,0,0,0,,{\fax-0.09\1c&HFFFFFF&\alpha&HA8&\blur0.5\shad0\pos(961,973)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.53,0:01:07.68,Default,,0,0,0,,{\pos(965,971)\blur0.5}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.55,0:01:07.72,Default,,0,0,0,,{\fscx103\fscy145\1c&HFFFFFF&\alpha&HAA&\blur1\shad0\pos(960,969)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.58,0:01:07.72,Default,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(963,972)}感觉那些思绪牵引着我
+Dialogue: 0,0:01:07.74,0:01:08.96,Default,,0,0,0,,感觉那些思绪牵引着我
+Dialogue: 0,0:01:08.98,0:01:09.39,Default,,0,0,0,,充满恐惧
+Dialogue: 0,0:01:09.40,0:01:11.55,Default,,0,0,0,,{\pos(961,972)}充满恐惧
+Dialogue: 0,0:01:09.40,0:01:09.85,Default,,0,0,0,,{\fax0.18\1c&HFFFFFF&\alpha&H9A&\blur0.5\shad0\pos(966,968)}充满恐惧
+Dialogue: 0,0:01:09.43,0:01:09.95,Default,,0,0,0,,{\1c&HFFFFFF&\blur5\fscx132\shad0\alpha&HAC&\pos(956,976)}充满恐惧
+Dialogue: 0,0:01:09.45,0:01:09.78,Default,,0,0,0,,{\alpha&H92&\xshad15\yshad0\blur0.5\pos(964,969)}充满恐惧
+Dialogue: 0,0:01:09.48,0:01:10.05,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H58&\pos(958,975)}充满恐惧
+Dialogue: 0,0:01:09.50,0:01:09.88,Default,,0,0,0,,{\fax-0.22\1c&HFFFFFF&\alpha&H8A&\blur0.5\shad0\pos(965,967)}充满恐惧
+Dialogue: 0,0:01:09.53,0:01:10.15,Default,,0,0,0,,{\1c&HFFFFFF&\blur6\fscx158\shad0\alpha&H82&\pos(955,974)}充满恐惧
+Dialogue: 0,0:01:09.55,0:01:09.92,Default,,0,0,0,,{\alpha&HA4&\xshad13\yshad0\blur0.5\pos(963,970)}充满恐惧
+Dialogue: 0,0:01:09.58,0:01:10.25,Default,,0,0,0,,{\pos(959,977)\blur1}充满恐惧
+Dialogue: 0,0:01:09.60,0:01:09.98,Default,,0,0,0,,{\fax0.16\1c&HFFFFFF&\alpha&H74&\blur1\shad0\fscx108\fscy113\pos(966,973)}充满恐惧
+Dialogue: 0,0:01:09.63,0:01:10.35,Default,,0,0,0,,{\1c&HFFFFFF&\blur4\fscx92\fscy178\shad0\alpha&H7A&\pos(957,968)}充满恐惧
+Dialogue: 0,0:01:09.65,0:01:10.02,Default,,0,0,0,,{\alpha&HAE&\xshad19\yshad0\blur0.5\pos(964,975)}充满恐惧
+Dialogue: 0,0:01:09.68,0:01:10.45,Default,,0,0,0,,{\fax-0.28\1c&HFFFFFF&\alpha&H8E&\blur0.5\shad0\pos(958,969)}充满恐惧
+Dialogue: 0,0:01:09.70,0:01:10.08,Default,,0,0,0,,{\1c&HFFFFFF&\blur5\fscx145\shad0\alpha&H6C&\pos(965,976)}充满恐惧
+Dialogue: 0,0:01:09.73,0:01:10.55,Default,,0,0,0,,{\fax-0.20\1c&HFFFFFF&\alpha&H98&\blur0.5\shad0\fscx103\fscy97\pos(956,967)}充满恐惧
+Dialogue: 0,0:01:09.75,0:01:10.15,Default,,0,0,0,,{\alpha&HA2&\xshad11\yshad1\blur0.5\pos(962,974)}充满恐惧
+Dialogue: 0,0:01:09.78,0:01:10.65,Default,,0,0,0,,{\fax0.24\1c&HFFFFFF&\alpha&H80&\blur1\shad0\pos(966,970)}充满恐惧
+Dialogue: 0,0:01:09.80,0:01:10.22,Default,,0,0,0,,{\1c&HFFFFFF&\blur3\fscx128\shad0\alpha&H8C&\pos(960,973)}充满恐惧
+Dialogue: 0,0:01:09.83,0:01:10.75,Default,,0,0,0,,{\fax0.20\1c&HFFFFFF&\alpha&H96&\blur0.5\shad0\fscx106\fscy107\pos(963,968)}充满恐惧
+Dialogue: 0,0:01:09.85,0:01:10.28,Default,,0,0,0,,{\alpha&HAD&\xshad16\yshad0\blur0.5\pos(958,972)}充满恐惧
+Dialogue: 0,0:01:09.88,0:01:10.85,Default,,0,0,0,,{\fscx110\fscy165\1c&HFFFFFF&\alpha&H86&\blur2\shad0\pos(957,973)}充满恐惧
+Dialogue: 0,0:01:09.90,0:01:10.35,Default,,0,0,0,,{\fax-0.24\1c&HFFFFFF&\alpha&H84&\blur0.5\shad0\pos(965,969)}充满恐惧
+Dialogue: 0,0:01:09.93,0:01:10.95,Default,,0,0,0,,{\1c&HFFFFFF&\blur5\fscx152\shad0\alpha&H78&\pos(959,975)}充满恐惧
+Dialogue: 0,0:01:09.95,0:01:10.42,Default,,0,0,0,,{\pos(962,970)\blur1}充满恐惧
+Dialogue: 0,0:01:09.98,0:01:11.05,Default,,0,0,0,,{\alpha&HB0&\xshad18\yshad1\blur0.5\pos(964,971)}充满恐惧
+Dialogue: 0,0:01:10.00,0:01:10.48,Default,,0,0,0,,{\fax0.18\1c&HFFFFFF&\alpha&H90&\blur1\shad0\fscx113\fscy118\pos(960,974)}充满恐惧
+Dialogue: 0,0:01:10.03,0:01:11.12,Default,,0,0,0,,{\1c&HFFFFFF&\blur4\fscx97\fscy172\shad0\alpha&H7E&\pos(956,968)}充满恐惧
+Dialogue: 0,0:01:10.05,0:01:10.55,Default,,0,0,0,,{\fax-0.18\1c&HFFFFFF&\alpha&HA2&\blur0.5\shad0\pos(963,973)}充满恐惧
+Dialogue: 0,0:01:10.08,0:01:11.20,Default,,0,0,0,,{\1c&HFFFFFF&\blur3\fscx138\shad0\alpha&H88&\pos(958,969)}充满恐惧
+Dialogue: 0,0:01:10.10,0:01:10.62,Default,,0,0,0,,{\fax0.22\1c&HFFFFFF&\alpha&H9C&\blur0.5\shad0\pos(966,972)}充满恐惧
+Dialogue: 0,0:01:10.13,0:01:11.28,Default,,0,0,0,,{\alpha&HA6&\xshad14\yshad0\blur0.5\pos(959,970)}充满恐惧
+Dialogue: 0,0:01:10.15,0:01:10.68,Default,,0,0,0,,{\pos(964,975)\blur1}充满恐惧
+Dialogue: 0,0:01:10.18,0:01:10.58,Default,,0,0,0,,{\fax-0.26\1c&HFFFFFF&\alpha&H8A&\blur0.5\shad0\pos(958,967)}充满恐惧
+Dialogue: 0,0:01:10.20,0:01:11.35,Default,,0,0,0,,{\1c&HFFFFFF&\blur6\fscx160\shad0\alpha&H7A&\pos(962,976)}充满恐惧
+Dialogue: 0,0:01:10.23,0:01:10.72,Default,,0,0,0,,{\fax0.15\1c&HFFFFFF&\alpha&H94&\blur1\shad0\fscx100\fscy105\pos(965,969)}充满恐惧
+Dialogue: 0,0:01:10.25,0:01:11.42,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H60&\pos(957,973)}充满恐惧
+Dialogue: 0,0:01:10.28,0:01:10.78,Default,,0,0,0,,{\alpha&HB2&\xshad17\yshad0\blur0.5\pos(963,968)}充满恐惧
+Dialogue: 0,0:01:10.30,0:01:11.48,Default,,0,0,0,,{\fscx105\fscy168\1c&HFFFFFF&\alpha&H82&\blur2\shad0\pos(960,974)}充满恐惧
+Dialogue: 0,0:01:10.33,0:01:10.85,Default,,0,0,0,,{\fax-0.14\1c&HFFFFFF&\alpha&H9E&\blur0.5\shad0\pos(966,971)}充满恐惧
+Dialogue: 0,0:01:10.35,0:01:11.55,Default,,0,0,0,,{\1c&HFFFFFF&\blur5\fscx150\shad0\alpha&H70&\pos(958,970)}充满恐惧
+Dialogue: 0,0:01:10.38,0:01:10.92,Default,,0,0,0,,{\fax0.19\1c&HFFFFFF&\alpha&HA8&\blur0.5\shad0\fscx102\fscy98\pos(962,975)}充满恐惧
+Dialogue: 0,0:01:10.40,0:01:10.72,Default,,0,0,0,,{\alpha&HA0&\xshad12\yshad1\blur0.5\pos(959,969)}充满恐惧
+Dialogue: 0,0:01:10.43,0:01:11.52,Default,,0,0,0,,{\pos(961,973)\blur1}充满恐惧
+Dialogue: 0,0:01:10.45,0:01:10.98,Default,,0,0,0,,{\1c&HFFFFFF&\blur4\fscx135\shad0\alpha&H8E&\pos(965,972)}充满恐惧
+Dialogue: 0,0:01:10.48,0:01:10.80,Default,,0,0,0,,{\fax-0.22\1c&HFFFFFF&\alpha&H92&\blur0.5\shad0\pos(958,974)}充满恐惧
+Dialogue: 0,0:01:10.50,0:01:11.48,Default,,0,0,0,,{\fscx98\fscy175\1c&HFFFFFF&\alpha&H84&\blur2\shad0\pos(964,968)}充满恐惧
+Dialogue: 0,0:01:10.53,0:01:11.05,Default,,0,0,0,,{\fax0.24\1c&HFFFFFF&\alpha&HA4&\blur0.5\shad0\pos(960,970)}充满恐惧
+Dialogue: 0,0:01:10.55,0:01:10.88,Default,,0,0,0,,{\alpha&HAA&\xshad20\yshad0\blur0.5\pos(963,976)}充满恐惧
+Dialogue: 0,0:01:10.58,0:01:11.45,Default,,0,0,0,,{\1c&HFFFFFF&\blur3\fscx125\shad0\alpha&H86&\pos(957,971)}充满恐惧
+Dialogue: 0,0:01:10.60,0:01:11.12,Default,,0,0,0,,{\fax-0.16\1c&HFFFFFF&\alpha&H9A&\blur0.5\shad0\fscx109\fscy110\pos(965,975)}充满恐惧
+Dialogue: 0,0:01:10.63,0:01:10.95,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H5C&\pos(959,968)}充满恐惧
+Dialogue: 0,0:01:10.65,0:01:11.38,Default,,0,0,0,,{\pos(962,972)\blur1}充满恐惧
+Dialogue: 0,0:01:10.68,0:01:11.18,Default,,0,0,0,,{\alpha&HB4&\xshad15\yshad1\blur0.5\pos(966,970)}充满恐惧
+Dialogue: 0,0:01:10.70,0:01:11.02,Default,,0,0,0,,{\fax0.17\1c&HFFFFFF&\alpha&H8C&\blur1\shad0\fscx116\fscy122\pos(958,973)}充满恐惧
+Dialogue: 0,0:01:10.73,0:01:11.35,Default,,0,0,0,,{\1c&HFFFFFF&\blur5\fscx142\shad0\alpha&H7C&\pos(964,969)}充满恐惧
+Dialogue: 0,0:01:10.75,0:01:11.22,Default,,0,0,0,,{\fax-0.20\1c&HFFFFFF&\alpha&H9E&\blur0.5\shad0\pos(960,972)}充满恐惧
+Dialogue: 0,0:01:10.78,0:01:11.08,Default,,0,0,0,,{\fscx103\fscy158\1c&HFFFFFF&\alpha&H88&\blur2\shad0\pos(963,975)}充满恐惧
+Dialogue: 0,0:01:10.80,0:01:11.42,Default,,0,0,0,,{\alpha&HB0&\xshad10\yshad0\blur0.5\pos(957,968)}充满恐惧
+Dialogue: 0,0:01:10.83,0:01:11.28,Default,,0,0,0,,{\fax0.21\1c&HFFFFFF&\alpha&HA2&\blur0.5\shad0\fscx101\fscy100\pos(965,974)}充满恐惧
+Dialogue: 0,0:01:10.85,0:01:11.15,Default,,0,0,0,,{\1c&HFFFFFF&\blur4\fscx118\shad0\alpha&H8A&\pos(959,970)}充满恐惧
+Dialogue: 0,0:01:10.88,0:01:11.48,Default,,0,0,0,,{\fax-0.18\1c&HFFFFFF&\alpha&H96&\blur0.5\shad0\pos(962,969)}充满恐惧
+Dialogue: 0,0:01:10.90,0:01:11.18,Default,,0,0,0,,{\pos(966,973)\blur1}充满恐惧
+Dialogue: 0,0:01:10.93,0:01:11.35,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H64&\pos(958,975)}充满恐惧
+Dialogue: 0,0:01:10.95,0:01:11.52,Default,,0,0,0,,{\alpha&HAC&\xshad13\yshad1\blur0.5\pos(964,971)}充满恐惧
+Dialogue: 0,0:01:10.98,0:01:11.25,Default,,0,0,0,,{\fscx100\fscy145\1c&HFFFFFF&\alpha&H8E&\blur1\shad0\pos(961,968)}充满恐惧
+Dialogue: 0,0:01:11.00,0:01:11.55,Default,,0,0,0,,{\fax0.14\1c&HFFFFFF&\alpha&HA6&\blur0.5\shad0\pos(963,972)}充满恐惧
+Dialogue: 0,0:01:11.03,0:01:11.45,Default,,0,0,0,,{\1c&HFFFFFF&\blur3\fscx130\shad0\alpha&H80&\pos(960,974)}充满恐惧
+Dialogue: 0,0:01:11.05,0:01:11.32,Default,,0,0,0,,{\fax-0.12\1c&HFFFFFF&\alpha&H98&\blur0.5\shad0\pos(965,970)}充满恐惧
+Dialogue: 0,0:01:11.08,0:01:11.55,Default,,0,0,0,,{\pos(958,972)\blur1}充满恐惧
+Dialogue: 0,0:01:11.10,0:01:11.38,Default,,0,0,0,,{\alpha&HB6&\xshad9\yshad0\blur0.5\pos(964,975)}充满恐惧
+Dialogue: 0,0:01:11.13,0:01:11.55,Default,,0,0,0,,{\fax0.10\1c&HFFFFFF&\alpha&HAA&\blur1\shad0\fscx105\fscy115\pos(959,969)}充满恐惧
+Dialogue: 0,0:01:11.15,0:01:11.42,Default,,0,0,0,,{\1c&HFFFFFF&\blur4\fscx122\shad0\alpha&H84&\pos(962,971)}充满恐惧
+Dialogue: 0,0:01:11.18,0:01:11.55,Default,,0,0,0,,{\fax-0.08\1c&HFFFFFF&\alpha&HA0&\blur0.5\shad0\fscx99\fscy104\pos(966,968)}充满恐惧
+Dialogue: 0,0:01:11.20,0:01:11.48,Default,,0,0,0,,{\alpha&HB2&\xshad12\yshad1\blur0.5\pos(958,973)}充满恐惧
+Dialogue: 0,0:01:11.23,0:01:11.55,Default,,0,0,0,,{\fscx97\fscy150\1c&HFFFFFF&\alpha&H8C&\blur1\shad0\pos(963,970)}充满恐惧
+Dialogue: 0,0:01:11.25,0:01:11.55,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H68&\pos(961,975)}充满恐惧
+Dialogue: 0,0:01:11.28,0:01:11.55,Default,,0,0,0,,{\pos(965,972)\blur0.5}充满恐惧
+Dialogue: 0,0:01:11.30,0:01:11.55,Default,,0,0,0,,{\fax0.12\1c&HFFFFFF&\alpha&HA8&\blur0.5\shad0\pos(960,968)}充满恐惧
+Dialogue: 0,0:01:11.33,0:01:11.55,Default,,0,0,0,,{\1c&HFFFFFF&\blur3\fscx115\shad0\alpha&H82&\pos(964,974)}充满恐惧
+Dialogue: 0,0:01:11.35,0:01:11.55,Default,,0,0,0,,{\alpha&HBB&\xshad8\yshad0\blur0.5\pos(959,969)}充满恐惧
+Dialogue: 0,0:01:11.38,0:01:11.55,Default,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HA4&\blur0.5\shad0\fscx102\fscy98\pos(962,972)}充满恐惧
+Dialogue: 0,0:01:11.40,0:01:11.55,Default,,0,0,0,,{\1c&HFFFFFF&\blur2\fscx110\shad0\alpha&H90&\pos(966,970)}充满恐惧
+Dialogue: 0,0:01:11.43,0:01:11.55,Default,,0,0,0,,{\pos(960,975)\blur0.5}充满恐惧
+Dialogue: 0,0:01:11.45,0:01:11.55,Default,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HB0&\blur0.3\shad0\pos(963,971)}充满恐惧
+Dialogue: 0,0:01:11.48,0:01:11.55,Default,,0,0,0,,{\1c&HFFFFFF&\blur3\fscx120\shad0\alpha&H8A&\pos(958,973)}充满恐惧
+Dialogue: 0,0:01:11.50,0:01:11.55,Default,,0,0,0,,{\fscx104\fscy155\1c&HFFFFFF&\alpha&H92&\blur1\shad0\pos(964,968)}充满恐惧
+Dialogue: 0,0:01:11.53,0:01:11.55,Default,,0,0,0,,{\pos(961,972)\blur0.5}充满恐惧
+Dialogue: 0,0:01:12.01,0:01:12.55,Default,,0,0,0,,嗯...
+Dialogue: 0,0:01:13.05,0:01:16.76,Default,,0,0,0,,这镜子里我看到的人是谁？
+Dialogue: 0,0:01:16.77,0:01:18.99,Default,,0,0,0,,我的名字随名声而碎裂
+Dialogue: 0,0:01:18.99,0:01:19.98,Default,,0,0,0,,我已错过...
+Dialogue: 0,0:01:20.47,0:01:22.40,Default,,0,0,0,,那些我深爱的甜言蜜语
+Dialogue: 0,0:01:22.41,0:01:23.67,Default,,0,0,0,,利己主义者...
+Dialogue: 0,0:01:23.69,0:01:24.87,Default,,0,0,0,,黑名单!? 我会...
+Dialogue: 0,0:01:24.87,0:01:26.81,Default - 复制,,0,0,0,,消散在这迷雾中，所以别...
+Dialogue: 0,0:01:26.82,0:01:27.44,Default,,0,0,0,,沉没
+Dialogue: 0,0:01:27.89,0:01:30.00,Default,,0,0,0,,我已深陷其中（你陷得很深）
+Dialogue: 0,0:01:30.00,0:01:32.03,Default,,0,0,0,,我的思绪翻转（不停翻转）
+Dialogue: 0,0:01:32.03,0:01:33.56,Default,,0,0,0,,去寻找一些真诚（为什么？）
+Dialogue: 0,0:01:33.58,0:01:33.82,Default,,0,0,0,,{\pos(961,972)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.58,0:01:33.74,Default,,0,0,0,,{\fax0.18\1c&HFFFFFF&\alpha&HA0&\blur0.5\shad0\pos(965,969)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.60,0:01:33.85,Default,,0,0,0,,{\1c&HFFFFFF&\blur5\fscx128\shad0\alpha&HB0&\pos(958,975)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.63,0:01:33.78,Default,,0,0,0,,{\alpha&H95&\xshad14\yshad0\blur0.5\pos(963,970)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.65,0:01:33.90,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H60&\pos(959,974)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.66,0:01:33.80,Default,,0,0,0,,{\fax-0.22\1c&HFFFFFF&\alpha&H8C&\blur0.5\shad0\pos(964,968)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.69,0:01:33.95,Default,,0,0,0,,{\1c&HFFFFFF&\blur6\fscx155\shad0\alpha&H85&\pos(957,973)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.70,0:01:33.85,Default,,0,0,0,,{\alpha&HA8&\xshad11\yshad1\blur0.5\pos(962,971)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.73,0:01:33.98,Default,,0,0,0,,{\pos(960,976)\blur1}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.75,0:01:33.89,Default,,0,0,0,,{\fax0.15\1c&HFFFFFF&\alpha&H78&\blur1\shad0\fscx108\fscy112\pos(965,972)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.77,0:01:34.02,Default,,0,0,0,,{\1c&HFFFFFF&\blur3\fscx92\fscy175\shad0\alpha&H7C&\pos(958,969)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.78,0:01:33.92,Default,,0,0,0,,{\alpha&HB2&\xshad17\yshad0\blur0.5\pos(963,974)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.80,0:01:34.06,Default,,0,0,0,,{\fax-0.28\1c&HFFFFFF&\alpha&H90&\blur0.5\shad0\pos(959,970)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.82,0:01:33.96,Default,,0,0,0,,{\1c&HFFFFFF&\blur4\fscx140\shad0\alpha&H6E&\pos(964,975)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.84,0:01:33.98,Default,,0,0,0,,{\fax-0.19\1c&HFFFFFF&\alpha&H9A&\blur0.5\shad0\fscx103\fscy97\pos(957,968)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.86,0:01:34.06,Default,,0,0,0,,{\alpha&HA3&\xshad9\yshad1\blur0.5\pos(961,973)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.88,0:01:34.01,Default,,0,0,0,,{\fax0.24\1c&HFFFFFF&\alpha&H82&\blur1\shad0\pos(965,971)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.90,0:01:34.04,Default,,0,0,0,,{\fscx106\fscy160\1c&HFFFFFF&\alpha&H88&\blur2\shad0\pos(958,972)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.92,0:01:34.06,Default,,0,0,0,,{\pos(962,969)\blur1}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:33.94,0:01:34.06,Default,,0,0,0,,{\fax-0.16\1c&HFFFFFF&\alpha&HA5&\blur0.5\shad0\fscx98\fscy188\pos(960,974)}去寻找一些诚实（为什么？）
+Dialogue: 0,0:01:34.07,0:01:37.36,Default,,0,0,0,,感知以如此沉重的分量撒谎（如此沉重）
+Dialogue: 0,0:01:37.37,0:01:40.98,Default,,0,0,0,,我希望我能学会看清这一切
+Dialogue: 0,0:01:40.98,0:01:41.55,Default - 复制,,0,0,0,,求你了...
+Dialogue: 0,0:01:41.55,0:01:42.61,Default - 复制,,0,0,0,,想想!?
+Dialogue: 0,0:01:42.63,0:01:43.50,Default,,0,0,0,,{\pos(961,972)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.65,0:01:43.02,Default,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.68,0:01:43.10,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.70,0:01:42.98,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.73,0:01:43.18,Default,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(959,972)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.75,0:01:43.05,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.78,0:01:43.22,Default,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\fscx103\fscy105\pos(957,973)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.80,0:01:43.08,Default,,0,0,0,,{\pos(963,970)\blur0.5}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.83,0:01:43.26,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx114\shad0\alpha&HCA&\pos(960,975)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.85,0:01:43.12,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H84&\pos(965,971)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.88,0:01:43.30,Default,,0,0,0,,{\fax-0.08\1c&HFFFFFF&\alpha&HBC&\blur0.3\shad0\pos(958,968)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.90,0:01:43.15,Default,,0,0,0,,{\fscx96\fscy133\1c&HFFFFFF&\alpha&HB4&\blur0.8\shad0\pos(962,973)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.93,0:01:43.34,Default,,0,0,0,,{\fax0.05\1c&HFFFFFF&\alpha&HCE&\blur0.3\shad0\pos(964,970)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.95,0:01:43.18,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx110\shad0\alpha&HCC&\pos(959,974)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:42.98,0:01:43.38,Default,,0,0,0,,{\fax-0.07\1c&HFFFFFF&\alpha&HBA&\blur0.3\shad0\pos(965,968)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.00,0:01:43.22,Default,,0,0,0,,{\pos(961,972)\blur0.5}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.03,0:01:43.42,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H8A&\pos(963,969)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.05,0:01:43.25,Default,,0,0,0,,{\fax0.09\1c&HFFFFFF&\alpha&HD2&\blur0.3\shad0\fscx101\fscy103\pos(960,975)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.08,0:01:43.46,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx115\shad0\alpha&HC0&\pos(962,971)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.10,0:01:43.28,Default,,0,0,0,,{\fax-0.09\1c&HFFFFFF&\alpha&HB6&\blur0.3\shad0\pos(964,970)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.13,0:01:43.50,Default,,0,0,0,,{\fscx98\fscy130\1c&HFFFFFF&\alpha&HB4&\blur0.8\shad0\pos(958,972)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.15,0:01:43.32,Default,,0,0,0,,{\pos(963,969)\blur0.5}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.18,0:01:43.50,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H8C&\pos(961,974)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.20,0:01:43.38,Default,,0,0,0,,{\fax0.07\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\pos(965,970)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.23,0:01:43.50,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx109\shad0\alpha&HCC&\pos(960,971)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.25,0:01:43.42,Default,,0,0,0,,{\pos(962,972)\blur0.5}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.28,0:01:43.50,Default,,0,0,0,,{\fax-0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.30,0:01:43.46,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx106\shad0\alpha&HCC&\pos(958,974)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.33,0:01:43.50,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.35,0:01:43.48,Default,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\pos(957,973)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.38,0:01:43.50,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.40,0:01:43.50,Default,,0,0,0,,{\pos(963,970)\blur0.5}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.43,0:01:43.50,Default,,0,0,0,,{\fax-0.07\1c&HFFFFFF&\alpha&HBA&\blur0.3\shad0\pos(959,972)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.45,0:01:43.50,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(964,971)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.48,0:01:43.50,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H84&\pos(960,974)}我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:43.51,0:01:44.80,Default,,0,0,0,,我会深挖下去！（我会深挖下去）
+Dialogue: 0,0:01:44.80,0:01:46.80,Default,,0,0,0,,我的眼睛开始翻转（开始翻转）
+Dialogue: 0,0:01:46.81,0:01:48.94,Default,,0,0,0,,去寻找我的本质（就现在？）
+Dialogue: 0,0:01:48.95,0:01:52.06,Default,,0,0,0,,被击碎又被替换（干脆被抹去）
+Dialogue: 0,0:01:52.07,0:01:54.39,Default,,0,0,0,,我怕我学不会...
+Dialogue: 0,0:01:54.40,0:01:54.94,Default,,0,0,0,,活下去
+Dialogue: 0,0:01:54.95,0:01:55.35,Default,,0,0,0,,就这样面目全非？
+Dialogue: 0,0:01:55.35,0:01:56.39,Default,,0,0,0,,{\i1\fad(0,400)\pos(961,972)}就这样面目全非？
+Dialogue: 0,0:02:03.59,0:02:06.99,Default,,0,0,0,,谁来...
+Dialogue: 0,0:02:07.35,0:02:07.74,Default,,0,0,0,,让我安心！
+Dialogue: 0,0:02:07.74,0:02:09.58,Default - 复制2,,0,0,0,,让我安心！
+Dialogue: 0,0:02:09.58,0:02:10.10,Default - 复制2 - 复制,,0,0,0,,让我安心！
+Dialogue: 0,0:02:10.10,0:02:11.13,Default - 复制,,0,0,0,,{\pos(961,972)}让我安心！
+Dialogue: 0,0:02:10.10,0:02:10.55,Default - 复制,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HCA&\blur0.3\shad0\pos(963,970)}让我安心！
+Dialogue: 0,0:02:10.13,0:02:10.65,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx106\shad0\alpha&HD0&\pos(959,973)}让我安心！
+Dialogue: 0,0:02:10.15,0:02:10.48,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H90&\pos(962,969)}让我安心！
+Dialogue: 0,0:02:10.18,0:02:10.72,Default - 复制,,0,0,0,,{\fax-0.08\1c&HFFFFFF&\alpha&HC2&\blur0.3\shad0\pos(959,971)}让我安心！
+Dialogue: 0,0:02:10.20,0:02:10.58,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx110\shad0\alpha&HCC&\pos(964,970)}让我安心！
+Dialogue: 0,0:02:10.23,0:02:10.78,Default - 复制,,0,0,0,,{\fax0.05\1c&HFFFFFF&\alpha&HD4&\blur0.3\shad0\fscx102\fscy104\pos(958,973)}让我安心！
+Dialogue: 0,0:02:10.25,0:02:10.88,Default - 复制,,0,0,0,,{\pos(961,969)\blur0.5}让我安心！
+Dialogue: 0,0:02:10.28,0:02:10.65,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx112\shad0\alpha&HCE&\pos(965,972)}让我安心！
+Dialogue: 0,0:02:10.30,0:02:10.92,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H8C&\pos(960,968)}让我安心！
+Dialogue: 0,0:02:10.33,0:02:10.72,Default - 复制,,0,0,0,,{\fax-0.07\1c&HFFFFFF&\alpha&HC8&\blur0.3\shad0\pos(963,975)}让我安心！
+Dialogue: 0,0:02:10.35,0:02:10.98,Default - 复制,,0,0,0,,{\fscx97\fscy130\1c&HFFFFFF&\alpha&HBE&\blur0.8\shad0\pos(959,972)}让我安心！
+Dialogue: 0,0:02:10.38,0:02:10.78,Default - 复制,,0,0,0,,{\fax0.04\1c&HFFFFFF&\alpha&HD2&\blur0.3\shad0\pos(962,969)}让我安心！
+Dialogue: 0,0:02:10.40,0:02:10.85,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HD0&\pos(964,974)}让我安心！
+Dialogue: 0,0:02:10.43,0:02:10.68,Default - 复制,,0,0,0,,{\fax-0.06\1c&HFFFFFF&\alpha&HCC&\blur0.3\shad0\pos(958,970)}让我安心！
+Dialogue: 0,0:02:10.45,0:02:11.02,Default - 复制,,0,0,0,,{\pos(965,971)\blur0.5}让我安心！
+Dialogue: 0,0:02:10.48,0:02:10.88,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H92&\pos(960,974)}让我安心！
+Dialogue: 0,0:02:10.50,0:02:10.95,Default - 复制,,0,0,0,,{\fax0.07\1c&HFFFFFF&\alpha&HCA&\blur0.3\shad0\fscx103\fscy102\pos(963,968)}让我安心！
+Dialogue: 0,0:02:10.53,0:02:11.05,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx114\shad0\alpha&HC4&\pos(959,975)}让我安心！
+Dialogue: 0,0:02:10.55,0:02:10.92,Default - 复制,,0,0,0,,{\fax-0.09\1c&HFFFFFF&\alpha&HC6&\blur0.3\shad0\pos(964,969)}让我安心！
+Dialogue: 0,0:02:10.58,0:02:11.08,Default - 复制,,0,0,0,,{\fscx99\fscy135\1c&HFFFFFF&\alpha&HBC&\blur0.8\shad0\pos(957,971)}让我安心！
+Dialogue: 0,0:02:10.60,0:02:10.98,Default - 复制,,0,0,0,,{\pos(962,973)\blur0.5}让我安心！
+Dialogue: 0,0:02:10.63,0:02:11.10,Default - 复制,,0,0,0,,{\fax0.05\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\pos(960,970)}让我安心！
+Dialogue: 0,0:02:10.65,0:02:11.02,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx105\shad0\alpha&HCE&\pos(965,972)}让我安心！
+Dialogue: 0,0:02:10.68,0:02:10.88,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H8E&\pos(958,968)}让我安心！
+Dialogue: 0,0:02:10.70,0:02:11.12,Default - 复制,,0,0,0,,{\fax-0.08\1c&HFFFFFF&\alpha&HC8&\blur0.3\shad0\fscx101\fscy99\pos(963,974)}让我安心！
+Dialogue: 0,0:02:10.73,0:02:10.95,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx116\shad0\alpha&HCA&\pos(959,969)}让我安心！
+Dialogue: 0,0:02:10.75,0:02:11.13,Default - 复制,,0,0,0,,{\pos(964,970)\blur0.5}让我安心！
+Dialogue: 0,0:02:10.78,0:02:11.08,Default - 复制,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HCC&\blur0.3\shad0\pos(961,975)}让我安心！
+Dialogue: 0,0:02:10.80,0:02:11.13,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx110\shad0\alpha&HD2&\pos(966,971)}让我安心！
+Dialogue: 0,0:02:10.83,0:02:11.10,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H94&\pos(958,973)}让我安心！
+Dialogue: 0,0:02:10.85,0:02:11.13,Default - 复制,,0,0,0,,{\fax-0.05\1c&HFFFFFF&\alpha&HD4&\blur0.3\shad0\pos(962,970)}让我安心！
+Dialogue: 0,0:02:10.88,0:02:11.13,Default - 复制,,0,0,0,,{\fscx98\fscy128\1c&HFFFFFF&\alpha&HC0&\blur0.8\shad0\pos(964,968)}让我安心！
+Dialogue: 0,0:02:10.90,0:02:11.13,Default - 复制,,0,0,0,,{\pos(960,972)\blur0.5}让我安心！
+Dialogue: 0,0:02:10.93,0:02:11.13,Default - 复制,,0,0,0,,{\fax0.04\1c&HFFFFFF&\alpha&HCE&\blur0.3\shad0\fscx100\fscy101\pos(965,969)}让我安心！
+Dialogue: 0,0:02:10.95,0:02:11.13,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx107\shad0\alpha&HD0&\pos(959,974)}让我安心！
+Dialogue: 0,0:02:10.98,0:02:11.13,Default - 复制,,0,0,0,,{\fax-0.07\1c&HFFFFFF&\alpha&HC6&\blur0.3\shad0\pos(963,971)}让我安心！
+Dialogue: 0,0:02:11.00,0:02:11.13,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H96&\pos(961,969)}让我安心！
+Dialogue: 0,0:02:11.03,0:02:11.13,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HCC&\pos(964,972)}让我安心！
+Dialogue: 0,0:02:11.05,0:02:11.13,Default - 复制,,0,0,0,,{\pos(962,970)\blur0.5}让我安心！
+Dialogue: 0,0:02:11.08,0:02:11.13,Default - 复制,,0,0,0,,{\fax0.03\1c&HFFFFFF&\alpha&HD4&\blur0.3\shad0\pos(960,973)}让我安心！
+Dialogue: 0,0:02:11.10,0:02:11.13,Default - 复制,,0,0,0,,{\fscx100\fscy125\1c&HFFFFFF&\alpha&HC4&\blur0.5\shad0\pos(963,971)}让我安心！
+Dialogue: 0,0:02:11.88,0:02:15.61,Default - 复制,,0,0,0,,所以当镜子渐渐模糊...
+Dialogue: 0,0:02:16.34,0:02:19.56,Default - 复制,,0,0,0,,告诉我 镜子里还剩下什么？
+Dialogue: 0,0:02:19.84,0:02:23.18,Default - 复制,,0,0,0,,是微笑还是我名字上的裂痕？
+Dialogue: 0,0:02:23.47,0:02:26.69,Default - 复制,,0,0,0,,还是说它们本就一样？
+Dialogue: 0,0:02:27.18,0:02:31.16,Default - 复制,,0,0,0,,我的脸在他们眼中扭曲
+Dialogue: 0,0:02:31.16,0:02:34.56,Default - 复制,,0,0,0,,一千个真相与谎言
+Dialogue: 0,0:02:34.56,0:02:36.95,Default - 复制,,0,0,0,,我在洪流中渐渐消逝...
+Dialogue: 0,0:02:36.95,0:02:37.90,Default - 复制,,0,0,0,,这一切！
+Dialogue: 0,0:02:37.90,0:02:40.45,Default - 复制,,0,0,0,,{\fad(0,2000)}压抑的哭喊！
+Dialogue: 0,0:02:41.46,0:02:44.90,Default - 复制,,0,0,0,,请告诉我镜子对你说了什么
+Dialogue: 0,0:02:45.35,0:02:47.51,Default - 复制,,0,0,0,,这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.58,0:02:48.07,Default - 复制,,0,0,0,,{\pos(961,972)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.58,0:02:47.82,Default - 复制,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.61,0:02:47.90,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.63,0:02:47.80,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.65,0:02:47.95,Default - 复制,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(959,972)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.68,0:02:47.88,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.70,0:02:48.00,Default - 复制,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\fscx103\fscy105\pos(957,973)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.73,0:02:47.98,Default - 复制,,0,0,0,,{\pos(963,970)\blur0.5}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.75,0:02:47.92,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx114\shad0\alpha&HCA&\pos(960,975)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.78,0:02:48.05,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H84&\pos(965,971)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.80,0:02:47.95,Default - 复制,,0,0,0,,{\fax-0.08\1c&HFFFFFF&\alpha&HBC&\blur0.3\shad0\pos(958,968)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.83,0:02:48.07,Default - 复制,,0,0,0,,{\fscx96\fscy133\1c&HFFFFFF&\alpha&HB4&\blur0.8\shad0\pos(962,973)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.85,0:02:48.02,Default - 复制,,0,0,0,,{\fax0.05\1c&HFFFFFF&\alpha&HCE&\blur0.3\shad0\pos(964,970)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.88,0:02:48.07,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx110\shad0\alpha&HCC&\pos(959,974)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.90,0:02:48.07,Default - 复制,,0,0,0,,{\fax-0.07\1c&HFFFFFF&\alpha&HBA&\blur0.3\shad0\pos(965,968)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.93,0:02:48.07,Default - 复制,,0,0,0,,{\pos(961,972)\blur0.5}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.95,0:02:48.07,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H8A&\pos(963,969)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:47.98,0:02:48.07,Default - 复制,,0,0,0,,{\fax0.09\1c&HFFFFFF&\alpha&HD2&\blur0.3\shad0\fscx101\fscy103\pos(960,975)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:48.00,0:02:48.07,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx115\shad0\alpha&HC0&\pos(962,971)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:48.03,0:02:48.07,Default - 复制,,0,0,0,,{\fscx98\fscy130\1c&HFFFFFF&\alpha&HB6&\blur0.8\shad0\pos(964,970)}这一切只是我的臆想吗？
+Dialogue: 0,0:02:48.05,0:02:48.07,Default - 复制,,0,0,0,,{\pos(961,972)\blur0.5}这一切只是我的臆想吗？
+Dialogue: 0,0:02:48.76,0:02:52.24,Default - 复制,,0,0,0,,真相在我视线中折射散开...
+Dialogue: 0,0:02:53.05,0:02:54.78,Default - 复制,,0,0,0,,如今被困在"你是谁?"之中
+Dialogue: 0,0:02:54.78,0:02:55.42,Default - 复制,,0,0,0,,{\pos(961,972)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:54.78,0:02:55.02,Default - 复制,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:54.81,0:02:55.10,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:54.83,0:02:55.00,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:54.85,0:02:55.15,Default - 复制,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(959,972)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:54.88,0:02:55.08,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:54.90,0:02:55.20,Default - 复制,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\fscx103\fscy105\pos(957,973)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:54.93,0:02:55.18,Default - 复制,,0,0,0,,{\pos(963,970)\blur0.5}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:54.95,0:02:55.12,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx114\shad0\alpha&HCA&\pos(960,975)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:54.98,0:02:55.25,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H84&\pos(965,971)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.00,0:02:55.18,Default - 复制,,0,0,0,,{\fax-0.08\1c&HFFFFFF&\alpha&HBC&\blur0.3\shad0\pos(958,968)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.03,0:02:55.30,Default - 复制,,0,0,0,,{\fscx96\fscy133\1c&HFFFFFF&\alpha&HB4&\blur0.8\shad0\pos(962,973)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.05,0:02:55.22,Default - 复制,,0,0,0,,{\fax0.05\1c&HFFFFFF&\alpha&HCE&\blur0.3\shad0\pos(964,970)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.08,0:02:55.35,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx110\shad0\alpha&HCC&\pos(959,974)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.10,0:02:55.28,Default - 复制,,0,0,0,,{\fax-0.07\1c&HFFFFFF&\alpha&HBA&\blur0.3\shad0\pos(965,968)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.13,0:02:55.38,Default - 复制,,0,0,0,,{\pos(961,972)\blur0.5}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.15,0:02:55.32,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H8A&\pos(963,969)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.18,0:02:55.40,Default - 复制,,0,0,0,,{\fax0.09\1c&HFFFFFF&\alpha&HD2&\blur0.3\shad0\fscx101\fscy103\pos(960,975)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.20,0:02:55.35,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx115\shad0\alpha&HC0&\pos(962,971)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.23,0:02:55.42,Default - 复制,,0,0,0,,{\fax-0.09\1c&HFFFFFF&\alpha&HB6&\blur0.3\shad0\pos(964,970)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.25,0:02:55.42,Default - 复制,,0,0,0,,{\fscx98\fscy130\1c&HFFFFFF&\alpha&HB4&\blur0.8\shad0\pos(958,972)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.28,0:02:55.42,Default - 复制,,0,0,0,,{\pos(963,969)\blur0.5}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.30,0:02:55.42,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H8C&\pos(961,974)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.33,0:02:55.42,Default - 复制,,0,0,0,,{\fax0.07\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\pos(965,970)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.35,0:02:55.42,Default - 复制,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx109\shad0\alpha&HCC&\pos(960,971)}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:55.38,0:02:55.42,Default - 复制,,0,0,0,,{\pos(962,972)\blur0.5}如今被困在"你是谁？"之中
+Dialogue: 0,0:02:56.30,0:02:59.83,Default - 复制,,0,0,0,,为何这些裂痕定义了我？
+Dialogue: 0,0:03:00.21,0:03:02.59,Default - 复制,,0,0,0,,它们映照出我认定的真实
+Dialogue: 0,0:03:03.60,0:03:06.97,Default - 复制,,0,0,0,,感受那些目光全都将我穿透...
+Dialogue: 0,0:03:07.81,0:03:09.64,Default - 复制,,0,0,0,,那个我希望曾认识的人
+Dialogue: 0,0:03:09.65,0:03:10.13,Default - 复制,,0,0,0,,所以...
+Dialogue: 0,0:03:10.14,0:03:10.24,Default,,0,0,0,,{\pos(961,972)}求你了！
+Dialogue: 0,0:03:10.14,0:03:10.38,Default,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}求你了！
+Dialogue: 0,0:03:10.17,0:03:10.45,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}求你了！
+Dialogue: 0,0:03:10.19,0:03:10.36,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}求你了！
+Dialogue: 0,0:03:10.21,0:03:10.50,Default,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(959,972)}求你了！
+Dialogue: 0,0:03:10.24,0:03:10.43,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}求你了！
+Dialogue: 0,0:03:10.26,0:03:10.54,Default,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\fscx103\fscy105\pos(957,973)}求你了！
+Dialogue: 0,0:03:10.29,0:03:10.50,Default,,0,0,0,,{\pos(963,970)\blur0.5}求你了！
+Dialogue: 0,0:03:10.31,0:03:10.47,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx114\shad0\alpha&HCA&\pos(960,975)}求你了！
+Dialogue: 0,0:03:10.34,0:03:10.58,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H84&\pos(965,971)}求你了！
+Dialogue: 0,0:03:10.36,0:03:10.52,Default,,0,0,0,,{\fax-0.08\1c&HFFFFFF&\alpha&HBC&\blur0.3\shad0\pos(958,968)}求你了！
+Dialogue: 0,0:03:10.39,0:03:10.63,Default,,0,0,0,,{\fscx96\fscy133\1c&HFFFFFF&\alpha&HB4&\blur0.8\shad0\pos(962,973)}求你了！
+Dialogue: 0,0:03:10.41,0:03:10.56,Default,,0,0,0,,{\fax0.05\1c&HFFFFFF&\alpha&HCE&\blur0.3\shad0\pos(964,970)}求你了！
+Dialogue: 0,0:03:10.44,0:03:10.68,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx110\shad0\alpha&HCC&\pos(959,974)}求你了！
+Dialogue: 0,0:03:10.46,0:03:10.62,Default,,0,0,0,,{\fax-0.07\1c&HFFFFFF&\alpha&HBA&\blur0.3\shad0\pos(965,968)}求你了！
+Dialogue: 0,0:03:10.49,0:03:10.70,Default,,0,0,0,,{\pos(961,972)\blur0.5}求你了！
+Dialogue: 0,0:03:10.51,0:03:10.65,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H8A&\pos(963,969)}求你了！
+Dialogue: 0,0:03:10.54,0:03:10.74,Default,,0,0,0,,{\fax0.09\1c&HFFFFFF&\alpha&HD2&\blur0.3\shad0\fscx101\fscy103\pos(960,975)}求你了！
+Dialogue: 0,0:03:10.56,0:03:10.72,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx115\shad0\alpha&HC0&\pos(962,971)}求你了！
+Dialogue: 0,0:03:10.59,0:03:10.74,Default,,0,0,0,,{\fax-0.09\1c&HFFFFFF&\alpha&HB6&\blur0.3\shad0\pos(964,970)}求你了！
+Dialogue: 0,0:03:10.61,0:03:10.74,Default,,0,0,0,,{\fscx98\fscy130\1c&HFFFFFF&\alpha&HB4&\blur0.8\shad0\pos(958,972)}求你了！
+Dialogue: 0,0:03:10.64,0:03:10.74,Default,,0,0,0,,{\pos(963,969)\blur0.5}求你了！
+Dialogue: 0,0:03:10.66,0:03:10.74,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H8C&\pos(961,974)}求你了！
+Dialogue: 0,0:03:10.69,0:03:10.74,Default,,0,0,0,,{\fax0.07\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\pos(965,970)}求你了！
+Dialogue: 0,0:03:10.71,0:03:10.74,Default,,0,0,0,,{\pos(962,972)\blur0.5}求你了！
+Dialogue: 0,0:03:11.22,0:03:13.31,Default,,0,0,0,,我的安宁在哪？（我的安宁在哪？）
+Dialogue: 0,0:03:13.31,0:03:13.96,Default,,0,0,0,,我如此茫然（如此茫然）
+Dialogue: 0,0:03:13.96,0:03:14.23,Default,,0,0,0,,{\pos(961,972)}我如此茫然（如此茫然）
+Dialogue: 0,0:03:13.96,0:03:14.08,Default,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}我如此茫然（如此茫然）
+Dialogue: 0,0:03:13.99,0:03:14.13,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}我如此茫然（如此茫然）
+Dialogue: 0,0:03:14.01,0:03:14.06,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}我如此茫然（如此茫然）
+Dialogue: 0,0:03:14.03,0:03:14.16,Default,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(959,972)}我如此茫然（如此茫然）
+Dialogue: 0,0:03:14.06,0:03:14.10,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}我如此茫然（如此茫然）
+Dialogue: 0,0:03:14.08,0:03:14.18,Default,,0,0,0,,{\pos(963,970)\blur0.5}我如此茫然（如此茫然）
+Dialogue: 0,0:03:14.10,0:03:14.14,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H84&\pos(965,971)}我如此茫然（如此茫然）
+Dialogue: 0,0:03:14.13,0:03:14.21,Default,,0,0,0,,{\fax-0.07\1c&HFFFFFF&\alpha&HBA&\blur0.3\shad0\pos(960,973)}我如此茫然（如此茫然）
+Dialogue: 0,0:03:14.15,0:03:14.23,Default,,0,0,0,,{\fscx98\fscy130\1c&HFFFFFF&\alpha&HB4&\blur0.8\shad0\pos(958,972)}我如此茫然（如此茫然）
+Dialogue: 0,0:03:14.18,0:03:14.23,Default,,0,0,0,,{\pos(962,969)\blur0.5}我如此茫然（如此茫然）
+Dialogue: 0,0:03:14.20,0:03:14.23,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H8C&\pos(961,974)}我如此茫然（如此茫然）
+Dialogue: 0,0:03:14.24,0:03:15.39,Default,,0,0,0,,我如此茫然（如此茫然）
+Dialogue: 0,0:03:15.39,0:03:16.97,Default,,0,0,0,,这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:16.97,0:03:17.52,Default,,0,0,0,,{\pos(961,972)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:16.99,0:03:17.30,Default,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.02,0:03:17.28,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.04,0:03:17.35,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.07,0:03:17.32,Default,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(959,972)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.09,0:03:17.38,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.12,0:03:17.35,Default,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\fscx103\fscy105\pos(957,973)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.14,0:03:17.40,Default,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.17,0:03:17.38,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.19,0:03:17.45,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.22,0:03:17.42,Default,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(959,972)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.24,0:03:17.48,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.27,0:03:17.45,Default,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\fscx103\fscy105\pos(957,973)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.29,0:03:17.50,Default,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.32,0:03:17.48,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.34,0:03:17.52,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.37,0:03:17.50,Default,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(959,972)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.39,0:03:17.52,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.42,0:03:17.52,Default,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\fscx103\fscy105\pos(957,973)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.44,0:03:17.52,Default,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.47,0:03:17.52,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.49,0:03:17.52,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}这就是我该成为的样子（所以呢？）
+Dialogue: 0,0:03:17.52,0:03:20.31,Default,,0,0,0,,肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.31,0:03:20.74,Default,,0,0,0,,{\pos(961,972)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.33,0:03:20.56,Default,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.36,0:03:20.54,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.38,0:03:20.60,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.41,0:03:20.58,Default,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(959,972)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.43,0:03:20.63,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.46,0:03:20.61,Default,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\fscx103\fscy105\pos(957,973)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.48,0:03:20.66,Default,,0,0,0,,{\pos(963,970)\blur0.5}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.51,0:03:20.63,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx114\shad0\alpha&HCA&\pos(960,975)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.53,0:03:20.69,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H84&\pos(965,971)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.56,0:03:20.68,Default,,0,0,0,,{\fax-0.08\1c&HFFFFFF&\alpha&HBC&\blur0.3\shad0\pos(958,968)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.58,0:03:20.72,Default,,0,0,0,,{\fscx96\fscy133\1c&HFFFFFF&\alpha&HB4&\blur0.8\shad0\pos(962,973)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.61,0:03:20.70,Default,,0,0,0,,{\fax0.05\1c&HFFFFFF&\alpha&HCE&\blur0.3\shad0\pos(964,970)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.63,0:03:20.74,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx110\shad0\alpha&HCC&\pos(959,974)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.66,0:03:20.74,Default,,0,0,0,,{\fax-0.07\1c&HFFFFFF&\alpha&HBA&\blur0.3\shad0\pos(965,968)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.68,0:03:20.74,Default,,0,0,0,,{\pos(961,972)\blur0.5}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.71,0:03:20.74,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H8A&\pos(963,969)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.73,0:03:20.74,Default,,0,0,0,,{\fax0.09\1c&HFFFFFF&\alpha&HD2&\blur0.3\shad0\fscx101\fscy103\pos(960,975)}肆意碎裂这张脸吧...（按你的节奏来）
+Dialogue: 0,0:03:20.75,0:03:21.45,Default,,0,0,0,,只希望我能学会...
+Dialogue: 0,0:03:21.46,0:03:21.69,Default,,0,0,0,,{\pos(961,972)}只希望我能学会...
+Dialogue: 0,0:03:21.48,0:03:21.62,Default,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}只希望我能学会...
+Dialogue: 0,0:03:21.51,0:03:21.60,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}只希望我能学会...
+Dialogue: 0,0:03:21.53,0:03:21.65,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}只希望我能学会...
+Dialogue: 0,0:03:21.56,0:03:21.63,Default,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(959,972)}只希望我能学会...
+Dialogue: 0,0:03:21.58,0:03:21.67,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}只希望我能学会...
+Dialogue: 0,0:03:21.61,0:03:21.66,Default,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\fscx103\fscy105\pos(957,973)}只希望我能学会...
+Dialogue: 0,0:03:21.63,0:03:21.69,Default,,0,0,0,,{\pos(963,970)\blur0.5}只希望我能学会...
+Dialogue: 0,0:03:21.66,0:03:21.69,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx114\shad0\alpha&HCA&\pos(960,975)}只希望我能学会...
+Dialogue: 0,0:03:21.68,0:03:21.69,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H84&\pos(965,971)}只希望我能学会...
+Dialogue: 0,0:03:21.69,0:03:23.02,Default,,0,0,0,,只希望我能学会...
+Dialogue: 0,0:03:23.03,0:03:23.53,Default,,0,0,0,,看清...
+Dialogue: 0,0:03:23.53,0:03:23.76,Default,,0,0,0,,这一切。
+Dialogue: 0,0:03:23.77,0:03:23.96,Default,,0,0,0,,{\pos(961,972)}这一切。
+Dialogue: 0,0:03:23.78,0:03:23.91,Default,,0,0,0,,{\fax0.08\1c&HFFFFFF&\alpha&HBE&\blur0.3\shad0\pos(964,969)}这一切。
+Dialogue: 0,0:03:23.80,0:03:23.89,Default,,0,0,0,,{\1c&HFFFFFF&\blur1\fscx108\shad0\alpha&HCC&\pos(958,974)}这一切。
+Dialogue: 0,0:03:23.83,0:03:23.94,Default,,0,0,0,,{\1c&HFFFFFF&\3c&HFFFFFF&\blur0\shad0\alpha&H88&\pos(962,968)}这一切。
+Dialogue: 0,0:03:23.85,0:03:23.92,Default,,0,0,0,,{\fax-0.10\1c&HFFFFFF&\alpha&HB8&\blur0.3\shad0\pos(959,972)}这一切。
+Dialogue: 0,0:03:23.88,0:03:23.96,Default,,0,0,0,,{\1c&HFFFFFF&\blur1.5\fscx112\shad0\alpha&HC6&\pos(965,969)}这一切。
+Dialogue: 0,0:03:23.90,0:03:23.96,Default,,0,0,0,,{\fax0.06\1c&HFFFFFF&\alpha&HD0&\blur0.3\shad0\fscx103\fscy105\pos(957,973)}这一切。
+Dialogue: 0,0:03:23.93,0:03:23.96,Default,,0,0,0,,{\pos(963,970)\blur0.5}这一切。
+Dialogue: 0,0:03:23.98,0:03:24.85,Default,,0,0,0,,坦然地！（还有时间等待）
+Dialogue: 0,0:03:24.85,0:03:25.49,Default - 复制,,0,0,0,,坦然地！（还有时间等待）

@@ -1,0 +1,87 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 3840
+PlayResY: 2160
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,150,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,7.5,7.5,2,100,100,75,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:02.22,0:00:04.49,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算任性一点又有什么不好呢？{\c}{\b0}
+Dialogue: 0,0:00:04.49,0:00:06.99,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算按想法来也总觉得不够！{\c}{\b0}
+Dialogue: 0,0:00:06.99,0:00:09.49,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算任性一点又有什么不好呢？{\c}{\b0}
+Dialogue: 0,0:00:09.49,0:00:12.30,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}因为是宇宙第一偶像！{\c}{\b0}
+Dialogue: 0,0:00:12.40,0:00:14.83,Default,,0,0,0,region=r1,{\an8\b1\c&H5e49e1&}按我的{\c}{\b0\b1\c&He3b249&}方式{\c}{\b0\b1\c&H5e49e1&}，{\c}{\b0\b1\c&He3b249&}那又{\c}{\b0\b1\c&H5e49e1&}怎样{\c}{\b0\b1\c&He3b249&}！{\c}{\b0}
+Dialogue: 0,0:00:14.83,0:00:16.70,Default,,0,0,0,region=r1,{\an8\b1\c&Hfefefe&}演唱：{\c}{\b0\b1\c&He3b249&}初音未来 & {\c}{\b0\b1\c&H5e49e1&}重音テト{\c}{\b0}\N{\b1\c&Hfefefe&}作曲・作词・编曲：hiroki.{\c}{\b0}\N{\b1\c&Hfefefe&}插画：Tenrei{\c}{\b0}
+Dialogue: 0,0:00:16.70,0:00:18.64,Default,,0,0,0,region=r1,{\an8\b1\c&Hfefefe&}编舞：Anna Kanzaki{\c}{\b0}\N{\b1\c&Hfefefe&}MV Logo：Nodameron{\c}{\b0}\N{\b1\c&Hfefefe&}吉他旋律：miru{\c}{\b0}
+Dialogue: 0,0:00:18.64,0:00:20.57,Default,,0,0,0,region=r1,{\an8\b1\c&Hfefefe&}音高修正（初音）：SevgasakiEight{\c}{\b0}\N{\b1\c&Hfefefe&}和声部分编辑：Lume{\c}{\b0}\N{\b1\c&Hfefefe&}混音及母带：Ryousuke Ishida{\c}{\b0}\N{\b1\c&Hfefefe&}官方翻译及字幕：Honyaku Festival & hiroki{\c}{\b0}
+Dialogue: 0,0:00:22.34,0:00:23.54,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}等一下出大事了！{\c}{\b0}
+Dialogue: 0,0:00:23.54,0:00:24.71,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}历代级发现！{\c}{\b0}
+Dialogue: 0,0:00:24.71,0:00:27.34,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}连鸟窝头都让人心动！{\c}{\b0}
+Dialogue: 0,0:00:27.34,0:00:28.41,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}定好的规则也全凭心情更新{\c}{\b0}
+Dialogue: 0,0:00:28.41,0:00:29.75,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}定好的规则也全凭心情更新{\c}{\b0}
+Dialogue: 0,0:00:29.75,0:00:32.38,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}主角身边总是伴随着麻烦！{\c}{\b0}
+Dialogue: 0,0:00:32.38,0:00:33.55,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}最上等的早晨？{\c}{\b0}
+Dialogue: 0,0:00:33.55,0:00:34.72,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}丢掉的糖果{\c}{\b0}
+Dialogue: 0,0:00:34.72,0:00:37.42,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}再这样那样的话就赶不上时间了！{\c}{\b0}
+Dialogue: 0,0:00:37.42,0:00:38.46,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}全都 Alright{\c}{\b0}
+Dialogue: 0,0:00:38.46,0:00:39.92,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}已经突破极限{\c}{\b0}
+Dialogue: 0,0:00:39.92,0:00:42.26,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}大脑会听从你的话。{\c}{\b0}
+Dialogue: 0,0:00:42.26,0:00:47.30,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算担心就算不安，也用这笑容填满吧{\c}{\b0}
+Dialogue: 0,0:00:47.30,0:00:48.50,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}突然的变更已经…{\c}{\b0}
+Dialogue: 0,0:00:48.50,0:00:49.70,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}今天造型不好看吗？{\c}{\b0}
+Dialogue: 0,0:00:49.70,0:00:50.03,Default,,0,0,0,region=r1,{\an8\b1\c&Hfefefe&}最{\c}{\b0}
+Dialogue: 0,0:00:50.03,0:00:50.47,Default,,0,0,0,region=r1,{\an8\b1\c&Hfefefe&}最棒{\c}{\b0}
+Dialogue: 0,0:00:50.47,0:00:50.70,Default,,0,0,0,region=r1,{\an8\b1\c&Hfefefe&}最棒地{\c}{\b0}
+Dialogue: 0,0:00:50.70,0:00:51.07,Default,,0,0,0,region=r1,{\an8\b1\c&Hfefefe&}最棒地心动{\c}{\b0}
+Dialogue: 0,0:00:51.07,0:00:51.84,Default,,0,0,0,region=r1,{\an8\b1\c&Hfefefe&}最让人心动。{\c}{\b0}
+Dialogue: 0,0:00:52.20,0:00:54.47,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算任性一点又有什么不好呢？{\c}{\b0}
+Dialogue: 0,0:00:54.47,0:00:56.91,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算按想法来也总觉得不够！{\c}{\b0}
+Dialogue: 0,0:00:56.91,0:00:59.48,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算任性一点又有什么不好呢？{\c}{\b0}
+Dialogue: 0,0:00:59.48,0:01:02.08,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}因为是宇宙第一偶像！{\c}{\b0}
+Dialogue: 0,0:01:02.08,0:01:03.55,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}甜蜜的感染电击{\c}{\b0}
+Dialogue: 0,0:01:03.55,0:01:04.82,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}以爱情的全套套餐{\c}{\b0}
+Dialogue: 0,0:01:04.82,0:01:07.12,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}一旦察觉就被攻陷，晕晕乎乎{\c}{\b0}
+Dialogue: 0,0:01:07.12,0:01:08.49,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}染上色彩，一片晴朗{\c}{\b0}
+Dialogue: 0,0:01:08.49,0:01:09.75,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}是人生的调味料{\c}{\b0}
+Dialogue: 0,0:01:09.75,0:01:12.09,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}因为是最棒的偶像！{\c}{\b0}
+Dialogue: 0,0:01:22.27,0:01:23.33,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}今天也一如既往{\c}{\b0}
+Dialogue: 0,0:01:23.33,0:01:24.50,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}心跳的进行曲{\c}{\b0}
+Dialogue: 0,0:01:24.50,0:01:27.07,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}脑海中扑通扑通停不下来！{\c}{\b0}
+Dialogue: 0,0:01:27.07,0:01:28.37,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}超特急呼叫{\c}{\b0}
+Dialogue: 0,0:01:28.37,0:01:29.71,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}发送到备忘录{\c}{\b0}
+Dialogue: 0,0:01:29.71,0:01:32.38,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}主角没有休息日！{\c}{\b0}
+Dialogue: 0,0:01:32.38,0:01:33.34,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}吊灯早晨{\c}{\b0}
+Dialogue: 0,0:01:33.34,0:01:34.58,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}黏糊糊的糖果{\c}{\b0}
+Dialogue: 0,0:01:34.58,0:01:37.38,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}再这样那样说就没法开始了！{\c}{\b0}
+Dialogue: 0,0:01:37.38,0:01:38.38,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}No~No~ Foundation Alright{\c}{\b0}
+Dialogue: 0,0:01:38.38,0:01:39.78,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}现在突破极限{\c}{\b0}
+Dialogue: 0,0:01:39.78,0:01:42.22,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}在大脑中你的话就是绝对。{\c}{\b0}
+Dialogue: 0,0:01:42.42,0:01:47.19,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}抓也抓不完的旋律{\c}{\b0}
+Dialogue: 0,0:01:47.19,0:01:48.39,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}今天造型不好看吗？{\c}{\b0}
+Dialogue: 0,0:01:48.39,0:01:49.89,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}嗯，一般般啦…{\c}{\b0}
+Dialogue: 0,0:01:49.89,0:01:50.43,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}最棒？{\c}{\b0}
+Dialogue: 0,0:01:50.43,0:01:52.53,Default,,0,0,0,region=r1,{\an8\b1\c&H9b84b0&}心动！{\c}{\b0}
+Dialogue: 0,0:01:53.16,0:01:55.63,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算任性一点又有什么不好呢？{\c}{\b0}
+Dialogue: 0,0:01:55.63,0:01:58.00,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}请活出你自己{\c}{\b0}
+Dialogue: 0,0:01:58.00,0:02:00.77,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算任性一点又有什么不好呢？{\c}{\b0}
+Dialogue: 0,0:02:00.77,0:02:02.14,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}宇宙第一偶像…{\c}{\b0}
+Dialogue: 0,0:02:02.14,0:02:03.47,Default,,0,0,0,region=r1,{\an8\b1\c&H9b84b0&}因为是！{\c}{\b0}
+Dialogue: 0,0:02:03.47,0:02:05.64,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算任性一点又有什么不好呢？{\c}{\b0}
+Dialogue: 0,0:02:05.64,0:02:08.15,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算按想法来也总觉得不够！{\c}{\b0}
+Dialogue: 0,0:02:08.15,0:02:10.65,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}就算任性一点又有什么不好呢？{\c}{\b0}
+Dialogue: 0,0:02:10.65,0:02:12.68,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}因为是宇宙第一偶像！{\c}{\b0}
+Dialogue: 0,0:02:13.45,0:02:14.72,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}甜蜜的感染电击{\c}{\b0}
+Dialogue: 0,0:02:14.72,0:02:16.02,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}以爱情的全套套餐{\c}{\b0}
+Dialogue: 0,0:02:16.02,0:02:18.29,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}一旦察觉就被攻陷，晕晕乎乎{\c}{\b0}
+Dialogue: 0,0:02:18.29,0:02:19.66,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}染上色彩，一片晴朗{\c}{\b0}
+Dialogue: 0,0:02:19.66,0:02:20.92,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}是人生的调味料{\c}{\b0}
+Dialogue: 0,0:02:20.92,0:02:23.43,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}等一下，现在还不能结束！{\c}{\b0}
+Dialogue: 0,0:02:23.43,0:02:25.83,Default,,0,0,0,region=r1,{\an8\b1\c&Hdfc980&}真是宇宙史上最任性呢{\c}{\b0}
+Dialogue: 0,0:02:25.83,0:02:28.37,Default,,0,0,0,region=r1,{\an8\b1\c&H583fe0&}因为是最棒的偶像！{\c}{\b0}

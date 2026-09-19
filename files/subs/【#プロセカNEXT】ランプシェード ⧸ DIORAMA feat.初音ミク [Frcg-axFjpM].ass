@@ -1,0 +1,45 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.8,3.8,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:01.96,0:00:05.68,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}当日期再次悄然改变时
+Dialogue: 0,0:00:05.70,0:00:09.22,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}窗外的城市假装在沉睡
+Dialogue: 0,0:00:10.55,0:00:17.03,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}因为我仍然无法结束这个夜晚。
+Dialogue: 0,0:00:32.92,0:00:36.50,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}浑浊的灯光和我的身影
+Dialogue: 0,0:00:36.52,0:00:40.73,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}熟悉的街道不断明灭闪烁
+Dialogue: 0,0:00:40.75,0:00:44.31,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}仿佛在填补呼吸间的缝隙
+Dialogue: 0,0:00:44.33,0:00:48.24,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我的指尖突然移动，像一个小小的指挥家
+Dialogue: 0,0:00:49.25,0:00:54.55,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}{\pos(1583,84)}在不规则的钢琴卷轴上
+Dialogue: 0,0:00:55.15,0:01:01.18,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}{\pos(1400,84)}我的身体仍在移动，尽管我无处可去。
+Dialogue: 0,0:01:03.89,0:01:07.77,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}路灯松散的光晕
+Dialogue: 0,0:01:07.77,0:01:11.64,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}擦过我的脸颊，我向前走去，
+Dialogue: 0,0:01:11.64,0:01:17.47,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}你的存在——仍然没有名字，
+Dialogue: 0,0:01:19.47,0:01:23.25,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}以及建筑物后残留的某个人的余温
+Dialogue: 0,0:01:23.25,0:01:26.97,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}轻轻弹跳，撩拨着我的头发。
+Dialogue: 0,0:01:27.88,0:01:33.89,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}“因为我仍然无法入睡。”
+Dialogue: 0,0:01:50.48,0:01:57.15,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}你调皮的眼睛随意晃动，
+Dialogue: 0,0:01:57.15,0:02:04.87,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}毫无缘由，我内心深处有什么在解开。
+Dialogue: 0,0:02:04.87,0:02:09.00,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我是被夜晚拾起的一滴水，
+Dialogue: 0,0:02:09.62,0:02:13.44,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}在变成声音之前呼出的一口叹息
+Dialogue: 0,0:02:13.46,0:02:20.23,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}反正没有人会听见，也无须在意
+Dialogue: 0,0:02:21.42,0:02:25.12,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}在这个粗糙的、童话般的世界里，
+Dialogue: 0,0:02:25.12,0:02:28.60,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}连看不见的东西也能映入眼帘，
+Dialogue: 0,0:02:28.99,0:02:36.33,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}在梦里犯错也没有关系。
+Dialogue: 0,0:03:08.25,0:03:12.12,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}仍保持着被拾起时的形状
+Dialogue: 0,0:03:12.13,0:03:15.97,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}尚未成为言语，尚未成形
+Dialogue: 0,0:03:15.97,0:03:21.83,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}但我开始觉得它有点美丽
+Dialogue: 0,0:03:21.83,0:03:23.23,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}仍然……仍然……
+Dialogue: 0,0:03:23.72,0:03:27.53,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}朝向无法触及的明天，
+Dialogue: 0,0:03:27.53,0:03:30.30,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}即使不能飞翔，我也能抬头仰望。
+Dialogue: 0,0:03:31.53,0:03:39.17,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}守护我吧，灯罩。

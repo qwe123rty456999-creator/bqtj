@@ -1,0 +1,63 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,80,&H00FFFF05,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.5,0,2,50,50,38,1
+Style: Default - 复制,Arial,110,&H00FFFF05,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.5,0,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.15,0:00:03.76,Default,,0,0,0,,{\b1}今天就让我来客观分析一下，为啥重音Teto
+Dialogue: 0,0:00:03.77,0:00:06.85,Default,,0,0,0,,{\b1}是个质量低劣、设计拉胯的虚拟歌姬。
+Dialogue: 0,0:00:07.65,0:00:08.88,Default,,0,0,0,,{\b1}理由一
+Dialogue: 0,0:00:08.90,0:00:10.10,Default,,0,0,0,,{\b1}毫无创意的设计
+Dialogue: 0,0:00:10.82,0:00:13.10,Default,,0,0,0,,{\b1}众所周知，一个角色要出彩
+Dialogue: 0,0:00:13.12,0:00:14.64,Default,,0,0,0,,{\b1}靠的就是原创设计
+Dialogue: 0,0:00:15.09,0:00:16.53,Default,,0,0,0,,{\b1}很美，对吧？
+Dialogue: 0,0:00:16.91,0:00:18.23,Default,,0,0,0,,{\b1}现在来搞个新设计，
+Dialogue: 0,0:00:18.25,0:00:19.99,Default,,0,0,0,,{\b1}但就是要偷懒、毫无创意。
+Dialogue: 0,0:00:20.36,0:00:21.43,Default,,0,0,0,,{\b1}第一步：
+Dialogue: 0,0:00:21.44,0:00:22.65,Default,,0,0,0,,{\b1}换个配色
+Dialogue: 0,0:00:23.17,0:00:24.13,Default,,0,0,0,,{\b1}第二步：
+Dialogue: 0,0:00:24.14,0:00:25.44,Default,,0,0,0,,{\b1}加点蠢头发。
+Dialogue: 0,0:00:25.86,0:00:26.82,Default,,0,0,0,,{\b1}第三步：
+Dialogue: 0,0:00:26.84,0:00:27.79,Default,,0,0,0,,{\b1}把年龄设为31岁
+Dialogue: 0,0:00:28.40,0:00:29.24,Default,,0,0,0,,{\b1}哇！
+Dialogue: 0,0:00:29.25,0:00:30.38,Default,,0,0,0,,{\b1}全新设计？
+Dialogue: 0,0:00:30.39,0:00:31.94,Default,,0,0,0,,{\b1}全是抄袭！
+Dialogue: 0,0:00:32.66,0:00:33.96,Default,,0,0,0,,{\b1}理由二
+Dialogue: 0,0:00:33.97,0:00:35.59,Default,,0,0,0,,{\b1}AI声库
+Dialogue: 0,0:00:35.93,0:00:37.06,Default,,0,0,0,,{\b1}大家老问我：
+Dialogue: 0,0:00:37.29,0:00:38.26,Default,,0,0,0,,{\b1}"嘿 Miku，
+Dialogue: 0,0:00:38.27,0:00:40.27,Default,,0,0,0,,{\b1}为啥你的英文那么难懂？"
+Dialogue: 0,0:00:40.43,0:00:41.25,Default,,0,0,0,,{\b1}"嘿 Miku，
+Dialogue: 0,0:00:41.26,0:00:43.68,Default,,0,0,0,,{\b1}为啥 Teto 的英文听着好那么多？"
+Dialogue: 0,0:00:43.89,0:00:45.59,Default,,0,0,0,,{\b1}首先，"好"是主观的
+Dialogue: 0,0:00:45.61,0:00:46.42,Default,,0,0,0,,{\b1}其次，
+Dialogue: 0,0:00:46.45,0:00:47.74,Default,,0,0,0,,{\b1}那全是AI的功劳！
+Dialogue: 0,0:00:48.13,0:00:50.91,Default,,0,0,0,,{\b1}那些不想钻研调教这门精细手艺的人
+Dialogue: 0,0:00:50.93,0:00:52.58,Default,,0,0,0,,{\b1}可以直接用垃圾声库，
+Dialogue: 0,0:00:52.60,0:00:53.54,Default,,0,0,0,,{\b1}比如 Teto，
+Dialogue: 0,0:00:53.56,0:00:56.01,Default,,0,0,0,,{\b1}做出毫无灵魂、低成本的烂歌。
+Dialogue: 0,0:00:56.25,0:00:58.32,Default,,0,0,0,,{\b1}AI绘画就是个笑话!!!
+Dialogue: 0,0:00:58.56,0:01:00.05,Default,,0,0,0,,{\b1}说到笑话……
+Dialogue: 0,0:01:00.07,0:01:01.27,Default,,0,0,0,,{\b1}理由三
+Dialogue: 0,0:01:03.08,0:01:04.31,Default,,0,0,0,,{\b1}这什么鬼？
+Dialogue: 0,0:01:04.58,0:01:06.45,Default,,0,0,0,,{\b1}这到底啥意思啊？
+Dialogue: 0,0:01:06.46,0:01:08.20,Default,,0,0,0,,{\b1}这有啥好笑的？
+Dialogue: 0,0:01:08.22,0:01:09.45,Default,,0,0,0,,{\b1}完全不知所云！
+Dialogue: 0,0:01:12.21,0:01:13.43,Default,,0,0,0,,{\b1}理由四
+Dialogue: 0,0:01:14.41,0:01:15.61,Default,,0,0,0,,{\b1}理由四……？
+Dialogue: 0,0:01:16.53,0:01:17.33,Default,,0,0,0,,{\b1}#4！
+Dialogue: 0,0:01:17.65,0:01:18.47,Default,,0,0,0,,{\b1}#4？
+Dialogue: 0,0:01:18.95,0:01:19.71,Default,,0,0,0,,{\b1}4！？
+Dialogue: 0,0:01:19.72,0:01:20.53,Default - 复制,,0,0,0,,{\b1}4！？
+Dialogue: 0,0:01:20.56,0:01:21.35,Default,,0,0,0,,{\b1}啊啊啊啊啊啊啊啊啊
+Dialogue: 0,0:01:21.37,0:01:22.06,Default,,0,0,0,,{\b1}我搞不懂啊！！！

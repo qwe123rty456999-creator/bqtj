@@ -1,0 +1,56 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.8,3.8,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:01.42,0:00:02.79,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}脑袋彻底嗨了。 绝对不要睡……
+Dialogue: 0,0:00:04.38,0:00:07.38,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}划呀划 ×4\N双眼闪闪发亮
+Dialogue: 0,0:00:07.38,0:00:09.92,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}划呀划 ×4
+Dialogue: 0,0:00:10.33,0:00:13.21,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}划呀划 ×4\N手指根本停不下来
+Dialogue: 0,0:00:13.21,0:00:15.79,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}划呀划 ×8
+Dialogue: 0,0:00:16.21,0:00:18.87,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}困困的 再刷五分钟时间线。
+Dialogue: 0,0:00:18.87,0:00:22.08,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}想看、 想看、 再看一点点。
+Dialogue: 0,0:00:22.08,0:00:25.00,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}不行！ 不行！ 已经五点了！？ 难道坐了时光机！？
+Dialogue: 0,0:00:25.00,0:00:26.42,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}糟了！ 糟了！ 糟了！ 糟了！
+Dialogue: 0,0:00:26.42,0:00:28.46,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}连十分钟都没睡！
+Dialogue: 0,0:00:29.66,0:00:32.42,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}白天困死啦～
+Dialogue: 0,0:00:33.20,0:00:36.84,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}我还想 啾啾 吸更多点赞。
+Dialogue: 0,0:00:36.84,0:00:39.71,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}不要早睡。 不要明天。 Paranoia
+Dialogue: 0,0:00:39.71,0:00:42.71,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}眼前不停打转， 马上就要睡着。
+Dialogue: 0,0:00:42.71,0:00:45.21,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}现在睡的话， 马上就是明天了。
+Dialogue: 0,0:00:45.58,0:00:48.54,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}划呀划 ×4\N眼睛闪闪发亮
+Dialogue: 0,0:00:48.54,0:00:51.13,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}划呀划 ×4
+Dialogue: 0,0:00:51.49,0:00:54.46,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}划呀划 ×4\N手指根本停不下来
+Dialogue: 0,0:00:54.46,0:00:55.91,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}划呀划 ×8
+Dialogue: 0,0:00:57.41,0:01:00.17,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}时间线转啊转， 突然卡住了。
+Dialogue: 0,0:01:00.17,0:01:03.34,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}烦死了！ 烦死了！ 真的、 超级烦！
+Dialogue: 0,0:01:03.34,0:01:06.17,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}这种渣画质 一点都不好看。
+Dialogue: 0,0:01:06.17,0:01:09.17,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}不要！ 不要！ 不要！ 不要！ 不要！ 不要！ 不要！ 不要！
+Dialogue: 0,0:01:09.17,0:01:10.63,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}打扰了， 这里是在棺材外发帖。
+Dialogue: 0,0:01:10.63,0:01:12.09,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}“那只是你的个人感想吧？” 欸？
+Dialogue: 0,0:01:12.09,0:01:15.09,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}等等！ kuwasedrftgy fujiko lp...
+Dialogue: 0,0:01:15.09,0:01:16.59,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}不是说了别随便开门吗！
+Dialogue: 0,0:01:16.59,0:01:18.00,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}好啦好啦！ 我马上去睡！
+Dialogue: 0,0:01:18.00,0:01:20.88,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}已经到极限了……
+Dialogue: 0,0:01:20.88,0:01:23.92,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}还想 更多更多 啾啾。
+Dialogue: 0,0:01:23.92,0:01:26.96,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}害怕明天。 害怕未来。 眼泪 Tonight。
+Dialogue: 0,0:01:26.96,0:01:29.79,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}干脆 睡上一千年。
+Dialogue: 0,0:01:29.79,0:01:31.67,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}想一直躲在 棺材里面。
+Dialogue: 0,0:01:32.16,0:01:35.71,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}我还想 啾啾 吸更多点赞。
+Dialogue: 0,0:01:35.71,0:01:38.59,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}不要早睡。 不要明天。 Paranoia
+Dialogue: 0,0:01:38.59,0:01:41.59,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}眼前不停打转， 马上就要睡着。
+Dialogue: 0,0:01:41.59,0:01:44.13,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}现在睡的话， 马上就是明天了。
+Dialogue: 0,0:01:44.53,0:01:47.46,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}划呀划 ×4\N双眼闪闪发亮
+Dialogue: 0,0:01:47.46,0:01:50.38,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}Doba doba Dopa dopa 眼睛 越来越清醒。
+Dialogue: 0,0:01:50.38,0:01:53.34,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}Flick ×4 秀出你的发推天赋！
+Dialogue: 0,0:01:53.34,0:01:56.04,Default,,0,0,0,,{\fad(200,200)}{\b1}{\fnZCOOL XiaoWei}三个点赞…… 好吧。 删推。

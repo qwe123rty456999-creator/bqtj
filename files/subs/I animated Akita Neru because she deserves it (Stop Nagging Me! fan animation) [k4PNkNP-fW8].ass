@@ -1,0 +1,42 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1280
+PlayResY: 720
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,50,&H003FD9FD,&H0000FFFF,&H00FFFFFF,&H00000000,0,0,0,0,100,100,0,0,1,10.0,0,2,33,33,0,1
+Style: miku,Arial,50,&H00B1BA61,&H0000FFFF,&H00FFFFFF,&H00000000,0,0,0,0,100,100,0,0,1,10.0,0,2,33,33,0,1
+Style: teto,Arial,50,&H005E46B0,&H0000FFFF,&H00FFFFFF,&H00000000,0,0,0,0,100,100,0,0,1,10.0,0,2,33,33,0,1
+Style: gumi,Arial,50,&H008EBE83,&H0000FFFF,&H00FFFFFF,&H00000000,0,0,0,0,100,100,0,0,1,10.0,0,2,33,33,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:01.78,0:00:02.99,Default,,0,0,0,,{\fad(100,100)}{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:02.99,0:00:04.17,Default,,0,0,0,,{\fad(100,100)}{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:04.18,0:00:05.32,Default,,0,0,0,,{\fad(100,100)}{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:05.35,0:00:06.38,Default,,0,0,0,,{\fad(100,100)}{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:06.38,0:00:07.43,Default,,0,0,0,,{\fad(100,100)}{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:07.42,0:00:08.43,Default,,0,0,0,,{\fad(100,100)}{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:08.44,0:00:09.62,Default,,0,0,0,,{\fad(100,100)}{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:09.63,0:00:10.74,Default,,0,0,0,,{\fad(100,100)}{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:10.74,0:00:11.83,miku,,0,0,0,,{\fn猫啃什锦黑}{\b1}洗手了吗？
+Dialogue: 0,0:00:11.83,0:00:12.88,Default,,0,0,0,,{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:12.88,0:00:13.97,teto,,0,0,0,,{\fn猫啃什锦黑}{\b1}漱口了吗？
+Dialogue: 0,0:00:13.98,0:00:14.98,Default,,0,0,0,,{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:15.00,0:00:16.21,gumi,,0,0,0,,{\fn猫啃什锦黑}{\b1}洗脸了吗？
+Dialogue: 0,0:00:16.22,0:00:17.29,Default,,0,0,0,,{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:17.30,0:00:18.32,miku,,0,0,0,,{\fn猫啃什锦黑}{\b1}刷牙了吗？
+Dialogue: 0,0:00:18.32,0:00:19.48,Default,,0,0,0,,{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:19.48,0:00:20.54,teto,,0,0,0,,{\fn猫啃什锦黑}{\b1}作业写完了吗？
+Dialogue: 0,0:00:20.54,0:00:21.62,Default,,0,0,0,,{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:21.63,0:00:22.73,gumi,,0,0,0,,{\fn猫啃什锦黑}{\b1}又想找借口？
+Dialogue: 0,0:00:22.74,0:00:23.71,Default,,0,0,0,,{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:23.71,0:00:24.95,miku,,0,0,0,,{\fn猫啃什锦黑}{\b1}你怎么就是改不了？
+Dialogue: 0,0:00:24.96,0:00:25.99,Default,,0,0,0,,{\fn猫啃什锦黑}{\b1}别唠叨了！
+Dialogue: 0,0:00:26.01,0:00:27.05,teto,,0,0,0,,{\fn猫啃什锦黑}{\b1}你做不到吧？
+Dialogue: 0,0:00:27.07,0:00:28.05,Default,,0,0,0,,{\fn猫啃什锦黑}{\b1}别唠叨了！

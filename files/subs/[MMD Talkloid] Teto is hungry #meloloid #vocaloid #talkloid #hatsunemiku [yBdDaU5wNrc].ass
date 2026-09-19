@@ -1,0 +1,33 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 720
+PlayResY: 900
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,62.5,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.1,0.0,2,19,19,31,1
+Style: hong,Arial,62.5,&H000907F1,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.6,0,2,19,19,31,1
+Style: lan,Arial,62.5,&H00FFFF78,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.6,0,2,19,19,31,1
+Style: lu,Arial,62.5,&H0091FEFA,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2.1,0.5,2,19,19,31,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.18,0:00:02.27,hong,,0,0,0,,{\b1}我好饿啊...
+Dialogue: 0,0:00:02.57,0:00:04.53,hong,,0,0,0,,{\b1}该去麦当劳了！
+Dialogue: 0,0:00:04.59,0:00:05.53,lan,,0,0,0,,{\b1}这都...
+Dialogue: 0,0:00:05.55,0:00:06.35,lan,,0,0,0,,{\b1}嗯...
+Dialogue: 0,0:00:06.50,0:00:07.35,lan,,0,0,0,,{\b1}第四次了
+Dialogue: 0,0:00:07.35,0:00:08.32,lan,,0,0,0,,{\b1}这周...
+Dialogue: 0,0:00:08.34,0:00:09.04,lan,,0,0,0,,{\b1}你个吃货
+Dialogue: 0,0:00:09.05,0:00:09.55,hong,,0,0,0,,{\b1}怎样？？？
+Dialogue: 0,0:00:09.56,0:00:11.17,hong,,0,0,0,,{\b1}你可是吃了60个柠檬！
+Dialogue: 0,0:00:11.19,0:00:13.50,lan,,0,0,0,,{\b1}但柠檬又不会长胖啊
+Dialogue: 0,0:00:13.51,0:00:18.37,lu,,0,0,0,,{\b1}{\pos(360,640)\t(0,4800,\fscx120\fscy120)}嘿你们~~
+Dialogue: 0,0:00:14.98,0:00:18.36,lan,,0,0,0,,{\b1}{\pos(360,740)\t(0,3300,\fscx120\fscy120)}那是我的台词！
+Dialogue: 0,0:00:16.56,0:00:18.37,hong,,0,0,0,,{\b1}{\pos(360,830)\t(0,1800,\fscx120\fscy120)}Miku闭嘴啦
+Dialogue: 0,0:00:18.39,0:00:21.50,lu,,0,0,0,,{\b1}{\pos(360,750)}要不要来点汉堡？
+Dialogue: 0,0:00:20.01,0:00:21.50,Default,,0,0,0,,{\b1}{\pos(360,750)\frz22\fscx120\fscy120}不了，你个吃货

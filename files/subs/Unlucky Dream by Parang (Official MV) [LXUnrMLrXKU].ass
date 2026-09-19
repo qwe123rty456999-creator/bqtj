@@ -1,0 +1,110 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.8,3.8,2,50,50,38,1
+Style: 紫色,Arial,75,&H00670998,&H0000FFFF,&H008E5F67,&H00000000,0,0,0,0,100,100,0,0,1,4.3,0,2,50,50,38,1
+Style: 绿色,Arial,75,&H0038DCB1,&H0000FFFF,&H008239C4,&H00000000,0,0,0,0,100,100,0,0,1,9.0,0,2,50,50,38,1
+Style: 蓝色,Arial,75,&H00EECD8D,&H0000FFFF,&H00AB57B3,&H00000000,0,0,0,0,100,100,0,0,1,2.8,0,2,50,50,38,1
+Style: 小粉色,Arial,75,&H00D7CCFC,&H0000FFFF,&H00B436EB,&H00000000,0,0,0,0,100,100,0,0,1,2.3,0,2,50,50,38,1
+Style: 小蓝色,Arial,75,&H00EA7F5A,&H0000FFFF,&H00D34D9B,&H00000000,0,0,0,0,100,100,0,0,1,2.8,0,2,50,50,38,1
+Style: 小红色,Arial,75,&H005718A4,&H0000FFFF,&H00A16CC8,&H00000000,0,0,0,0,100,100,0,0,1,2.3,0,2,50,50,38,1
+Style: 浅紫色,Arial,75,&H00F1ACBB,&H0000FFFF,&H00A16CC8,&H00000000,0,0,0,0,100,100,0,0,1,2.3,0,2,50,50,38,1
+Style: 深色,Arial,75,&H00733027,&H0000FFFF,&H009C6A6A,&H00000000,0,0,0,0,100,100,0,0,1,2.3,0,2,50,50,38,1
+Style: 淡紫,Arial,75,&H00F66F9D,&H0000FFFF,&H00F8E4DA,&H00000000,0,0,0,0,100,100,0,0,1,2.3,0,2,50,50,38,1
+Style: 深紫色,Arial,75,&H00943379,&H0000FFFF,&H009C6A6A,&H00000000,0,0,0,0,100,100,0,0,1,2.3,0,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.61,0:00:02.35,紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}突然间就开始了
+Dialogue: 0,0:00:02.35,0:00:03.14,绿色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}Bad!
+Dialogue: 0,0:00:03.14,0:00:05.33,蓝色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}我，正要去向某个地方
+Dialogue: 0,0:00:05.33,0:00:06.19,蓝色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}突、突、突然就
+Dialogue: 0,0:00:06.19,0:00:07.96,蓝色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}坠入了梦乡的世界……
+Dialogue: 0,0:00:07.96,0:00:08.58,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\c&HEECD8D&\fn猫啃什锦黑}呼……
+Dialogue: 0,0:00:08.58,0:00:09.30,小粉色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}头有点疼，有点疼
+Dialogue: 0,0:00:09.33,0:00:09.92,小蓝色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}头有点疼，有点疼
+Dialogue: 0,0:00:09.92,0:00:10.64,小红色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}快要吐出彩虹了
+Dialogue: 0,0:00:10.64,0:00:11.02,Default,,0,0,0,,{\c&HA16CC8&\fn猫啃什锦黑}La
+Dialogue: 0,0:00:11.02,0:00:11.39,Default,,0,0,0,,{\c&HD34D9B&\fn猫啃什锦黑}La La
+Dialogue: 0,0:00:11.39,0:00:11.77,Default,,0,0,0,,{\c&H5718A4&\fn猫啃什锦黑}La La La
+Dialogue: 0,0:00:11.77,0:00:13.45,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}有什么东西掉在地上
+Dialogue: 0,0:00:13.45,0:00:13.79,蓝色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}Bell
+Dialogue: 0,0:00:13.79,0:00:14.13,蓝色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}Bell {\c&HAFF7FA&}Bell
+Dialogue: 0,0:00:14.13,0:00:14.48,蓝色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}Bell {\c&HAFF7FA&}Bell {\c&HEECD8D&}Bell{\c&HEECD8D&}
+Dialogue: 0,0:00:14.48,0:00:17.29,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}下意识地响起，这还挺好玩的！
+Dialogue: 0,0:00:17.29,0:00:19.84,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}有人在跟着我
+Dialogue: 0,0:00:19.84,0:00:21.09,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}等等，喘不过气了，喘不过气了
+Dialogue: 0,0:00:21.09,0:00:21.88,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}有点难受
+Dialogue: 0,0:00:21.88,0:00:22.88,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}救救我
+Dialogue: 0,0:00:22.88,0:00:25.78,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}想象的动物也好，熟悉的脸也好
+Dialogue: 0,0:00:25.78,0:00:27.16,Default,,0,0,0,,{\c&HA5A0B5&}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}全～都～
+Dialogue: 0,0:00:29.29,0:00:30.69,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}手忙脚乱地奔跑着！
+Dialogue: 0,0:00:30.69,0:00:32.00,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}根本停不下来！
+Dialogue: 0,0:00:32.00,0:00:33.56,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}午夜的噩梦
+Dialogue: 0,0:00:33.56,0:00:34.03,深色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}醒不过来
+Dialogue: 0,0:00:34.05,0:00:34.84,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}醒不过来
+Dialogue: 0,0:00:34.84,0:00:37.36,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}关于你的一切，我都不了解
+Dialogue: 0,0:00:37.36,0:00:39.36,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}那低语声，扎在耳朵里
+Dialogue: 0,0:00:39.36,0:00:40.50,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}一闪一闪
+Dialogue: 0,0:00:40.50,0:00:42.00,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}噼里啪啦地飞走吧！
+Dialogue: 0,0:00:42.00,0:00:43.33,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\c&HA5A0B5&\fn猫啃什锦黑}就像天上的鸟儿一样
+Dialogue: 0,0:00:43.33,0:00:44.76,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}大白天的打盹儿
+Dialogue: 0,0:00:44.76,0:00:46.14,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}醒不过来，醒不过来
+Dialogue: 0,0:00:46.14,0:00:47.43,淡紫,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}为什么，会如此的……
+Dialogue: 0,0:00:47.43,0:00:48.51,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}忧郁呢？
+Dialogue: 0,0:00:48.52,0:00:50.58,深紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}就像奇妙的魔法一样
+Dialogue: 0,0:00:50.59,0:00:51.76,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}Unlucky Dream——
+Dialogue: 0,0:00:51.76,0:00:53.60,深紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}突然就结束了
+Dialogue: 0,0:00:53.60,0:00:54.44,绿色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}Back!
+Dialogue: 0,0:00:54.44,0:00:56.39,紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}你还出不去呢
+Dialogue: 0,0:00:56.39,0:00:57.26,紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}顺其自然吧
+Dialogue: 0,0:00:57.26,0:00:59.26,小蓝色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}喝了一口红茶
+Dialogue: 0,0:00:59.26,0:01:00.00,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\c&H9C6A6A&\fn猫啃什锦黑}嘶——
+Dialogue: 0,0:01:00.00,0:01:00.53,小粉色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}这个有毒哦
+Dialogue: 0,0:01:00.56,0:01:01.21,深色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}有毒的哦
+Dialogue: 0,0:01:01.21,0:01:01.92,紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}难道说……难道说？
+Dialogue: 0,0:01:01.92,0:01:02.37,紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}Bye Bye Bye？
+Dialogue: 0,0:01:02.39,0:01:02.89,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}Bye Bye Bye？
+Dialogue: 0,0:01:19.23,0:01:21.23,深紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}突然间又回来了
+Dialogue: 0,0:01:21.23,0:01:22.23,蓝色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}咕嘟、咕嘟、咕嘟
+Dialogue: 0,0:01:22.23,0:01:24.09,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}这茶，好甜啊
+Dialogue: 0,0:01:24.09,0:01:25.25,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}我活过来了！
+Dialogue: 0,0:01:25.25,0:01:26.80,紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}路弯弯曲曲的
+Dialogue: 0,0:01:27.94,0:01:29.91,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\pos(963,1070)\fn猫啃什锦黑}大概，翻过山，渡过海，飞起来
+Dialogue: 0,0:01:29.91,0:01:31.25,淡紫,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}朝着宇宙
+Dialogue: 0,0:01:31.25,0:01:34.42,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}银色的水
+Dialogue: 0,0:01:35.61,0:01:38.92,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}想要让我沉沉睡去
+Dialogue: 0,0:01:38.92,0:01:43.46,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}在非常松软的云朵里睡着了……
+Dialogue: 0,0:01:43.46,0:01:44.99,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}等、等一下——
+Dialogue: 0,0:01:44.99,0:01:46.00,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}这个，该不会
+Dialogue: 0,0:01:46.00,0:01:47.11,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}该不会该不会
+Dialogue: 0,0:01:47.11,0:01:48.14,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}该不会该不会吧！
+Dialogue: 0,0:01:48.83,0:01:50.83,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}呀啊啊啊啊啊啊啊啊啊啊啊啊啊~~~~
+Dialogue: 0,0:01:52.11,0:01:53.53,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}手忙脚乱地奔跑着！
+Dialogue: 0,0:01:53.53,0:01:54.98,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}根本停不下来！
+Dialogue: 0,0:01:54.98,0:01:56.34,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}午夜的噩梦
+Dialogue: 0,0:01:56.34,0:01:56.76,深色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}醒不过来
+Dialogue: 0,0:01:56.78,0:01:57.73,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}醒不过来
+Dialogue: 0,0:01:57.73,0:02:00.17,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}关于你的一切，我都不了解
+Dialogue: 0,0:02:00.17,0:02:02.21,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}那低语声，扎在耳朵里
+Dialogue: 0,0:02:02.21,0:02:03.26,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}一闪一闪
+Dialogue: 0,0:02:03.26,0:02:04.82,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}噼里啪啦地飞走吧！
+Dialogue: 0,0:02:04.82,0:02:06.19,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\c&HA5A0B5&\fn猫啃什锦黑}就像天上的鸟儿一样
+Dialogue: 0,0:02:06.19,0:02:07.58,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}大白天的打盹儿
+Dialogue: 0,0:02:07.58,0:02:08.82,浅紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}醒不过来，醒不过来
+Dialogue: 0,0:02:08.82,0:02:10.36,淡紫,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}为什么，会如此的……
+Dialogue: 0,0:02:10.36,0:02:11.43,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}忧郁呢？
+Dialogue: 0,0:02:11.43,0:02:13.43,深紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}就像奇妙的魔法一样
+Dialogue: 0,0:02:13.44,0:02:14.33,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}Unlucky Dream——
+Dialogue: 0,0:02:14.34,0:02:18.23,蓝色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}Memento mori！
+Dialogue: 0,0:02:18.23,0:02:18.73,深色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}哇
+Dialogue: 0,0:02:18.73,0:02:19.45,Default,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}醒不过来了！
+Dialogue: 0,0:02:19.45,0:02:22.04,紫色,,0,0,0,,{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)\fn猫啃什锦黑}Memento mori！

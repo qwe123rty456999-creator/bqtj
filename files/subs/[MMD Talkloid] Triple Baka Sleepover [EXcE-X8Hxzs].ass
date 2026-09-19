@@ -1,0 +1,40 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,85,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.8,3.8,2,50,50,32,1
+Style: miku,Arial,90,&H00FFFF0D,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2.3,0,2,50,50,30,1
+Style: teto,Arial,90,&H000000FF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2.3,0,2,50,50,30,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.96,miku,,0,0,0,,{\b1}我一听那个autotune就说
+Dialogue: 0,0:00:01.98,0:00:03.66,miku,,0,0,0,,{\b1}"对啊 autotune就是这么玩的
+Dialogue: 0,0:00:03.67,0:00:04.95,miku,,0,0,0,,{\b1}就该这么用
+Dialogue: 0,0:00:04.97,0:00:05.69,miku,,0,0,0,,{\b1}就得这么整
+Dialogue: 0,0:00:05.71,0:00:06.94,miku,,0,0,0,,{\b1}当时所有人都在说
+Dialogue: 0,0:00:06.96,0:00:08.92,miku,,0,0,0,,{\b1}"啊我们讨厌autotune！这也太丑——"
+Dialogue: 0,0:00:08.94,0:00:09.43,miku,,0,0,0,,{\pos(961,1079)}{\b1}噫——
+Dialogue: 0,0:00:09.44,0:00:10.69,miku,,0,0,0,,{\b1}我就想说 你们就是讨厌黑人
+Dialogue: 0,0:00:10.70,0:00:11.80,miku,,0,0,0,,{\b1}还讨厌好玩的东西
+Dialogue: 0,0:00:11.82,0:00:13.28,miku,,0,0,0,,{\b1}你们什么都讨厌……
+Dialogue: 0,0:00:13.51,0:00:13.87,miku,,0,0,0,,{\b1}你们啊
+Dialogue: 0,0:00:13.89,0:00:15.20,miku,,0,0,0,,{\b1}你们也太没劲了！
+Dialogue: 0,0:00:15.22,0:00:16.47,miku,,0,0,0,,{\b1}因为那首歌……
+Dialogue: 0,0:00:16.87,0:00:17.60,miku,,0,0,0,,{\pos(961,1071)}{\b1}超好玩的
+Dialogue: 0,0:00:17.61,0:00:20.04,miku,,0,0,0,,{\b1}管他呢！到现在我还是超爱~
+Dialogue: 0,0:00:20.71,0:00:24.24,miku,,0,0,0,,{\fad(3500,0)}{\b1}*回忆杀*
+Dialogue: 0,0:00:24.27,0:00:25.52,teto,,0,0,0,,{\b1}天哪 好土！
+Dialogue: 0,0:00:25.53,0:00:25.93,teto,,0,0,0,,{\b1}>:P
+Dialogue: 0,0:00:25.96,0:00:27.42,teto,,0,0,0,,{\b1}好烂 嘘————
+Dialogue: 0,0:00:27.44,0:00:28.78,teto,,0,0,0,,{\b1}番茄
+Dialogue: 0,0:00:27.83,0:00:28.78,teto,,0,0,0,,{\pos(1084,668)\frz-22}{\b1}番茄
+Dialogue: 0,0:00:28.27,0:00:28.78,teto,,0,0,0,,{\pos(926,368)\frz10}{\b1}番茄
+Dialogue: 0,0:00:28.78,0:00:30.78,teto,,0,0,0,,{\b1}砸番茄！

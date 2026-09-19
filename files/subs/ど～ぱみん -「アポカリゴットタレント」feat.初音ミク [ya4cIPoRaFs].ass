@@ -1,0 +1,112 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: ど～ぱみん -「アポカリゴットタレント」feat.初音ミク [ya4cIPoRaFs]
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: 内白外红,Arial,75,&H00FFFFFF,&H0000FFFF,&H0051499E,&H00000000,0,0,0,0,100,100,0,0,1,5.3,0,2,50,50,38,1
+Style: 正常,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.8,3.8,2,50,50,38,1
+Style: 内黑外白,Arial,75,&H00211F1A,&H0000FFFF,&H00E9EAE4,&H00000000,0,0,0,0,100,100,0,0,1,5.3,0,2,50,50,38,1
+Style: 内白外黑,Arial,75,&H00FFFFFF,&H0000FFFF,&H00FFFFFF,&H00000000,0,0,0,0,100,100,0,0,1,1.3,3.5,2,50,50,38,1
+Style: 正常 - 复制,Arial,75,&H00FFFFFF,&H0000FFFF,&H004D3A33,&H00000000,0,0,0,0,100,100,0,0,1,4.8,0,2,50,50,38,1
+Style: 正常 - 复制 - 复制,Arial,75,&H00FFFFFF,&H0000FFFF,&H00211F1A,&H00000000,0,0,0,0,100,100,0,0,1,4.8,0,2,50,50,38,1
+Style: 正常 - 复制 - 复制 - 复制,Arial,49,&H00FFFFFF,&H0000FFFF,&H00211F1A,&H00000000,0,0,0,0,100,100,0,0,1,4.8,0,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:02.03,0:00:02.69,内白外红,,0,0,0,,{\fn新宋体}{\fad(100,100)}{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H000000&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}嘿嘿{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 这位先生 我都快打哈欠了
+Dialogue: 0,0:00:02.71,0:00:03.35,内白外红,,0,0,0,,{\fn新宋体}{\fad(100,100)}{\b1}{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}嘿嘿 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H000000&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}这位先生{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 我都快打哈欠了
+Dialogue: 0,0:00:03.37,0:00:05.13,内白外红,,0,0,0,,{\fn新宋体}{\fad(100,100)}{\b1}{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}嘿嘿 这位先生 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H000000&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我都快打哈欠了
+Dialogue: 0,0:00:05.78,0:00:07.05,内白外红,,0,0,0,,{\fn新宋体}{\fad(100,100)}{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H000000&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}所谓的“高级感”{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}给我看看啊
+Dialogue: 0,0:00:07.07,0:00:08.84,内白外红,,0,0,0,,{\fn新宋体}{\fad(100,100)}{\b1}{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}所谓的“高级感”{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H000000&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}给我看看啊
+Dialogue: 0,0:00:09.28,0:00:10.97,内白外红,,0,0,0,,{\fn新宋体}{\fad(100,100)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}特别节目闹个不停
+Dialogue: 0,0:00:11.06,0:00:12.80,内黑外白,,0,0,0,,{\fn新宋体}{\fad(100,100)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}结束的开始
+Dialogue: 0,0:00:12.93,0:00:14.67,内白外黑,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}「「头等奖是豪华游轮！」」
+Dialogue: 0,0:00:14.77,0:00:15.09,内白外红,,0,0,0,,{\fnInk Free}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}Show
+Dialogue: 0,0:00:15.10,0:00:15.39,内白外红,,0,0,0,,{\fnInk Free}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}Show must
+Dialogue: 0,0:00:15.40,0:00:15.57,内白外红,,0,0,0,,{\fnInk Free}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}Show must go
+Dialogue: 0,0:00:15.58,0:00:16.02,内白外红,,0,0,0,,{\fnInk Free}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}Show must go on！
+Dialogue: 0,0:00:31.38,0:00:32.91,内白外黑,,0,0,0,,{\fn新宋体}{\fad(50,50)\an8}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}一个个都装得好像真坐上了船
+Dialogue: 0,0:00:32.98,0:00:35.00,内白外黑,,0,0,0,,{\fn新宋体}{\fad(50,50)\an8}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}周围全是云里雾里
+Dialogue: 0,0:00:35.05,0:00:36.52,内白外黑,,0,0,0,,{\fn新宋体}{\fad(50,50)\an8}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}评委们昏昏入睡
+Dialogue: 0,0:00:36.58,0:00:38.44,内白外黑,,0,0,0,,{\fn新宋体}{\fad(50,50)\an8}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}超越那帮人的高级定制
+Dialogue: 0,0:00:38.49,0:00:42.35,内白外黑,,0,0,0,,{\fn新宋体}{\fad(50,50)\an8}那种天真纯情的真实体验我可受不了 
+Dialogue: 0,0:00:42.42,0:00:43.85,内白外黑,,0,0,0,,{\fn新宋体}{\fad(50,50)\an8}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)} 等终于重获自由了
+Dialogue: 0,0:00:43.93,0:00:45.14,内白外黑,,0,0,0,,{\fn新宋体}{\fad(50,50)\an8}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}请踊跃报名吧
+Dialogue: 0,0:00:46.10,0:00:47.91,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}是任君挑选的艺人 A,B,C？
+Dialogue: 0,0:00:47.93,0:00:49.78,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}这辈子最后推出的B to C？
+Dialogue: 0,0:00:49.81,0:00:51.62,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}那还不如让那个哭鼻子的女孩来个服务镜头
+Dialogue: 0,0:00:51.65,0:00:53.40,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}正对着寂寞的客厅热播中
+Dialogue: 0,0:00:53.58,0:00:55.26,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}那些陈词滥调的诡辩和废话
+Dialogue: 0,0:00:55.42,0:00:57.17,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}被海风一吹就都完蛋
+Dialogue: 0,0:00:57.28,0:00:59.68,内黑外白,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}喂 把你那出类拔萃的才能
+Dialogue: 0,0:00:59.74,0:01:00.88,内黑外白,,0,0,0,,{\fn新宋体}{\fad(50,50)}再让我看看吧
+Dialogue: 0,0:01:04.52,0:01:04.99,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE
+Dialogue: 0,0:01:04.99,0:01:05.45,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR
+Dialogue: 0,0:01:05.45,0:01:05.92,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR DIE
+Dialogue: 0,0:01:05.94,0:01:07.76,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}请你们继续互相撕咬吧
+Dialogue: 0,0:01:07.91,0:01:09.83,正常 - 复制,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}那样的生命只是亲近人类
+Dialogue: 0,0:01:09.86,0:01:10.04,正常 - 复制,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啊啊
+Dialogue: 0,0:01:10.10,0:01:11.87,正常 - 复制,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}总觉得像副空壳
+Dialogue: 0,0:01:12.20,0:01:12.57,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE
+Dialogue: 0,0:01:12.57,0:01:12.95,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR
+Dialogue: 0,0:01:12.95,0:01:13.32,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR DIE
+Dialogue: 0,0:01:13.34,0:01:15.18,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}就用那样充血的眼睛盯着我吧
+Dialogue: 0,0:01:15.61,0:01:19.28,正常 - 复制 - 复制,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}可惜啊 能让木偶搭乘的方舟
+Dialogue: 0,0:01:19.34,0:01:21.19,正常 - 复制 - 复制,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我身上连一文钱
+Dialogue: 0,0:01:21.21,0:01:22.50,内白外红,,0,0,0,,{\fn新宋体}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}都没有啊！
+Dialogue: 0,0:01:28.59,0:01:29.01,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE
+Dialogue: 0,0:01:29.03,0:01:29.44,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR
+Dialogue: 0,0:01:29.47,0:01:29.92,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR DIE
+Dialogue: 0,0:01:38.36,0:01:38.72,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE
+Dialogue: 0,0:01:38.72,0:01:39.09,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR
+Dialogue: 0,0:01:39.09,0:01:39.45,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR DIE
+Dialogue: 0,0:01:39.68,0:01:40.16,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE
+Dialogue: 0,0:01:40.16,0:01:40.64,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR
+Dialogue: 0,0:01:40.64,0:01:41.12,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR DIE
+Dialogue: 0,0:01:42.08,0:01:42.51,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE
+Dialogue: 0,0:01:42.51,0:01:42.94,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR
+Dialogue: 0,0:01:42.94,0:01:43.37,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR DIE
+Dialogue: 0,0:01:44.75,0:01:44.85,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}来吧
+Dialogue: 0,0:01:44.87,0:01:45.09,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}来吧
+Dialogue: 0,0:01:45.12,0:01:46.95,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}好戏还在后头呢
+Dialogue: 0,0:01:47.02,0:01:48.84,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}没有托儿没有嘘声的一镜到底
+Dialogue: 0,0:01:48.91,0:01:50.68,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}见一个逮一个全都拿下
+Dialogue: 0,0:01:50.70,0:01:52.44,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}正如预料 只是自由奔放
+Dialogue: 0,0:01:52.60,0:01:54.28,正常 - 复制,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}把那些显而易见的支配与崇拜
+Dialogue: 0,0:01:54.47,0:01:56.21,正常 - 复制,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}当作下酒菜 举起美酒干杯
+Dialogue: 0,0:01:56.25,0:01:58.72,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}就算舌头打结 摄像机仍在转动
+Dialogue: 0,0:01:58.76,0:01:59.91,内黑外白,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}请你继续看下去
+Dialogue: 0,0:02:00.37,0:02:02.92,正常 - 复制 - 复制 - 复制,,0,0,0,,{\pos(960,88)}※ 此句引自前作《デッドパロディダンス》，寓意娱乐至死的终幕
+Dialogue: 0,0:02:00.37,0:02:01.54,正常 - 复制 - 复制,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}最终回的频道请别换台
+Dialogue: 0,0:02:01.85,0:02:02.92,正常 - 复制 - 复制,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}最终回的频道请别换台
+Dialogue: 0,0:02:03.68,0:02:04.11,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE
+Dialogue: 0,0:02:04.11,0:02:04.55,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR
+Dialogue: 0,0:02:04.55,0:02:04.98,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR DIE
+Dialogue: 0,0:02:05.00,0:02:06.83,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}请你们继续互相撕咬吧
+Dialogue: 0,0:02:06.97,0:02:08.89,内白外红,,0,0,0,,{\fn新宋体}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}那样的{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}生命只是亲近人类
+Dialogue: 0,0:02:08.90,0:02:10.90,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啊啊总觉得像副空壳
+Dialogue: 0,0:02:11.21,0:02:11.59,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE
+Dialogue: 0,0:02:11.59,0:02:11.98,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR
+Dialogue: 0,0:02:11.98,0:02:12.36,内白外红,,0,0,0,,{\fnInk Free}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}RIDE OR DIE
+Dialogue: 0,0:02:12.38,0:02:14.19,内白外红,,0,0,0,,{\fn新宋体}{\fad(50,50)}就用那样充血的眼睛盯着我吧
+Dialogue: 0,0:02:14.68,0:02:18.31,正常 - 复制,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}可惜啊 能让木偶搭乘的方舟
+Dialogue: 0,0:02:18.38,0:02:20.23,正常 - 复制,,0,0,0,,{\fn新宋体}{\fad(50,50)}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我身上连一文钱
+Dialogue: 0,0:02:20.25,0:02:21.56,内白外红,,0,0,0,,{\fn新宋体}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}都没有啊！
+Dialogue: 0,0:02:22.51,0:02:22.97,内白外红,,0,0,0,,{\an8\fn新宋体}{\fad(100,100)}{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H000000&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}嘿嘿{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 这位先生 我都快打哈欠了
+Dialogue: 0,0:02:23.00,0:02:23.68,内白外红,,0,0,0,,{\an8\fn新宋体}{\fad(100,100)}{\b1}{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}嘿嘿 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H000000&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}这位先生{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 我都快打哈欠了
+Dialogue: 0,0:02:23.70,0:02:25.44,内白外红,,0,0,0,,{\an8\fn新宋体}{\fad(100,100)}{\b1}{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}嘿嘿 这位先生 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H000000&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我都快打哈欠了
+Dialogue: 0,0:02:26.13,0:02:27.33,内白外红,,0,0,0,,{\an8\fn新宋体}{\fad(100,100)}{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H000000&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}装什么高级啊{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 去那边坐着吧
+Dialogue: 0,0:02:27.35,0:02:29.14,内白外红,,0,0,0,,{\an8\fn新宋体}{\fad(100,100)}{\b1}{\alpha&H66&\1c&HFFFFFF&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 装什么高级啊 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H000000&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}去那边坐着吧
+Dialogue: 0,0:02:29.53,0:02:31.32,内白外红,,0,0,0,,{\an8\fn新宋体}{\fad(50,50)}特别节目闹个不停
+Dialogue: 0,0:02:31.35,0:02:33.18,内黑外白,,0,0,0,,{\an8\fn新宋体}{\fad(50,50)}结束的开始
+Dialogue: 0,0:02:33.22,0:02:35.00,内白外黑,,0,0,0,,{\fn新宋体}{\fad(50,50)}「「头等奖是豪华游轮！」」
+Dialogue: 0,0:02:35.03,0:02:35.40,内白外红,,0,0,0,,{\fnInk Free}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}Show
+Dialogue: 0,0:02:35.42,0:02:35.77,内白外红,,0,0,0,,{\fnInk Free}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}Show must
+Dialogue: 0,0:02:35.80,0:02:35.98,内白外红,,0,0,0,,{\fnInk Free}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}Show must go
+Dialogue: 0,0:02:36.01,0:02:36.34,内白外红,,0,0,0,,{\fnInk Free}{\fscx115\fscy115\t(0,250,\fscx100\fscy100)}Show must go on！

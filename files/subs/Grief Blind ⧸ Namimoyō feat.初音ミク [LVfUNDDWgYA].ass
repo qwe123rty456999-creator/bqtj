@@ -1,0 +1,59 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.8,3.8,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:18.98,0:00:22.65,Default,,0,0,0,,{\b1}{\an8}归途之上  雏鸟
+Dialogue: 0,0:00:22.65,0:00:26.32,Default,,0,0,0,,{\b1}{\an8}像是要逃离一般
+Dialogue: 0,0:00:26.32,0:00:29.70,Default,,0,0,0,,{\b1}{\an8}从电线上的枯草巢中跌落
+Dialogue: 0,0:00:29.70,0:00:33.75,Default,,0,0,0,,{\b1}{\an8}你却视而不见
+Dialogue: 0,0:00:33.75,0:00:37.41,Default,,0,0,0,,{\b1}{\an8}归途，徒有其名
+Dialogue: 0,0:00:37.41,0:00:41.17,Default,,0,0,0,,{\b1}{\an8}没有去处
+Dialogue: 0,0:00:41.17,0:00:44.47,Default,,0,0,0,,{\b1}{\an8}公园消逝于虚空的暮色之歌
+Dialogue: 0,0:00:44.47,0:00:48.47,Default,,0,0,0,,{\b1}{\an8}将你引向孤独
+Dialogue: 0,0:00:48.47,0:00:52.27,Default,,0,0,0,,{\b1}{\an8}无论多么绚丽的色彩
+Dialogue: 0,0:00:52.27,0:00:55.47,Default,,0,0,0,,{\b1}{\an8}你都不愿相信
+Dialogue: 0,0:00:55.48,0:01:00.52,Default,,0,0,0,,{\b1}{\an8}可你一直被珍视着
+Dialogue: 0,0:01:00.52,0:01:03.11,Default,,0,0,0,,{\b1}{\an8}请一定记在心里
+Dialogue: 0,0:01:06.91,0:01:09.78,Default,,0,0,0,,{\b1}{\an8}心灵的归宿
+Dialogue: 0,0:01:09.78,0:01:13.41,Default,,0,0,0,,{\b1}{\an8}你哭着说失去了它
+Dialogue: 0,0:01:13.41,0:01:18.08,Default,,0,0,0,,{\b1}{\an8}将别人伸出的手掌
+Dialogue: 0,0:01:18.08,0:01:21.71,Default,,0,0,0,,{\b1}{\an8}不明所以地踩碎
+Dialogue: 0,0:01:21.71,0:01:25.09,Default,,0,0,0,,{\b1}{\an8}那时大概别无选择
+Dialogue: 0,0:01:32.81,0:01:36.47,Default,,0,0,0,,{\b1}{\an8}想消失  悄悄地
+Dialogue: 0,0:01:36.47,0:01:40.17,Default,,0,0,0,,{\b1}{\an8}那不是真的
+Dialogue: 0,0:01:40.17,0:01:43.47,Default,,0,0,0,,{\b1}{\an8}独自在公园数花
+Dialogue: 0,0:01:43.48,0:01:47.57,Default,,0,0,0,,{\b1}{\an8}却不够扎成一束
+Dialogue: 0,0:01:47.57,0:01:51.28,Default,,0,0,0,,{\b1}{\an8}对谁都温柔
+Dialogue: 0,0:01:51.28,0:01:54.61,Default,,0,0,0,,{\b1}{\an8}那样会很累吧
+Dialogue: 0,0:01:54.61,0:01:59.58,Default,,0,0,0,,{\b1}{\an8}因为没有什么不会减少
+Dialogue: 0,0:01:59.58,0:02:02.16,Default,,0,0,0,,{\b1}{\an8}因为一切有限
+Dialogue: 0,0:02:05.89,0:02:08.88,Default,,0,0,0,,{\b1}{\an8}憎恨自己的出身
+Dialogue: 0,0:02:08.88,0:02:12.51,Default,,0,0,0,,{\b1}{\an8}无法停止而入睡的你
+Dialogue: 0,0:02:12.51,0:02:17.03,Default,,0,0,0,,{\b1}{\an8}在好不容易浮起的梦中
+Dialogue: 0,0:02:17.03,0:02:20.85,Default,,0,0,0,,{\b1}{\an8}愿你幸福
+Dialogue: 0,0:02:20.85,0:02:24.17,Default,,0,0,0,,{\b1}{\an8}一定很快又能笑出来
+Dialogue: 0,0:02:24.44,0:02:28.19,Default,,0,0,0,,{\b1}{\an8}啊，越是长大
+Dialogue: 0,0:02:28.19,0:02:31.48,Default,,0,0,0,,{\b1}{\an8}越看不清的东西
+Dialogue: 0,0:02:31.48,0:02:33.40,Default,,0,0,0,,{\b1}{\an8}然而
+Dialogue: 0,0:02:33.40,0:02:39.37,Default,,0,0,0,,{\b1}{\an8}仍就在身旁
+Dialogue: 0,0:02:42.86,0:02:45.81,Default,,0,0,0,,{\b1}{\an8}流泪这件事
+Dialogue: 0,0:02:45.84,0:02:49.42,Default,,0,0,0,,{\b1}{\an8}被踩踏的手的疼痛
+Dialogue: 0,0:02:49.42,0:02:54.05,Default,,0,0,0,,{\b1}{\an8}以及用温柔做成的花束
+Dialogue: 0,0:02:54.05,0:02:57.35,Default,,0,0,0,,{\b1}{\an8}因为你亲眼见过
+Dialogue: 0,0:02:57.56,0:03:00.48,Default,,0,0,0,,{\b1}{\an8}心灵的归宿
+Dialogue: 0,0:03:00.48,0:03:04.23,Default,,0,0,0,,{\b1}{\an8}只要想起，它一直都在
+Dialogue: 0,0:03:05.11,0:03:08.73,Default,,0,0,0,,{\b1}{\an8}来吧 去看明天
+Dialogue: 0,0:03:08.73,0:03:12.48,Default,,0,0,0,,{\b1}{\an8}虽然也会迷茫
+Dialogue: 0,0:03:16.17,0:03:19.54,Default,,0,0,0,,{\b1}{\an8}但一定很快又能笑出来
+Dialogue: 0,0:03:35.27,0:03:38.72,Default,,0,0,0,,{\b1}{\an8}悲盲\N作词/作曲/视频制作：Namimoyō

@@ -1,0 +1,25 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,67,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2.6,2.0,2,50,50,110,1
+Style: teto,Arial,67,&H002622F9,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2.6,2.0,2,50,50,110,1
+Style: miku,Arial,67,&H00F5FC8F,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2.6,2.0,2,50,50,110,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.21,0:00:01.91,miku,,0,0,0,,{\b1}话说，你平时有什么爱好？
+Dialogue: 0,0:00:02.48,0:00:03.39,teto,,0,0,0,,{\b1}跟踪
+Dialogue: 0,0:00:05.17,0:00:05.61,miku,,0,0,0,,{\b1}哦！
+Dialogue: 0,0:00:05.61,0:00:06.10,miku,,0,0,0,,{\b1}呃…
+Dialogue: 0,0:00:06.11,0:00:06.97,miku,,0,0,0,,{\b1}我喜欢……
+Dialogue: 0,0:00:06.98,0:00:08.23,miku,,0,0,0,,{\b1}唱歌还有…
+Dialogue: 0,0:00:08.25,0:00:09.13,miku,,0,0,0,,{\b1}跳舞!...
+Dialogue: 0,0:00:09.95,0:00:11.01,teto,,0,0,0,,{\b1}我知道

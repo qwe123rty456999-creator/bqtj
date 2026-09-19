@@ -1,0 +1,28 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2.8,1.3,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.83,Default,,0,0,0,,我开着我那大卡车
+Dialogue: 0,0:00:01.83,0:00:04.08,Default,,0,0,0,,酒都还没醒
+Dialogue: 0,0:00:04.08,0:00:08.13,Default,,0,0,0,,嘿，这减速带咋看着像活的
+Dialogue: 0,0:00:08.13,0:00:09.83,Default,,0,0,0,,不妙！
+Dialogue: 0,0:00:09.83,0:00:11.88,Default,,0,0,0,,管他什么警察
+Dialogue: 0,0:00:11.88,0:00:16.17,Default,,0,0,0,,飙到一百迈再说！！
+Dialogue: 0,0:00:16.17,0:00:17.79,Default,,0,0,0,,你怕是不知道
+Dialogue: 0,0:00:17.79,0:00:20.08,Default,,0,0,0,,我油箱满着呢
+Dialogue: 0,0:00:20.08,0:00:24.08,Default,,0,0,0,,今天那小子死定了
+Dialogue: 0,0:00:24.08,0:00:25.92,Default,,0,0,0,,看我不碾扁你！
+Dialogue: 0,0:00:25.92,0:00:27.79,Default,,0,0,0,,开着我的卡车
+Dialogue: 0,0:00:27.79,0:00:31.04,Default,,0,0,0,,没人会看见
+Dialogue: 0,0:00:31.04,0:00:31.77,Default,,0,0,0,,受死吧！！

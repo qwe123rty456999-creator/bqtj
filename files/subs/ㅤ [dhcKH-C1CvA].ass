@@ -1,0 +1,42 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 640
+PlayResY: 480
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,33.3,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.7,1.7,2,17,17,17,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:02.15,0:00:16.53,Default,,0,0,0,region=r1,{\fnCambria}{\an8}这文化让众人随之舞动
+Dialogue: 0,0:00:16.53,0:00:16.97,Default,,0,0,0,region=r1,{\fnCambria}{\an8}ay ya ya!
+Dialogue: 0,0:00:16.97,0:00:18.67,Default,,0,0,0,region=r1,{\fnCambria}{\an8}我们是从网络诞生的世代
+Dialogue: 0,0:00:18.67,0:00:20.84,Default,,0,0,0,region=r1,{\fnCambria}{\an8}未来正当中www.
+Dialogue: 0,0:00:20.84,0:00:22.31,Default,,0,0,0,region=r1,{\fnCambria}{\an8}声音是超负荷的爆表指针
+Dialogue: 0,0:00:22.31,0:00:24.21,Default,,0,0,0,region=r1,{\fnCambria}{\an8}连打磨过的美学都是大数据
+Dialogue: 0,0:00:24.21,0:00:26.08,Default,,0,0,0,region=r1,{\fnCambria}{\an8}摆弄歌唱的机器今天也是欢乐时光♪
+Dialogue: 0,0:00:26.08,0:00:27.95,Default,,0,0,0,region=r1,{\fnCambria}{\an8}就算知道不安的未来也无济于事
+Dialogue: 0,0:00:27.95,0:00:29.81,Default,,0,0,0,region=r1,{\fnCambria}{\an8}讨厌的那个家伙现在正在最前排
+Dialogue: 0,0:00:29.81,0:00:31.52,Default,,0,0,0,region=r1,{\fnCambria}{\an8}「不是只有我被落下了吗！」
+Dialogue: 0,0:00:31.52,0:00:35.42,Default,,0,0,0,region=r1,{\fnCambria}{\an8}但是，umm...
+Dialogue: 0,0:00:35.42,0:00:42.83,Default,,0,0,0,region=r1,{\fnCambria}{\an8}想要再健康一些，umm...
+Dialogue: 0,0:00:42.83,0:00:46.53,Default,,0,0,0,region=r1,{\fnCambria}{\an8}想在温柔的世界里活下去！
+Dialogue: 0,0:00:46.53,0:00:49.07,Default,,0,0,0,region=r1,{\fnCambria}{\an8}Dance in the Decadence
+Dialogue: 0,0:00:49.07,0:00:52.54,Default,,0,0,0,region=r1,{\fnCambria}{\an8}我们连荒诞都能去爱所以Nice
+Dialogue: 0,0:00:52.54,0:00:53.87,Default,,0,0,0,region=r1,{\fnCambria}{\an8}（Woah-yeah）
+Dialogue: 0,0:00:53.87,0:00:56.41,Default,,0,0,0,region=r1,{\fnCambria}{\an8}Dance in the Paradise
+Dialogue: 0,0:00:56.41,0:00:59.88,Default,,0,0,0,region=r1,{\fnCambria}{\an8}我们依附于虚构而活，带着Vibes
+Dialogue: 0,0:00:59.88,0:01:01.28,Default,,0,0,0,region=r1,{\fnCambria}{\an8}（最高！）
+Dialogue: 0,0:01:01.28,0:01:03.81,Default,,0,0,0,region=r1,{\fnCambria}{\an8}Dance in the Decadence
+Dialogue: 0,0:01:03.81,0:01:07.28,Default,,0,0,0,region=r1,{\fnCambria}{\an8}我们连荒诞都能去爱所以Nice
+Dialogue: 0,0:01:07.28,0:01:08.65,Default,,0,0,0,region=r1,{\fnCambria}{\an8}（Woah-yeah）
+Dialogue: 0,0:01:08.65,0:01:11.19,Default,,0,0,0,region=r1,{\fnCambria}{\an8}Dance in the Paradise
+Dialogue: 0,0:01:11.19,0:01:14.66,Default,,0,0,0,region=r1,{\fnCambria}{\an8}我们依附于虚构而活，带着Vibes
+Dialogue: 0,0:01:14.66,0:01:16.06,Default,,0,0,0,region=r1,{\fnCambria}{\an8}（最高！）
+Dialogue: 0,0:01:45.59,0:02:00.34,Default,,0,0,0,region=r1,{\fnCambria}{\an8}​​​ ​(Drop!)​ ​​
+Dialogue: 0,0:02:00.34,0:02:14.79,Default,,0,0,0,region=r1,{\fnCambria}{\an8}这文化让众人随之舞动

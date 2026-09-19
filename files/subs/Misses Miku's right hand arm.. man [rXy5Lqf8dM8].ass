@@ -1,0 +1,29 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 2000
+PlayResY: 2000
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,90,&H0028F2ED,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2.0,0,2,52,52,20,1
+Style: Default - 复制,Arial,90,&H00948FF8,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2.0,0,2,52,52,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.90,0:00:01.88,Default,,0,0,0,,我想念Miku的
+Dialogue: 0,0:00:01.91,0:00:03.59,Default,,0,0,0,,右手臂…
+Dialogue: 0,0:00:03.66,0:00:04.81,Default,,0,0,0,,……伙计
+Dialogue: 0,0:00:06.69,0:00:08.57,Default,,0,0,0,,我想念Miku的一切
+Dialogue: 0,0:00:08.81,0:00:10.13,Default,,0,0,0,,我是她的知己，
+Dialogue: 0,0:00:10.81,0:00:12.02,Default,,0,0,0,,她最好的朋友…
+Dialogue: 0,0:00:14.18,0:00:15.81,Default,,0,0,0,,她的傻兔子
+Dialogue: 0,0:00:16.21,0:00:16.80,Default - 复制,,0,0,0,,她的什么？
+Dialogue: 0,0:00:16.81,0:00:17.84,Default,,0,0,0,,她的傻兔子
+Dialogue: 0,0:00:17.85,0:00:18.92,Default - 复制,,0,0,0,,她的傻兔子？
+Dialogue: 0,0:00:18.93,0:00:19.25,Default,,0,0,0,,是的
+Dialogue: 0,0:00:19.27,0:00:20.10,Default - 复制,,0,0,0,,她是这么叫你的吗？
+Dialogue: 0,0:00:20.13,0:00:21.43,Default,,0,0,0,,不

@@ -1,0 +1,52 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 3840
+PlayResY: 2160
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,150,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,7.5,7.5,2,100,100,75,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:02.47,0:00:03.37,Default,,0,0,0,,{\fnZCOOL XiaoWei}“Gemini，
+Dialogue: 0,0:00:03.37,0:00:06.31,Default,,0,0,0,,{\fnZCOOL XiaoWei}我发现心仪的人身边有其他女生的影子。该怎么办？”
+Dialogue: 0,0:00:07.03,0:00:10.50,Default,,0,0,0,,{\fnZCOOL XiaoWei}“这可真让人头疼啊，首先请尝试以下方法：
+Dialogue: 0,0:00:10.50,0:00:12.37,Default,,0,0,0,,{\fnZCOOL XiaoWei}1. 驱魔”
+Dialogue: 0,0:00:17.83,0:00:21.94,Default,,0,0,0,,{\fnZCOOL XiaoWei}音乐：我的VOCALOID有点奇怪\N视频：Ichimaru\N演唱：Ui、Gemini、Miku
+Dialogue: 0,0:00:22.67,0:00:26.10,Default,,0,0,0,,{\fnZCOOL XiaoWei}请赐予我怎样的罪恶之语
+Dialogue: 0,0:00:26.10,0:00:28.80,Default,,0,0,0,,{\fnZCOOL XiaoWei}“时尚”之类的，“可爱”之类的
+Dialogue: 0,0:00:28.80,0:00:31.27,Default,,0,0,0,,{\fnZCOOL XiaoWei}这种台词根本不够看
+Dialogue: 0,0:00:31.27,0:00:34.33,Default,,0,0,0,,{\fnZCOOL XiaoWei}请赐予我特别的爱
+Dialogue: 0,0:00:34.70,0:00:39.83,Default,,0,0,0,,{\fnZCOOL XiaoWei}虽然感觉和期待的不太一样，但就这样吧
+Dialogue: 0,0:00:40.23,0:00:45.33,Default,,0,0,0,,{\fnZCOOL XiaoWei}我会把满载爱意的诅咒，诅咒加在你身上
+Dialogue: 0,0:00:45.33,0:00:48.17,Default,,0,0,0,,{\fnZCOOL XiaoWei}CANT YOU! CANT YOU! Love me, Chu?
+Dialogue: 0,0:00:48.17,0:00:50.93,Default,,0,0,0,,{\fnZCOOL XiaoWei}愿尊贵的精灵保佑
+Dialogue: 0,0:00:50.93,0:00:53.70,Default,,0,0,0,,{\fnZCOOL XiaoWei}CANT YOU! CANT YOU! See me again?
+Dialogue: 0,0:00:53.70,0:00:56.40,Default,,0,0,0,,{\fnZCOOL XiaoWei}让恋爱的诗歌应验吧
+Dialogue: 0,0:00:58.20,0:01:01.20,Default,,0,0,0,,{\fnZCOOL XiaoWei}“那么，我数到三的时候，就一起念咒语吧。
+Dialogue: 0,0:01:01.92,0:01:03.35,Default,,0,0,0,,{\fnZCOOL XiaoWei}1、2、3，开始。”
+Dialogue: 0,0:01:03.35,0:01:14.35,Default,,0,0,0,,{\fnZCOOL XiaoWei}Vade retro satana!
+Dialogue: 0,0:01:14.70,0:01:19.83,Default,,0,0,0,,{\fnZCOOL XiaoWei}虽然感觉和期待的不太一样，但就这样吧
+Dialogue: 0,0:01:20.27,0:01:25.40,Default,,0,0,0,,{\fnZCOOL XiaoWei}我将满怀爱意的诅咒，诅咒加诸于你
+Dialogue: 0,0:01:28.23,0:01:33.33,Default,,0,0,0,,{\fnZCOOL XiaoWei}拂过的微风与摇曳的树木
+Dialogue: 0,0:01:33.33,0:01:38.60,Default,,0,0,0,,{\fnZCOOL XiaoWei}这声音能否传达到你那里呢
+Dialogue: 0,0:01:39.20,0:01:41.97,Default,,0,0,0,,{\fnZCOOL XiaoWei}CANT YOU! CANT YOU! Love me, Chu?
+Dialogue: 0,0:01:41.97,0:01:44.73,Default,,0,0,0,,{\fnZCOOL XiaoWei}愿尊贵的精灵保佑
+Dialogue: 0,0:01:44.73,0:01:47.50,Default,,0,0,0,,{\fnZCOOL XiaoWei}CANT YOU! CANT YOU! See me again?
+Dialogue: 0,0:01:47.50,0:01:50.21,Default,,0,0,0,,{\fnZCOOL XiaoWei}让恋爱的诗歌应验吧
+Dialogue: 0,0:01:50.93,0:01:51.67,Default,,0,0,0,,{\fnZCOOL XiaoWei}吟唱吧
+Dialogue: 0,0:01:51.67,0:01:54.43,Default,,0,0,0,,{\fnZCOOL XiaoWei}CANT YOU! CANT YOU! Love me, Chu?
+Dialogue: 0,0:01:54.43,0:01:57.20,Default,,0,0,0,,{\fnZCOOL XiaoWei}再见吧，青春！爱我吧！
+Dialogue: 0,0:01:57.20,0:01:59.18,Default,,0,0,0,,{\fnZCOOL XiaoWei}CANT YOU! CANT YOU! See me?
+Dialogue: 0,0:01:59.18,0:02:01.74,Default,,0,0,0,,{\fnZCOOL XiaoWei}我绝对会一击命中哦
+Dialogue: 0,0:02:01.74,0:02:02.73,Default,,0,0,0,,{\fnZCOOL XiaoWei}毁灭吧，咒语！
+Dialogue: 0,0:02:02.73,0:02:05.50,Default,,0,0,0,,{\fnZCOOL XiaoWei}CANT YOU! CANT YOU! Love me, Chu?
+Dialogue: 0,0:02:05.50,0:02:08.27,Default,,0,0,0,,{\fnZCOOL XiaoWei}再见吧，青春！爱我吧！
+Dialogue: 0,0:02:08.27,0:02:10.30,Default,,0,0,0,,{\fnZCOOL XiaoWei}CANT YOU! CANT YOU! See me?
+Dialogue: 0,0:02:10.30,0:02:13.36,Default,,0,0,0,,{\fnZCOOL XiaoWei}我绝对会一击命中哦
+Dialogue: 0,0:02:14.04,0:02:18.99,Default,,0,0,0,,{\fnZCOOL XiaoWei}音乐：我的VOCALOID有点奇怪\N视频：Ichimaru\N演唱：Ui、Gemini、Miku

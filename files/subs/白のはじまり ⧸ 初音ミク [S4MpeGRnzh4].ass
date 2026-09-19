@@ -1,0 +1,48 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 白のはじまり ⧸ 初音ミク [S4MpeGRnzh4]
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,20,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1,1,2,10,10,10,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:12.16,0:00:22.16,Default,,0,0,0,,{\an8\fn楷体}白色的开始
+Dialogue: 0,0:00:22.67,0:00:25.23,Default,,0,0,0,,{\an8\fn楷体}曾在白色虚无中叹息的你
+Dialogue: 0,0:00:25.27,0:00:27.83,Default,,0,0,0,,{\an8\fn楷体}每向前奔跑，便会渐渐沾染尘迹
+Dialogue: 0,0:00:27.87,0:00:32.20,Default,,0,0,0,,{\an8\fn楷体}若能无数次耀眼地重生转世
+Dialogue: 0,0:00:32.98,0:00:35.54,Default,,0,0,0,,{\an8\fn楷体}那依然纯白的日程本
+Dialogue: 0,0:00:35.58,0:00:38.13,Default,,0,0,0,,{\an8\fn楷体}开始热闹地染上痕迹
+Dialogue: 0,0:00:38.18,0:00:42.51,Default,,0,0,0,,{\an8\fn楷体}无数次梦中所见的景色，正逐一化作现实
+Dialogue: 0,0:00:42.68,0:00:47.72,Default,,0,0,0,,{\an8\fn楷体}当天空泛起鱼肚白时，掺杂着叹息
+Dialogue: 0,0:00:47.76,0:00:50.92,Default,,0,0,0,,{\an8\fn楷体}吹灭那看不见的蜡烛
+Dialogue: 0,0:00:50.96,0:00:53.66,Default,,0,0,0,,{\an8\fn楷体}为崭新的自己，献上祝福
+Dialogue: 0,0:00:53.70,0:00:58.26,Default,,0,0,0,,{\an8\fn楷体}在喘不过气的人潮中穿行
+Dialogue: 0,0:00:58.30,0:01:03.37,Default,,0,0,0,,{\an8\fn楷体}带着看似相似却又不同的你
+Dialogue: 0,0:01:03.41,0:01:09.34,Default,,0,0,0,,{\an8\fn楷体}当天空开始染上别样的色彩
+Dialogue: 0,0:01:09.38,0:01:13.74,Default,,0,0,0,,{\an8\fn楷体}就让我们向往那裹着夏意的云朵吧
+Dialogue: 0,0:01:13.78,0:01:19.72,Default,,0,0,0,,{\an8\fn楷体}将病态般的憧憬深藏心底
+Dialogue: 0,0:01:19.76,0:01:25.28,Default,,0,0,0,,{\an8\fn楷体}如今我依然，在追寻那刹那的瞬间
+Dialogue: 0,0:01:35.27,0:01:37.83,Default,,0,0,0,,{\an8\fn楷体}那故作晴朗笑声的季节
+Dialogue: 0,0:01:37.87,0:01:40.43,Default,,0,0,0,,{\an8\fn楷体}我决定不再将它撕碎抛弃
+Dialogue: 0,0:01:40.47,0:01:44.81,Default,,0,0,0,,{\an8\fn楷体}并非只有反复重来才算正义
+Dialogue: 0,0:01:44.88,0:01:49.94,Default,,0,0,0,,{\an8\fn楷体}将曾移开的目光，重新汇聚起来
+Dialogue: 0,0:01:50.12,0:01:53.11,Default,,0,0,0,,{\an8\fn楷体}高高挥舞那看不见的旗帜
+Dialogue: 0,0:01:53.15,0:01:56.12,Default,,0,0,0,,{\an8\fn楷体}一步步，开始迈出脚步
+Dialogue: 0,0:01:56.16,0:02:00.39,Default,,0,0,0,,{\an8\fn楷体}在令人气喘吁吁的街道上奔跑
+Dialogue: 0,0:02:00.43,0:02:05.59,Default,,0,0,0,,{\an8\fn楷体}相似的我们，从这里重新开始就好
+Dialogue: 0,0:02:05.63,0:02:11.60,Default,,0,0,0,,{\an8\fn楷体}即便天空忧戚，流下泪水的时刻
+Dialogue: 0,0:02:11.64,0:02:16.01,Default,,0,0,0,,{\an8\fn楷体}也可以归咎于夏天，任雨水浸透
+Dialogue: 0,0:02:16.04,0:02:22.21,Default,,0,0,0,,{\an8\fn楷体}我并不想说“没有不停歇的雨”这种话
+Dialogue: 0,0:02:22.25,0:02:28.38,Default,,0,0,0,,{\an8\fn楷体}偶尔啊，就这样湿透全身，感冒一场也好
+Dialogue: 0,0:02:28.92,0:02:33.52,Default,,0,0,0,,{\an8\fn楷体}曾遭人白眼，低下头去
+Dialogue: 0,0:02:33.56,0:02:39.10,Default,,0,0,0,,{\an8\fn楷体}跨越那凄惨的夜晚
+Dialogue: 0,0:02:59.55,0:03:05.52,Default,,0,0,0,,{\an8\fn楷体}天空曾告诉我，不会重来的夏天即将到来
+Dialogue: 0,0:03:05.56,0:03:09.93,Default,,0,0,0,,{\an8\fn楷体}好想把昨天和今天，混在一起一饮而尽
+Dialogue: 0,0:03:09.97,0:03:16.12,Default,,0,0,0,,{\an8\fn楷体}苦涩、甘甜、怯懦、骄傲——全部
+Dialogue: 0,0:03:16.17,0:03:21.63,Default,,0,0,0,,{\an8\fn楷体}此时此刻，有什么正开始萌动
+Dialogue: 0,0:03:23.91,0:03:29.15,Default,,0,0,0,,{\an8\fn楷体}如今我依然，在追寻与你的瞬间

@@ -1,0 +1,26 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1080
+PlayResY: 1920
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,133.3,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0.0,0,1,6.7,6.7,2,28,28,67,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.31,0:00:01.81,Default,,0,0,0,,Teto 每日一词！
+Dialogue: 0,0:00:02.69,0:00:03.90,Default,,0,0,0,,生菜！
+Dialogue: 0,0:00:03.92,0:00:05.84,Default,,0,0,0,,我最近在减肥
+Dialogue: 0,0:00:05.85,0:00:08.09,Default,,0,0,0,,所以打算开始吃沙拉！
+Dialogue: 0,0:00:08.11,0:00:09.15,Default,,0,0,0,,祝我好运吧！
+Dialogue: 0,0:00:11.43,0:00:12.21,Default,,0,0,0,,各位
+Dialogue: 0,0:00:12.21,0:00:14.21,Default,,0,0,0,,千万别吃沙拉。
+Dialogue: 0,0:00:14.24,0:00:16.64,Default,,0,0,0,,我在厕所蹲了整整三天！
+Dialogue: 0,0:00:16.65,0:00:18.54,Default,,0,0,0,,感觉就像奥本海默的鬼魂
+Dialogue: 0,0:00:18.55,0:00:19.95,Default,,0,0,0,,跑到我肚子里搞了场
+Dialogue: 0,0:00:19.99,0:00:22.68,Default,,0,0,0,,他妈的核试验！

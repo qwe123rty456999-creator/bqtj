@@ -1,0 +1,71 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,60,&H00F3F1F1,&H0000FFFF,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,4.3,2.5,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.55,0:00:11.84,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1670, 118)}「不被选中的我们」
+Dialogue: 0,0:00:11.87,0:00:23.10,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1670, 120)}让人遗忘的魔法
+Dialogue: 0,0:00:14.60,0:00:23.10,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1570, 120)}还有总是落空的我
+Dialogue: 0,0:00:17.64,0:00:23.10,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1460, 120)}遮住一只眼的小咒语
+Dialogue: 0,0:00:20.39,0:00:23.10,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1360, 120)}是你教会我的
+Dialogue: 0,0:00:21.79,0:00:23.11,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(370, 120)}可我还是睡不着
+Dialogue: 0,0:00:23.13,0:00:34.77,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1670, 124)}否定一切的记忆
+Dialogue: 0,0:00:25.91,0:00:34.77,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1570, 124)}还有躲起来的我
+Dialogue: 0,0:00:28.90,0:00:34.77,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1462, 124)}串起痛苦的小咒语
+Dialogue: 0,0:00:31.66,0:00:34.77,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1355, 124)}是你教会我的
+Dialogue: 0,0:00:33.10,0:00:33.17,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}可我还是睡不着
+Dialogue: 0,0:00:33.19,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠
+Dialogue: 0,0:00:34.57,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠
+Dialogue: 0,0:00:34.61,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.62,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.63,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.64,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.65,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.66,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.67,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.68,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.69,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.72,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.74,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.75,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.76,0:00:34.77,Default,,0,0,0,,{\fn@Arial\frz-90\an7\bord1\shad3\pos(316, 124)}还没缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠缠
+Dialogue: 0,0:00:34.88,0:00:40.60,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1670, 254)}爱我吧
+Dialogue: 0,0:00:35.60,0:00:40.60,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1570, 254)}爱我吧
+Dialogue: 0,0:00:36.37,0:00:40.59,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1465, 254)}爱我吧
+Dialogue: 0,0:00:37.06,0:00:40.60,Default,,0,0,0,,{\fad(50,50)\pos(1200, 100)\fscx80\fscy80}※ 日文中「愛して」左右镜像翻转后，字形近似假名「が」，不作翻译
+Dialogue: 0,0:00:37.79,0:00:38.51,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(320, 254)}翻了个面
+Dialogue: 0,0:00:38.51,0:00:40.60,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\fry180\an7\bord1\shad3\pos(240,254)}翻了个面
+Dialogue: 0,0:00:39.13,0:00:40.60,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\fry0\an7\bord1\shad3\pos(320,450)}之后的样子
+Dialogue: 0,0:00:40.62,0:00:47.66,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1670, 249)}我知道
+Dialogue: 0,0:00:41.29,0:00:47.66,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1570, 249)}我知道
+Dialogue: 0,0:00:42.06,0:00:47.66,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1460, 249)}我知道
+Dialogue: 0,0:00:43.54,0:00:44.91,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\fry0\an7\bord1\shad3\pos(320,254)}把我摧毁
+Dialogue: 0,0:00:44.91,0:00:47.66,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\fry0\an7\bord1\shad3\pos(320,254)}让人丢失此刻的
+Dialogue: 0,0:00:49.17,0:00:54.82,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1670, 120)}没人选的我们
+Dialogue: 0,0:00:50.55,0:00:54.82,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1570, 120)}在显而易见的冷漠里
+Dialogue: 0,0:00:52.01,0:00:54.82,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1460, 120)}死盯着被玷污的命运
+Dialogue: 0,0:00:53.38,0:00:54.82,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1360, 120)}和那出惨剧
+Dialogue: 0,0:00:54.82,0:01:00.48,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1670, 120)}被丢弃的后悔
+Dialogue: 0,0:00:56.22,0:01:00.48,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1570, 120)}与屈辱纠缠交错
+Dialogue: 0,0:00:57.48,0:01:00.48,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1460, 120)}夜晚再度降临 
+Dialogue: 0,0:00:58.86,0:01:00.48,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1360, 80)}「夜晚再度降临」
+Dialogue: 0,0:01:00.48,0:01:06.16,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1670, 120)}没人选的我们
+Dialogue: 0,0:01:01.88,0:01:06.16,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1570, 120)}在显而易见的冷漠里
+Dialogue: 0,0:01:03.35,0:01:06.16,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1460, 120)}被递过来的虚伪希望
+Dialogue: 0,0:01:04.72,0:01:06.16,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1360, 110)}一滴虚伪的希望
+Dialogue: 0,0:01:06.19,0:01:11.85,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1670, 120)}被舔舐过的后悔
+Dialogue: 0,0:01:07.61,0:01:11.85,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1570, 120)}与屈辱纠缠交错
+Dialogue: 0,0:01:08.91,0:01:11.85,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1460, 120)}夜晚再度降临
+Dialogue: 0,0:01:10.33,0:01:11.85,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1360, 80)}「夜晚开始发狂」
+Dialogue: 0,0:01:15.91,0:01:17.60,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1460, 80)}「夜晚开始发狂」
+Dialogue: 0,0:01:23.38,0:01:29.16,Default,,0,0,0,,{\fad(50,50)}{\fn@Arial\frz-90\an7\bord1\shad3\pos(1670, 120)}「不被选中的我们」

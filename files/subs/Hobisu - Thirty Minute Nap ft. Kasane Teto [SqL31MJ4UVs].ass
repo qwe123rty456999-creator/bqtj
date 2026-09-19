@@ -1,0 +1,63 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 2560
+PlayResY: 1440
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,100,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,5,5,2,67,67,50,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:07.63,Default,,0,0,0,,{\fad(100,100)}[慵懒的前奏音乐]
+Dialogue: 0,0:00:07.79,0:00:09.58,Default,,0,0,0,,{\fad(100,100)}七点闹钟响了
+Dialogue: 0,0:00:09.58,0:00:11.58,Default,,0,0,0,,{\fad(100,100)}离不开被窝天堂
+Dialogue: 0,0:00:11.58,0:00:13.75,Default,,0,0,0,,{\fad(100,100)}能不能再眯一小会儿
+Dialogue: 0,0:00:13.75,0:00:15.46,Default,,0,0,0,,{\fad(100,100)}我设好闹钟 就三十分钟
+Dialogue: 0,0:00:15.46,0:00:17.42,Default,,0,0,0,,{\fad(100,100)}一觉睡到天亮
+Dialogue: 0,0:00:17.42,0:00:19.42,Default,,0,0,0,,{\fad(100,100)}这些日子可真无聊
+Dialogue: 0,0:00:19.42,0:00:21.21,Default,,0,0,0,,{\fad(100,100)}就算阳光洒在皮肤上
+Dialogue: 0,0:00:21.21,0:00:23.67,Default,,0,0,0,,{\fad(100,100)}我设好闹钟 就三十分钟
+Dialogue: 0,0:00:26.79,0:00:28.92,Default,,0,0,0,,{\fad(100,100)}打着呼噜反而更自在
+Dialogue: 0,0:00:28.92,0:00:31.17,Default,,0,0,0,,{\fad(100,100)}不用面对那些逃避的事
+Dialogue: 0,0:00:34.42,0:00:35.88,Default,,0,0,0,,{\fad(100,100)}出人头地
+Dialogue: 0,0:00:35.88,0:00:36.83,Default,,0,0,0,,{\fad(100,100)}或默默无闻
+Dialogue: 0,0:00:36.83,0:00:41.00,Default,,0,0,0,,{\fad(100,100)}噢 我宁愿多睡会儿
+Dialogue: 0,0:00:41.00,0:00:44.79,Default,,0,0,0,,{\fad(100,100)}这周累得够呛
+Dialogue: 0,0:00:44.79,0:00:48.54,Default,,0,0,0,,{\fad(100,100)}我发誓我不是家里蹲
+Dialogue: 0,0:00:48.54,0:00:50.58,Default,,0,0,0,,{\fad(100,100)}我宁愿多睡会儿
+Dialogue: 0,0:00:50.58,0:00:51.54,Default,,0,0,0,,{\fad(100,100)}睡觉
+Dialogue: 0,0:00:51.54,0:00:53.75,Default,,0,0,0,,{\fad(100,100)}睡觉！(x2)
+Dialogue: 0,0:00:53.75,0:00:58.50,Default,,0,0,0,,{\fad(100,100)}[过渡音乐，咖啡机煮着咖啡之类的声响]
+Dialogue: 0,0:01:01.33,0:01:03.00,Default,,0,0,0,,{\fad(100,100)}咖啡因已经没用了
+Dialogue: 0,0:01:03.00,0:01:04.92,Default,,0,0,0,,{\fad(100,100)}十杯下肚 没啥好骄傲
+Dialogue: 0,0:01:04.92,0:01:06.75,Default,,0,0,0,,{\fad(100,100)}就算睡好了
+Dialogue: 0,0:01:06.75,0:01:07.71,Default,,0,0,0,,{\fad(100,100)}醒来也是地狱
+Dialogue: 0,0:01:07.71,0:01:08.92,Default,,0,0,0,,{\fad(100,100)}浑身不得劲
+Dialogue: 0,0:01:08.92,0:01:10.92,Default,,0,0,0,,{\fad(100,100)}再睡一会儿就好多了
+Dialogue: 0,0:01:10.92,0:01:12.92,Default,,0,0,0,,{\fad(100,100)}再睡两次 我就能挺直腰板
+Dialogue: 0,0:01:12.92,0:01:16.17,Default,,0,0,0,,{\fad(100,100)}要是能睡一整天就好了
+Dialogue: 0,0:01:16.63,0:01:18.42,Default,,0,0,0,,{\fad(100,100)}想在入夜前睡着 天却亮了
+Dialogue: 0,0:01:18.42,0:01:20.42,Default,,0,0,0,,{\fad(100,100)}熬夜盯着天花板瞎期待
+Dialogue: 0,0:01:20.42,0:01:21.42,Default,,0,0,0,,{\fad(100,100)}我还是会再犯
+Dialogue: 0,0:01:21.42,0:01:22.46,Default,,0,0,0,,{\fad(100,100)}反正也没别的事
+Dialogue: 0,0:01:22.46,0:01:24.04,Default,,0,0,0,,{\fad(100,100)}赖在床上虚度光阴
+Dialogue: 0,0:01:24.42,0:01:26.25,Default,,0,0,0,,{\fad(100,100)}搞杯浓缩咖啡 让我保持亢奋
+Dialogue: 0,0:01:26.25,0:01:28.08,Default,,0,0,0,,{\fad(100,100)}趁还没啥感觉先睡一觉
+Dialogue: 0,0:01:28.08,0:01:29.13,Default,,0,0,0,,{\fad(100,100)}我不想爬起来
+Dialogue: 0,0:01:29.13,0:01:30.13,Default,,0,0,0,,{\fad(100,100)}不想应对后续
+Dialogue: 0,0:01:30.13,0:01:32.75,Default,,0,0,0,,{\fad(100,100)}我就是不想醒
+Dialogue: 0,0:01:35.50,0:01:37.54,Default,,0,0,0,,{\fad(100,100)}打着呼噜反而更自在
+Dialogue: 0,0:01:37.54,0:01:40.00,Default,,0,0,0,,{\fad(100,100)}不用面对那些逃避的事
+Dialogue: 0,0:01:43.42,0:01:44.67,Default,,0,0,0,,{\fad(100,100)}出人头地
+Dialogue: 0,0:01:44.67,0:01:45.54,Default,,0,0,0,,{\fad(100,100)}或默默无闻
+Dialogue: 0,0:01:45.54,0:01:49.75,Default,,0,0,0,,{\fad(100,100)}噢 我宁愿多睡会儿！
+Dialogue: 0,0:01:49.75,0:01:53.58,Default,,0,0,0,,{\fad(100,100)}这周累得够呛
+Dialogue: 0,0:01:53.58,0:01:57.33,Default,,0,0,0,,{\fad(100,100)}我发誓我不是家里蹲
+Dialogue: 0,0:01:57.42,0:01:59.46,Default,,0,0,0,,{\fad(100,100)}我宁愿多睡会儿
+Dialogue: 0,0:01:59.46,0:02:00.42,Default,,0,0,0,,{\fad(100,100)}睡觉
+Dialogue: 0,0:02:00.42,0:02:02.63,Default,,0,0,0,,{\fad(100,100)}睡觉！(x2)

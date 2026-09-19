@@ -1,0 +1,46 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.8,3.8,2,50,50,38,1
+Style: sv,Arial,95,&H00C89AFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.6,1.5,2,50,50,38,1
+Style: utau,Arial,95,&H005534FF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.6,1.5,2,50,50,38,1
+Style: zz,Arial,75,&H0007FE08,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1.6,1.5,2,50,50,38,1
+Style: Default - 复制,Arial,55,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.8,3.8,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:01.19,0:00:01.57,sv,,0,0,0,,{\b1}喂？
+Dialogue: 0,0:00:01.59,0:00:02.23,utau,,0,0,0,,{\b1}嘿，怎么了？
+Dialogue: 0,0:00:02.25,0:00:03.37,sv,,0,0,0,,{\b1}我需要你帮忙，你能过来一下吗？
+Dialogue: 0,0:00:03.39,0:00:04.88,utau,,0,0,0,,{\b1}呃不行啊，我在买衣服
+Dialogue: 0,0:00:04.89,0:00:06.37,sv,,0,0,0,,{\b1}好吧那你快点过来
+Dialogue: 0,0:00:06.39,0:00:07.10,utau,,0,0,0,,{\b1}我找不到啊
+Dialogue: 0,0:00:07.71,0:00:09.00,sv,,0,0,0,,{\b1}什么叫找不到？
+Dialogue: 0,0:00:09.03,0:00:10.49,utau,,0,0,0,,{\b1}我找不到啊，这里只有汤
+Dialogue: 0,0:00:11.15,0:00:12.88,sv,,0,0,0,,{\b1}什么叫只有汤？
+Dialogue: 0,0:00:13.34,0:00:14.84,utau,,0,0,0,,{\b1}我说了只有汤！
+Dialogue: 0,0:00:14.87,0:00:16.44,sv,,0,0,0,,{\b1}那你就离开卖汤的货架啊！
+Dialogue: 0,0:00:16.45,0:00:18.07,utau,,0,0,0,,{\b1}行行行，你不用吼我吧！
+Dialogue: 0,0:00:20.71,0:00:21.73,utau,,0,0,0,,{\b1}还有更多汤！
+Dialogue: 0,0:00:21.75,0:00:23.21,sv,,0,0,0,,{\b1}什么叫还有更多汤？？？
+Dialogue: 0,0:00:23.22,0:00:24.41,utau,,0,0,0,,{\b1}就是还有更多汤！
+Dialogue: 0,0:00:24.41,0:00:25.71,sv,,0,0,0,,{\b1}去下一个货架啊！！！
+Dialogue: 0,0:00:26.13,0:00:27.17,utau,,0,0,0,,{\b1}还是汤！！
+Dialogue: 0,0:00:27.17,0:00:28.65,sv,,0,0,0,,{\b1}你现在到底在哪？？？
+Dialogue: 0,0:00:28.65,0:00:31.18,Default - 复制,,0,0,0,,{\b1}{\pos(960,74)}at soup源自监狱俚语，可以译为深陷困境，此处保留愿意。详情可以看简介
+Dialogue: 0,0:00:28.66,0:00:29.51,utau,,0,0,0,,{\b1}我在汤这儿！
+Dialogue: 0,0:00:29.52,0:00:31.17,sv,,0,0,0,,{\b1}什么叫你在汤这儿！？
+Dialogue: 0,0:00:31.19,0:00:32.65,utau,,0,0,0,,{\b1}我说了我在汤这儿！
+Dialogue: 0,0:00:32.66,0:00:34.05,sv,,0,0,0,,{\b1}你在什么店里！？！？
+Dialogue: 0,0:00:34.05,0:00:35.43,utau,,0,0,0,,{\b1}我在卖汤的店里！！！
+Dialogue: 0,0:00:35.45,0:00:38.11,sv,,0,0,0,,{\b1}你为什么在卖汤的店里买衣服!?!?!?!?!?
+Dialogue: 0,0:00:38.12,0:00:39.26,utau,,0,0,0,,{\b1}去你妈的!!!!!!!!!
+Dialogue: 0,0:00:39.28,0:00:43.05,zz,,0,0,0,,{\pos(1330,1048)}{\b1}我靠，她该不会不知道商店已经关门了吧？

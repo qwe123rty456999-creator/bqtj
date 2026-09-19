@@ -1,0 +1,142 @@
+﻿[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: SCAPEGOAT⧸替罪羊（中译版）【Chromatic】ft.初音未来⧸重音teto [BV1zJ3M6QEc6]
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1178
+PlayResY: 720
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,50,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2.0,3.5,2,31,31,48,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:22.48,0:00:23.55,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}视而不见
+Dialogue: 0,0:00:23.57,0:00:24.97,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}背过身避开光亮
+Dialogue: 0,0:00:25.17,0:00:25.97,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}猝死般倒下
+Dialogue: 0,0:00:26.38,0:00:27.77,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}你缩在暗处不亮相
+Dialogue: 0,0:00:27.95,0:00:28.88,Default,,0,0,0,,{\b1}{\pos(590,632)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}深切的{\alpha&H11&\1c&HEEEEEE&\bord0\shad0\blur0\fscx100\fscy100}伤口
+
+Dialogue: 0,0:00:28.90,0:00:29.24,Default,,0,0,0,,{\b1}{\pos(590,632)}{\alpha&H11&\1c&HEEEEEE&\bord0\shad0\blur0\fscx100\fscy100}深切的{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}伤口
+
+Dialogue: 0,0:00:29.29,0:00:30.72,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}在河流流淌过的地方
+Dialogue: 0,0:00:30.85,0:00:31.24,Default,,0,0,0,,{\b1}{\pos(590,632)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}付出{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}代价
+
+
+Dialogue: 0,0:00:31.27,0:00:31.77,Default,,0,0,0,,{\b1}{\pos(590,632)}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}付出{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}代价
+
+Dialogue: 0,0:00:31.84,0:00:33.45,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}为那些你不愿知晓的事
+Dialogue: 0,0:00:33.75,0:00:34.81,Default,,0,0,0,,{\b1}{\pos(590,618)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}当我站的笔直{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 却最终被深渊吸引
+
+Dialogue: 0,0:00:34.83,0:00:36.55,Default,,0,0,0,,{\b1}{\pos(590,618)}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}当我站的笔直{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)} 却最终被深渊吸引
+
+Dialogue: 0,0:00:36.60,0:00:37.86,Default,,0,0,0,,{\b1}{\pos(590,618)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}一切都好
+Dialogue: 0,0:00:37.86,0:00:39.37,Default,,0,0,0,,{\b1}{\pos(593,609)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}因为有人告诉我一切都好
+Dialogue: 0,0:00:39.39,0:00:42.43,Default,,0,0,0,,{\b1}{\pos(591,588)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}\N我所做的只是随波逐流
+Dialogue: 0,0:00:42.46,0:00:44.85,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}这有错吗？
+Dialogue: 0,0:00:44.90,0:00:47.08,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}把我的模样拉成
+Dialogue: 0,0:00:47.13,0:00:47.90,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}遥远的长影
+Dialogue: 0,0:00:47.93,0:00:49.83,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}给我你的软弱却
+Dialogue: 0,0:00:49.90,0:00:50.50,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}不留一丝力气
+Dialogue: 0,0:00:50.53,0:00:52.67,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}在本该只有我的地方造了个怪物
+Dialogue: 0,0:00:52.69,0:00:53.40,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我应该
+Dialogue: 0,0:00:53.44,0:00:55.64,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}换掉我的声音在
+Dialogue: 0,0:00:55.66,0:00:56.44,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}你想说话的时候
+Dialogue: 0,0:00:56.48,0:00:58.52,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}把错误的硬塞给我{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 好让你不自责
+
+Dialogue: 0,0:00:58.54,0:00:59.27,Default,,0,0,0,,{\b1}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}把错误的硬塞给我 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}好让你不自责
+
+Dialogue: 0,0:00:59.33,0:01:01.73,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}把你的影子投在我脸上
+Dialogue: 0,0:01:02.14,0:01:03.48,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HED055D&\bord2\shad0\blur4\3c&H380814&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}你是不是{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H380814&\fscx100\fscy100}{\b1}有什么{\b1}话想说？
+Dialogue: 0,0:01:03.51,0:01:04.86,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HEEEEEE&\bord2\shad0\blur4\3c&H380814&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}你是不是{\alpha&H00&\1c&H0A06E7&\bord2\shad0\blur4\3c&H380814&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}有什么{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H380814&\fscx100\fscy100}话想说？\N
+Dialogue: 0,0:01:04.88,0:01:07.69,Default,,0,0,0,,{\b1}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}你是不是有什么{\alpha&H00&\1c&HED055D&\bord2\shad0\blur4\3c&H380814&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}话想说？
+
+Dialogue: 0,0:01:07.71,0:01:09.81,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}一遍遍等待那块黑屏
+Dialogue: 0,0:01:09.86,0:01:10.87,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我把石板擦得干净
+Dialogue: 0,0:01:10.90,0:01:12.82,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}所以看看你把我变成了什么
+Dialogue: 0,0:01:12.99,0:01:15.58,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我祈祷那把剑能许我天堂
+Dialogue: 0,0:01:15.68,0:01:16.70,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我如此不耐
+Dialogue: 0,0:01:16.77,0:01:18.86,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我觉得我逃不掉
+Dialogue: 0,0:01:18.89,0:01:20.97,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}一遍遍等待那块黑屏
+Dialogue: 0,0:01:21.00,0:01:22.04,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我把石板擦得干净
+Dialogue: 0,0:01:22.09,0:01:24.07,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}所以看看你把我变成了什么
+Dialogue: 0,0:01:24.22,0:01:26.86,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我希望自己脱颖而出
+Dialogue: 0,0:01:26.88,0:01:28.00,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我紧闭双眼
+Dialogue: 0,0:01:28.03,0:01:29.49,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}却视而不见
+Dialogue: 0,0:01:49.94,0:01:50.64,Default,,0,0,0,,{\b1}{\pos(586,663)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}等等{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 求你
+Dialogue: 0,0:01:50.67,0:01:51.45,Default,,0,0,0,,{\b1}{\pos(586,663)}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}等等 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}求你
+Dialogue: 0,0:01:51.48,0:01:52.95,Default,,0,0,0,,{\b1}{\pos(586,663)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}让我把话说完
+Dialogue: 0,0:01:52.98,0:01:54.26,Default,,0,0,0,,{\b1}{\pos(586,663)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}三思而后行
+Dialogue: 0,0:01:54.29,0:01:55.73,Default,,0,0,0,,{\b1}{\pos(586,663)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}非得这样吗？
+Dialogue: 0,0:01:55.77,0:01:56.92,Default,,0,0,0,,{\b1}{\pos(586,663)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}退后
+Dialogue: 0,0:01:56.95,0:01:58.37,Default,,0,0,0,,{\b1}{\pos(586,663)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}离我远点
+Dialogue: 0,0:01:58.41,0:01:59.43,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}等等
+Dialogue: 0,0:01:59.59,0:02:01.25,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}给我喘口气的时间
+Dialogue: 0,0:02:01.28,0:02:02.44,Default,,0,0,0,,{\b1}\N{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我的哀鸣
+Dialogue: 0,0:02:02.46,0:02:04.07,Default,,0,0,0,,{\b1}\N{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}被咆哮的人群淹没
+Dialogue: 0,0:02:04.10,0:02:06.92,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A\N&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我正走向那风暴的中心
+Dialogue: 0,0:02:06.94,0:02:09.07,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}被绑在牛角上{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 直到动弹不得
+Dialogue: 0,0:02:09.10,0:02:09.91,Default,,0,0,0,,{\b1}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}被绑在牛角上 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}直到动弹不得
+Dialogue: 0,0:02:09.97,0:02:11.90,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}\N那又能证明什么？
+Dialogue: 0,0:02:11.89,0:02:12.44,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&H090987&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}那又能证明什么？
+Dialogue: 0,0:02:12.46,0:02:15.41,Default,,0,0,0,,{\b1}{\pos(590,632)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}人人都能分到一块蛋糕
+Dialogue: 0,0:02:15.44,0:02:17.03,Default,,0,0,0,,{\pos(590,632)}{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}一个给主人{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 一个给奴隶
+Dialogue: 0,0:02:17.06,0:02:18.14,Default,,0,0,0,,{\pos(590,632)}{\b1}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}一个给主人 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}一个给奴隶
+Dialogue: 0,0:02:18.16,0:02:20.87,Default,,0,0,0,,{\b1}{\pos(590,632)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}金星与土星各归其位
+Dialogue: 0,0:02:20.90,0:02:22.27,Default,,0,0,0,,{\b1}{\pos(590,632)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}推拉之间{\alpha&H11&\1c&HEEEEEE&\bord0\shad0\blur0\fscx100\fscy100} 试图开路
+Dialogue: 0,0:02:22.27,0:02:23.63,Default,,0,0,0,,{\b1}{\pos(590,632)}{\alpha&H11&\1c&HEEEEEE&\bord0\shad0\blur0\fscx100\fscy100}推拉之间 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}试图开路
+Dialogue: 0,0:02:24.08,0:02:25.60,Default,,0,0,0,,{\b1}{\pos(590,632)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}在上下之间架桥
+Dialogue: 0,0:02:25.62,0:02:26.85,Default,,0,0,0,,{\b1}{\pos(590,632)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}你立于门前
+Dialogue: 0,0:02:26.87,0:02:29.48,Default,,0,0,0,,{\b1}{\pos(590,632)}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}把你的影子投在我脸
+Dialogue: 0,0:02:29.51,0:02:30.98,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HED055D&\bord2\shad0\blur4\3c&H380814&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}你是不是{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H380814&\fscx100\fscy100}{\b1}有什么{\b1}话想说？
+Dialogue: 0,0:02:31.00,0:02:32.36,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HEEEEEE&\bord2\shad0\blur4\3c&H380814&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}你是不是{\alpha&H00&\1c&H0A06E7&\bord2\shad0\blur4\3c&H380814&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}有什么{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H380814&\fscx100\fscy100}话想说？\N
+Dialogue: 0,0:02:32.39,0:02:35.16,Default,,0,0,0,,\N{\b1}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}你是不是有什么{\alpha&H00&\1c&HED055D&\bord2\shad0\blur4\3c&H380814&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}话想说？
+Dialogue: 0,0:02:35.18,0:02:37.33,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}一遍遍等待那块黑屏
+Dialogue: 0,0:02:37.35,0:02:38.40,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我把石板擦得干净
+Dialogue: 0,0:02:38.43,0:02:40.36,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}所以看看你把我变成了什么
+Dialogue: 0,0:02:40.54,0:02:43.03,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我祈祷那把剑能许我天堂
+Dialogue: 0,0:02:43.10,0:02:44.14,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我如此不耐
+Dialogue: 0,0:02:44.22,0:02:46.34,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我觉得我逃不掉
+Dialogue: 0,0:02:46.38,0:02:48.50,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}一遍遍等待那块黑屏
+Dialogue: 0,0:02:48.53,0:02:49.50,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我把石板擦得干净
+Dialogue: 0,0:02:49.53,0:02:51.56,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}所以看看你把我变成了什么
+Dialogue: 0,0:02:51.76,0:02:54.36,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我希望自己脱颖而出
+Dialogue: 0,0:02:54.38,0:02:55.52,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我紧闭双眼
+Dialogue: 0,0:02:55.58,0:02:57.00,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}却视而不见
+Dialogue: 0,0:03:29.54,0:03:32.69,Default,,0,0,0,,{\pos(590,649)}{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}买一张离开此地的票
+Dialogue: 0,0:03:32.72,0:03:34.40,Default,,0,0,0,,{\pos(590,649)}{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}你会得到两张
+Dialogue: 0,0:03:34.40,0:03:37.12,Default,,0,0,0,,{\pos(590,649)}{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}选好我的目的地{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 希望你也会一同前来
+Dialogue: 0,0:03:37.14,0:03:40.09,Default,,0,0,0,,{\pos(590,649)}{\b1}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}选好我的目的地 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}希望你也会一同前来
+Dialogue: 0,0:03:40.82,0:03:41.74,Default,,0,0,0,,{\pos(574,649)}{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}告诉我{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 你该责备谁？
+Dialogue: 0,0:03:41.77,0:03:43.88,Default,,0,0,0,,{\pos(574,649)}{\b1}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}告诉我 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}你该责备谁？
+Dialogue: 0,0:03:43.90,0:03:45.67,Default,,0,0,0,,{\pos(590,649)}{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}现在你明白了
+Dialogue: 0,0:03:45.65,0:03:48.80,Default,,0,0,0,,{\pos(590,649)}{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}若我替你偿还债务{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 那我便成了你亏欠的人
+Dialogue: 0,0:03:48.83,0:03:51.45,Default,,0,0,0,,{\pos(590,649)}{\b1}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}若我替你偿还债务 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}那我便成了你亏欠的人
+Dialogue: 0,0:03:54.20,0:03:56.31,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我一遍遍等待着那块黑屏
+Dialogue: 0,0:03:56.33,0:03:57.32,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我将过往一并擦净
+Dialogue: 0,0:03:57.35,0:03:59.57,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}所以看看你把我变成了什么
+Dialogue: 0,0:03:59.73,0:04:01.98,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我祈祷那把剑能许我天堂
+Dialogue: 0,0:04:02.01,0:04:03.28,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我如此不耐
+Dialogue: 0,0:04:03.40,0:04:05.33,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我想我无法逃脱
+Dialogue: 0,0:04:05.58,0:04:07.56,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}一遍遍等待着那块黑屏
+Dialogue: 0,0:04:07.58,0:04:08.66,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我将过往一并擦净
+Dialogue: 0,0:04:08.68,0:04:10.63,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}所以看看你把我变成了什么
+Dialogue: 0,0:04:11.27,0:04:13.41,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我希望自己能撑过这一关
+Dialogue: 0,0:04:13.82,0:04:16.55,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&H27155A&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我紧闭双眼却视而不见
+Dialogue: 0,0:04:16.92,0:04:18.92,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}将命运置于祭坛之上
+Dialogue: 0,0:04:18.95,0:04:20.22,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}勒紧套索
+Dialogue: 0,0:04:20.27,0:04:20.78,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}一切都太迟{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 无法更改
+Dialogue: 0,0:04:20.81,0:04:21.91,Default,,0,0,0,,{\b1}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}一切都太迟 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}无法更改
+Dialogue: 0,0:04:21.96,0:04:24.97,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}此刻你是否为不是你而庆幸？
+Dialogue: 0,0:04:25.02,0:04:25.97,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}斩断丝带
+Dialogue: 0,0:04:26.00,0:04:28.03,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}借此洗净你的双手
+Dialogue: 0,0:04:28.05,0:04:30.34,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}将命运置于祭坛之上
+Dialogue: 0,0:04:30.36,0:04:31.57,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}勒紧套索
+Dialogue: 0,0:04:31.59,0:04:32.21,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}一切都太迟{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100} 无法更改
+Dialogue: 0,0:04:32.24,0:04:33.26,Default,,0,0,0,,{\b1}{\alpha&H11&\1c&HEEEEEE&\bord1\shad0\blur0\3c&H666666&\fscx100\fscy100}一切都太迟 {\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}无法更改
+Dialogue: 0,0:04:33.29,0:04:33.79,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}哦
+Dialogue: 0,0:04:33.85,0:04:36.08,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HFFFFFF&\bord2\shad0\blur4\3c&HFFEC70&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我不知将走向何方
+Dialogue: 0,0:04:36.10,0:04:36.49,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HED055D&\bord2\shad0\blur4\3c&H380814&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}但我知道
+Dialogue: 0,0:04:36.51,0:04:42.46,Default,,0,0,0,,{\b1}{\alpha&H00&\1c&HED055D&\bord2\shad0\blur4\3c&H380814&\fscx115\fscy115\t(0,250,\fscx100\fscy100)}条条大路通罗马

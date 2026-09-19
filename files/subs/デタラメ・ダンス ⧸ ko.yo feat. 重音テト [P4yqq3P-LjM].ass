@@ -1,0 +1,52 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 1920
+PlayResY: 1080
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,75,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,3.8,3.8,2,50,50,38,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.48,0:00:04.24,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}装听不见也没用！
+Dialogue: 0,0:00:11.26,0:00:13.02,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}总觉得缺了点什么 Daydream
+Dialogue: 0,0:00:13.02,0:00:14.96,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}无聊的现实，一路颓废
+Dialogue: 0,0:00:14.96,0:00:16.96,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}(Catch me, Can you?)
+Dialogue: 0,0:00:16.96,0:00:18.85,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}扫兴的 Party Night
+Dialogue: 0,0:00:18.85,0:00:20.26,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}一时兴起的邀约
+Dialogue: 0,0:00:20.26,0:00:22.26,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}故意搅乱的平衡
+Dialogue: 0,0:00:22.26,0:00:24.34,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}(Touch me, Tease me!)
+Dialogue: 0,0:00:24.34,0:00:26.20,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}招着手来的 Panic!
+Dialogue: 0,0:00:26.20,0:00:27.57,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}喂，看看我啊
+Dialogue: 0,0:00:27.57,0:00:29.57,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}独自一人，手划过空气
+Dialogue: 0,0:00:29.80,0:00:32.87,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}再怎么徘徊也触碰不到
+Dialogue: 0,0:00:32.87,0:00:34.43,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}那不如
+Dialogue: 0,0:00:34.43,0:00:35.34,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}倒转
+Dialogue: 0,0:00:35.34,0:00:38.51,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}纵身跳进倒转的夜晚！
+Dialogue: 0,0:00:38.51,0:00:40.11,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}让破烂也奏响
+Dialogue: 0,0:00:40.11,0:00:42.43,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}只属于你我的 Parade
+Dialogue: 0,0:00:42.65,0:00:46.00,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}踩起荒唐的舞步
+Dialogue: 0,0:00:46.10,0:00:47.68,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}还不会放开你，
+Dialogue: 0,0:00:47.68,0:00:49.80,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}绝不！
+Dialogue: 0,0:00:57.53,0:00:59.19,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}乱糟糟的房间 Oops!
+Dialogue: 0,0:00:59.19,0:01:00.76,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}恕我失礼啦
+Dialogue: 0,0:01:00.76,0:01:02.39,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}从窗外偷看着的
+Dialogue: 0,0:01:02.39,0:01:04.39,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}月亮投下的聚光灯
+Dialogue: 0,0:01:04.57,0:01:09.25,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}可是，冰冷地板，溶进蓝色里
+Dialogue: 0,0:01:09.67,0:01:11.09,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}黎明将至
+Dialogue: 0,0:01:11.27,0:01:14.95,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}把门锁上，关起来
+Dialogue: 0,0:01:14.95,0:01:18.90,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}才不放你回去，是我太任性
+Dialogue: 0,0:01:19.06,0:01:22.20,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}把秒针往回拨
+Dialogue: 0,0:01:22.31,0:01:26.27,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}把朝阳也赶跑
+Dialogue: 0,0:01:27.73,0:01:31.34,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}把你卷进倒转的梦里！
+Dialogue: 0,0:01:31.67,0:01:33.31,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}让破烂也奏响
+Dialogue: 0,0:01:33.31,0:01:35.54,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}只属于你我的 Parade
+Dialogue: 0,0:01:35.78,0:01:39.02,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}踩起荒唐的舞步
+Dialogue: 0,0:01:39.22,0:01:42.98,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}跳到天亮吧，过来呀
+Dialogue: 0,0:01:43.13,0:01:50.00,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}摇摇荡荡，坠入醒不来的梦深处
+Dialogue: 0,0:01:50.47,0:01:57.61,Default,,0,0,0,,{\fn猫啃什锦黑\fad(100,100)}轻飘飘，向深夜说声"晚安"

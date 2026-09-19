@@ -1,0 +1,64 @@
+[Script Info]
+; This is an Advanced Sub Station Alpha v4+ script.
+Title: 
+ScriptType: v4.00+
+PlayDepth: 0
+ScaledBorderAndShadow: Yes
+PlayResX: 3840
+PlayResY: 2160
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,150,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,7.5,7.5,2,100,100,75,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:12.90,0:00:14.20,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}◆ 咚咚、咚咚 ◆
+Dialogue: 0,0:00:14.20,0:00:15.60,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}◆ 心脏狂跳不止 ◆
+Dialogue: 0,0:00:15.60,0:00:17.80,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}◆ 这样的时代该如何是好？ ◆
+Dialogue: 0,0:00:17.80,0:00:18.00,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}即便如此
+Dialogue: 0,0:00:18.00,0:00:18.20,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}即便如此
+Dialogue: 0,0:00:18.20,0:00:18.50,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}即便如此
+Dialogue: 0,0:00:18.50,0:00:19.87,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}咕咚、咕咚
+Dialogue: 0,0:00:19.87,0:00:21.24,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}被整个吞下去了啊
+Dialogue: 0,0:00:21.24,0:00:22.47,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}简直疯了！
+Dialogue: 0,0:00:22.47,0:00:23.37,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}真叫人心烦
+Dialogue: 0,0:00:24.01,0:00:26.38,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}不管是谁 全都暴露无遗
+Dialogue: 0,0:00:26.38,0:00:29.41,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}骗子们 请回吧
+Dialogue: 0,0:00:29.41,0:00:32.32,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}脑内某处像要烧断般
+Dialogue: 0,0:00:32.32,0:00:33.82,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}快要坏掉了！
+Dialogue: 0,0:00:35.25,0:00:36.25,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啪啦啪啪呐
+Dialogue: 0,0:00:36.25,0:00:37.76,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}反乌托邦
+Dialogue: 0,0:00:37.76,0:00:40.76,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}把你真正的爱砸过来让我看看？
+Dialogue: 0,0:00:40.76,0:00:43.16,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}要是空无一物 就说出来
+Dialogue: 0,0:00:43.16,0:00:46.36,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我只是想看你的真爱而已
+Dialogue: 0,0:00:46.36,0:00:49.03,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}并不是想说这绝对不行之类的
+Dialogue: 0,0:00:49.03,0:00:51.80,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}该怎么说才好 至今我也搞不明白
+Dialogue: 0,0:00:51.80,0:00:54.61,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}AI也好人类也好 那种事压根无所谓
+Dialogue: 0,0:00:54.61,0:00:57.41,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}只是想看你那按捺不住的癖好与狂热
+Dialogue: 0,0:01:08.62,0:01:09.32,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}给我看？
+Dialogue: 0,0:01:09.32,0:01:10.15,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}给我看？
+Dialogue: 0,0:01:10.15,0:01:10.92,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}呐、
+Dialogue: 0,0:01:10.92,0:01:11.36,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}给我看？
+Dialogue: 0,0:01:20.00,0:01:21.10,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}挨下了呢w
+Dialogue: 0,0:01:21.10,0:01:21.97,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}忍着点？幻肢痛
+Dialogue: 0,0:01:21.97,0:01:24.70,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}靠概率模拟出的体温
+Dialogue: 0,0:01:25.34,0:01:26.67,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}要晕掉了
+Dialogue: 0,0:01:26.67,0:01:28.24,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}笑不出来的现实
+Dialogue: 0,0:01:28.24,0:01:30.84,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}脑子里明明早就懂了
+Dialogue: 0,0:01:31.18,0:01:36.51,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}拜托了 让这场噩梦结束吧
+Dialogue: 0,0:01:37.95,0:01:39.22,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}啪啦啪啪呐
+Dialogue: 0,0:01:39.22,0:01:40.78,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}反乌托邦
+Dialogue: 0,0:01:40.78,0:01:43.45,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}把你真正的爱砸过来让我看看？
+Dialogue: 0,0:01:43.45,0:01:45.86,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}要是骗人的话 就滚远点
+Dialogue: 0,0:01:45.86,0:01:49.09,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我只是想看你的真爱而已
+Dialogue: 0,0:01:49.09,0:01:54.67,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}这首被唱烂的歌 也给我吞下去吧
+Dialogue: 0,0:01:54.67,0:01:59.84,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}无法保持清醒 脑袋快要坏掉了
+Dialogue: 0,0:02:00.24,0:02:02.84,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}我知道的 这种妄言
+Dialogue: 0,0:02:02.84,0:02:05.34,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}多么惨痛的逃避！
+Dialogue: 0,0:02:05.34,0:02:05.51,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}即便如此
+Dialogue: 0,0:02:05.51,0:02:05.68,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}即便如此
+Dialogue: 0,0:02:05.68,0:02:05.84,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}即便如此
+Dialogue: 0,0:02:05.84,0:02:08.55,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}无论如何也无法释怀
+Dialogue: 0,0:02:08.55,0:02:10.01,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}同化了吗？
+Dialogue: 0,0:02:10.01,0:02:11.55,Default,,0,0,0,,{\fnZCOOL KuaiLe}{\fad(100,100)\fscx115\fscy115\t(0,250,\fscx100\fscy100)}真是烦透了
