@@ -211,6 +211,61 @@ node tools/check-subs.mjs
 
 ---
 
+## 游戏板块
+
+| | |
+| --- | --- |
+| 公开页 | `/games/` —— 不需要密码 |
+| 管理页 | `/games/admin/` —— 用**同一个** GitHub 令牌（和字幕上传助手共用） |
+| 数据 | `assets/data/games.json`（后台自动写，也可以手改） |
+| 图片 | `files/games/<id>/cover.jpg`、`shot-N.jpg` |
+
+**游戏本体不进仓库**，放 123 云盘，页面只登记链接。
+原因：Cloudflare Pages 单文件上限 **25 MiB**，而这个游戏有 38.7 MB，直接放上来会被拒。
+
+**提取码统一 `bqtj`**：存在 `config.js` 的 `defaultExtractCode` 里，管理页表单会自动填上。
+
+### 卡片字段
+
+| 字段 | 必填 | 说明 |
+| --- | --- | --- |
+| `name` | 是 | 游戏名 |
+| `brief` | 否 | 一句话简介 |
+| `size` | 否 | 文件大小，**纯文本**（如 `38.7 MB`），不会自动算 |
+| `url` | 是 | 123 云盘分享链接 |
+| `code` | 否 | 提取码，默认 `bqtj` |
+| `cover` | 否 | 封面图（列表里按 160×90 显示，16:9 最好看），不填用灰底占位 |
+| `shots` | 否 | 截图数组，展开后排成网格，点一下放大 |
+
+**详情默认折叠**：每张卡片就是一个 `<details>`，点标题栏才展开下载按钮和截图 ——
+这样一屏能扫完所有游戏，想看哪个再点开。展开/收起那几个字用 CSS 的 `content` 切，不需要 JS。
+
+### 也可以直接手改 games.json
+
+不想开后台就编辑 `assets/data/games.json`：
+
+```json
+{
+  "items": [
+    {
+      "id": "g1",
+      "name": "game_orig_test",
+      "brief": "一个自己写的横轴跳跃小游戏",
+      "size": "38.7 MB",
+      "url": "https://www.123pan.com/s/xxxx",
+      "code": "bqtj",
+      "cover": "/files/games/g1/cover.jpg",
+      "shots": ["/files/games/g1/shot-1.jpg"],
+      "mtime": "2026-09-19T06:00:00.000Z"
+    }
+  ]
+}
+```
+
+`id` 只要全站唯一即可，图片路径由它决定 —— **改 `id` 等于换一套图**。
+
+---
+
 ## 命名规范
 
 文件名带的信息越多，搜索和语言识别就越准。

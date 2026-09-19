@@ -1178,6 +1178,180 @@ details.admin-card > summary::after {
 details.admin-card[open] > summary::after { content: '收起'; }
 details.admin-card[open] > summary { margin-bottom: 14px; }
 
+/* ============================ 游戏页 ============================ */
+
+.game-list { display: flex; flex-direction: column; gap: 12px; }
+
+/* 整张卡片就是一个 <details>：标题栏点开才展开截图和下载按钮。
+   用户明确要求「记得折叠」—— 这样一屏能扫完所有游戏，想看哪个再点开。 */
+.game-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.game-card[open] { border-color: var(--border-strong); }
+
+.game-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  cursor: pointer;
+  list-style: none;                     /* 去掉原生三角，改用右边的「展开/收起」 */
+}
+.game-head::-webkit-details-marker { display: none; }
+.game-head:hover { background: var(--surface-2); }
+
+.game-cover {
+  flex: 0 0 auto;
+  width: 160px;
+  height: 90px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+  background: var(--surface-2);
+}
+.game-cover.placeholder {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--text-muted);
+}
+
+.game-main { flex: 1 1 auto; min-width: 0; }
+.game-name { font-size: 15.5px; font-weight: 600; color: var(--text); }
+.game-brief { font-size: 13.5px; color: var(--text-muted); margin-top: 3px; }
+.game-sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* 展开/收起标签：文字由 CSS 切，不用 JS */
+.game-toggle {
+  flex: 0 0 auto;
+  padding: 4px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.game-toggle::after { content: '展开'; }
+.game-card[open] .game-toggle::after { content: '收起'; }
+
+.game-body {
+  padding: 13px 14px 15px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-soft);
+}
+.game-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.game-note { font-size: 13px; color: var(--text-muted); }
+
+/* 截图网格：点一下开灯箱 */
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 13px;
+}
+.shots a {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.shots a:hover { border-color: var(--border-strong); }
+.shots img { display: block; width: 100%; height: auto; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(0, 0, 0, 0.82);
+  cursor: zoom-out;
+}
+.lightbox img { max-width: 100%; max-height: 100%; border-radius: 4px; }
+
+/* ---------- 游戏管理页（表单 + 预览） ---------- */
+
+.h2-tail { font-size: 13px; font-weight: 400; color: var(--text-dim); margin-left: 8px; }
+.req { color: var(--danger); font-size: 12px; font-weight: 500; }
+.code-plain {
+  font-family: var(--font-mono);
+  background: var(--code-bg);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.preview {
+  margin-top: 4px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-soft);
+}
+.pv-title { font-size: 12.5px; color: var(--text-dim); margin-bottom: 9px; }
+.pv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+.pv-item {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.pv-item img { display: block; width: 100%; height: 84px; object-fit: cover; }
+.pv-tag { display: block; padding: 5px 7px; font-size: 11.5px; color: var(--text-dim); }
+.pv-del {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+.pv-del:hover { background: var(--danger); }
+
+/* 管理列表里的游戏行 */
+.mg-row .mg-body { flex: 1 1 auto; min-width: 0; }
+.mg-row .mg-name { font-size: 14.5px; font-weight: 600; }
+.mg-row .mg-ph {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.mg-act { display: flex; gap: 6px; flex: 0 0 auto; margin-left: auto; }
+
+@media (max-width: 720px) {
+  .game-head { flex-wrap: wrap; }
+  .game-cover { width: 128px; height: 72px; }
+  .game-toggle { margin-left: auto; }
+  .shots { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+  .mg-act { margin-left: 0; }
+}
+
 /* ============================ 响应式 ============================ */
 
 /* 菜单按钮只在窄屏出现，宽屏必须隐藏。

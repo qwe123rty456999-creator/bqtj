@@ -127,7 +127,9 @@ server.listen(PORT, () => {
   console.log('\n🚀 本地预览已启动');
   console.log(`   首页      http://localhost:${PORT}/`);
   console.log(`   字幕库    http://localhost:${PORT}/subs/`);
+  console.log(`   游戏      http://localhost:${PORT}/games/`);
   console.log(`   上传助手  http://localhost:${PORT}/admin/`);
+  console.log(`   游戏管理  http://localhost:${PORT}/games/admin/`);
   console.log('\n   注：本地也会模拟下载计数（仅内存，重启清零）；');
   console.log('       线上真实统计由 functions/ + D1 负责。');
   console.log('\n   按 Ctrl+C 停止\n');

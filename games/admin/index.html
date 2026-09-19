@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>游戏管理 · 爆枪突击字幕库</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
+<link rel="stylesheet" href="/assets/css/style.css?v=7">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/assets/img/logo.png" alt="">
+      <span>爆枪突击字幕库</span>
+    </a>
+    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">菜单</button>
+    <nav class="nav" id="siteNav">
+      <a href="/" data-nav="home">首页</a>
+      <a href="/subs/" data-nav="subs">字幕库</a>
+      <a href="/games/" data-nav="games">游戏</a>
+      <a href="/about" data-nav="about">关于</a>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题">深色</button>
+    </nav>
+  </div>
+</header>
+
+<main class="admin-wrap">
+
+  <div class="page-head">
+    <div class="breadcrumb"><a href="/">首页</a> / <a href="/games/">游戏</a> / 游戏管理</div>
+    <h1>游戏管理</h1>
+    <p>只登记信息和封面/截图，游戏本体放在 123 云盘，不占仓库空间。提交后约 1 分钟线上生效。</p>
+  </div>
+
+  <!-- ============ 设置（和字幕上传助手共用同一个令牌） ============ -->
+  <details class="admin-card" id="setupCard">
+    <summary>上传设置</summary>
+    <p class="hint" style="margin-top:0">
+      只配一次，<b>和字幕上传助手用的是同一个令牌</b> —— 那边配过这里就直接认。
+      令牌只保存在你这台浏览器的本地存储中，不会写进仓库、不会发给任何第三方。
+    </p>
+
+    <div class="field">
+      <label for="token">GitHub 令牌（Fine-grained PAT）</label>
+      <input class="input" type="password" id="token" autocomplete="off" spellcheck="false"
+             placeholder="github_pat_... 只存在本机浏览器">
+      <div class="tip">
+        GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens →
+        仓库访问选 <b>Only select repositories</b> → 勾 <code>bqtj</code> → 权限 <b>Contents: Read and write</b>
+      </div>
+    </div>
+
+    <div class="conn" id="connBox" style="margin-bottom:13px">
+      <span class="dot-state"></span>
+      <span class="conn-msg" id="connMsg">尚未配置</span>
+    </div>
+
+    <div class="file-actions">
+      <button class="btn btn-primary" id="btnSaveToken">保存令牌</button>
+      <a class="btn" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">去创建令牌</a>
+      <button class="btn" id="btnForget">清除令牌</button>
+    </div>
+  </details>
+
+  <!-- ============ ① 添加 / 编辑 ============ -->
+  <section class="admin-card">
+    <h2><span class="num">1</span>添加游戏<span class="h2-tail" id="formMode"></span></h2>
+
+    <div class="field">
+      <label for="gName">游戏名 <b class="req">必填</b></label>
+      <input class="input" id="gName" autocomplete="off" placeholder="比如：game_orig_test">
+    </div>
+
+    <div class="field">
+      <label for="gBrief">一句话简介</label>
+      <input class="input" id="gBrief" autocomplete="off" placeholder="比如：一个自己写的横版跳跃小游戏">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="gSize">文件大小</label>
+        <input class="input" id="gSize" autocomplete="off" placeholder="38.7 MB">
+      </div>
+      <div class="field">
+        <label for="gCode">提取码</label>
+        <input class="input" id="gCode" autocomplete="off" value="bqtj">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="gUrl">123 云盘分享链接 <b class="req">必填</b></label>
+      <input class="input" id="gUrl" autocomplete="off" placeholder="https://www.123pan.com/s/xxxx">
+      <div class="tip">直接粘贴整条分享链接即可；要是带上了「提取码：xxxx」这类文字，会自动只取链接那一段。</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="gCover">封面图（建议 16:9）</label>
+        <input class="input" type="file" id="gCover" accept="image/*">
+        <div class="tip">不上传就用灰底占位图。上传后会自动压缩到 1280px 以内。</div>
+      </div>
+      <div class="field">
+        <label for="gShots">截图（可一次选多张）</label>
+        <input class="input" type="file" id="gShots" accept="image/*" multiple>
+        <div class="tip">会在详情里排成网格，点一下放大。</div>
+      </div>
+    </div>
+
+    <div class="preview" id="preview" hidden></div>
+
+    <div class="file-actions" style="margin-top:16px">
+      <button class="btn btn-primary" id="btnSaveGame">保存游戏</button>
+      <button class="btn" id="btnResetForm">清空重填</button>
+    </div>
+
+    <div class="log" id="log" hidden></div>
+  </section>
+
+  <!-- ============ ② 现有游戏 ============ -->
+  <details class="admin-card" id="listCard" open>
+    <summary><span class="num">2</span>现有游戏</summary>
+
+    <div class="card-tools">
+      <input class="input" type="search" id="gSearch" autocomplete="off" placeholder="搜索游戏名">
+      <button class="btn btn-sm" id="btnReload">刷新列表</button>
+      <span class="result-info" id="listInfo">加载中…</span>
+    </div>
+
+    <div class="mg-list" id="gList"><div class="result-info">加载中…</div></div>
+  </details>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© <span data-year></span> 爆枪突击字幕库 · 游戏管理</div>
+    <div><a href="/games/">去看游戏页</a></div>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js?v=3"></script>
+<script src="/assets/js/site.js?v=10"></script>
+<script src="/assets/js/games-admin.js?v=1"></script>
+</body>
+</html>

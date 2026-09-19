@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>游戏 · 爆枪突击字幕库</title>
+<meta name="description" content="爆枪突击自制的小游戏，放在 123 云盘，提取码统一 bqtj。">
+<meta name="keywords" content="爆枪突击,小游戏,游戏下载">
+<link rel="canonical" href="https://bqtj.pages.dev/games/">
+
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
+<link rel="stylesheet" href="/assets/css/style.css?v=7">
+<script>
+/* 提前请求游戏索引，与 CSS/JS 并行（见首页里的同一段注释） */
+window.__gamesJson = fetch('/assets/data/games.json', { cache: 'no-cache' });
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/assets/img/logo.png" alt="">
+      <span>爆枪突击字幕库</span>
+    </a>
+    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">菜单</button>
+    <nav class="nav" id="siteNav">
+      <a href="/" data-nav="home">首页</a>
+      <a href="/subs/" data-nav="subs">字幕库</a>
+      <a href="/games/" data-nav="games">游戏</a>
+      <a href="/about" data-nav="about">关于</a>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题">深色</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="page-head">
+      <div class="breadcrumb"><a href="/">首页</a> / 游戏</div>
+      <h1>游戏</h1>
+      <p>自己做的几个小游戏，点开卡片看截图和下载方式。</p>
+    </div>
+  </div>
+
+  <!-- 提取码统一，先在最上面说清楚，省得每张卡片都去找 -->
+  <div class="container">
+    <div class="notice">
+      <div>
+        <b>下载说明：</b>游戏都放在 <b>123 云盘</b>，点卡片里的「去 123 云盘下载」即可。<br>
+        所有资源的提取码统一为 <b class="code-plain">bqtj</b>。
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="result-info" id="gameInfo">加载中…</div>
+    <div class="game-list" id="gameList"><div class="spinner"></div></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© <span data-year></span> 爆枪突击字幕库</div>
+    <div>
+      <a href="/subs/">字幕库</a> ·
+      <a href="/games/">游戏</a> ·
+      <a href="/about">关于</a>
+    </div>
+  </div>
+</footer>
+
+<!-- 点截图放大看 -->
+<div class="lightbox" id="lightbox" hidden>
+  <img id="lightboxImg" alt="">
+</div>
+
+<script src="/assets/js/config.js?v=3"></script>
+<script src="/assets/js/site.js?v=10"></script>
+<script src="/assets/js/games.js?v=1"></script>
+</body>
+</html>
