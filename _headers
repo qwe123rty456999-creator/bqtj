@@ -6,9 +6,13 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
 
-# 静态资源长缓存（改了样式记得改文件名或加 ?v=2）
+# 静态资源：不做长缓存。
+# 教训 —— 原来这里写的是 max-age=604800（7 天），而文件名里没有内容哈希，
+# 结果 Cloudflare 边缘把旧版 admin.js 缓存住（实测缓存副本 age 已 9863 秒还在 HIT），
+# 部署新代码后线上依旧是旧的：HTML 是新的、JS/CSS 是旧的，页面看起来「和现在完全不一样」。
+# 小站访问量低，每次发 304 验证的代价可以忽略；要减少请求就给文件名加内容哈希。
 /assets/*
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=0, must-revalidate
 
 # 数据文件短缓存，方便更新后立刻生效
 /assets/data/*
@@ -18,7 +22,12 @@
 /api/*
   Cache-Control: no-store
 
-# 字幕文件：允许跨域下载，缓存久一点
+# 字幕文件：允许跨域下载，缓存久一点（内容很少变）
 /files/subs/*
   Cache-Control: public, max-age=86400
+  Access-Control-Allow-Origin: *
+
+# 缩略图：更换时会用同名文件覆盖，不能长缓存，否则永远看到旧图
+/files/thumbs/*
+  Cache-Control: public, max-age=0, must-revalidate
   Access-Control-Allow-Origin: *
