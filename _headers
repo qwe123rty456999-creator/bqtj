@@ -14,9 +14,10 @@
 /assets/*
   Cache-Control: public, max-age=0, must-revalidate
 
-# 数据文件短缓存，方便更新后立刻生效
-/assets/data/*
-  Cache-Control: public, max-age=300
+# 注意：不要给 /assets/data/* 再单独写规则。
+# Cloudflare 会把「同时匹配」的多条规则的头拼在一起，实测 subs.json 收到的是
+#   public, max-age=0, must-revalidate, public, max-age=300
+# 这种自相矛盾的 Cache-Control，浏览器取哪个 max-age 不好说。统一由 /assets/* 管。
 
 # 统计接口：绝不缓存
 /api/*
