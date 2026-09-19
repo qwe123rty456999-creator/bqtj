@@ -562,6 +562,9 @@ select.control:focus { border-color: var(--accent); }
 }
 .more-item:hover { background: var(--surface-2); text-decoration: none; }
 
+/* 复制成功后的短暂提示（比单纯变文字更显眼） */
+.more-item.copied { color: var(--ok); }
+
 .more-num {
   color: var(--text-dim);
   font-family: var(--font-mono);

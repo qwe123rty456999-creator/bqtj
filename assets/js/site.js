@@ -154,9 +154,11 @@ function renderError(el, err) {
     esc(err.message) + '</p></div>';
 }
 
-/** 复制到剪贴板（自动回退到 execCommand） */
+/** 复制到剪贴板（自动回退到 execCommand）。传了 btn 就顺手把按钮文字换成「已复制」。 */
 async function copyText(text, btn) {
-  const old = btn ? btn.textContent : '';
+  // 存 innerHTML 而不是 textContent —— 菜单项里还有编号的 <span>，
+  // 用 textContent 恢复会把那个 span 抹掉，编号就变成普通文字了。
+  const old = btn ? btn.innerHTML : '';
   try {
     await navigator.clipboard.writeText(text);
   } catch {
@@ -170,8 +172,12 @@ async function copyText(text, btn) {
     ta.remove();
   }
   if (btn) {
+    btn.classList.add('copied');
     btn.textContent = '已复制';
-    setTimeout(() => { btn.textContent = old; }, 1200);
+    setTimeout(() => {
+      btn.innerHTML = old;
+      btn.classList.remove('copied');
+    }, 1200);
   }
 }
 
@@ -192,7 +198,7 @@ function cleanUrl(u) {
  * 只有一项时不加编号 —— 孤零零一个「1」看着很怪。
  */
 function moreMenuHTML(f) {
-  const list = [{ kind: 'copy', label: '分享链接', path: f.path }];
+  const list = [{ kind: 'copy', label: '复制下载链接', path: f.path }];
   if (f.videoUrl) list.push({ kind: 'link', label: '原视频链接（需 VPN）', href: cleanUrl(f.videoUrl), blank: true });
   if (f.videoDl) list.push({ kind: 'link', label: '下载原视频（提取码 bqtj）', href: cleanUrl(f.videoDl), dl: true });
 
