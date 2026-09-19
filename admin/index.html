@@ -113,6 +113,26 @@
     </div>
   </section>
 
+  <!-- ============ ③ 字幕管理 ============ -->
+  <section class="admin-card">
+    <h2><span class="num">3</span>字幕管理</h2>
+    <p class="hint">
+      给字幕写一句说明，或者删掉不要的字幕。说明会显示在首页和字幕库的文件名下方，
+      并且能被搜索到。改动直接提交到 GitHub，Cloudflare 随后自动部署，约 1 分钟后生效。
+    </p>
+
+    <div class="file-actions" style="margin-bottom:14px">
+      <button class="btn btn-sm" id="btnReloadMg">刷新列表</button>
+      <span class="result-info" id="mgInfo" style="margin:0"></span>
+    </div>
+
+    <div class="mg-list" id="mgList">
+      <div class="result-info">加载中…</div>
+    </div>
+
+    <div class="log" id="mgLog" hidden></div>
+  </section>
+
 </main>
 
 <footer class="site-footer">

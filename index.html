@@ -118,6 +118,7 @@
         <div class="file-badge ${esc(f.ext)}">${esc(f.ext)}</div>
         <div class="file-main">
           <div class="file-name">${esc(f.name)}</div>
+          ${f.desc ? `<div class="file-desc">${esc(f.desc)}</div>` : ''}
           <div class="file-sub">
             <span>${humanSize(f.size)}</span>
             <span>·</span>

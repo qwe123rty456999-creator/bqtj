@@ -29,6 +29,9 @@
   const state = { token: '', files: [], tree: null };
   let seq = 0;
 
+  let countsMap = new Map();   // path → 下载次数（来自 /api/counts）
+  let mgItems = [];            // 字幕管理的当前列表（来自 subs.json）
+
   ui.maxSize.textContent = humanSize(MAX);
 
   /* ======================= 通用工具 ======================= */
@@ -124,7 +127,16 @@
     });
 
     if (opts.raw) {
-      if (!res.ok) throw new Error(`HTTP ${res.status} ${(await res.text()).slice(0, 200)}`);
+      if (!res.ok) {
+        // GitHub 在 raw 请求下也返回 JSON 错误体，把里面的 message 抽出来，
+        // 否则用户看到的是一整块带 \r\n 的原始 JSON
+        const body = await res.text();
+        let msg = body;
+        try { const j = JSON.parse(body); if (j && j.message) msg = j.message; } catch { /* 不是 JSON */ }
+        const err = new Error(`HTTP ${res.status}：${String(msg).slice(0, 160)}`);
+        err.status = res.status;
+        throw err;
+      }
       return res.text();
     }
     const text = await res.text();
@@ -153,18 +165,38 @@
       accept: 'application/vnd.github.raw', raw: true,
     });
 
+  /** 取某个路径当前的 blob sha（缓存里没有就强刷一次 tree） */
+  async function shaOf(path) {
+    let tree = await loadTree();
+    if (!tree.has(path)) tree = await loadTree(true);
+    return tree.get(path);
+  }
+
   async function putFile(path, base64, message) {
-    const sha = (await loadTree()).get(path);
+    const sha = await shaOf(path);
     const body = { message, content: base64 };
     if (sha) body.sha = sha;
     if (REPO.branch) body.branch = REPO.branch;
     const res = await gh(`/contents/${encodePath(path)}`, {
       method: 'PUT', body: JSON.stringify(body),
     });
-    // 只让这个路径的 sha 失效，其余文件在本次提交里没变，缓存仍然有效。
-    // （之前是整个 tree 清空，导致批量上传时每个文件都多一次 GET）
-    state.tree?.delete(path);
+    // PUT 返回的 content.sha 就是刚写入的新 blob sha，直接回填缓存。
+    // （以前是 delete(path)：同一文件第二次写入时缓存里查不到 sha，
+    //   会被当成「新建文件」→ GitHub 直接 409 拒绝）
+    if (res && res.content && res.content.sha) state.tree?.set(path, res.content.sha);
+    else state.tree?.delete(path);
     return res;
+  }
+
+  /** 删除仓库里的一个文件 */
+  async function deleteFile(path, message) {
+    const sha = await shaOf(path);
+    if (!sha) throw new Error('仓库里找不到这个文件，可能已经被删掉了');
+    await gh(`/contents/${encodePath(path)}`, {
+      method: 'DELETE',
+      body: JSON.stringify({ message, sha, branch: REPO.branch }),
+    });
+    state.tree?.delete(path);
   }
 
   /* ======================= 设置（令牌） ======================= */
@@ -344,7 +376,7 @@
       try {
         await patchSubsIndex(done);
       } catch (e) {
-        log(`字幕库索引更新失败：${e.message}（文件已上传，可再点一次上传重试）`, 'err');
+        log(`字幕库索引更新失败：${friendlyErr(e)}（文件已上传，可再点一次上传重试）`, 'err');
       }
     }
 
@@ -382,6 +414,13 @@
       added++;
     }
 
+    await saveIndex(data, `更新字幕库索引（新增 ${added} 条）`);
+    log(`字幕库索引已更新：新增 ${added} 条，累计 ${data.count} 条`, 'ok');
+  }
+
+  /** 重算 subs.json 的计数与统计（新增 / 改说明 / 删除后都要跑一次） */
+  function recomputeIndex(data) {
+    data.items = data.items || [];
     data.items.sort((a, b) => String(b.mtime).localeCompare(String(a.mtime)));
     data.count = data.items.length;
     data.generated = new Date().toISOString();
@@ -393,13 +432,17 @@
       byExt[x.ext] = (byExt[x.ext] || 0) + 1;
     }
     data.stats = { languages: byLang, formats: byExt, groups: {} };
+    return data;
+  }
 
-    await putFile(
+  /** 写回 subs.json（自动重算计数据） */
+  function saveIndex(data, message) {
+    recomputeIndex(data);
+    return putFile(
       'assets/data/subs.json',
       utf8ToBase64(JSON.stringify(data, null, 2) + '\n'),
-      `更新字幕库索引（新增 ${added} 条）`
+      message
     );
-    log(`字幕库索引已更新：新增 ${added} 条，累计 ${data.count} 条`, 'ok');
   }
 
   /* ======================= 下载统计 ======================= */
@@ -439,6 +482,8 @@
       }
 
       const entries = Object.entries(data.counts || {}).sort((a, b) => b[1] - a[1]);
+      countsMap = new Map(entries);
+      renderManage();   // 管理列表也顺便显示下载次数
       if (!entries.length) {
         ui.statSummary.textContent = '还没有下载记录。等有人从字幕库下载后，这里就会出现数据。';
         return;
@@ -479,9 +524,173 @@
 
   $('btnReloadStats').addEventListener('click', loadStats);
 
+  /* ======================= 字幕管理（改说明 / 删除） ======================= */
+
+  const mgUI = { list: $('mgList'), info: $('mgInfo'), log: $('mgLog'), reload: $('btnReloadMg') };
+
+  function mglog(msg, kind = '') {
+    mgUI.log.hidden = false;
+    const t = new Date().toLocaleTimeString('zh-CN', { hour12: false });
+    const line = document.createElement('div');
+    line.className = kind ? 'l-' + kind : '';
+    line.textContent = `[${t}] ${msg}`;
+    mgUI.log.appendChild(line);
+    mgUI.log.scrollTop = mgUI.log.scrollHeight;
+  }
+
+  function needToken(what) {
+    if (state.token) return true;
+    ui.setupCard.open = true;
+    mglog(`还没配置令牌，无法${what} —— 已展开「上传设置」`, 'err');
+    return false;
+  }
+
+  /** 把 GitHub 的报错翻译成能直接照着做的提示 */
+  function friendlyErr(e) {
+    const m = String((e && e.message) || e);
+    if (/\b401\b/.test(m)) {
+      ui.setupCard.open = true;
+      return '令牌无效或已过期（GitHub 401）—— 已展开「上传设置」，请重新保存一个有效的令牌';
+    }
+    if (/\b403\b/.test(m)) {
+      ui.setupCard.open = true;
+      return '令牌没有写权限（GitHub 403）—— 到令牌设置里把 Contents 改成 Read and write';
+    }
+    if (/\b404\b/.test(m)) {
+      return '仓库或文件找不到（GitHub 404）—— 检查令牌是否勾选了 bqtj 仓库';
+    }
+    return m;
+  }
+
+  async function loadManage() {
+    mgUI.list.innerHTML = '<div class="spinner"></div>';
+    try {
+      const res = await fetch('/assets/data/subs.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      mgItems = data.items || [];
+      renderManage();
+    } catch (e) {
+      mgUI.list.innerHTML =
+        `<div class="empty"><h3>读取字幕索引失败</h3><p>${esc(e.message)}</p></div>`;
+      mgUI.info.textContent = '';
+    }
+  }
+
+  function renderManage() {
+    if (!mgUI.list) return;
+
+    if (!mgItems.length) {
+      mgUI.list.innerHTML =
+        '<div class="empty"><h3>还没有字幕</h3><p>在「1 上传字幕」里传几个再回来。</p></div>';
+      mgUI.info.textContent = '共 0 个字幕';
+      return;
+    }
+
+    mgUI.info.textContent = `共 ${mgItems.length} 个字幕`;
+
+    mgUI.list.innerHTML = mgItems.map((it) => {
+      const n = countsMap.get(it.path);
+      return `
+      <div class="mg-row" data-path="${esc(it.path)}">
+        <div class="mg-head">
+          <span class="up-icon">${esc(it.ext)}</span>
+          <div class="up-main">
+            <div class="up-name">${esc(it.name)}</div>
+            <div class="up-sub">
+              <span>${humanSize(it.size)}</span>
+              <span title="${esc(it.mtime)}">${relTime(it.mtime)}</span>
+              ${n ? `<span class="count-badge">${n} 次下载</span>` : ''}
+              ${it.desc ? '<span class="state ok">已有说明</span>' : ''}
+            </div>
+          </div>
+        </div>
+
+        <div class="mg-edit">
+          <input class="input" data-desc maxlength="120"
+                 placeholder="写一句说明（会显示在名字下方，留空则清除）"
+                 value="${esc(it.desc || '')}">
+          <button class="btn btn-sm btn-primary" data-act="save">保存说明</button>
+          <button class="btn btn-sm btn-danger" data-act="del">删除字幕</button>
+        </div>
+
+        <div class="mg-path">${esc(it.path)}</div>
+      </div>`;
+    }).join('');
+  }
+
+  mgUI.reload.addEventListener('click', loadManage);
+
+  mgUI.list.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-act]');
+    if (!btn || btn.disabled) return;
+    const row = btn.closest('.mg-row');
+    const item = mgItems.find((x) => x.path === row.getAttribute('data-path'));
+    if (!item) return;
+    if (btn.dataset.act === 'save') saveDesc(item, row, btn);
+    else removeSub(item, row, btn);
+  });
+
+  /** 改说明：只改索引里的 desc 字段，不动字幕文件 */
+  async function saveDesc(item, row, btn) {
+    if (!needToken('保存说明')) return;
+    const desc = row.querySelector('input[data-desc]').value.trim();
+    if (desc === (item.desc || '')) { mglog('说明没有变化', 'warn'); return; }
+
+    const old = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '保存中…';
+    try {
+      // 重新读一次索引，避免覆盖别处的改动
+      const data = JSON.parse(await readText('assets/data/subs.json'));
+      const target = (data.items || []).find((x) => x.path === item.path);
+      if (!target) throw new Error('索引里找不到这个条目，可能已被删除');
+
+      if (desc) target.desc = desc;
+      else delete target.desc;
+
+      await saveIndex(data, `更新字幕说明：${item.name}`);
+      item.desc = desc;
+      renderManage();
+      mglog(desc ? `已保存说明：${item.name}` : `已清空说明：${item.name}`, 'ok');
+    } catch (e) {
+      mglog(`保存失败：${friendlyErr(e)}`, 'err');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = old;
+    }
+  }
+
+  /** 删除：先删仓库里的文件，再从索引里去掉条目 */
+  async function removeSub(item, row, btn) {
+    if (!needToken('删除字幕')) return;
+    if (!confirm(`确定删除这个字幕吗？\n\n${item.file}\n\n文件会从仓库删除，索引条目也会移除。`)) return;
+
+    const old = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '删除中…';
+    try {
+      await deleteFile(item.path, `删除字幕 ${item.file}`);
+
+      const data = JSON.parse(await readText('assets/data/subs.json'));
+      data.items = (data.items || []).filter((x) => x.path !== item.path);
+      await saveIndex(data, `从索引移除 ${item.file}`);
+
+      const i = mgItems.findIndex((x) => x.path === item.path);
+      if (i >= 0) mgItems.splice(i, 1);
+      renderManage();
+      mglog(`已删除：${item.file}`, 'ok');
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = old;
+      mglog(`删除失败：${friendlyErr(e)}`, 'err');
+    }
+  }
+
   /* ======================= 初始化 ======================= */
 
   renderList();
   loadStats();
+  loadManage();
   setTimeout(() => { if (!state.token) log('提示：先在「上传设置」里保存 GitHub 令牌，才能上传。', 'warn'); }, 300);
 })();

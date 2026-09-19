@@ -28,7 +28,7 @@
   /** 空格分隔的多关键词 = AND 匹配 */
   function matchKeywords(item, kw) {
     if (!kw) return true;
-    const hay = (item.name + ' ' + (item.file || '') + ' ' + item.path).toLowerCase();
+    const hay = (item.name + ' ' + (item.file || '') + ' ' + item.path + ' ' + (item.desc || '')).toLowerCase();
     return kw.toLowerCase().split(/\s+/).filter(Boolean).every((w) => hay.includes(w));
   }
 
@@ -57,6 +57,7 @@
         <div class="file-badge ${esc(f.ext)}">${esc(f.ext)}</div>
         <div class="file-main">
           <div class="file-name">${mark(f.name, state.kw.trim())}</div>
+          ${f.desc ? `<div class="file-desc">${esc(f.desc)}</div>` : ''}
           <div class="file-sub">
             <span>${humanSize(f.size)}</span>
             <span>·</span>
