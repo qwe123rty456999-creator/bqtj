@@ -1365,6 +1365,22 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 .link-row .link-name { flex: 0 0 150px; }
 .link-row .link-url { flex: 1 1 auto; min-width: 0; }
 
+/* 自定义的文件选择器。
+   浏览器原生的 <input type="file"> 会画成「选择文件 | 未选择任何文件」——
+   不同系统长得都不一样，跟站内风格也格格不入。
+   这里把真正的 input 藏起来，用一个普通按钮去触发它。 */
+.filepick { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.filepick-name {
+  font-size: 13px;
+  color: var(--text-dim);
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.filepick-name.has-file { color: var(--text); }
+
 @media (max-width: 720px) {
   .game-head { flex-wrap: wrap; }
   .game-cover { width: 128px; height: 72px; }
@@ -1385,6 +1401,9 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 .nav-toggle { display: none; }
 
 @media (max-width: 720px) {
+  /* 移动端展开的菜单：做成一个明确的浮层 ——
+     加阴影、加圆角、下面再压一层半透明遮罩（点遮罩就收起）。
+     之前只有一块和页面同色的背景，打开后跟页面糊在一起，分不清哪是哪。 */
   .nav {
     position: fixed;
     top: var(--header-h);
@@ -1393,14 +1412,23 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
     flex-direction: column;
     align-items: stretch;
     gap: 2px;
-    padding: 8px 14px 14px;
-    background: var(--bg);
+    padding: 10px 14px 14px;
+    background: var(--surface);
     border-bottom: 1px solid var(--border);
+    border-radius: 0 0 var(--radius) var(--radius);
+    box-shadow: 0 18px 36px rgba(16, 24, 40, 0.16);
     display: none;
   }
   .nav.open { display: flex; }
   .nav a { padding: 10px 12px; }
   .nav-toggle { display: grid; margin-left: auto; }
+
+  /* 菜单打开时按钮变主色，一眼能看出当前是「关掉它」而不是「打开」 */
+  body.nav-open .nav-toggle {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
 
   .hero { padding: 44px 0 30px; }
 
@@ -1417,6 +1445,22 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   .hero-search .btn { flex: 1 1 100%; }
 
   .site-footer .container { flex-direction: column; }
+}
+
+/* 菜单展开时压在下方的遮罩：让「这是个浮层」一目了然，点一下就收起。
+   元素由 site.js 在需要时创建，只有窄屏会显示。
+   层级：遮罩 45 < .site-header 50 —— 顶栏和「关闭」按钮始终可点。 */
+.nav-backdrop { display: none; }
+@media (max-width: 720px) {
+  body.nav-open .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: var(--header-h) 0 0 0;
+    z-index: 45;
+    background: rgba(16, 24, 40, 0.32);
+  }
+  /* 深色主题下整页本来就是暗的，用同色去压暗几乎看不出来 → 换纯黑加浓 */
+  html[data-theme="dark"] body.nav-open .nav-backdrop { background: rgba(0, 0, 0, 0.55); }
 }
 
 @media (prefers-reduced-motion: reduce) {

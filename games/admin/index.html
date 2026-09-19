@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=9">
+<link rel="stylesheet" href="/assets/css/style.css?v=10">
 </head>
 <body>
 
@@ -119,12 +119,20 @@
     <div class="field-row">
       <div class="field">
         <label for="gCover">封面图（建议 16:9）</label>
-        <input class="input" type="file" id="gCover" accept="image/*">
+        <div class="filepick">
+          <button class="btn" type="button" data-pick="gCover">选择图片</button>
+          <span class="filepick-name" id="coverName">还没有选择文件</span>
+        </div>
+        <input type="file" id="gCover" accept="image/*" hidden>
         <div class="tip">不上传就用灰底占位图。上传后会自动压缩到 1280px 以内。</div>
       </div>
       <div class="field">
         <label for="gShots">截图（可一次选多张）</label>
-        <input class="input" type="file" id="gShots" accept="image/*" multiple>
+        <div class="filepick">
+          <button class="btn" type="button" data-pick="gShots">选择图片</button>
+          <span class="filepick-name" id="shotsName">还没有选择文件</span>
+        </div>
+        <input type="file" id="gShots" accept="image/*" multiple hidden>
         <div class="tip">会在详情里排成网格，点一下放大。</div>
       </div>
     </div>
@@ -162,7 +170,7 @@
 </footer>
 
 <script src="/assets/js/config.js?v=3"></script>
-<script src="/assets/js/site.js?v=10"></script>
-<script src="/assets/js/games-admin.js?v=3"></script>
+<script src="/assets/js/site.js?v=11"></script>
+<script src="/assets/js/games-admin.js?v=4"></script>
 </body>
 </html>

@@ -152,6 +152,14 @@
 
   const humanKB = (b) => (b < 1024 * 1024 ? Math.round(b / 1024) + ' KB' : (b / 1024 / 1024).toFixed(1) + ' MB');
 
+  /** 自定义文件选择器旁边那行小字（真正的 <input type=file> 被藏起来了） */
+  function setPickName(id, text, hasFile) {
+    const el = $(id);
+    if (!el) return;
+    el.textContent = text || '还没有选择文件';
+    el.classList.toggle('has-file', !!hasFile);
+  }
+
   /* ------------------------------ 云盘链接行 ------------------------------ */
 
   /**
@@ -304,6 +312,8 @@
     setLinks([]);
     $('gCover').value = '';
     $('gShots').value = '';
+    setPickName('coverName', '', false);
+    setPickName('shotsName', '', false);
     $('formMode').textContent = '';
     $('btnSaveGame').textContent = '保存游戏';
     renderPreview();
@@ -320,6 +330,8 @@
     setLinks(linksOfItem(g));
     $('gCover').value = '';
     $('gShots').value = '';
+    setPickName('coverName', '', false);
+    setPickName('shotsName', '', false);
     $('formMode').textContent = '（正在编辑：' + (g.name || '未命名') + '）';
     $('btnSaveGame').textContent = '保存修改';
     renderPreview();
@@ -482,13 +494,24 @@
       del.closest('.link-row').remove();
     });
 
-    /* 图片选择 */
+    /* 图片选择：按钮去触发藏起来的 file input */
+    document.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-pick]');
+      if (b) $(b.getAttribute('data-pick')).click();
+    });
+
     $('gCover').addEventListener('change', async (e) => {
       const f = e.target.files && e.target.files[0];
       if (!f) return;
-      try { pendingCover = { ...(await compress(f, 1280)), name: f.name }; renderPreview(); log('封面已就绪：' + f.name); }
-      catch (err) { log(err.message, 'bad'); }
+      try {
+        const c = await compress(f, 1280);
+        pendingCover = { ...c, name: f.name };
+        setPickName('coverName', f.name + ' · ' + humanKB(c.bytes), true);
+        renderPreview();
+        log('封面已就绪：' + f.name);
+      } catch (err) { log(err.message, 'bad'); }
     });
+
     $('gShots').addEventListener('change', async (e) => {
       const files = [...(e.target.files || [])];
       if (!files.length) return;
@@ -496,9 +519,10 @@
         try { pendingShots.push({ ...(await compress(f, 1600)), name: f.name }); }
         catch (err) { log(err.message, 'bad'); }
       }
+      setPickName('shotsName', `已选 ${files.length} 张` + (pendingShots.length > files.length ? `（待传共 ${pendingShots.length} 张）` : ''), true);
       log(`已选 ${files.length} 张截图`);
       renderPreview();
-      e.target.value = '';
+      e.target.value = '';      // 清掉，同一批文件可以再选一次
     });
 
     /* 预览里的删除 */

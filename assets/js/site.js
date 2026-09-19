@@ -42,8 +42,43 @@ function toggleTheme() {
 }
 
 /* ----------------------------- 导航 ----------------------------- */
+/**
+ * 开合移动端菜单。
+ * 顺带做三件让「现在是不是开着」更清楚的事（用户反馈展开后看不清）：
+ *   1. 按钮文字在「菜单 / 关闭」之间切 —— 只换样式不换字，用户不知道点它能关
+ *   2. body 上挂 nav-open，样式里据此显示遮罩、把按钮染成主色
+ *   3. 遮罩点一下就收起（元素按需创建，不用每个页面都写一遍）
+ */
+function setNav(open) {
+  const nav = document.getElementById('siteNav');
+  const btn = document.getElementById('navToggle');
+  if (!nav) return;
+  nav.classList.toggle('open', open);
+  document.body.classList.toggle('nav-open', open);
+  if (btn) {
+    btn.textContent = open ? '关闭' : '菜单';
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+  }
+  navBackdrop().hidden = !open;
+}
+
 function toggleNav() {
-  document.getElementById('siteNav')?.classList.toggle('open');
+  const nav = document.getElementById('siteNav');
+  setNav(nav ? !nav.classList.contains('open') : false);
+}
+
+/** 遮罩层：只创建一次，点它收起菜单 */
+function navBackdrop() {
+  let el = document.getElementById('navBackdrop');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'navBackdrop';
+    el.className = 'nav-backdrop';
+    el.addEventListener('click', () => setNav(false));
+    document.body.appendChild(el);
+  }
+  return el;
 }
 
 /** 根据当前路径高亮导航项 */
@@ -363,6 +398,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('navToggle')?.addEventListener('click', toggleNav);
   btn?.addEventListener('click', toggleTheme);
 
+  // Esc 收起移动端菜单
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('siteNav')?.classList.contains('open')) setNav(false);
+  });
+
   // 年份
   document.querySelectorAll('[data-year]').forEach((el) => {
     el.textContent = new Date().getFullYear();
@@ -370,6 +410,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 点击导航后自动收起移动端菜单
   document.querySelectorAll('.nav a').forEach((a) =>
-    a.addEventListener('click', () => document.getElementById('siteNav')?.classList.remove('open'))
+    a.addEventListener('click', () => setNav(false))
   );
 });
