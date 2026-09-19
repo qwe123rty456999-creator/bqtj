@@ -10,7 +10,7 @@
 
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=4">
+<link rel="stylesheet" href="/assets/css/style.css?v=5">
 <script>
 /* 提前请求字幕库索引，与 CSS/JS 并行（见首页里的同一段注释） */
 window.__subsJson = fetch('/assets/data/subs.json');
@@ -52,15 +52,24 @@ window.__subsJson = fetch('/assets/data/subs.json');
           <button class="s-clear" id="clear" aria-label="清空">×</button>
         </div>
 
-        <select class="control" id="sort">
-          <option value="mtime-desc">最新上传</option>
-          <option value="mtime-asc">最早上传</option>
-          <option value="count-desc">下载最多</option>
-          <option value="name-asc">名称 A→Z</option>
-          <option value="name-desc">名称 Z→A</option>
-          <option value="size-desc">体积大→小</option>
-          <option value="size-asc">体积小→大</option>
-        </select>
+        <!-- 排序用自定义下拉（不用原生 select）：原生展开后的选项列表是系统渲染的，圆角改不了 -->
+        <div class="dropdown" id="sortDrop">
+          <button class="control dropdown-toggle" type="button"
+                  aria-haspopup="listbox" aria-expanded="false">
+            <span class="dropdown-label">最新上传</span>
+            <span class="dropdown-arrow" aria-hidden="true"></span>
+          </button>
+          <ul class="dropdown-menu" role="listbox" hidden>
+            <li class="dropdown-item" role="option" data-value="mtime-desc" aria-selected="true">最新上传</li>
+            <li class="dropdown-item" role="option" data-value="mtime-asc" aria-selected="false">最早上传</li>
+            <li class="dropdown-item" role="option" data-value="count-desc" aria-selected="false">下载最多</li>
+            <li class="dropdown-item" role="option" data-value="name-asc" aria-selected="false">名称 A→Z</li>
+            <li class="dropdown-item" role="option" data-value="name-desc" aria-selected="false">名称 Z→A</li>
+            <li class="dropdown-item" role="option" data-value="size-desc" aria-selected="false">体积大→小</li>
+            <li class="dropdown-item" role="option" data-value="size-asc" aria-selected="false">体积小→大</li>
+          </ul>
+          <input type="hidden" id="sort" value="mtime-desc">
+        </div>
       </div>
     </div>
   </div>
@@ -84,7 +93,7 @@ window.__subsJson = fetch('/assets/data/subs.json');
 </footer>
 
 <script src="/assets/js/config.js?v=2"></script>
-<script src="/assets/js/site.js?v=7"></script>
-<script src="/assets/js/subs.js?v=2"></script>
+<script src="/assets/js/site.js?v=8"></script>
+<script src="/assets/js/subs.js?v=3"></script>
 </body>
 </html>

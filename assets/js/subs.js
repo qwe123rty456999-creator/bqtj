@@ -22,6 +22,7 @@
   const $search = document.getElementById('search');
   const $clear = document.getElementById('clear');
   const $sort = document.getElementById('sort');
+  const sortDrop = initDropdown(document.getElementById('sortDrop'));
 
   /* ----------------------------- 筛选与排序 ----------------------------- */
 
@@ -167,11 +168,13 @@
     $search.focus();
   });
 
-  $sort.value = state.sort;
+  // 排序用的是自定义下拉（见 site.js 的 initDropdown）。它内部仍走一个 hidden input
+  // 并派发 change，所以下面这段逻辑与以前用原生 select 时完全一样。
   $sort.addEventListener('change', () => {
     state.sort = $sort.value;
     render();
   });
+  sortDrop?.setValue(state.sort, true);
 
   // 快捷键：/ 聚焦搜索框，Esc 清空
   document.addEventListener('keydown', (e) => {

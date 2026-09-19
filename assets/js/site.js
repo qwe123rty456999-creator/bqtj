@@ -264,6 +264,67 @@ function bindCopyButtons(container) {
   });
 }
 
+/* ----------------------------- 自定义下拉 ----------------------------- */
+
+/**
+ * 把 .dropdown 结构接上交互，替代原生 <select>。
+ * 为什么要自己写：原生 select 展开后的选项列表由操作系统渲染，圆角和配色一律改不了。
+ *
+ * 取值仍然走内部那个 hidden input，选中时还会派发 change 事件 ——
+ * 所以调用方写起来和原来的 select 一模一样（$el.value / 'change' 监听）。
+ */
+function initDropdown(root) {
+  if (!root || root.dataset.dropdownBound) return null;
+  const toggle = root.querySelector('.dropdown-toggle');
+  const labelEl = root.querySelector('.dropdown-label');
+  const menu = root.querySelector('.dropdown-menu');
+  const input = root.querySelector('input[type="hidden"]');
+  if (!toggle || !labelEl || !menu || !input) return null;
+  root.dataset.dropdownBound = '1';
+
+  const items = [...menu.querySelectorAll('.dropdown-item')];
+
+  const close = () => {
+    menu.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+  };
+  const open = () => {
+    menu.hidden = false;
+    toggle.setAttribute('aria-expanded', 'true');
+    menu.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: 'nearest' });
+  };
+
+  function setValue(v, silent) {
+    const hit = items.find((el) => el.dataset.value === v) || items[0];
+    if (!hit) return;
+    items.forEach((el) => el.setAttribute('aria-selected', String(el === hit)));
+    labelEl.textContent = hit.textContent.trim();
+    input.value = hit.dataset.value;
+    if (!silent) input.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (menu.hidden) open(); else close();
+  });
+
+  menu.addEventListener('click', (e) => {
+    const item = e.target.closest('.dropdown-item');
+    if (!item) return;
+    setValue(item.dataset.value);
+    close();
+    toggle.focus();
+  });
+
+  document.addEventListener('click', (e) => { if (!root.contains(e.target)) close(); });
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !menu.hidden) { close(); toggle.focus(); }
+  });
+
+  setValue(input.value, true);   // 用 HTML 里写的初值先把文字显示出来
+  return { setValue, get value() { return input.value; }, open, close };
+}
+
 /* ----------------------------- URL 查询参数 ----------------------------- */
 function getParam(key) {
   return new URLSearchParams(location.search).get(key) || '';

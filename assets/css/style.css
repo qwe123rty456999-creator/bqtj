@@ -406,7 +406,7 @@ kbd {
 
 select.control {
   padding: 10px 34px 10px 12px;
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-strong);
   background: var(--surface);
   color: var(--text);
@@ -426,7 +426,83 @@ select.control {
 select.control:focus { border-color: var(--accent); }
 
 /* 注意：下拉「展开后的选项列表」是操作系统原生渲染的，网页 CSS 改不了它的圆角。
-   要让那一块也是圆角，只能不用原生 select、自己写一个下拉组件。 */
+   所以排序那一处改用自定义下拉（见 site.js 的 initDropdown）。 */
+
+/* ============================ 自定义下拉 ============================ */
+
+.dropdown { position: relative; }
+
+.dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 116px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.4;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.14s, box-shadow 0.14s;
+}
+.dropdown-toggle:hover { border-color: var(--text-dim); }
+.dropdown-toggle:focus-visible,
+.dropdown-toggle[aria-expanded="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  outline: none;
+}
+
+.dropdown-arrow {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-right: 1.6px solid var(--text-muted);
+  border-bottom: 1.6px solid var(--text-muted);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.16s;
+}
+.dropdown-toggle[aria-expanded="true"] .dropdown-arrow {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+/* 展开后的列表：圆角 + 跟站点同一套配色 —— 这正是原生 select 做不到的地方 */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  z-index: 40;
+  min-width: 100%;
+  margin: 0;
+  padding: 5px;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.1);
+  max-height: 300px;
+  overflow: auto;
+}
+
+.dropdown-item {
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 13.5px;
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.dropdown-item:hover { background: var(--surface-2); }
+.dropdown-item[aria-selected="true"] {
+  color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 500;
+}
 
 .result-info {
   color: var(--text-muted);
@@ -535,7 +611,10 @@ select.control:focus { border-color: var(--accent); }
   word-break: break-word;
 }
 
-.file-actions { display: flex; gap: 6px; flex: 0 0 auto; }
+.file-actions { display: flex; gap: 10px; flex: 0 0 auto; }
+
+/* 「更多」按钮复制成功时会变成「已复制」（3 字），给个最小宽度免得按钮跳一下宽度 */
+.more [data-act="more"] { min-width: 66px; }
 
 /* 「更多」菜单 */
 .more { position: relative; }
