@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=7">
+<link rel="stylesheet" href="/assets/css/style.css?v=8">
 </head>
 <body>
 
@@ -92,9 +92,28 @@
     </div>
 
     <div class="field">
-      <label for="gUrl">123 云盘分享链接 <b class="req">必填</b></label>
-      <input class="input" id="gUrl" autocomplete="off" placeholder="https://www.123pan.com/s/xxxx">
-      <div class="tip">直接粘贴整条分享链接即可；要是带上了「提取码：xxxx」这类文字，会自动只取链接那一段。</div>
+      <label>云盘下载链接 <b class="req">至少填一个</b></label>
+      <div class="link-list" id="linkList"></div>
+      <div class="file-actions" style="margin-top:9px">
+        <button class="btn btn-sm" id="btnAddLink" type="button">+ 添加云盘</button>
+      </div>
+      <div class="tip">
+        同一个文件传到几个云盘就填几行，<b>不设上限</b>。访客点开卡片会看到一排按钮自己挑。
+        提取码全站统一，填一次就行。
+      </div>
+      <datalist id="driveNames">
+        <option value="123云盘"></option>
+        <option value="百度网盘"></option>
+        <option value="阿里云盘"></option>
+        <option value="夸克网盘"></option>
+        <option value="天翼云盘"></option>
+        <option value="蓝奏云"></option>
+        <option value="UC网盘"></option>
+        <option value="迅雷云盘"></option>
+        <option value="腾讯微云"></option>
+        <option value="MEGA"></option>
+        <option value="MediaFire"></option>
+      </datalist>
     </div>
 
     <div class="field-row">
@@ -144,6 +163,6 @@
 
 <script src="/assets/js/config.js?v=3"></script>
 <script src="/assets/js/site.js?v=10"></script>
-<script src="/assets/js/games-admin.js?v=1"></script>
+<script src="/assets/js/games-admin.js?v=2"></script>
 </body>
 </html>

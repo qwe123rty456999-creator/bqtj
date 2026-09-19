@@ -55,11 +55,33 @@
   /* 12 小时内的显示「刚刚 / N 小时前」，更早显示日期 —— 和字幕库保持一致 */
   const when = (iso) => (iso ? relTime(iso) : '');
 
+  /**
+   * 云盘链接归一化。
+   * 新格式是 links: [{ name, url }]，可以有很多条；
+   * 早期版本用的是单个 url 字段 —— 这里兼容一下，当成一条「123云盘」，
+   * 免得旧数据在页面上突然消失。管理页保存时会把格式统一成 links。
+   */
+  const linksOf = (g) => {
+    const arr = Array.isArray(g.links) ? g.links : [];
+    const out = arr
+      .map((l) => ({ name: String((l && l.name) || '').trim(), url: cleanUrl(l && l.url) }))
+      .filter((l) => l.url);
+    if (out.length) return out;
+    const legacy = cleanUrl(g.url);
+    return legacy ? [{ name: '123云盘', url: legacy }] : [];
+  };
+
   $list.className = 'game-list';
   $list.innerHTML = sorted.map((g) => {
-    const url = cleanUrl(g.url);
     const code = String(g.code || '').trim() || 'bqtj';
+    const links = linksOf(g);
+    const solo = links.length === 1;
     const meta = [g.size, g.version, when(g.mtime)].filter(Boolean);
+
+    /* 只有一个云盘时用主色按钮（唯一的行动点）；多个时全部用普通按钮，不加优先级 */
+    const linkBtns = links.map((l) =>
+      `<a class="btn${solo ? ' btn-primary' : ''}" href="${esc(l.url)}" target="_blank" rel="noopener">` +
+      `${l.name ? '去 ' + esc(l.name) + ' 下载' : '下载'}</a>`).join('');
 
     return `<details class="game-card">
   <summary class="game-head">
@@ -77,9 +99,8 @@
 
   <div class="game-body">
     <div class="game-actions">
-      ${url
-        ? `<a class="btn btn-primary" href="${esc(url)}" target="_blank" rel="noopener">去 123 云盘下载</a>
-           <button class="btn" data-copy="${esc(url)}">复制链接</button>`
+      ${links.length
+        ? (links.length > 1 ? '<span class="game-note">选择云盘：</span>' : '') + linkBtns
         : '<span class="game-note">这个条目还没填下载链接。</span>'}
       <button class="btn" data-copy="${esc(code)}">复制提取码 ${esc(code)}</button>
     </div>

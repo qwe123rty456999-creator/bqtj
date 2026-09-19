@@ -220,10 +220,14 @@ node tools/check-subs.mjs
 | 数据 | `assets/data/games.json`（后台自动写，也可以手改） |
 | 图片 | `files/games/<id>/cover.jpg`、`shot-N.jpg` |
 
-**游戏本体不进仓库**，放 123 云盘，页面只登记链接。
+**游戏本体不进仓库**，放云盘，页面只登记链接。
 原因：Cloudflare Pages 单文件上限 **25 MiB**，而这个游戏有 38.7 MB，直接放上来会被拒。
 
+**一个游戏可以挂任意多个云盘**（同一个文件传几份，访客自己挑一个能用的）——
+不设上限，提取码全站统一。
+
 **提取码统一 `bqtj`**：存在 `config.js` 的 `defaultExtractCode` 里，管理页表单会自动填上。
+⚠️ 这只是页面上的**显示文字**，云盘那边的提取码要你自己也设成 `bqtj` 才对得上。
 
 ### 卡片字段
 
@@ -232,10 +236,16 @@ node tools/check-subs.mjs
 | `name` | 是 | 游戏名 |
 | `brief` | 否 | 一句话简介 |
 | `size` | 否 | 文件大小，**纯文本**（如 `38.7 MB`），不会自动算 |
-| `url` | 是 | 123 云盘分享链接 |
+| `links` | 是 | 云盘链接数组，格式 `[{ "name": "123云盘", "url": "https://..." }]`，**条数不限** |
 | `code` | 否 | 提取码，默认 `bqtj` |
 | `cover` | 否 | 封面图（列表里按 160×90 显示，16:9 最好看），不填用灰底占位 |
 | `shots` | 否 | 截图数组，展开后排成网格，点一下放大 |
+
+只有 1 个云盘时那个按钮是**主色**（页面唯一的行动点）；有多个时全部是普通按钮，
+前面加一句「选择云盘：」—— 不给任何一个云盘加优先级。
+
+> 早期版本用的是单个 `url` 字段。页面和管理页都**兼容旧数据**（自动当成一条「123云盘」），
+> 但管理页一旦保存就会写成新的 `links` 格式。
 
 **详情默认折叠**：每张卡片就是一个 `<details>`，点标题栏才展开下载按钮和截图 ——
 这样一屏能扫完所有游戏，想看哪个再点开。展开/收起那几个字用 CSS 的 `content` 切，不需要 JS。
@@ -252,7 +262,10 @@ node tools/check-subs.mjs
       "name": "game_orig_test",
       "brief": "一个自己写的横轴跳跃小游戏",
       "size": "38.7 MB",
-      "url": "https://www.123pan.com/s/xxxx",
+      "links": [
+        { "name": "123云盘", "url": "https://www.123pan.com/s/xxxx" },
+        { "name": "百度网盘", "url": "https://pan.baidu.com/s/yyyy" }
+      ],
       "code": "bqtj",
       "cover": "/files/games/g1/cover.jpg",
       "shots": ["/files/games/g1/shot-1.jpg"],

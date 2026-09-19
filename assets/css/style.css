@@ -1344,12 +1344,21 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 }
 .mg-act { display: flex; gap: 6px; flex: 0 0 auto; margin-left: auto; }
 
+/* 管理页：多云盘链接行（可以无限加，每行 = 云盘名 + 链接 + 删除） */
+.link-list { display: flex; flex-direction: column; gap: 8px; }
+.link-row { display: flex; gap: 8px; align-items: center; }
+.link-row .link-name { flex: 0 0 150px; }
+.link-row .link-url { flex: 1 1 auto; min-width: 0; }
+
 @media (max-width: 720px) {
   .game-head { flex-wrap: wrap; }
   .game-cover { width: 128px; height: 72px; }
   .game-toggle { margin-left: auto; }
   .shots { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
   .mg-act { margin-left: 0; }
+  .link-row { flex-wrap: wrap; }
+  .link-row .link-name,
+  .link-row .link-url { flex: 1 1 100%; }
 }
 
 /* ============================ 响应式 ============================ */

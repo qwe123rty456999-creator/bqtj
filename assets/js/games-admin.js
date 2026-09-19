@@ -152,6 +152,48 @@
 
   const humanKB = (b) => (b < 1024 * 1024 ? Math.round(b / 1024) + ' KB' : (b / 1024 / 1024).toFixed(1) + ' MB');
 
+  /* ------------------------------ 云盘链接行 ------------------------------ */
+
+  /**
+   * 一个游戏可以挂任意多个云盘链接（用户要求不设上限），所以这里是一组可增删的输入行。
+   * 顺序就是页面上的按钮顺序，第一条不特殊。
+   */
+  const linkRowHTML = (name = '', url = '') => `<div class="link-row">
+      <input class="input link-name" list="driveNames" autocomplete="off" placeholder="云盘名，如 123云盘" value="${esc(name)}">
+      <input class="input link-url" autocomplete="off" placeholder="粘贴分享链接" value="${esc(url)}">
+      <button class="btn btn-sm btn-danger link-del" type="button" title="删除这条">删除</button>
+    </div>`;
+
+  function addLinkRow(name = '', url = '') {
+    $('linkList').insertAdjacentHTML('beforeend', linkRowHTML(name, url));
+  }
+
+  function setLinks(list) {
+    $('linkList').innerHTML = '';
+    if (!list.length) { addLinkRow(); return; }
+    list.forEach((l) => addLinkRow(l.name || '', l.url || ''));
+  }
+
+  /** 读出所有填了链接的行（空行忽略，顺序保持） */
+  function collectLinks() {
+    return [...$('linkList').querySelectorAll('.link-row')]
+      .map((row) => ({
+        name: row.querySelector('.link-name').value.trim(),
+        url: cleanUrl(row.querySelector('.link-url').value),
+      }))
+      .filter((l) => l.url);
+  }
+
+  /** 条目里的云盘链接；兼容早期版本的单个 url 字段 */
+  function linksOfItem(g) {
+    const arr = Array.isArray(g.links) ? g.links : [];
+    const out = arr
+      .map((l) => ({ name: String((l && l.name) || ''), url: String((l && l.url) || '') }))
+      .filter((l) => l.url);
+    if (out.length) return out;
+    return g.url ? [{ name: '123云盘', url: g.url }] : [];
+  }
+
   /* ------------------------------ 令牌设置 ------------------------------ */
   function setConn(cls, msg) {
     $('connBox').className = 'conn ' + cls;
@@ -203,7 +245,10 @@
       return;
     }
 
-    $('gList').innerHTML = items.map((g) => `
+    $('gList').innerHTML = items.map((g) => {
+      const links = linksOfItem(g);
+      const drives = links.map((l) => l.name || l.url).join(' / ');
+      return `
       <div class="mg-row">
         <div class="mg-head">
           ${g.cover
@@ -211,15 +256,16 @@
             : '<div class="mg-thumb"><span class="mg-ph">GAME</span></div>'}
           <div class="mg-body">
             <div class="mg-name">${esc(g.name || '未命名')}</div>
-            <div class="mg-note">${esc([g.brief, g.size, (g.shots || []).length + ' 张截图'].filter(Boolean).join(' · '))}</div>
-            <div class="mg-note">${g.url ? esc(g.url) : '（未填网盘链接）'}</div>
+            <div class="mg-note">${esc([g.brief, g.size, links.length + ' 个云盘', (g.shots || []).length + ' 张截图'].filter(Boolean).join(' · '))}</div>
+            <div class="mg-note">${drives ? '云盘：' + esc(drives) : '（未填云盘链接）'}</div>
           </div>
           <div class="mg-act">
             <button class="btn btn-sm" data-edit="${esc(g.id)}">编辑</button>
             <button class="btn btn-sm btn-danger" data-del="${esc(g.id)}">删除</button>
           </div>
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   }
 
   /* ------------------------------ 表单 ------------------------------ */
@@ -230,8 +276,8 @@
     $('gName').value = '';
     $('gBrief').value = '';
     $('gSize').value = '';
-    $('gUrl').value = '';
     $('gCode').value = S.defaultExtractCode || 'bqtj';
+    setLinks([]);
     $('gCover').value = '';
     $('gShots').value = '';
     $('formMode').textContent = '';
@@ -246,8 +292,8 @@
     $('gName').value = g.name || '';
     $('gBrief').value = g.brief || '';
     $('gSize').value = g.size || '';
-    $('gUrl').value = g.url || '';
     $('gCode').value = g.code || S.defaultExtractCode || 'bqtj';
+    setLinks(linksOfItem(g));
     $('gCover').value = '';
     $('gShots').value = '';
     $('formMode').textContent = '（正在编辑：' + (g.name || '未命名') + '）';
@@ -285,9 +331,9 @@
     if (!token) { log('先在「上传设置」里保存 GitHub 令牌。', 'bad'); $('setupCard').open = true; return; }
 
     const name = $('gName').value.trim();
-    const url = cleanUrl($('gUrl').value);
+    const links = collectLinks();
     if (!name) { log('游戏名不能为空。', 'bad'); $('gName').focus(); return; }
-    if (!url) { log('123 云盘链接不能为空。', 'bad'); $('gUrl').focus(); return; }
+    if (!links.length) { log('至少要填一个云盘下载链接。', 'bad'); $('linkList').querySelector('.link-url').focus(); return; }
 
     const btn = $('btnSaveGame');
     btn.disabled = true;
@@ -303,7 +349,8 @@
       item.name = name;
       item.brief = $('gBrief').value.trim();
       item.size = $('gSize').value.trim();
-      item.url = url;
+      item.links = links;          // 统一的云盘链接格式
+      delete item.url;             // 清掉早期版本的单个 url 字段
       item.code = $('gCode').value.trim() || 'bqtj';
       item.mtime = new Date().toISOString();
 
@@ -391,6 +438,24 @@
       $('token').value = '';
       tree = null;
       setConn('off', '已清除令牌');
+    });
+
+    /* 云盘链接行：加一行 / 删一行 */
+    $('btnAddLink').addEventListener('click', () => {
+      addLinkRow();
+      const rows = $('linkList').querySelectorAll('.link-row');
+      rows[rows.length - 1].querySelector('.link-name').focus();
+    });
+    $('linkList').addEventListener('click', (e) => {
+      const del = e.target.closest('.link-del');
+      if (!del) return;
+      const rows = $('linkList').querySelectorAll('.link-row');
+      // 至少留一行，否则整个区域看着像坏了
+      if (rows.length <= 1) {
+        rows[0].querySelectorAll('input').forEach((i) => { i.value = ''; });
+        return;
+      }
+      del.closest('.link-row').remove();
     });
 
     /* 图片选择 */
