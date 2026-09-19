@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-19T09:29:14.934Z",
+  "generated": "2026-09-19T18:40:40.999Z",
   "root": "files/subs",
   "count": 93,
   "stats": {
@@ -12,10 +12,7 @@
       "ass": 87,
       "srt": 6
     },
-    "groups": {
-      "未分类": 91,
-      "示例番剧": 2
-    }
+    "groups": {}
   },
   "items": [
     {
@@ -31,7 +28,8 @@
       "group": "未分类",
       "groupTitle": "未分类",
       "tags": [],
-      "url": ""
+      "url": "",
+      "thumb": "/files/thumbs/🥖重音テトの髪型を変えてみた🥖 #shorts [NNS6ndyMhxI].jpg"
     },
     {
       "name": "래오 -『일본어 못합니다』 MV (feat. 카사네 테토)",
