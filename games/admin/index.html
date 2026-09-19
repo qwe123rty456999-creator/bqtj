@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=13">
+<link rel="stylesheet" href="/assets/css/style.css?v=14">
 </head>
 <body>
 
@@ -80,17 +80,6 @@
       <input class="input" id="gBrief" autocomplete="off" placeholder="比如：一个自己写的横版跳跃小游戏">
     </div>
 
-    <div class="field-row">
-      <div class="field">
-        <label for="gSize">文件大小</label>
-        <input class="input" id="gSize" autocomplete="off" placeholder="38.7 MB">
-      </div>
-      <div class="field">
-        <label for="gCode">提取码</label>
-        <input class="input" id="gCode" autocomplete="off" value="bqtj">
-      </div>
-    </div>
-
     <div class="field">
       <label>云盘下载链接 <b class="req">至少填一个</b></label>
       <div class="link-list" id="linkList"></div>
@@ -99,7 +88,8 @@
       </div>
       <div class="tip">
         同一个文件传到几个云盘就填几行，<b>不设上限</b>。访客点开卡片会看到一排按钮自己挑。
-        提取码全站统一，填一次就行。
+        <b>提取码每个云盘单独填</b>，写在链接旁边那一格。
+        有的云盘不能设提取码、或本来就不需要，那就留空，页面上会显示「无需提取码」。
       </div>
       <!-- 下面是「云盘名」下拉里的常用选项。想加别的云盘，在这里加一行 <option> 就行，
            页面上的下拉会自动带上它。列表里没有的云盘，在使用时直接手写也可以。 -->
@@ -193,8 +183,8 @@
   </div>
 </footer>
 
-<script src="/assets/js/config.js?v=3"></script>
+<script src="/assets/js/config.js?v=4"></script>
 <script src="/assets/js/site.js?v=12"></script>
-<script src="/assets/js/games-admin.js?v=7"></script>
+<script src="/assets/js/games-admin.js?v=8"></script>
 </body>
 </html>

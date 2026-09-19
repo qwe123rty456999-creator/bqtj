@@ -57,32 +57,49 @@
 
   /**
    * 云盘链接归一化。
-   * 新格式是 links: [{ name, url }]，可以有很多条；
-   * 早期版本用的是单个 url 字段 —— 这里兼容一下，当成一条「123云盘」，
-   * 免得旧数据在页面上突然消失。管理页保存时会把格式统一成 links。
+   * 格式是 links: [{ name, url, code }]，可以有很多条；
+   * 提取码是**每个云盘各自的** —— 有的云盘不能设提取码、有的本来就不需要。
+   * 早期数据兼容：
+   *   - 整条用单个 url 字段的 → 当成一条「123云盘」
+   *   - 链接上没有 code 字段（undefined）→ 回落用条目上那个老的全局 code
+   *   - code 明确写成空字符串 → 就是这个云盘「无需提取码」
    */
   const linksOf = (g) => {
+    const legacyCode = String(g.code || '').trim();
     const arr = Array.isArray(g.links) ? g.links : [];
     const out = arr
-      .map((l) => ({ name: String((l && l.name) || '').trim(), url: cleanUrl(l && l.url) }))
+      .map((l) => ({
+        name: String((l && l.name) || '').trim(),
+        url: cleanUrl(l && l.url),
+        code: (l && (l.code === undefined || l.code === null))
+          ? legacyCode
+          : String(l.code || '').trim(),
+      }))
       /* 只认 http(s) 链接 —— 管理页里随手打的测试内容（如 "123"）不该变成点了没反应的按钮 */
       .filter((l) => /^https?:\/\//i.test(l.url));
     if (out.length) return out;
     const legacy = cleanUrl(g.url);
-    return /^https?:\/\//i.test(legacy) ? [{ name: '123云盘', url: legacy }] : [];
+    return /^https?:\/\//i.test(legacy) ? [{ name: '123云盘', url: legacy, code: legacyCode }] : [];
   };
+
+  /** 用了哪些提取码（去重、去掉空的）。都一样就只写一个，都不需要就写「无需提取码」 */
+  const codesOf = (links) => [...new Set(links.map((l) => l.code).filter(Boolean))];
 
   $list.className = 'game-list';
   $list.innerHTML = sorted.map((g) => {
-    const code = String(g.code || '').trim() || 'bqtj';
     const links = linksOf(g);
+    const codes = codesOf(links);
     const solo = links.length === 1;
-    const meta = [g.size, g.version, when(g.mtime)].filter(Boolean);
+
+    /* 名字下面那行小字：大小（旧数据可能还有）· 版本 · 时间 · 提取码 */
+    const subBits = [g.size, g.version, when(g.mtime)].filter(Boolean);
+    if (links.length) subBits.push(codes.length ? '提取码 ' + codes.join(' / ') : '无需提取码');
 
     /* 下载入口：
        - 只有一个云盘 → 直接一个主色按钮（跟旧版一样，不给访客多余的选择）
        - 有多个云盘 → 一个按钮，点开再选（用站点自己的菜单组件，
-         不用浏览器原生的 select —— 原生展开后的样式改不了，跟站内其它下拉不一行） */
+         不用浏览器原生的 select —— 原生展开后的样式改不了，跟站内其它下拉不一行）
+       多云盘时每一项后面标上它自己的提取码，否则访客不知道选哪个要哪个码。 */
     const linkLabel = (l) => (l.name ? '去 ' + esc(l.name) + ' 下载' : '下载');
     let dlHTML;
     if (!links.length) {
@@ -93,9 +110,18 @@
       dlHTML = '<div class="more">'
         + '<button class="btn btn-primary" data-act="more" type="button" aria-expanded="false" aria-haspopup="true">选择云盘下载</button>'
         + '<div class="more-menu" hidden>'
-        + links.map((l) => `<a class="more-item" href="${esc(l.url)}" target="_blank" rel="noopener">${l.name ? esc(l.name) : '下载'}</a>`).join('')
+        + links.map((l) => `<a class="more-item" href="${esc(l.url)}" target="_blank" rel="noopener">`
+            + `<span>${l.name ? esc(l.name) : '下载'}</span>`
+            + `<span class="more-code">${l.code ? esc(l.code) : '无需提取码'}</span>`
+          + '</a>').join('')
         + '</div></div>';
     }
+
+    /* 复制提取码：每个不同的码一个按钮（各云盘码不一样时要能分开拿）；
+       一个码都没有就直接写「无需提取码」，不给一个点了没用的按钮 */
+    const copyHTML = codes.length
+      ? codes.map((c) => `<button class="btn" data-copy="${esc(c)}">复制提取码 ${esc(c)}</button>`).join('')
+      : (links.length ? '<span class="game-note">无需提取码</span>' : '');
 
     const shots = shotsHTML(g);
     return `<article class="game-card${shots ? '' : ' no-shots'}">
@@ -105,8 +131,7 @@
       <div class="game-name">${esc(g.name || '未命名')}</div>
       ${g.brief ? `<div class="game-brief">${esc(g.brief)}</div>` : ''}
       <div class="game-sub">
-        ${meta.map((m) => `<span>${esc(m)}</span>`).join('<span>·</span>')}
-        <span>·</span><span>提取码 ${esc(code)}</span>
+        ${subBits.map((m) => `<span>${esc(m)}</span>`).join('<span>·</span>')}
       </div>
     </div>
     <span class="game-toggle" aria-hidden="true"></span>
@@ -116,7 +141,7 @@
        手机端它一直露在外面，桌面端仍然跟截图一起收在展开里（见 style.css）。 -->
   <div class="game-actions">
     ${dlHTML}
-    <button class="btn" data-copy="${esc(code)}">复制提取码 ${esc(code)}</button>
+    ${copyHTML}
   </div>
 
   ${shots ? `<div class="game-shots">${shots}</div>` : ''}

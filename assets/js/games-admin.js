@@ -273,7 +273,7 @@
       .map((n) => `<li class="dropdown-item" role="option" aria-selected="false">${esc(n)}</li>`)
       .join('');
 
-  const linkRowHTML = (name = '', url = '') => `<div class="link-row">
+  const linkRowHTML = (name = '', url = '', code = '') => `<div class="link-row">
       <div class="dropdown drive-pick">
         <button class="dropdown-toggle" type="button" aria-haspopup="listbox" aria-expanded="false">
           <span class="dropdown-label">选择云盘</span>
@@ -283,6 +283,8 @@
         <input class="link-name" type="hidden" value="">
       </div>
       <input class="input link-url" autocomplete="off" placeholder="粘贴分享链接" value="${esc(url)}">
+      <!-- 提取码按云盘单独填：有的云盘不能设提取码、有的本来就不需要，留空即可 -->
+      <input class="input link-code" autocomplete="off" placeholder="无需提取码" value="${esc(code)}">
       <button class="btn btn-sm btn-danger link-del" type="button" title="删除这条">删除</button>
     </div>`;
 
@@ -363,11 +365,12 @@
   /** 清空一行（只剩一行时「删除」不能把行去掉，否则那块看着像坏了） */
   function resetLinkRow(row) {
     row.querySelector('.link-url').value = '';
+    row.querySelector('.link-code').value = '';
     setDriveName(row, '');
   }
 
-  function addLinkRow(name = '', url = '') {
-    $('linkList').insertAdjacentHTML('beforeend', linkRowHTML(name, url));
+  function addLinkRow(name = '', url = '', code = '') {
+    $('linkList').insertAdjacentHTML('beforeend', linkRowHTML(name, url, code));
     const row = $('linkList').lastElementChild;
     bindDrivePicker(row);
     setDriveName(row, name);
@@ -377,7 +380,7 @@
   function setLinks(list) {
     $('linkList').innerHTML = '';
     if (!list.length) { addLinkRow(); return; }
-    list.forEach((l) => addLinkRow(l.name || '', l.url || ''));
+    list.forEach((l) => addLinkRow(l.name || '', l.url || '', l.code || ''));
   }
 
   /**
@@ -406,7 +409,8 @@
       if (!raw.trim()) continue;
       const url = normalizeUrl(raw);
       if (!url) { dropped++; continue; }
-      out.push({ name, url });
+      // code 留空就是「这个云盘不需要提取码」，不是「没填」—— 所以要写进数据
+      out.push({ name, url, code: row.querySelector('.link-code').value.trim() });
     }
     if (dropped) {
       log(`有 ${dropped} 行填的内容不像链接，已跳过 —— 要填 http:// 或 https:// 开头的分享地址。`, 'warn');
@@ -416,12 +420,19 @@
 
   /** 条目里的云盘链接；兼容早期版本的单个 url 字段 */
   function linksOfItem(g) {
+    const legacyCode = String(g.code || '').trim();
     const arr = Array.isArray(g.links) ? g.links : [];
     const out = arr
-      .map((l) => ({ name: String((l && l.name) || ''), url: String((l && l.url) || '') }))
+      .map((l) => ({
+        name: String((l && l.name) || ''),
+        url: String((l && l.url) || ''),
+        // 每条云盘自己的提取码。老条目没有这个字段（undefined）→ 回落到原来那个全局提取码；
+        // 明确写了空字符串就是「这个云盘不需要提取码」。
+        code: (l && (l.code === undefined || l.code === null)) ? legacyCode : String(l.code || '').trim(),
+      }))
       .filter((l) => l.url);
     if (out.length) return out;
-    return g.url ? [{ name: '123云盘', url: g.url }] : [];
+    return g.url ? [{ name: '123云盘', url: g.url, code: legacyCode }] : [];
   }
 
   /** 把 GitHub 的报错翻译成能照着做的提示 */
@@ -497,6 +508,9 @@
     $('gList').innerHTML = items.map((g) => {
       const links = linksOfItem(g);
       const drives = links.map((l) => l.name || l.url).join(' / ');
+      // 提取码按云盘算，所以这里列出「用到的所有不同的码」；一个都没有就直接写无需提取码
+      const codes = [...new Set(links.map((l) => l.code).filter(Boolean))];
+      const codeTxt = codes.length ? '提取码 ' + codes.join(' / ') : '无需提取码';
       return `
       <div class="mg-row">
         <div class="mg-head">
@@ -505,8 +519,8 @@
             : '<div class="mg-thumb"><span class="mg-ph">GAME</span></div>'}
           <div class="mg-body">
             <div class="mg-name">${esc(g.name || '未命名')}</div>
-            <div class="mg-note">${esc([g.brief, g.size, links.length + ' 个云盘', (g.shots || []).length + ' 张截图'].filter(Boolean).join(' · '))}</div>
-            <div class="mg-note">${drives ? '云盘：' + esc(drives) : '（未填云盘链接）'}</div>
+            <div class="mg-note">${esc([g.brief, links.length + ' 个云盘', codeTxt, (g.shots || []).length + ' 张截图'].filter(Boolean).join(' · '))}</div>
+            <div class="mg-note">${drives ? '云盘：' + esc(links.map((l) => (l.name || l.url) + (l.code ? '（' + l.code + '）' : '（无需码）')).join(' / ')) : '（未填云盘链接）'}</div>
           </div>
           <div class="mg-act">
             <button class="btn btn-sm" data-edit="${esc(g.id)}">编辑</button>
@@ -524,8 +538,6 @@
     pendingShots = [];
     $('gName').value = '';
     $('gBrief').value = '';
-    $('gSize').value = '';
-    $('gCode').value = S.defaultExtractCode || 'bqtj';
     setLinks([]);
     $('gCover').value = '';
     $('gShots').value = '';
@@ -542,8 +554,6 @@
     pendingShots = [];
     $('gName').value = g.name || '';
     $('gBrief').value = g.brief || '';
-    $('gSize').value = g.size || '';
-    $('gCode').value = g.code || S.defaultExtractCode || 'bqtj';
     setLinks(linksOfItem(g));
     $('gCover').value = '';
     $('gShots').value = '';
@@ -601,10 +611,9 @@
       item.id = id;
       item.name = name;
       item.brief = $('gBrief').value.trim();
-      item.size = $('gSize').value.trim();
-      item.links = links;          // 统一的云盘链接格式
+      item.links = links;          // [{ name, url, code }]，code 可以为空 = 无需提取码
       delete item.url;             // 清掉早期版本的单个 url 字段
-      item.code = $('gCode').value.trim() || 'bqtj';
+      delete item.code;            // 提取码现在挂在每条链接上，全局那个不再用
       item.mtime = new Date().toISOString();
 
       /* 封面 */

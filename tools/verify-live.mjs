@@ -1,16 +1,17 @@
 // 一次性脚本：核对线上是否已经是新版前端（部署约 1 分钟，查不到就等会儿再跑）
 const BASE = 'https://bqtj.pages.dev';
 const CHECKS = [
-  ['/assets/css/style.css', ['.filepick', 'nav-backdrop', '.drive-pick', '.game-shots', '.more-menu.drop-up', '.send-toast', 'aria-busy']],
+  ['/assets/css/style.css', ['.filepick', '.drive-pick', '.link-code', '.more-code', '.send-toast', '.more-menu.drop-up']],
   ['/assets/js/site.js', ['function setNav', 'navBackdrop', "classList.toggle('drop-up'"]],
-  ['/assets/js/games.js', ['toggleCard', 'game-shots', 'no-shots', "classList.toggle('open'"]],
-  ['/assets/js/admin.js', ['sendState', 'netError', 'data-name', '名称不能为空', 'withShaRetry']],
-  ['/assets/js/games-admin.js', ['sendState', 'netError', 'LIST_PWD', 'listUnlock', 'withShaRetry']],
-  ['/games/admin/', ['listPwd', 'listUnlock', 'sendToast', '游戏本体放在云盘', 'style.css?v=13', 'site.js?v=12', 'games-admin.js?v=7']],
-  ['/admin/', ['sendToast', 'style.css?v=13', 'site.js?v=12', 'admin.js?v=5']],
-  ['/games/', ['style.css?v=13', 'site.js?v=12', 'games.js?v=4']],
-  ['/subs/', ['style.css?v=13', 'site.js?v=12', 'subs.js?v=3']],
-  ['/', ['style.css?v=13', 'site.js?v=12']],
+  ['/assets/js/games.js', ['toggleCard', 'codesOf', 'more-code', 'legacyCode', '无需提取码']],
+  ['/assets/js/admin.js', ['sendState', 'netError', 'data-name', 'withShaRetry']],
+  ['/assets/js/games-admin.js', ['sendState', 'withShaRetry', 'LIST_PWD', 'link-code', '无需码']],
+  ['/assets/js/config.js', ['defaultExtractCode']],
+  ['/games/admin/', ['listPwd', 'sendToast', '无需提取码', 'style.css?v=14', 'site.js?v=12', 'config.js?v=4', 'games-admin.js?v=8']],
+  ['/admin/', ['sendToast', 'style.css?v=14', 'site.js?v=12', 'config.js?v=4', 'admin.js?v=5']],
+  ['/games/', ['按自己喜好下载', 'style.css?v=14', 'site.js?v=12', 'games.js?v=5']],
+  ['/subs/', ['style.css?v=14', 'site.js?v=12', 'subs.js?v=3']],
+  ['/', ['style.css?v=14', 'site.js?v=12']],
 ];
 
 let bad = 0;

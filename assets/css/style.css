@@ -1322,7 +1322,15 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   max-height: 62vh;
   overflow-y: auto;
 }
-.game-actions .more-item { text-align: left; }
+.game-actions .more-item {
+  text-align: left;
+  /* 多云盘时每一项右边要挂自己的提取码，所以排成两栏 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.more-code { font-size: 12px; color: var(--text-muted); flex: 0 0 auto; }
 
 /* 截图网格：点一下开灯箱 */
 .shots {
@@ -1417,6 +1425,9 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 .link-list { display: flex; flex-direction: column; gap: 8px; }
 .link-row { display: flex; gap: 8px; align-items: center; }
 .link-row .link-url { flex: 1 1 auto; min-width: 0; }
+/* 提取码：每个云盘单独填。有的云盘不能设提取码、有的本来就不需要，
+   留空即可（输入框里就写着「无需提取码」）。 */
+.link-row .link-code { flex: 0 0 150px; }
 
 /* 云盘名：用站内自定义下拉，不用原生 select / datalist。
    原生展开后的候选列表由操作系统渲染，圆角和配色一律改不了。
@@ -1462,7 +1473,8 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   .mg-act { margin-left: 0; }
   .link-row { flex-wrap: wrap; }
   .link-row .drive-pick,
-  .link-row .link-url { flex: 1 1 100%; }
+  .link-row .link-url,
+  .link-row .link-code { flex: 1 1 100%; }
 
   /* 手机端：下载和复制按钮不用先「展开」就能看到 */
   .game-card:not(.open) .game-actions {
