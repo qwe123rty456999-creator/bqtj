@@ -1183,12 +1183,14 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 .game-list { display: flex; flex-direction: column; gap: 12px; }
 
 /* 整张卡片就是一个 <details>：标题栏点开才展开截图和下载按钮。
-   用户明确要求「记得折叠」—— 这样一屏能扫完所有游戏，想看哪个再点开。 */
+   用户明确要求「记得折叠」—— 这样一屏能扫完所有游戏，想看哪个再点开。
+
+   注意：这里**不能**写 overflow:hidden 来收圆角 —— 多云盘时「选择云盘下载」
+   的弹出菜单是绝对定位的，会被裁掉。改成给标题栏和内容区各自设圆角。 */
 .game-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  overflow: hidden;
 }
 .game-card[open] { border-color: var(--border-strong); }
 
@@ -1199,9 +1201,11 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   padding: 11px 14px;
   cursor: pointer;
   list-style: none;                     /* 去掉原生三角，改用右边的「展开/收起」 */
+  border-radius: var(--radius-sm);      /* 收起时它是唯一可见的块，四角都要圆 */
 }
 .game-head::-webkit-details-marker { display: none; }
 .game-head:hover { background: var(--surface-2); }
+.game-card[open] .game-head { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
 
 .game-cover {
   flex: 0 0 auto;
@@ -1250,9 +1254,20 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   padding: 13px 14px 15px;
   border-top: 1px solid var(--border);
   background: var(--bg-soft);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
 }
 .game-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .game-note { font-size: 13px; color: var(--text-muted); }
+
+/* 「选择云盘下载」那个弹出菜单：宽度跟着按钮走，条目左对齐。
+   高度设上限：云盘多了（用户要求不设上限）菜单会很长，超出部分改为内部滚动，
+   免得整块顶出屏幕外面点不到。 */
+.game-actions .more-menu {
+  min-width: 160px;
+  max-height: 62vh;
+  overflow-y: auto;
+}
+.game-actions .more-item { text-align: left; }
 
 /* 截图网格：点一下开灯箱 */
 .shots {

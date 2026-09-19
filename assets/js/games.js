@@ -65,10 +65,11 @@
     const arr = Array.isArray(g.links) ? g.links : [];
     const out = arr
       .map((l) => ({ name: String((l && l.name) || '').trim(), url: cleanUrl(l && l.url) }))
-      .filter((l) => l.url);
+      /* 只认 http(s) 链接 —— 管理页里随手打的测试内容（如 "123"）不该变成点了没反应的按钮 */
+      .filter((l) => /^https?:\/\//i.test(l.url));
     if (out.length) return out;
     const legacy = cleanUrl(g.url);
-    return legacy ? [{ name: '123云盘', url: legacy }] : [];
+    return /^https?:\/\//i.test(legacy) ? [{ name: '123云盘', url: legacy }] : [];
   };
 
   $list.className = 'game-list';
@@ -78,10 +79,23 @@
     const solo = links.length === 1;
     const meta = [g.size, g.version, when(g.mtime)].filter(Boolean);
 
-    /* 只有一个云盘时用主色按钮（唯一的行动点）；多个时全部用普通按钮，不加优先级 */
-    const linkBtns = links.map((l) =>
-      `<a class="btn${solo ? ' btn-primary' : ''}" href="${esc(l.url)}" target="_blank" rel="noopener">` +
-      `${l.name ? '去 ' + esc(l.name) + ' 下载' : '下载'}</a>`).join('');
+    /* 下载入口：
+       - 只有一个云盘 → 直接一个主色按钮（跟旧版一样，不给访客多余的选择）
+       - 有多个云盘 → 一个按钮，点开再选（用站点自己的菜单组件，
+         不用浏览器原生的 select —— 原生展开后的样式改不了，跟站内其它下拉不一行） */
+    const linkLabel = (l) => (l.name ? '去 ' + esc(l.name) + ' 下载' : '下载');
+    let dlHTML;
+    if (!links.length) {
+      dlHTML = '<span class="game-note">这个条目还没填下载链接。</span>';
+    } else if (solo) {
+      dlHTML = `<a class="btn btn-primary" href="${esc(links[0].url)}" target="_blank" rel="noopener">${linkLabel(links[0])}</a>`;
+    } else {
+      dlHTML = '<div class="more">'
+        + '<button class="btn btn-primary" data-act="more" type="button" aria-expanded="false" aria-haspopup="true">选择云盘下载</button>'
+        + '<div class="more-menu" hidden>'
+        + links.map((l) => `<a class="more-item" href="${esc(l.url)}" target="_blank" rel="noopener">${l.name ? esc(l.name) : '下载'}</a>`).join('')
+        + '</div></div>';
+    }
 
     return `<details class="game-card">
   <summary class="game-head">
@@ -99,9 +113,7 @@
 
   <div class="game-body">
     <div class="game-actions">
-      ${links.length
-        ? (links.length > 1 ? '<span class="game-note">选择云盘：</span>' : '') + linkBtns
-        : '<span class="game-note">这个条目还没填下载链接。</span>'}
+      ${dlHTML}
       <button class="btn" data-copy="${esc(code)}">复制提取码 ${esc(code)}</button>
     </div>
     ${shotsHTML(g)}
@@ -115,6 +127,9 @@
     if (!btn) return;
     copyText(btn.getAttribute('data-copy'), btn);
   });
+
+  /* 多云盘时的「选择云盘下载」菜单（site.js 里的组件，和字幕库的「更多」同一套） */
+  bindMoreMenu($list);
 
   /* ------------------------------ 截图放大 ------------------------------ */
   const $box = document.getElementById('lightbox');

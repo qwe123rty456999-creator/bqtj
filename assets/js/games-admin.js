@@ -174,14 +174,38 @@
     list.forEach((l) => addLinkRow(l.name || '', l.url || ''));
   }
 
-  /** 读出所有填了链接的行（空行忽略，顺序保持） */
+  /**
+   * 把粘进来的东西整理成能用的链接。
+   * 云盘分享链接一定是 http(s) 的：少了协议就补 https://；
+   * 明显不是链接的（比如随手打的「123」）直接丢掉 ——
+   * 否则页面上会出现点了没反应的按钮，访客还以为网站坏了。
+   */
+  function normalizeUrl(raw) {
+    const s = cleanUrl(raw);
+    if (!s) return '';
+    if (/^https?:\/\//i.test(s)) return s;
+    // 长得像域名的（至少一个点 + 字母后缀）就补协议
+    if (/^[\w-]+(\.[\w-]+)+(\/|$)/.test(s)) return 'https://' + s;
+    return '';
+  }
+
+  /** 读出所有填了链接的行；空行忽略，乱填的丢掉并提示 */
   function collectLinks() {
-    return [...$('linkList').querySelectorAll('.link-row')]
-      .map((row) => ({
-        name: row.querySelector('.link-name').value.trim(),
-        url: cleanUrl(row.querySelector('.link-url').value),
-      }))
-      .filter((l) => l.url);
+    const rows = [...$('linkList').querySelectorAll('.link-row')];
+    const out = [];
+    let dropped = 0;
+    for (const row of rows) {
+      const name = row.querySelector('.link-name').value.trim();
+      const raw = row.querySelector('.link-url').value;
+      if (!raw.trim()) continue;
+      const url = normalizeUrl(raw);
+      if (!url) { dropped++; continue; }
+      out.push({ name, url });
+    }
+    if (dropped) {
+      log(`有 ${dropped} 行填的内容不像链接，已跳过 —— 要填 http:// 或 https:// 开头的分享地址。`, 'warn');
+    }
+    return out;
   }
 
   /** 条目里的云盘链接；兼容早期版本的单个 url 字段 */
