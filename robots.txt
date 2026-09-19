@@ -4,6 +4,7 @@ Allow: /
 # 不想被搜索引擎收录的目录（按需修改）
 Disallow: /files/games/
 Disallow: /tools/
+Disallow: /admin/
 
 # 站点地图
 Sitemap: https://bqtj.cc.cd/sitemap.xml

@@ -32,7 +32,7 @@
     const meta = [];
     if (kind === 'game') {
       if (it.platform) meta.push(esc(it.platform));
-      if (it.size) meta.push(humanSize(it.size));
+      if (it.version) meta.push(`<span class="ver-badge">${esc(it.version)}</span>`);
       if (it.updated) meta.push(relTime(it.updated));
     } else {
       if (it.year) meta.push(esc(String(it.year)));
@@ -40,30 +40,61 @@
       if (it.status) meta.push(esc(it.status));
     }
 
-    // 主操作按钮
+    // 体积徽章（硬盘版游戏包体积很大，单独强调）
+    const sizeBadge = it.size ? `<span class="size-badge">💾 ${humanSize(it.size)}</span>` : '';
+
+    // 网盘下载区：本站不存大文件，只存分享链接 + 提取码
+    let panBox = '';
+    if (it.pan && it.pan.url) {
+      panBox = `<div class="pan">
+        <a class="btn btn-sm btn-primary" href="${esc(it.pan.url)}" target="_blank" rel="noopener">
+          📥 ${esc(it.pan.name || '网盘')}下载</a>
+        ${it.pan.code
+          ? `<span class="code-pill">提取码 <code>${esc(it.pan.code)}</code>
+             <button data-copy-code="${esc(it.pan.code)}">复制</button></span>`
+          : ''}
+        ${it.password
+          ? `<span class="code-pill" style="background:rgba(91,140,255,.12);border-color:rgba(91,140,255,.32);color:#9dbaff">
+             解压密码 <code style="color:#9dbaff">${esc(it.password)}</code>
+             <button data-copy-code="${esc(it.password)}" style="background:rgba(91,140,255,.2);color:#9dbaff">复制</button></span>`
+          : ''}
+      </div>`;
+    }
+
+    // 操作按钮
     const actions = [];
     if (kind === 'game') {
       if (it.play) actions.push(`<a class="btn btn-sm btn-primary" href="${esc(fileUrl(it.play))}">▶ 开始玩</a>`);
-      if (it.download) actions.push(`<a class="btn btn-sm" href="${esc(fileUrl(it.download))}" download>⬇ 下载</a>`);
+      if (it.download) actions.push(`<a class="btn btn-sm" href="${esc(fileUrl(it.download))}" download>⬇ 直链下载</a>`);
     } else {
-      if (it.subs) actions.push(`<a class="btn btn-sm btn-primary" href="${esc(it.subs)}">📝 找字幕</a>`);
+      if (it.play) actions.push(`<a class="btn btn-sm btn-primary" href="${esc(fileUrl(it.play))}">▶ 在线播放</a>`);
+      if (it.subs) actions.push(`<a class="btn btn-sm" href="${esc(it.subs)}">📝 找字幕</a>`);
       if (it.link) actions.push(`<a class="btn btn-sm" href="${esc(it.link)}" target="_blank" rel="noopener">🔗 详情</a>`);
     }
 
-    const cover = it.thumb
-      ? `<img src="${esc(fileUrl(it.thumb))}" alt="" loading="lazy"
+    const coverSrc = it.cover || it.thumb;
+    const cover = coverSrc
+      ? `<img src="${esc(fileUrl(coverSrc))}" alt="" loading="lazy"
               style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;margin-bottom:14px;border:1px solid var(--border)">`
+      : '';
+
+    const shots = (it.screenshots || []).length
+      ? `<div class="screens">${it.screenshots.slice(0, 4)
+          .map((s) => `<img src="${esc(fileUrl(s))}" alt="" loading="lazy">`).join('')}</div>`
       : '';
 
     return `
       <div class="card">
         ${cover}
         <h3>${mark(it.title, state.kw)}</h3>
-        ${it.titleJa ? `<div style="color:var(--text-dim);font-size:13px;margin:-4px 0 8px">${esc(it.titleJa)}</div>` : ''}
+        ${(it.titleEn || it.titleJa) ? `<div style="color:var(--text-dim);font-size:13px;margin:-4px 0 8px">${esc(it.titleEn || it.titleJa)}</div>` : ''}
         <p>${esc(it.desc || '')}</p>
-        ${tags ? `<div class="chips" style="margin:0 0 14px">${tags}</div>` : ''}
-        <div class="meta" style="margin-bottom:14px">${meta.map((m) => `<span>${m}</span>`).join('<span>·</span>')}</div>
-        ${actions.length ? `<div class="file-actions">${actions.join('')}</div>` : ''}
+        ${shots}
+        ${tags ? `<div class="chips" style="margin:0 0 12px">${tags}</div>` : ''}
+        <div class="meta" style="margin-bottom:12px">${meta.map((m) => `<span>${m}</span>`).join('<span>·</span>')}</div>
+        ${sizeBadge ? `<div style="margin-bottom:12px">${sizeBadge}</div>` : ''}
+        ${panBox}
+        ${actions.length ? `<div class="file-actions" style="margin-top:auto">${actions.join('')}</div>` : ''}
       </div>`;
   }
 
@@ -161,6 +192,14 @@
       render();
     });
   }
+
+  // 复制提取码 / 解压密码
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-copy-code]');
+    if (!btn) return;
+    e.preventDefault();
+    copyText(btn.getAttribute('data-copy-code'), btn);
+  });
 
   // 卡片里的标签点击 → 直接筛选
   document.addEventListener('click', (e) => {

@@ -135,6 +135,48 @@ node tools/build-subs-index.mjs --src "D:\我的字幕" --copy
 
 ---
 
+## 上传助手 /admin/ ⭐ 日常就用这个
+
+浏览器打开 `https://bqtj.cc.cd/admin/`（本地预览是 `http://localhost:5173/admin/`），
+不用碰命令行、不用改代码就能更新站点。
+
+**首次配置**：GitHub → Settings → Developer settings → Personal access tokens →
+**Fine-grained tokens** → 新建，仓库访问选 *Only select repositories* → 只勾 `bqtj`，
+权限只给 **Contents: Read and write**。把令牌粘进第 1 步保存。
+令牌只存在你自己浏览器的 localStorage 里，**不会写进仓库、不会发给第三方**。
+
+### 它怎么分流文件
+
+| 文件大小 | 走哪条路 | 能上传的类型 |
+|---|---|---|
+| ≤ 10 MB | 浏览器直接提交到 GitHub 仓库 → Cloudflare 自动重新部署 | 字幕、封面图、截图、小文件 |
+| > 10 MB | 走网盘，站点只存分享链接 + 提取码 | **硬盘版游戏压缩包、动画视频** |
+
+> 为什么大文件不行：Cloudflare Pages 免费版**单文件上限 25 MiB**、GitHub 单文件 100 MB，
+> 一个硬盘版游戏包动辄几 GB，物理上放不进站点。
+> 另外实测过两条路：GitHub Releases 上传接口 **没有 CORS 头，浏览器无法直传**；
+> 123网盘开放 API **有 CORS，可以直连**（需要网盘开放平台权限，目前没用上）。
+> 所以大文件的现实流程是：**网盘网页上传 → 复制分享链接和提取码 → 到 /admin/ 第 4 步填表提交**。
+
+### 上传字幕时会发生什么
+
+第 2 步选好字幕文件、把「上传到仓库目录」填成 `files/subs/作品名`，
+点上传后助手会：
+
+1. 把文件逐个提交到仓库对应目录
+2. **自动重新生成 `assets/data/subs.json`**（追加条目、自动判语言、按时间排序）
+3. Cloudflare 自动重新部署，约 1 分钟后字幕库就能搜到
+
+文件名自带 `简`/`繁`/`CHS`/`ja` 等标记时会自动识别语言；
+没有标记就用第 2 步的「这批字幕的语言」下拉框兜底。
+
+### 加游戏 / 动画条目
+
+第 4 步填表（名称、简介、标签、体积、网盘链接、提取码、解压密码），
+点「写入站点数据」直接改 `assets/data/games.json` 或 `anime.json` 并触发部署。
+
+---
+
 ## 部署（把网站挂到域名上）
 
 三选一，都免费、都自动 HTTPS。

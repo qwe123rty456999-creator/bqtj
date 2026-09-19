@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>上传助手 · bqtj.cc.cd</title>
+<!-- 本页是管理工具，不让搜索引擎收录 -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠</text></svg>">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/"><span class="brand-logo">📚</span><span>bqtj.cc.cd</span></a>
+    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+    <nav class="nav" id="siteNav">
+      <a href="/" data-nav="home">首页</a>
+      <a href="/games/" data-nav="games">游戏</a>
+      <a href="/anime/" data-nav="anime">动漫</a>
+      <a href="/subs/" data-nav="subs">字幕库</a>
+      <a href="/about.html" data-nav="about">关于</a>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题">☀️</button>
+    </nav>
+  </div>
+</header>
+
+<main class="admin-wrap">
+
+  <div class="page-head">
+    <div class="breadcrumb"><a href="/">首页</a> / 上传助手</div>
+    <h1>🛠 上传助手</h1>
+    <p>在浏览器里选文件 → 小文件直接提交到 GitHub 仓库 → Cloudflare 自动重新部署，约 1 分钟上线。</p>
+  </div>
+
+  <div class="notice">
+    <span>🔒</span>
+    <div>
+      本页不在导航里，也不会被搜索引擎收录。<b>GitHub 令牌只保存在你这台浏览器的本地存储中</b>，
+      不会写进仓库、不会发给任何第三方。建议用 Fine-grained PAT，只勾选 <code>bqtj</code> 这一个仓库、
+      只给 <b>Contents: Read and write</b> 权限。
+    </div>
+  </div>
+
+  <!-- ================= ① 连接 ================= -->
+  <section class="admin-card">
+    <h2><span class="num">1</span>连接 GitHub 仓库</h2>
+    <p class="hint">
+      仓库：<code id="repoText">—</code>
+    </p>
+
+    <div class="conn" id="connBox">
+      <span class="dot-state"></span>
+      <span class="conn-msg" id="connMsg">尚未连接</span>
+      <button class="btn btn-sm" id="btnVerify">测试连接</button>
+      <button class="btn btn-sm" id="btnForget">清除令牌</button>
+    </div>
+
+    <div class="field" style="margin-top:16px">
+      <label for="token">GitHub 令牌（Fine-grained PAT）</label>
+      <input class="input" type="password" id="token" autocomplete="off" spellcheck="false"
+             placeholder="github_pat_... 只存在本机浏览器，不会提交到仓库">
+      <div class="tip">
+        创建地址：GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens →
+        仓库访问选 <b>Only select repositories</b> → 勾 <code>bqtj</code> → 权限 <b>Contents: Read and write</b>
+      </div>
+    </div>
+
+    <div class="file-actions">
+      <button class="btn btn-primary" id="btnSave">保存令牌</button>
+      <a class="btn" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">去创建令牌 ↗</a>
+    </div>
+  </section>
+
+  <!-- ================= ② 选文件 ================= -->
+  <section class="admin-card">
+    <h2><span class="num">2</span>选择文件</h2>
+    <p class="hint">
+      把文件拖进来，或点击选择。系统会按体积自动分流：
+      <span class="state ok">≤ 10 MB</span> 走 GitHub 直传；
+      <span class="state skip">&gt; 10 MB</span> 走网盘（硬盘版游戏包、视频都在这类）。
+    </p>
+
+    <div class="drop" id="drop">
+      <div class="big">📁</div>
+      <b>拖文件到这里，或点击选择</b>
+      <span>支持多选 · 字幕 .ass/.srt · 图片 · 视频 · 压缩包</span>
+    </div>
+    <input type="file" id="picker" multiple hidden>
+
+    <div class="field-row" style="margin-top:18px">
+      <div class="field">
+        <label for="dest">上传到仓库目录</label>
+        <input class="input" id="dest" spellcheck="false" placeholder="files/subs/作品名">
+        <div class="tip">字幕一般填 <code>files/subs/作品名</code>；其它填 <code>files/uploads</code></div>
+      </div>
+      <div class="field">
+        <label for="batchLang">这批字幕的语言（用于更新字幕库）</label>
+        <select class="input" id="batchLang">
+          <option value="">自动判断（看文件名）</option>
+          <option value="简中">简中</option>
+          <option value="繁中">繁中</option>
+          <option value="简繁">简繁</option>
+          <option value="中日">中日</option>
+          <option value="日语">日语</option>
+          <option value="英语">英语</option>
+        </select>
+        <div class="tip">文件名里没有 简/繁/CHS/ja 这类标记时，用这个兜底</div>
+      </div>
+    </div>
+
+    <div class="up-list" id="upList"></div>
+
+    <div class="file-actions" style="margin-top:18px" id="upActions" hidden>
+      <button class="btn btn-primary" id="btnUploadAll">⬆ 全部上传到仓库</button>
+      <button class="btn" id="btnBigHelp">📦 大文件怎么处理？</button>
+      <button class="btn" id="btnClearList">清空列表</button>
+    </div>
+
+    <div class="log" id="log" hidden></div>
+  </section>
+
+  <!-- ================= ③ 大文件 → 网盘 ================= -->
+  <section class="admin-card">
+    <h2><span class="num">3</span>大文件 → 网盘（硬盘版游戏包 / 视频）</h2>
+    <p class="hint" id="panHelp">—</p>
+
+    <div class="file-actions" style="margin-bottom:18px">
+      <a class="btn btn-primary" id="btnOpenPan" target="_blank" rel="noopener">打开网盘上传页 ↗</a>
+      <button class="btn" id="btnCopyNames">复制待上传文件名</button>
+    </div>
+
+    <div class="log" id="bigList" style="max-height:180px">（还没有超过 10 MB 的文件）</div>
+  </section>
+
+  <!-- ================= ④ 生成条目 ================= -->
+  <section class="admin-card">
+    <h2><span class="num">4</span>生成站点条目</h2>
+    <p class="hint">
+      网盘上传完，拿到「分享链接」和「提取码」后填在这里，点一下就直接写进站点数据文件，
+      首页和列表页立刻更新。
+    </p>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="kind">条目类型</label>
+        <select class="input" id="kind">
+          <option value="game">🎮 游戏（硬盘版压缩包）</option>
+          <option value="anime">🎬 动漫（视频）</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-title">名称 <span style="color:var(--accent-3)">*</span></label>
+        <input class="input" id="f-title" placeholder="例：某游戏中文版">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field" id="wrap-sub">
+        <label for="f-sub">原名 / 副标题</label>
+        <input class="input" id="f-sub" placeholder="可选">
+      </div>
+      <div class="field">
+        <label for="f-tags">标签（逗号分隔）</label>
+        <input class="input" id="f-tags" placeholder="RPG, 汉化, 冒险">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field" id="wrap-plat">
+        <label for="f-plat">平台</label>
+        <input class="input" id="f-plat" placeholder="Windows">
+      </div>
+      <div class="field" id="wrap-ver">
+        <label for="f-ver">版本</label>
+        <input class="input" id="f-ver" placeholder="v1.0">
+      </div>
+      <div class="field" id="wrap-year">
+        <label for="f-year">年份</label>
+        <input class="input" id="f-year" placeholder="2026" hidden>
+      </div>
+      <div class="field" id="wrap-eps">
+        <label for="f-eps">话数</label>
+        <input class="input" id="f-eps" placeholder="12">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-desc">简介</label>
+      <textarea class="textarea" id="f-desc" placeholder="几句话说明这个资源是什么、怎么用"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="f-cover">封面图地址（可选）</label>
+      <input class="input" id="f-cover" spellcheck="false" placeholder="/files/covers/xxx.jpg（也可以先用第 2 步传图，再把地址粘过来）">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="f-pan">网盘分享链接 <span style="color:var(--accent-3)">*</span></label>
+        <input class="input" id="f-pan" spellcheck="false" placeholder="https://www.123pan.com/s/xxxxx">
+      </div>
+      <div class="field">
+        <label for="f-code">提取码</label>
+        <input class="input" id="f-code" placeholder="abcd">
+      </div>
+      <div class="field">
+        <label for="f-pwd">解压密码（可选）</label>
+        <input class="input" id="f-pwd" placeholder="没有就留空">
+      </div>
+    </div>
+
+    <div class="preview" id="preview">在左边填几项，这里会实时显示将要写入的 JSON。</div>
+
+    <div class="file-actions" style="margin-top:16px">
+      <button class="btn btn-primary" id="btnSubmitItem">✅ 写入站点数据</button>
+      <button class="btn" id="btnCopyJSON">复制 JSON</button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© <span data-year></span> bqtj.cc.cd · 上传助手</div>
+    <div><a href="/">← 回首页</a></div>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/site.js"></script>
+<script src="/assets/js/admin.js"></script>
+</body>
+</html>
