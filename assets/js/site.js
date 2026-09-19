@@ -127,13 +127,15 @@ async function loadJSON(url) {
     // 页面 head 里已经把字幕库索引的请求提前发出去了（见 window.__subsJson），
     // 直接复用那个 Promise —— 否则要等 CSS/JS 都下载完才能发出，白等一个往返。
     //
-    // 这里故意不写 cache:'no-cache'：带 no-cache 会让 Cloudflare 回源验证，
-    // 边缘的 60 秒缓存（_headers 里给 /assets/data/* 设的）就完全用不上。
-    // 数据最多旧 60 秒，而 Cloudflare 部署本身就要一分钟，可以接受。
-    // 本地预览不会受影响：tools/serve.mjs 给所有响应都发了 no-store。
+    // 这里显式写 cache:'no-cache'（每次都跟服务器验证一下再决定用不用本地副本）。
+    //
+    // 2026-09-19 改：以前为了省一个往返故意不写，理由是"数据最多旧 60 秒可以接受"。
+    // 但实际用下来，站主传完字幕刷新页面看不到新内容，反复以为是缓存没清干净——
+    // 这个文件只有 2 KB，拿确定性换几百毫秒很值。
+    // （_headers 里 /assets/data/* 也同步改成了 max-age=0, must-revalidate。）
     const res = (url === '/assets/data/subs.json' && window.__subsJson)
       ? await window.__subsJson
-      : await fetch(url);
+      : await fetch(url, { cache: 'no-cache' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     return await res.json();
   } catch (err) {

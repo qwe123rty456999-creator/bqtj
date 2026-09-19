@@ -25,10 +25,13 @@
 /assets/img/*
   Cache-Control: public, max-age=31536000, immutable
 
-# 数据文件：短缓存。让 Cloudflare 边缘也能存 60 秒，减少回源（前端 fetch 用的是
-# no-cache，所以访客侧仍会每次验证，只是多半能命中边缘副本）。
+# 数据文件：永远验证，不做分钟级缓存。
+# 2026-09-19 改：原本给 60 秒 max-age，想着"数据很少变"。但实际痛点是——
+# 站主传完新字幕、马上刷新页面却看不到，反复以为是"缓存没清干净"。
+# 这个文件只有 2 KB，多一次条件请求（命中就 304）换确定性更划算。
+# 注意：这里必须写 must-revalidate；边缘仍会存副本，只是用前会回源确认。
 /assets/data/*
-  Cache-Control: public, max-age=60
+  Cache-Control: public, max-age=0, must-revalidate
 
 # 统计接口：绝不缓存
 /api/*

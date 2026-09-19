@@ -21,8 +21,9 @@
 <script>
 /* 把字幕库索引的请求提前发出去，与 CSS/JS 并行下载。
    否则它要等脚本都就绪后才能发出，白白多等一个往返（实测国内大概 250ms+）。
-   页面脚本会用 site.js 里的 loadJSON 复用这个 Promise。 */
-window.__subsJson = fetch('/assets/data/subs.json');
+   页面脚本会用 site.js 里的 loadJSON 复用这个 Promise。
+   带 no-cache：这个文件不带版本号，必须每次跟服务器验证，否则会看到旧列表。 */
+window.__subsJson = fetch('/assets/data/subs.json', { cache: 'no-cache' });
 </script>
 </head>
 <body>
@@ -98,7 +99,7 @@ window.__subsJson = fetch('/assets/data/subs.json');
 </footer>
 
 <script src="/assets/js/config.js?v=2"></script>
-<script src="/assets/js/site.js?v=8"></script>
+<script src="/assets/js/site.js?v=9"></script>
 <script>
 /* 首页：最新收录 */
 (async function () {

@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/assets/css/style.css?v=5">
 <script>
 /* 提前请求字幕库索引，与 CSS/JS 并行（见首页里的同一段注释） */
-window.__subsJson = fetch('/assets/data/subs.json');
+window.__subsJson = fetch('/assets/data/subs.json', { cache: 'no-cache' });
 </script>
 </head>
 <body>
@@ -93,7 +93,7 @@ window.__subsJson = fetch('/assets/data/subs.json');
 </footer>
 
 <script src="/assets/js/config.js?v=2"></script>
-<script src="/assets/js/site.js?v=8"></script>
+<script src="/assets/js/site.js?v=9"></script>
 <script src="/assets/js/subs.js?v=3"></script>
 </body>
 </html>
