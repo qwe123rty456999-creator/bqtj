@@ -1,17 +1,33 @@
 {
-  "generated": "2026-09-19T06:54:51.232Z",
+  "generated": "2026-09-19T09:13:33.323Z",
   "root": "files/subs",
-  "count": 3,
+  "count": 4,
   "stats": {
     "languages": {
-      "简中": 3
+      "简中": 4
     },
     "formats": {
+      "srt": 1,
       "ass": 3
     },
     "groups": {}
   },
   "items": [
+    {
+      "name": "[Blender Talkloid] Teto is afraid of Miku Teto Slop",
+      "file": "[Blender Talkloid] Teto is afraid of Miku Teto Slop [zFxgAEdbZww].srt",
+      "path": "/files/subs/[Blender Talkloid] Teto is afraid of Miku Teto Slop [zFxgAEdbZww].srt",
+      "ext": "srt",
+      "size": 2589,
+      "mtime": "2026-09-12T01:44:23.293Z",
+      "lang": "简中",
+      "langClass": "zh-hans",
+      "langSource": "auto",
+      "group": "",
+      "groupTitle": "",
+      "tags": [],
+      "url": ""
+    },
     {
       "name": "ソンギラー - 重音テト × 足立レイ[吉田夜世]",
       "file": "ソンギラー - 重音テト × 足立レイ[吉田夜世] [IaENkT9cDcc].ass",
