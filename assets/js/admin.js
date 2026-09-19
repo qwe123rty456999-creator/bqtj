@@ -823,16 +823,26 @@
               <span title="${esc(it.mtime)}">${relTime(it.mtime)}</span>
               ${n ? `<span class="count-badge">${n} 次下载</span>` : ''}
               ${it.desc ? '<span class="state ok">已有说明</span>' : ''}
+              ${it.videoUrl ? '<span class="state">有原视频</span>' : ''}
+              ${it.videoDl ? '<span class="state">有下载直链</span>' : ''}
             </div>
           </div>
         </div>
 
         <div class="mg-edit">
           <input class="input" data-desc maxlength="120"
-                 placeholder="写一句说明（会显示在名字下方，留空则清除）"
+                 placeholder="说明（显示在名字下方，留空则清除）"
                  value="${esc(it.desc || '')}">
-          <button class="btn btn-sm btn-primary" data-act="save">保存说明</button>
-          <button class="btn btn-sm btn-danger" data-act="del">删除字幕</button>
+          <input class="input" data-video maxlength="600"
+                 placeholder="原视频链接（留空则列表里不显示「原视频」）"
+                 value="${esc(it.videoUrl || '')}">
+          <input class="input" data-videodl maxlength="2000"
+                 placeholder="下载视频直链·蓝奏云（留空则列表里不显示「下载视频」）"
+                 value="${esc(it.videoDl || '')}">
+          <div class="mg-btns">
+            <button class="btn btn-sm btn-primary" data-act="save">保存</button>
+            <button class="btn btn-sm btn-danger" data-act="del">删除字幕</button>
+          </div>
         </div>
 
         <div class="mg-tools">
@@ -912,7 +922,7 @@
     if (!item) return;
 
     switch (btn.dataset.act) {
-      case 'save':         return saveDesc(item, row, btn);
+      case 'save':         return saveItem(item, row, btn);
       case 'del':          return removeSub(item, row, btn);
       case 'thumb':        return row.querySelector('input[data-thumb-input]')?.click();
       case 'thumb-clear':  return clearThumb(item, row, btn);
@@ -938,11 +948,22 @@
     if (item) pickThumb(item, row, file);
   });
 
-  /** 改说明：只改索引里的 desc 字段，不动字幕文件 */
-  async function saveDesc(item, row, btn) {
-    if (!needToken('保存说明')) return;
-    const desc = row.querySelector('input[data-desc]').value.trim();
-    if (desc === (item.desc || '')) { mglog('说明没有变化', 'warn'); return; }
+  /** 保存说明 / 原视频 / 下载视频：只改索引，不动字幕文件 */
+  async function saveItem(item, row, btn) {
+    if (!needToken('保存')) return;
+
+    const val = (sel) => (row.querySelector(sel)?.value || '').trim();
+    const next = {
+      desc: val('input[data-desc]'),
+      videoUrl: val('input[data-video]'),
+      videoDl: val('input[data-videodl]'),
+    };
+    const FIELDS = ['desc', 'videoUrl', 'videoDl'];
+
+    if (FIELDS.every((k) => (item[k] || '') === next[k])) {
+      setNote(row, '没有变化');
+      return;
+    }
 
     const old = btn.textContent;
     btn.disabled = true;
@@ -953,13 +974,15 @@
       const target = (data.items || []).find((x) => x.path === item.path);
       if (!target) throw new Error('索引里找不到这个条目，可能已被删除');
 
-      if (desc) target.desc = desc;
-      else delete target.desc;
+      for (const k of FIELDS) {
+        if (next[k]) target[k] = next[k];
+        else delete target[k];
+      }
 
-      await saveIndex(data, `更新字幕说明：${item.name}`);
-      item.desc = desc;
+      await saveIndex(data, `更新字幕信息：${item.name}`);
+      Object.assign(item, next);
       renderManage();
-      mglog(desc ? `已保存说明：${item.name}` : `已清空说明：${item.name}`, 'ok');
+      mglog(`已保存：${item.name}`, 'ok');
     } catch (e) {
       mglog(`保存失败：${friendlyErr(e)}`, 'err');
     } finally {

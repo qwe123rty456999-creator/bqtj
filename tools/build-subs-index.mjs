@@ -345,24 +345,22 @@ async function main() {
   if (existsSync(OUT_FILE)) {
     try {
       const old = JSON.parse(await readFile(OUT_FILE, 'utf8'));
-      const KEEP = ['desc', 'thumb'];
+      const KEEP = ['desc', 'thumb', 'videoUrl', 'videoDl'];
       const byPath = new Map(
         (old.items || []).filter((x) => x && x.path).map((x) => [x.path, x])
       );
-      let descKept = 0;
-      let thumbKept = 0;
+      let kept = 0;
       for (const it of items) {
         const prev = byPath.get(it.path);
         if (!prev) continue;
         for (const k of KEEP) {
           if (!prev[k]) continue;
           it[k] = prev[k];
-          if (k === 'desc') descKept++;
-          else thumbKept++;
+          kept++;
         }
       }
-      if (descKept || thumbKept) {
-        console.log(`   保留已有说明 ${descKept} 条、缩略图关联 ${thumbKept} 条`);
+      if (kept) {
+        console.log(`   保留已有备注字段（说明 / 缩略图 / 视频链接）共 ${kept} 条`);
       }
     } catch {
       console.warn('   ⚠  读取旧索引失败，本次未保留说明/缩略图（旧文件已损坏或不是 JSON）');
