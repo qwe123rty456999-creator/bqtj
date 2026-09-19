@@ -405,8 +405,8 @@ kbd {
 .search-box.has-value .s-clear { display: block; }
 
 select.control {
-  padding: 10px 12px;
-  border-radius: var(--radius-sm);
+  padding: 10px 34px 10px 12px;
+  border-radius: var(--radius);
   border: 1px solid var(--border-strong);
   background: var(--surface);
   color: var(--text);
@@ -414,8 +414,19 @@ select.control {
   font-family: inherit;
   cursor: pointer;
   outline: none;
+
+  /* appearance:none 才能让圆角完全由我们控制（各系统/浏览器一致）。
+     代价是原生的小箭头也没了，所以下面用 SVG 自己画一个。 */
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='none' stroke='%23667085' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
 }
 select.control:focus { border-color: var(--accent); }
+
+/* 注意：下拉「展开后的选项列表」是操作系统原生渲染的，网页 CSS 改不了它的圆角。
+   要让那一块也是圆角，只能不用原生 select、自己写一个下拉组件。 */
 
 .result-info {
   color: var(--text-muted);
@@ -564,6 +575,13 @@ select.control:focus { border-color: var(--accent); }
 
 /* 复制成功后的短暂提示（比单纯变文字更显眼） */
 .more-item.copied { color: var(--ok); }
+
+/* 菜单项里的提示看不到（菜单已收起），会挂到「更多」按钮上，这里给它同样的绿色 */
+.btn.copied {
+  color: var(--ok);
+  border-color: var(--ok);
+  background: var(--ok-soft);
+}
 
 .more-num {
   color: var(--text-dim);

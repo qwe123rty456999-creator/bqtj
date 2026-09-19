@@ -156,9 +156,6 @@ function renderError(el, err) {
 
 /** 复制到剪贴板（自动回退到 execCommand）。传了 btn 就顺手把按钮文字换成「已复制」。 */
 async function copyText(text, btn) {
-  // 存 innerHTML 而不是 textContent —— 菜单项里还有编号的 <span>，
-  // 用 textContent 恢复会把那个 span 抹掉，编号就变成普通文字了。
-  const old = btn ? btn.innerHTML : '';
   try {
     await navigator.clipboard.writeText(text);
   } catch {
@@ -172,11 +169,16 @@ async function copyText(text, btn) {
     ta.remove();
   }
   if (btn) {
-    btn.classList.add('copied');
-    btn.textContent = '已复制';
+    // 菜单里的项一复制就会收起菜单，提示留在菜单里根本看不到 ——
+    // 所以把「已复制」挂到外层的「更多」按钮上（菜单收起后它仍然在）。
+    const menu = btn.closest('.more-menu');
+    const tip = (menu && menu.parentElement.querySelector('[data-act="more"]')) || btn;
+    const tipOld = tip.innerHTML;
+    tip.classList.add('copied');
+    tip.textContent = '已复制';
     setTimeout(() => {
-      btn.innerHTML = old;
-      btn.classList.remove('copied');
+      tip.innerHTML = tipOld;
+      tip.classList.remove('copied');
     }, 1200);
   }
 }
