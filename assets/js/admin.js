@@ -16,9 +16,9 @@
   const DEST = 'files/subs';
   const DEFAULT_LANG = '简中';
 
-  /* 缩略图：公开列表里按 96×54 显示（16:9），上传前统一处理成 480×270 的 jpg */
-  const THUMB_W = 480;
-  const THUMB_H = 270;
+  /* 缩略图：公开列表里按 160×90 显示（16:9），上传前统一处理成 640×360 的 jpg */
+  const THUMB_W = 640;
+  const THUMB_H = 360;
   const THUMB_DIR = 'files/thumbs';
 
   const $ = (id) => document.getElementById(id);
@@ -669,8 +669,8 @@
       row.querySelector('.mg-crop-img').src = t.dataUrl;
       row.querySelector('.mg-crop-note').innerHTML =
         `原图 <b>${t.from}</b> —— ` +
-        (t.needsCrop ? '比例不是 16:9，需要切掉多余部分' : '尺寸超过 480×270') +
-        `。下面是<b>取最中间</b>裁成 16:9 的效果（${t.crop} → 480×270）。<br>` +
+        (t.needsCrop ? '比例不是 16:9，需要切掉多余部分' : `尺寸超过 ${THUMB_W}×${THUMB_H}`) +
+        `。下面是<b>取最中间</b>裁成 16:9 的效果（${t.crop} → ${THUMB_W}×${THUMB_H}）。<br>` +
         `不满意就先自己裁好再选一次。`;
       row.querySelector('.mg-crop').hidden = false;
       setNote(row, '等待确认');

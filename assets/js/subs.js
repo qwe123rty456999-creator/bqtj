@@ -56,7 +56,7 @@
       <div class="file-row">
         ${f.thumb
           ? `<img class="file-thumb" src="${esc(fileUrl(f.thumb))}" alt="" loading="lazy">`
-          : `<div class="file-badge ${esc(f.ext)}">${esc(f.ext)}</div>`}
+          : `<div class="file-thumb placeholder ${esc(f.ext)}">${esc(f.ext)}</div>`}
         <div class="file-main">
           <div class="file-name">${mark(f.name, state.kw.trim())}</div>
           ${f.desc ? `<div class="file-desc">${esc(f.desc)}</div>` : ''}

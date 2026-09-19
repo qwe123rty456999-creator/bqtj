@@ -443,17 +443,32 @@ select.control:focus { border-color: var(--accent); }
 }
 .file-row:hover { border-color: var(--border-strong); }
 
-/* 缩略图（有图时替掉格式徐章）。固定成 96×54（16:9），
-   这样列表左边缘永远对齐，不管有没有图。 */
+/* 缩略图（有图时替掉格式徐章）。固定成 160×90（16:9）。
+   没有缩略图的行用同样尺寸的 .placeholder 占位，这样列表左边缘永远对齐。 */
 .file-thumb {
   flex: 0 0 auto;
-  width: 96px;
-  height: 54px;
+  width: 160px;
+  height: 90px;
   border-radius: 6px;
   border: 1px solid var(--border);
   object-fit: cover;
   background: var(--surface-2);
 }
+
+.file-thumb.placeholder {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-muted);
+}
+.file-thumb.placeholder.ass,
+.file-thumb.placeholder.ssa { color: var(--accent); }
+.file-thumb.placeholder.srt,
+.file-thumb.placeholder.vtt { color: var(--ok); }
 
 .file-badge {
   flex: 0 0 auto;
@@ -765,8 +780,8 @@ details.admin-card > summary .num {
 /* 管理行左侧的缩略图预览（与公开列表同尺寸） */
 .mg-row .mg-thumb {
   flex: 0 0 auto;
-  width: 96px;
-  height: 54px;
+  width: 160px;
+  height: 90px;
   border-radius: 6px;
   border: 1px solid var(--border);
   background: var(--surface-2);
@@ -806,8 +821,8 @@ details.admin-card > summary .num {
   background: var(--surface);
 }
 .mg-crop-img {
-  width: 240px;
-  height: 135px;
+  width: 320px;
+  height: 180px;
   object-fit: cover;
   border-radius: 5px;
   border: 1px solid var(--border);
@@ -1026,6 +1041,10 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   .nav-toggle { display: grid; margin-left: auto; }
 
   .hero { padding: 44px 0 30px; }
+
+  /* 窄屏上缩略图收小一点，给文字留位置 */
+  .file-thumb,
+  .mg-row .mg-thumb { width: 128px; height: 72px; }
 
   .file-row { flex-wrap: wrap; }
   .file-actions { width: 100%; }
