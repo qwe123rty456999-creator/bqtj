@@ -3,12 +3,15 @@
    所有页面都引用这一份，放在 <head> 之前或 body 末尾均可
    ========================================================================== */
 
-/* ----------------------------- 主题切换 ----------------------------- */
+/* ----------------------------- 主题 ----------------------------- */
 (function initTheme() {
+  // 默认深色（与站点设计一致）。只有用户手动点过切换按钮，才用保存的偏好。
+  // 故意不跟随系统的 prefers-color-scheme，否则浅色系统下看到的会是完全不同的另一套配色。
   const saved = localStorage.getItem('theme');
-  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-  const theme = saved || (prefersLight ? 'light' : 'dark');
-  document.documentElement.setAttribute('data-theme', theme);
+  document.documentElement.setAttribute(
+    'data-theme',
+    saved === 'light' || saved === 'dark' ? saved : 'dark'
+  );
 })();
 
 function toggleTheme() {

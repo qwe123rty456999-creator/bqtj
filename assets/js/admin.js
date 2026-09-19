@@ -1,7 +1,7 @@
 /* ==========================================================================
    admin.js — 字幕上传助手 + 下载统计
-   ① 浏览器选字幕 → 经 GitHub Contents API 提交到仓库
-   ② 自动追加条目到 assets/data/subs.json（含语言识别、名称清洗）
+   ① 浏览器选字幕 → 经 GitHub Contents API 提交到 files/subs/
+   ② 自动追加条目到 assets/data/subs.json（语言自动判断，默认简体中文）
    ③ 展示 /api/counts 的下载次数
    令牌只存在本机 localStorage，绝不写入仓库
    ========================================================================== */
@@ -12,11 +12,15 @@
   const MAX = S.repoUploadMaxBytes || 20 * 1024 * 1024;
   const LS_KEY = 'bqtj_gh_token';
 
+  /* 本站只做一部作品、全是简体中文，所以上传目录和语言都固定 */
+  const DEST = 'files/subs';
+  const DEFAULT_LANG = '简中';
+
   const $ = (id) => document.getElementById(id);
   const ui = {
     setupCard: $('setupCard'), token: $('token'),
     connBox: $('connBox'), connMsg: $('connMsg'),
-    drop: $('drop'), picker: $('picker'), dest: $('dest'), batchLang: $('batchLang'),
+    drop: $('drop'), picker: $('picker'),
     upList: $('upList'), upActions: $('upActions'), log: $('log'),
     statSummary: $('statSummary'), statTable: $('statTable'), maxSize: $('maxSize'),
   };
@@ -24,7 +28,6 @@
   const state = { token: '', files: [], tree: null };
   let seq = 0;
 
-  if (!ui.dest.value) ui.dest.value = 'files/subs/';
   ui.maxSize.textContent = humanSize(MAX);
 
   /* ======================= 通用工具 ======================= */
@@ -304,19 +307,18 @@
       log('还没配置令牌 —— 已帮你展开「上传设置」，填好保存再点上传', 'err');
       return;
     }
-    const dest = normalizeDest(ui.dest.value);
     const targets = state.files.filter((f) => f.size <= MAX && f.status !== 'ok');
     if (!targets.length) { log('没有待上传的文件', 'warn'); return; }
     if (!(await verify(true))) return;
 
-    log(`开始上传 ${targets.length} 个文件到 ${dest} …`, 'info');
+    log(`开始上传 ${targets.length} 个文件到 ${DEST} …`, 'info');
     const done = [];
     let ok = 0, fail = 0;
 
     for (const it of targets) {
       it.status = 'busy';
       renderList();
-      const path = `${dest}/${it.name}`;
+      const path = `${DEST}/${it.name}`;
       try {
         await putFile(path, await fileToBase64(it.file), `上传字幕 ${it.name}`);
         it.status = 'ok';
@@ -335,9 +337,9 @@
 
     log(`上传结束：成功 ${ok}，失败 ${fail}`, fail ? 'warn' : 'ok');
 
-    if (dest.startsWith('files/subs') && done.length) {
+    if (done.length) {
       try {
-        await patchSubsIndex(done, dest);
+        await patchSubsIndex(done);
       } catch (e) {
         log(`字幕库索引更新失败：${e.message}（文件已上传，可再点一次上传重试）`, 'err');
       }
@@ -346,18 +348,8 @@
     if (ok) log('Cloudflare 会自动重新部署，约 1 分钟后线上可搜。', 'info');
   });
 
-  function normalizeDest(v) {
-    let d = (v || '').trim().replace(/^\/+|\/+$/g, '');
-    if (!d) d = 'files/subs';
-    return d;
-  }
-
   /** 把新上传的字幕追加进 assets/data/subs.json */
-  async function patchSubsIndex(files, dest) {
-    const rest = dest.replace(/^files\/subs\/?/, '');
-    const group = rest || '未分类';
-    const batchLang = ui.batchLang.value;
-
+  async function patchSubsIndex(files) {
     log('正在更新字幕库索引 assets/data/subs.json …', 'info');
     const data = JSON.parse(await readText('assets/data/subs.json'));
     data.items = data.items || [];
@@ -366,9 +358,9 @@
     let added = 0;
 
     for (const it of files) {
-      const p = '/' + dest + '/' + it.name;
+      const p = `/${DEST}/${it.name}`;
       if (have.has(p)) continue;
-      const lang = batchLang || detectLang(it.name);
+      const lang = detectLang(it.name) || DEFAULT_LANG;
       data.items.unshift({
         name: cleanName(it.name.replace(/\.[^.]+$/, '')),
         file: it.name,
@@ -378,9 +370,9 @@
         mtime: new Date(it.file.lastModified || Date.now()).toISOString(),
         lang,
         langClass: LANG_CLASS[lang] || '',
-        langSource: batchLang ? 'batch' : (lang ? 'filename' : ''),
-        group,
-        groupTitle: group,
+        langSource: 'auto',
+        group: '',
+        groupTitle: '',
         tags: [],
         url: '',
       });
@@ -391,14 +383,13 @@
     data.count = data.items.length;
     data.generated = new Date().toISOString();
 
-    const byLang = {}, byExt = {}, byGroup = {};
+    const byLang = {}, byExt = {};
     for (const x of data.items) {
       const l = x.lang || '未标注';
       byLang[l] = (byLang[l] || 0) + 1;
       byExt[x.ext] = (byExt[x.ext] || 0) + 1;
-      byGroup[x.group] = (byGroup[x.group] || 0) + 1;
     }
-    data.stats = { languages: byLang, formats: byExt, groups: byGroup };
+    data.stats = { languages: byLang, formats: byExt, groups: {} };
 
     await putFile(
       'assets/data/subs.json',
@@ -414,8 +405,12 @@
     ui.statSummary.textContent = '加载中…';
     ui.statTable.innerHTML = '';
 
+    let timer;
     try {
-      const res = await fetch('/api/counts', { cache: 'no-store' });
+      const ctrl = new AbortController();
+      timer = setTimeout(() => ctrl.abort(), 10000);
+
+      const res = await fetch('/api/counts', { cache: 'no-store', signal: ctrl.signal });
       const data = await res.json();
 
       if (!data.enabled) {
@@ -438,20 +433,16 @@
       const max = entries[0][1];
       ui.statTable.innerHTML = `
         <table class="stat-table">
-          <thead>
-            <tr><th>文件</th><th>作品</th><th class="num">下载</th><th class="bar-cell"></th></tr>
-          </thead>
+          <thead><tr><th>文件</th><th class="num">下载</th><th class="bar-cell"></th></tr></thead>
           <tbody>
             ${entries.slice(0, 100).map(([p, n]) => {
               const segs = p.split('/').filter(Boolean);
               const name = segs[segs.length - 1] || p;
-              const group = segs.slice(2, -1).join('/') || '未分类';
               return `<tr>
                 <td>
                   <a href="${esc(fileUrl(p))}" target="_blank" rel="noopener">${esc(name)}</a>
                   <div class="path-cell">${esc(p)}</div>
                 </td>
-                <td>${esc(group)}</td>
                 <td class="num">${n}</td>
                 <td class="bar-cell"><div class="mini-bar" style="width:${Math.max(3, Math.round((n / max) * 100))}%"></div></td>
               </tr>`;
@@ -460,9 +451,11 @@
         </table>`;
     } catch (e) {
       ui.statSummary.innerHTML =
-        `读取统计失败：${esc(e.message)}` +
+        `读取统计失败：${e.name === 'AbortError' ? '请求超时' : esc(e.message)}` +
         `<br><span style="color:var(--text-dim)">本地预览时统计接口不可用是正常的 —— ` +
-        `Pages Functions 只在 Cloudflare 上运行。</span>`;
+        `Pages Functions 只在 Cloudflare 上运行；本地请确认 <code>node tools/serve.mjs</code> 是最新版。</span>`;
+    } finally {
+      clearTimeout(timer);
     }
   }
 

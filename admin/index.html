@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>上传助手 · bqtj.cc.cd</title>
+<title>上传助手 · 爆枪突击字幕库</title>
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠</text></svg>">
 <link rel="stylesheet" href="/assets/css/style.css">
@@ -12,7 +12,7 @@
 
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="/"><span class="brand-logo">📝</span><span>bqtj.cc.cd</span></a>
+    <a class="brand" href="/"><span class="brand-logo">📝</span><span>爆枪突击字幕库</span></a>
     <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">☰</button>
     <nav class="nav" id="siteNav">
       <a href="/" data-nav="home">首页</a>
@@ -65,8 +65,9 @@
   <section class="admin-card">
     <h2><span class="num">1</span>上传字幕</h2>
     <p class="hint">
-      把字幕文件拖进来，或点击选择（支持多选）。单个文件上限 <b id="maxSize">20 MB</b>，
-      超过的会被标出来。上传后会<b>自动追加到字幕库索引</b>并触发部署。
+      把字幕文件拖进来，或点击选择（支持多选）。文件会放进 <code>files/subs/</code>，
+      语言按文件名自动判断（认不出就按<b>简体中文</b>），上传后<b>自动追加到字幕库索引</b>并触发部署。
+      单个文件上限 <b id="maxSize">20 MB</b>，超过的会被标出来。
     </p>
 
     <div class="drop" id="drop">
@@ -75,33 +76,6 @@
       <span>.ass · .ssa · .srt · .vtt · .sub · .idx · .sup</span>
     </div>
     <input type="file" id="picker" multiple hidden>
-
-    <div class="field-row" style="margin-top:18px">
-      <div class="field">
-        <label for="dest">上传到哪个作品目录</label>
-        <input class="input" id="dest" spellcheck="false" value="files/subs/" placeholder="files/subs/作品名">
-        <div class="tip">
-          <b>一个文件夹 = 一部作品</b>，例如 <code>files/subs/孤独摇滚</code>。
-          保持 <code>files/subs/</code> 不变的话，文件会落在字幕根目录（归入「未分类」）。
-        </div>
-      </div>
-      <div class="field">
-        <label for="batchLang">这批字幕的语言</label>
-        <select class="input" id="batchLang">
-          <option value="">自动判断（看文件名）</option>
-          <option value="简中">简中</option>
-          <option value="繁中">繁中</option>
-          <option value="简繁">简繁</option>
-          <option value="中日">中日</option>
-          <option value="日语">日语</option>
-          <option value="英语">英语</option>
-        </select>
-        <div class="tip">
-          文件名里有 <code>简</code>/<code>繁</code>/<code>CHS</code>/<code>ja</code> 这类标记时会自动识别；
-          没有标记就用这里选的兜底。
-        </div>
-      </div>
-    </div>
 
     <div class="up-list" id="upList"></div>
 
@@ -129,39 +103,11 @@
     </div>
   </section>
 
-  <!-- ============ ③ 命名建议 ============ -->
-  <section class="admin-card">
-    <h2><span class="num">3</span>命名建议</h2>
-    <p class="hint">文件名带的信息越多，字幕库的搜索和语言识别就越准。</p>
-    <div class="log" style="max-height:none">
-较好的命名：
-  孤独摇滚 第01话 [简][星空字幕组].ass
-  Bocchi the Rock 01 [繁中].ass
-  作品名 第03话 [简繁][字幕组].srt
-
-不推荐的命名：
-  1.ass                    ← 搜不到，也认不出语言
-  subtitle_final_v2.ass    ← 同上
-
-识别规则（看文件名里的标记，顺序从上到下）：
-  简繁 / 简+繁 / CHS&CHT / GB&BIG5  → 简繁
-  中日 / 日中 / JPSC                → 中日
-  简 / 简体 / CHS / GB / GBK        → 简中
-  繁 / 繁體 / CHT / BIG5            → 繁中
-  日语 / JP / JPN                   → 日语
-  英语 / ENG                        → 英语
-  zh-Hans / zh-CN                   → 简中
-  zh-Hant / zh-TW / zh-HK           → 繁中
-
-都没标？上传时用「这批字幕的语言」下拉框兜底。
-    </div>
-  </section>
-
 </main>
 
 <footer class="site-footer">
   <div class="container">
-    <div>© <span data-year></span> bqtj.cc.cd · 上传助手</div>
+    <div>© <span data-year></span> 爆枪突击字幕库 · 上传助手</div>
     <div><a href="/">← 回首页</a></div>
   </div>
 </footer>

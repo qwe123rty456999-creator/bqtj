@@ -53,7 +53,10 @@ const SUB_EXTS = new Set(['.ass', '.ssa', '.srt', '.vtt', '.sub', '.idx', '.sup'
 /* 忽略的文件名 */
 const IGNORE = /^(thumbs\.db|desktop\.ini|\.ds_store|meta\.json)$/i;
 
-/* ----------------------------- 语言识别 ----------------------------- */
+/* 语言识别 */
+
+/* 本站全是简体中文，文件名和正文都认不出来时就按这个算 */
+const DEFAULT_LANG = '简中';
 
 /* 语言名 → 页面上的徽章配色 class */
 const LANG_CLASS = {
@@ -302,6 +305,13 @@ async function main() {
         langClass = byText.langClass;
         langSource = 'content';
       }
+    }
+
+    // 最后还是认不出来，按默认语言（本站全是简体中文）
+    if (!lang) {
+      lang = DEFAULT_LANG;
+      langClass = LANG_CLASS[lang] || '';
+      langSource = 'default';
     }
 
     // 展示用名字：去掉扩展名、视频 ID、#话题标签，但保留 [简][字幕组] 这类有用标记

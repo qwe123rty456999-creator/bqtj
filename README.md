@@ -1,8 +1,11 @@
-# bqtj.cc.cd — 字幕分享站
+# 爆枪突击字幕库（bqtj.cc.cd）
 
-只做一件事：**把字幕整理好，让人点一下就能下载。**
+只做一件事：**把爆枪突击的字幕整理好，让人点一下就能下载。**
 
 纯静态站点，零依赖、零构建。不需要 `npm install`，不需要任何框架。
+
+> 站点内容全是同一部作品的简体中文字幕，**所以不做语言 / 格式 / 作品分类筛选**，
+> 只保留搜索和排序。
 
 ---
 
@@ -31,19 +34,23 @@ bqtj.cc.cd/
 ├── index.html              首页（搜索框 + 数据概览 + 最新收录）
 ├── about.html              关于页
 ├── 404.html                404 页
-├── subs/index.html         字幕库（搜索 / 语言 / 格式 / 作品 四维筛选 + 分页）
-├── admin/index.html        上传助手（浏览器选文件直传仓库）
+├── subs/index.html         字幕库（搜索 + 排序 + 分页）
+├── admin/index.html        上传助手（浏览器选文件直传仓库 + 下载统计）
+│
+├── functions/              Cloudflare Pages Functions（下载计数）
+│   ├── _middleware.js        拦截 /files/subs/* 计数
+│   └── api/counts.js         GET /api/counts
 │
 ├── assets/
 │   ├── css/style.css       全站样式（改主题只改顶部的 CSS 变量）
-│   ├── js/config.js        ★ 站点配置（仓库地址、上传上限）
+│   ├── js/config.js        ★ 站点配置（站点名、仓库地址、上传上限）
 │   ├── js/site.js          通用：主题切换、导航、工具函数
 │   ├── js/subs.js          字幕库逻辑
 │   ├── js/admin.js         上传助手逻辑
 │   └── data/
 │       └── subs.json       ← 脚本/上传助手生成，不要手改
 │
-├── files/subs/<作品名>/     ★ 字幕文件放这里（一个文件夹 = 一部作品）
+├── files/subs/             ★ 字幕文件放这里
 │
 └── tools/
     ├── build-subs-index.mjs  扫字幕 → 生成 subs.json

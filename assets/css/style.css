@@ -1086,7 +1086,7 @@ html[data-theme="light"] .log { background: #0f1520; }
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 12px;
 }
 
