@@ -176,8 +176,6 @@ kbd {
 .nav a:hover { color: var(--text); background: var(--surface-2); text-decoration: none; }
 .nav a.active { color: var(--accent); background: var(--accent-soft); font-weight: 500; }
 
-.nav-toggle { display: none; }
-
 /* ============================ 按钮 ============================ */
 
 .btn {
@@ -882,6 +880,12 @@ details.admin-card[open] > summary::after { content: '收起'; }
 details.admin-card[open] > summary { margin-bottom: 14px; }
 
 /* ============================ 响应式 ============================ */
+
+/* 菜单按钮只在窄屏出现，宽屏必须隐藏。
+   必须写在 .icon-btn 之后：两者特异性相同（都是单类选择器），
+   写在前面会被 .icon-btn { display: grid } 覆盖，
+   结果宽屏也挂着一个点了没任何反应的「菜单」按钮。 */
+.nav-toggle { display: none; }
 
 @media (max-width: 720px) {
   .nav {
