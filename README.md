@@ -39,24 +39,36 @@ node tools/build-subs-index.mjs
 实测 `bqtj.cc.cd` 是被**按域名**阻断的。同一台 Cloudflare IP（`104.21.49.87`）上：
 
 ```text
-明文 HTTP  Host: bqtj.pages.dev  → 301   正常
-明文 HTTP  Host: bqtj.cc.cd      → RST   被重置
-HTTPS      SNI = bqtj.pages.dev  → 200   正常
-HTTPS      SNI = bqtj.cc.cd      → RST   被重置
+明文 HTTP  Host: bqtj.pages.dev       → 301   正常
+明文 HTTP  Host: bqtj.cc.cd           → RST   被重置
+HTTPS      SNI = bqtj.pages.dev       → 200   正常
+HTTPS      SNI = bqtj.cc.cd           → RST   被重置
 ```
 
-结论：**与 Cloudflare 无关、与 IP 无关**，被封的是域名本身 ——
-所以换 IP、换 CDN 都无效，只能换域名。裸域名 `cc.cd` 同样被 RST。
+**关键：被封的是整个 `.cc.cd` 后缀，不是 `bqtj` 这个名字。**
+
+> 一开始用「虚构子域名」做实验不可靠 —— 得先排除「Cloudflare 自己对未知 SNI 也会重置」的可能。
+> 校准实验（同一 IP）：虚构的 `zz9k7test.pages.dev` 得到 **HTTP 530**（握手成功，Cloudflare 正常应答），
+> 而虚构的 `zz9k7test.cc.cd` 是 RST → 说明 RST 不是 Cloudflare 发的。
+> 再拿**真实存在**的另一个 cc.cd 子域 `panel.cc.cd`（同样在 Cloudflare 上）实测：
+> 也是 `Connection was reset` —— 连域名商的客户面板都打不开。
+> 结论：在这个后缀下换任何名字都没用。
+
+结论：**与 Cloudflare 无关、与 IP 无关、与 DNS 配置无关**（CNAME → `bqtj.pages.dev` 已代理，配置完全正确），
+被封的是 `.cc.cd` 这个域名后缀本身 —— 换 IP、换 CDN、换子域名都无效，**只能换域名**。
 
 > 由此还顺带解释了「挂代理看到的是缓存的旧页面」：域名连不上时，
 > 浏览器会把磁盘里那份旧页面拿出来顶替（或直接提示网络错误），
-> 并不是服务器发错了内容。
+> 并不是服务器发错了内容。手机上对比「共 N 个字幕」就能看出是不是旧副本。
 
 随时可用脚本复查某个域名能不能直连（**记得先关代理**）：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tools\net-check.ps1 bqtj.cc.cd
+powershell -ExecutionPolicy Bypass -File tools\net-check.ps1 新域名.com
 ```
+
+⚠️ 换新域名前**务必先跑一遍**这个脚本。免费域名后缀被整段拉黑是常事，
+别等分享出去才发现打不开。
 
 换域名时，这几处要一起改（都指向「对外分享的那个域名」）：
 各页面的 `canonical`、首页的 `og:url` / `og:image`、`sitemap.xml`、`robots.txt`。
