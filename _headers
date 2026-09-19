@@ -6,18 +6,29 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
 
-# 静态资源：不做长缓存。
-# 教训 —— 原来这里写的是 max-age=604800（7 天），而文件名里没有内容哈希，
-# 结果 Cloudflare 边缘把旧版 admin.js 缓存住（实测缓存副本 age 已 9863 秒还在 HIT），
-# 部署新代码后线上依旧是旧的：HTML 是新的、JS/CSS 是旧的，页面看起来「和现在完全不一样」。
-# 小站访问量低，每次发 304 验证的代价可以忽略；要减少请求就给文件名加内容哈希。
-/assets/*
-  Cache-Control: public, max-age=0, must-revalidate
+# 静态资源：长缓存（一年）。之所以敢这么设，是因为各 HTML 里的引用都带版本号
+# （/assets/js/site.js?v=2）。改代码时把 HTML 里的 ?v=N 递增即可，浏览器会当成新文件重新下载。
+#
+# 血泪史：这里最初写 max-age=604800 但文件名没有版本号 → Cloudflare 边缘把旧 admin.js
+# 缓存住（实测 age 9863 秒还在 HIT），部署新代码后线上仍是旧的；
+# 后来改成 max-age=0, must-revalidate 救了急，但代价是每个资源每次都要多一个往返验证
+# （实测国内访问每个 CSS/JS 白白等 250ms）。
+# 正确做法就是「版本号 + 长缓存」，两者缺一不可。
+#
+# 注意：必须拆成 css/js/img 三条，不要写成 /assets/* ——那样会与下面的
+# /assets/data/* 重叠，而 Cloudflare 会把重叠规则的头「拼接」在一起，
+# 出现 public, max-age=31536000, ..., public, max-age=60 这种自相矛盾的值。
+/assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/img/*
+  Cache-Control: public, max-age=31536000, immutable
 
-# 注意：不要给 /assets/data/* 再单独写规则。
-# Cloudflare 会把「同时匹配」的多条规则的头拼在一起，实测 subs.json 收到的是
-#   public, max-age=0, must-revalidate, public, max-age=300
-# 这种自相矛盾的 Cache-Control，浏览器取哪个 max-age 不好说。统一由 /assets/* 管。
+# 数据文件：短缓存。让 Cloudflare 边缘也能存 60 秒，减少回源（前端 fetch 用的是
+# no-cache，所以访客侧仍会每次验证，只是多半能命中边缘副本）。
+/assets/data/*
+  Cache-Control: public, max-age=60
 
 # 统计接口：绝不缓存
 /api/*

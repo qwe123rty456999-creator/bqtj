@@ -124,7 +124,11 @@ function relTime(iso) {
 /** 读取 JSON，失败时给出可读提示（file:// 打开时 fetch 会被浏览器拦截） */
 async function loadJSON(url) {
   try {
-    const res = await fetch(url, { cache: 'no-cache' });
+    // 页面 head 里已经把字幕库索引的请求提前发出去了（见 window.__subsJson），
+    // 直接复用那个 Promise —— 否则要等 CSS/JS 都下载完才能发出，白等一个往返。
+    const res = (url === '/assets/data/subs.json' && window.__subsJson)
+      ? await window.__subsJson
+      : await fetch(url, { cache: 'no-cache' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     return await res.json();
   } catch (err) {
