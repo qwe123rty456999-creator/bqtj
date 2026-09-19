@@ -66,6 +66,26 @@ html[data-theme="dark"] {
   --code-bg: #1b1f27;
 }
 
+/* 切换主题时，让全站元素用同一条过渡曲线一起变色。
+   不加这段的话：本身就带 transition 的元素（.btn / .nav a / .icon-btn）在慢慢渐变，
+   而 body、.file-row 这些没有 transition 的会瞬间跳变 ——
+   切换的那一刹那画面是「有的还在浅色、有的已经黑了」的参差不齐。
+   只在切换的 220ms 内挂上 html.theme-anim，所以不影响平时的 hover 动画。
+
+   类名故意写两遍（html.theme-anim.theme-anim）把特异性提到 (0,2,1)。
+   实测教训：只写一遍是 (0,1,1)，会和 .nav a / .hero-search input 这类
+   「类+标签」选择器打平；它们在文件后面，按顺序反而盖住这里，
+   结果那些元素仍旧瞬间跳变（测出来 input 的背景 60ms 就已经是终值）。
+
+   故意不用 !important：文件末尾那条
+   「prefers-reduced-motion 时 * { transition: none !important }」还要能生效。 */
+html.theme-anim.theme-anim *,
+html.theme-anim.theme-anim *::before,
+html.theme-anim.theme-anim *::after {
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease, box-shadow 0.18s ease, fill 0.18s ease, stroke 0.18s ease;
+}
+
 * { box-sizing: border-box; }
 
 /* hidden 属性必须能盖过我们自己写的 display。

@@ -23,9 +23,19 @@ function themeLabel(theme) {
 }
 
 function toggleTheme() {
-  const cur = document.documentElement.getAttribute('data-theme');
+  const root = document.documentElement;
+  const cur = root.getAttribute('data-theme');
   const next = cur === 'light' ? 'dark' : 'light';
-  document.documentElement.setAttribute('data-theme', next);
+
+  // 关键：先挂上 theme-anim，再改 data-theme。
+  // 它给全站元素临时装上同一条过渡曲线 —— 否则「本来就带 transition 的元素在渐变、
+  // 没带的瞬间跳变」，切换的一刹那画面参差不齐（用户反馈过这个问题）。
+  // 200ms 后摘掉，不影响平时的 hover 动画，也不会让页面一直背着全局过渡。
+  root.classList.add('theme-anim');
+  clearTimeout(toggleTheme._animTimer);
+  toggleTheme._animTimer = setTimeout(() => root.classList.remove('theme-anim'), 220);
+
+  root.setAttribute('data-theme', next);
   localStorage.setItem(THEME_KEY, next);
   const btn = document.getElementById('themeBtn');
   if (btn) btn.textContent = themeLabel(next);
