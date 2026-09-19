@@ -24,8 +24,10 @@ window.SITE = {
   },
 
   /* 单个文件超过这个大小就不走 GitHub，改用网盘。
-     GitHub Contents API 走 base64，太大会很慢也容易失败。 */
-  repoUploadMaxBytes: 10 * 1024 * 1024, // 10 MB
+     Cloudflare Pages 单文件硬上限是 25 MiB，所以这里设 20 MB：
+     base64 后约 27 MB 的请求体，GitHub Contents API 能接受，且留有余量。
+     放在仓库里的文件天然就有直链（https://bqtj.cc.cd/files/...），点一下就开始下载。 */
+  repoUploadMaxBytes: 20 * 1024 * 1024, // 20 MB
 
   /* 大文件（硬盘版游戏包、视频）用的网盘 */
   pan: {
