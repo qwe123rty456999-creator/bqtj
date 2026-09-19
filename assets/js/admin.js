@@ -16,6 +16,11 @@
   const DEST = 'files/subs';
   const DEFAULT_LANG = '简中';
 
+  /* 缩略图：公开列表里按 96×54 显示（16:9），上传前统一处理成 480×270 的 jpg */
+  const THUMB_W = 480;
+  const THUMB_H = 270;
+  const THUMB_DIR = 'files/thumbs';
+
   const $ = (id) => document.getElementById(id);
   const ui = {
     setupCard: $('setupCard'), token: $('token'),
@@ -571,6 +576,158 @@
     return false;
   }
 
+  /* ----------------------- 缩略图 ----------------------- */
+
+  const pendingThumb = new Map();   // item.path → 处理好的 jpg base64（等用户确认）
+
+  /** 缩略图在仓库里的路径：与字幕同名，扩展名换成 .jpg */
+  function thumbPathFor(item) {
+    const base = String(item.file || item.name).replace(/\.[^.]+$/, '');
+    return `${THUMB_DIR}/${base}.jpg`;
+  }
+
+  const dataUrlToB64 = (u) => String(u).split(',')[1] || '';
+
+  function readImage(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('浏览器认不出这张图')); };
+      img.src = url;
+    });
+  }
+
+  /**
+   * 居中裁成 16:9 并缩到 480×270，返回 jpeg 的 dataURL。
+   * needsCrop  —— 原图比例不是 16:9（要切掉两边或上下）
+   * needsResize —— 原图大于 480×270
+   * 两个都为 false 时可以直接用，不必再问用户。
+   */
+  function makeThumb(img, w, h) {
+    const target = THUMB_W / THUMB_H;
+    const needsCrop = Math.abs(w / h - target) > 0.02;
+    const needsResize = w > THUMB_W || h > THUMB_H;
+
+    // 以中心为准取 16:9 的最大内接矩形
+    let cw = w, ch = Math.round(w / target);
+    if (ch > h) { ch = h; cw = Math.round(h * target); }
+    const cx = Math.round((w - cw) / 2);
+    const cy = Math.round((h - ch) / 2);
+
+    const cv = document.createElement('canvas');
+    cv.width = THUMB_W;
+    cv.height = THUMB_H;
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#ffffff';   // 透明 PNG 导成 jpeg 会变黑，先铺白底
+    ctx.fillRect(0, 0, THUMB_W, THUMB_H);
+    ctx.drawImage(img, cx, cy, cw, ch, 0, 0, THUMB_W, THUMB_H);
+
+    return {
+      dataUrl: cv.toDataURL('image/jpeg', 0.85),
+      needsCrop,
+      needsResize,
+      from: `${w}×${h}`,
+      crop: `${cw}×${ch}`,
+    };
+  }
+
+  /** 选图后的处理：能直接用就传，需要裁剪就先给预览等确认 */
+  async function pickThumb(item, row, file) {
+    setNote(row, '正在读取图片…');
+    try {
+      if (!/^image\//.test(file.type)) throw new Error('只能选图片文件');
+      if (file.size > 8 * 1024 * 1024) throw new Error('图片太大了（上限 8 MB）');
+
+      const img = await readImage(file);
+      const t = makeThumb(img, img.naturalWidth, img.naturalHeight);
+
+      if (!t.needsCrop && !t.needsResize) {
+        setNote(row, `${t.from}，尺寸合适，正在上传…`);
+        await uploadThumb(item, dataUrlToB64(t.dataUrl), `${t.from}`);
+        return;
+      }
+
+      pendingThumb.set(item.path, dataUrlToB64(t.dataUrl));
+
+      row.querySelector('.mg-crop-img').src = t.dataUrl;
+      row.querySelector('.mg-crop-note').innerHTML =
+        `原图 <b>${t.from}</b> —— ` +
+        (t.needsCrop ? '比例不是 16:9，需要切掉多余部分' : '尺寸超过 480×270') +
+        `。下面是<b>取最中间</b>裁成 16:9 的效果（${t.crop} → 480×270）。<br>` +
+        `不满意就先自己裁好再选一次。`;
+      row.querySelector('.mg-crop').hidden = false;
+      setNote(row, '等待确认');
+    } catch (e) {
+      setNote(row, e.message, 'err');
+    }
+  }
+
+  async function confirmThumb(item, row, btn) {
+    const b64 = pendingThumb.get(item.path);
+    if (!b64) { setNote(row, '没有待上传的图', 'err'); return; }
+    const old = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '上传中…';
+    try {
+      await uploadThumb(item, b64, '已裁剪');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = old;
+    }
+  }
+
+  async function uploadThumb(item, b64, how) {
+    if (!needToken('上传缩略图')) return;
+    const path = thumbPathFor(item);
+    try {
+      await putFile(path, b64, `上传缩略图 ${path}`);
+
+      // 把缩略图路径写回索引（重新读一次，避开别处的改动）
+      const data = JSON.parse(await readText('assets/data/subs.json'));
+      const target = (data.items || []).find((x) => x.path === item.path);
+      if (!target) throw new Error('索引里找不到这个条目，可能已被删除');
+      target.thumb = '/' + path;
+      await saveIndex(data, `关联缩略图：${item.name}`);
+
+      item.thumb = '/' + path;
+      pendingThumb.delete(item.path);
+      renderManage();
+      mglog(`缩略图已上传（${how}）：${path}`, 'ok');
+    } catch (e) {
+      const msg = friendlyErr(e);
+      mglog(`缩略图上传失败：${msg}`, 'err');
+      const live = [...mgUI.list.querySelectorAll('.mg-row')]
+        .find((r) => r.getAttribute('data-path') === item.path);
+      if (live) setNote(live, msg, 'err');
+    }
+  }
+
+  async function clearThumb(item, row, btn) {
+    if (!needToken('移除缩略图')) return;
+    if (!confirm(`移除这张缩略图吗？\n\n${item.thumb}\n\n图片会从仓库删掉，字幕本身不受影响。`)) return;
+
+    const old = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '移除中…';
+    try {
+      await deleteFile(String(item.thumb).replace(/^\//, ''), `删除缩略图 ${item.thumb}`);
+
+      const data = JSON.parse(await readText('assets/data/subs.json'));
+      const target = (data.items || []).find((x) => x.path === item.path);
+      if (target) delete target.thumb;
+      await saveIndex(data, `解除缩略图关联：${item.name}`);
+
+      delete item.thumb;
+      renderManage();
+      mglog(`已移除缩略图：${item.name}`, 'ok');
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = old;
+      setNote(row, friendlyErr(e), 'err');
+    }
+  }
+
   /** 把 GitHub 的报错翻译成能直接照着做的提示 */
   function friendlyErr(e) {
     const m = String((e && e.message) || e);
@@ -638,7 +795,11 @@
       return `
       <div class="mg-row" data-path="${esc(it.path)}">
         <div class="mg-head">
-          <span class="up-icon">${esc(it.ext)}</span>
+          <div class="mg-thumb${it.thumb ? '' : ' no-thumb'}">
+            ${it.thumb
+              ? `<img src="${esc(fileUrl(it.thumb))}" alt="" loading="lazy">`
+              : esc(it.ext)}
+          </div>
           <div class="up-main">
             <div class="up-name">${esc(it.name)}</div>
             <div class="up-sub">
@@ -656,6 +817,24 @@
                  value="${esc(it.desc || '')}">
           <button class="btn btn-sm btn-primary" data-act="save">保存说明</button>
           <button class="btn btn-sm btn-danger" data-act="del">删除字幕</button>
+        </div>
+
+        <div class="mg-tools">
+          <button class="btn btn-sm" data-act="thumb">${it.thumb ? '更换缩略图' : '选择缩略图'}</button>
+          ${it.thumb ? '<button class="btn btn-sm" data-act="thumb-clear">移除缩略图</button>' : ''}
+          <span class="mg-note"></span>
+          <input type="file" accept="image/*" hidden data-thumb-input>
+        </div>
+
+        <div class="mg-crop" hidden>
+          <img class="mg-crop-img" alt="裁剪后预览">
+          <div class="mg-crop-side">
+            <div class="mg-crop-note"></div>
+            <div class="file-actions">
+              <button class="btn btn-sm btn-primary" data-act="thumb-ok">使用裁剪后的图</button>
+              <button class="btn btn-sm" data-act="thumb-cancel">取消</button>
+            </div>
+          </div>
         </div>
       </div>`;
     }).join('');
@@ -700,14 +879,47 @@
   // 收起时重新上锁 —— 下次展开还要再输一次
   mgCard.addEventListener('toggle', () => { if (!mgCard.open && mgUnlocked) lockManage(); });
 
+  function rowItem(row) {
+    return mgItems.find((x) => x.path === row.getAttribute('data-path'));
+  }
+
+  function setNote(row, text, kind = '') {
+    const n = row.querySelector('.mg-note');
+    if (n) { n.textContent = text; n.className = 'mg-note' + (kind ? ' ' + kind : ''); }
+  }
+
   mgUI.list.addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-act]');
     if (!btn || btn.disabled) return;
     const row = btn.closest('.mg-row');
-    const item = mgItems.find((x) => x.path === row.getAttribute('data-path'));
+    const item = rowItem(row);
     if (!item) return;
-    if (btn.dataset.act === 'save') saveDesc(item, row, btn);
-    else removeSub(item, row, btn);
+
+    switch (btn.dataset.act) {
+      case 'save':         return saveDesc(item, row, btn);
+      case 'del':          return removeSub(item, row, btn);
+      case 'thumb':        return row.querySelector('input[data-thumb-input]')?.click();
+      case 'thumb-clear':  return clearThumb(item, row, btn);
+      case 'thumb-ok':     return confirmThumb(item, row, btn);
+      case 'thumb-cancel': {
+        pendingThumb.delete(item.path);
+        const box = row.querySelector('.mg-crop');
+        if (box) box.hidden = true;
+        setNote(row, '已取消');
+        return;
+      }
+    }
+  });
+
+  // <input type=file> 选好图后冒泡到这里
+  mgUI.list.addEventListener('change', (e) => {
+    const input = e.target.closest('input[data-thumb-input]');
+    if (!input || !input.files || !input.files[0]) return;
+    const row = input.closest('.mg-row');
+    const file = input.files[0];
+    input.value = '';                    // 清空，保证再选同一张也会触发 change
+    const item = rowItem(row);
+    if (item) pickThumb(item, row, file);
   });
 
   /** 改说明：只改索引里的 desc 字段，不动字幕文件 */
@@ -749,6 +961,15 @@
     btn.disabled = true;
     btn.textContent = '删除中…';
     try {
+      // 有缩略图就一并删掉；缩略图删失败不阻断字幕删除
+      if (item.thumb) {
+        try {
+          await deleteFile(String(item.thumb).replace(/^\//, ''), `删除缩略图 ${item.thumb}`);
+        } catch (err) {
+          mglog(`缩略图没删掉（不影响字幕删除）：${err.message}`, 'warn');
+        }
+      }
+
       await deleteFile(item.path, `删除字幕 ${item.file}`);
 
       const data = JSON.parse(await readText('assets/data/subs.json'));

@@ -339,23 +339,33 @@ async function main() {
   // 按时间倒序
   items.sort((a, b) => b.mtime.localeCompare(a.mtime));
 
-  /* 保留管理员在 /admin/ 里写的「说明」。
-     脚本是整份重建索引的，不把旧文件里的 desc 搬过来就会把说明冲掉。
+  /* 保留管理员在 /admin/ 里写的字段（说明、缩略图关联）。
+     脚本是整份重建索引的，不把旧文件里的这些字段搬过来就会静默丢掉。
      按 path 对齐（path 唯一），文件被删掉的自然不会保留。 */
   if (existsSync(OUT_FILE)) {
     try {
       const old = JSON.parse(await readFile(OUT_FILE, 'utf8'));
-      const descByPath = new Map(
-        (old.items || []).filter((x) => x && x.desc).map((x) => [x.path, x.desc])
+      const KEEP = ['desc', 'thumb'];
+      const byPath = new Map(
+        (old.items || []).filter((x) => x && x.path).map((x) => [x.path, x])
       );
-      let kept = 0;
+      let descKept = 0;
+      let thumbKept = 0;
       for (const it of items) {
-        const d = descByPath.get(it.path);
-        if (d) { it.desc = d; kept++; }
+        const prev = byPath.get(it.path);
+        if (!prev) continue;
+        for (const k of KEEP) {
+          if (!prev[k]) continue;
+          it[k] = prev[k];
+          if (k === 'desc') descKept++;
+          else thumbKept++;
+        }
       }
-      if (kept) console.log(`   保留已有说明 ${kept} 条`);
+      if (descKept || thumbKept) {
+        console.log(`   保留已有说明 ${descKept} 条、缩略图关联 ${thumbKept} 条`);
+      }
     } catch {
-      console.warn('   ⚠  读取旧索引失败，本次未保留说明（旧文件已损坏或不是 JSON）');
+      console.warn('   ⚠  读取旧索引失败，本次未保留说明/缩略图（旧文件已损坏或不是 JSON）');
     }
   }
 

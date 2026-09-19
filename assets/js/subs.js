@@ -54,7 +54,9 @@
     const n = state.counts.get(f.path);
     return `
       <div class="file-row">
-        <div class="file-badge ${esc(f.ext)}">${esc(f.ext)}</div>
+        ${f.thumb
+          ? `<img class="file-thumb" src="${esc(fileUrl(f.thumb))}" alt="" loading="lazy">`
+          : `<div class="file-badge ${esc(f.ext)}">${esc(f.ext)}</div>`}
         <div class="file-main">
           <div class="file-name">${mark(f.name, state.kw.trim())}</div>
           ${f.desc ? `<div class="file-desc">${esc(f.desc)}</div>` : ''}
