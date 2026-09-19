@@ -143,6 +143,25 @@
     return t.get(path);
   }
 
+  /**
+   * 写仓库时的 409 重试。
+   *
+   * GitHub Contents API 要求带上「文件当前的 sha」，跟服务端对不上就拒收：
+   *   409：assets/data/games.json does not match 1bcd41f…
+   * 我们对 sha 的认知来自一次 /git/trees 快照 —— 只要期间文件被**别处**改过
+   * （另一个标签页、手机、线上管理页、GitHub 网页上直接编辑），快照就过期了。
+   * 强刷一次 tree 拿到新 sha 再试一遍，绝大多数情况直接就过了。
+   */
+  async function withShaRetry(fn) {
+    try {
+      return await fn();
+    } catch (e) {
+      if (e.status !== 409) throw e;
+      await loadTree(true);
+      return await fn();
+    }
+  }
+
   /** 读仓库里的 JSON 文件；不存在返回 null */
   async function readJSON(path) {
     try {
@@ -156,22 +175,26 @@
   }
 
   async function putFile(path, base64, message) {
-    const sha = await shaOf(path);
-    const body = { message, content: base64 };
-    if (sha) body.sha = sha;
-    if (BRANCH) body.branch = BRANCH;
-    const res = await gh(`/contents/${encodePath(path)}`, { method: 'PUT', body: JSON.stringify(body) });
+    const res = await withShaRetry(async () => {
+      const sha = await shaOf(path);
+      const body = { message, content: base64 };
+      if (sha) body.sha = sha;
+      if (BRANCH) body.branch = BRANCH;
+      return await gh(`/contents/${encodePath(path)}`, { method: 'PUT', body: JSON.stringify(body) });
+    });
     if (res && res.content && res.content.sha) tree?.set(path, res.content.sha);
     else tree?.delete(path);
     return res;
   }
 
   async function deleteFile(path, message) {
-    const sha = await shaOf(path);
-    if (!sha) return;   // 本来就不在，当成功
-    await gh(`/contents/${encodePath(path)}`, {
-      method: 'DELETE',
-      body: JSON.stringify({ message, sha, branch: BRANCH }),
+    await withShaRetry(async () => {
+      const sha = await shaOf(path);
+      if (!sha) return;   // 本来就不在，当成功
+      await gh(`/contents/${encodePath(path)}`, {
+        method: 'DELETE',
+        body: JSON.stringify({ message, sha, branch: BRANCH }),
+      });
     });
     tree?.delete(path);
   }
@@ -401,6 +424,16 @@
     return g.url ? [{ name: '123云盘', url: g.url }] : [];
   }
 
+  /** 把 GitHub 的报错翻译成能照着做的提示 */
+  function friendlyErr(e) {
+    const m = String((e && e.message) || e);
+    if (/\b401\b/.test(m)) return '令牌无效或已过期（GitHub 401）—— 到「上传设置」重新保存一个有效的令牌';
+    if (/\b403\b/.test(m)) return '令牌没有写入权限（GitHub 403）—— 把令牌的 Contents 改成 Read and write';
+    if (/\b404\b/.test(m)) return '仓库或文件找不到（GitHub 404）—— 检查令牌是否勾选了 bqtj 仓库';
+    if (/\b409\b/.test(m)) return '这个文件在别处被改过（版本对不上，GitHub 409）—— 已自动重试过一次。还是不行就刷新页面再来，避免两个标签页同时改。';
+    return m;
+  }
+
   /* ------------------------------ 令牌设置 ------------------------------ */
   function setConn(cls, msg) {
     $('connBox').className = 'conn ' + cls;
@@ -442,7 +475,7 @@
       data = d && Array.isArray(d.items) ? d : { generated: null, count: 0, items: [] };
       renderList();
     } catch (e) {
-      $('gList').innerHTML = `<div class="result-info">读取失败：${esc(e.message)}</div>`;
+      $('gList').innerHTML = `<div class="result-info">读取失败：${esc(friendlyErr(e))}</div>`;
     }
   }
 
@@ -608,7 +641,7 @@
       // 预览里的旧图路径可能已变（换封面），重新渲染一次
       renderPreview();
     } catch (e) {
-      log('保存失败：' + e.message, 'bad');
+      log('保存失败：' + friendlyErr(e), 'bad');
       if (e.status === 401) log('令牌无效或已过期，重新生成一个。', 'bad');
       if (e.status === 403) log('令牌没有写入权限：确认给了 Contents: Read and write。', 'bad');
     } finally {
@@ -628,7 +661,7 @@ if (!confirm(`确定删除「${g.name}」？\n\n它的封面和截图也会一�
       const files = [g.cover, ...(g.shots || [])].filter(Boolean);
       for (const f of files) {
         try { await deleteFile(f.replace(/^\//, ''), `删除图片：${g.name}`); }
-        catch (e) { log(`图片没删掉（跳过）：${f} — ${e.message}`, 'warn'); }
+        catch (e) { log(`图片没删掉（跳过）：${f} — ${friendlyErr(e)}`, 'warn'); }
       }
       data.items = data.items.filter((x) => x.id !== id);
       await saveData(`删除游戏：${g.name}`);
@@ -637,7 +670,7 @@ if (!confirm(`确定删除「${g.name}」？\n\n它的封面和截图也会一�
       if (editingId === id) resetForm();
       renderList();
     } catch (e) {
-      log('删除失败：' + e.message, 'bad');
+      log('删除失败：' + friendlyErr(e), 'bad');
     }
   }
 
@@ -775,7 +808,7 @@ if (!confirm(`确定删除「${g.name}」？\n\n它的封面和截图也会一�
       if (b.hasAttribute('data-del-cover')) {
         if (!confirm('删除这张封面？')) return;
         try { await deleteFile(g.cover.replace(/^\//, ''), `删除封面：${g.name}`); g.cover = ''; log('封面已删', 'ok'); }
-        catch (err) { log('删除失败：' + err.message, 'bad'); }
+        catch (err) { log('删除失败：' + friendlyErr(err), 'bad'); }
         renderPreview();
         return;
       }
@@ -787,7 +820,7 @@ if (!confirm(`确定删除「${g.name}」？\n\n它的封面和截图也会一�
           await deleteFile(String(path).replace(/^\//, ''), `删除截图：${g.name}`);
           g.shots.splice(Number(si), 1);
           log('截图已删（记得再点一次「保存修改」同步索引）', 'ok');
-        } catch (err) { log('删除失败：' + err.message, 'bad'); }
+        } catch (err) { log('删除失败：' + friendlyErr(err), 'bad'); }
         renderPreview();
       }
     });
@@ -798,7 +831,7 @@ if (!confirm(`确定删除「${g.name}」？\n\n它的封面和截图也会一�
 
     /* 列表按钮 */
     $('gSearch').addEventListener('input', renderList);
-    $('btnReload').addEventListener('click', () => loadTree(true).then(load).catch((e) => log(e.message, 'bad')));
+    $('btnReload').addEventListener('click', () => loadTree(true).then(load).catch((e) => log(friendlyErr(e), 'bad')));
     $('gList').addEventListener('click', (e) => {
       const ed = e.target.closest('[data-edit]');
       if (ed) { const g = data.items.find((x) => x.id === ed.getAttribute('data-edit')); if (g) fillForm(g); return; }

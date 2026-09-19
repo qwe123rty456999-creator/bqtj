@@ -235,13 +235,34 @@
     return tree.get(path);
   }
 
+  /**
+   * 写仓库时的 409 重试。
+   *
+   * GitHub Contents API 要求带上「文件当前的 sha」，跟服务端对不上就拒收：
+   *   409：assets/data/subs.json does not match 1bcd41f…
+   * 我们对 sha 的认知来自一次 /git/trees 快照 —— 只要期间文件被**别处**改过
+   * （另一个标签页、手机、线上管理页、GitHub 网页上直接编辑），快照就过期了。
+   * 强刷一次 tree 拿到新 sha 再试一遍，绝大多数情况直接就过了。
+   */
+  async function withShaRetry(fn) {
+    try {
+      return await fn();
+    } catch (e) {
+      if (e.status !== 409) throw e;
+      await loadTree(true);
+      return await fn();
+    }
+  }
+
   async function putFile(path, base64, message) {
-    const sha = await shaOf(path);
-    const body = { message, content: base64 };
-    if (sha) body.sha = sha;
-    if (REPO.branch) body.branch = REPO.branch;
-    const res = await gh(`/contents/${encodePath(path)}`, {
-      method: 'PUT', body: JSON.stringify(body),
+    const res = await withShaRetry(async () => {
+      const sha = await shaOf(path);
+      const body = { message, content: base64 };
+      if (sha) body.sha = sha;
+      if (REPO.branch) body.branch = REPO.branch;
+      return await gh(`/contents/${encodePath(path)}`, {
+        method: 'PUT', body: JSON.stringify(body),
+      });
     });
     // PUT 返回的 content.sha 就是刚写入的新 blob sha，直接回填缓存。
     // （以前是 delete(path)：同一文件第二次写入时缓存里查不到 sha，
@@ -253,12 +274,16 @@
 
   /** 删除仓库里的一个文件 */
   async function deleteFile(path, message) {
-    const sha = await shaOf(path);
-    if (!sha) throw new Error('仓库里找不到这个文件，可能已经被删掉了');
-    await gh(`/contents/${encodePath(path)}`, {
-      method: 'DELETE',
-      body: JSON.stringify({ message, sha, branch: REPO.branch }),
+    const missing = await withShaRetry(async () => {
+      const sha = await shaOf(path);
+      if (!sha) return true;      // 本来就不在，当成功
+      await gh(`/contents/${encodePath(path)}`, {
+        method: 'DELETE',
+        body: JSON.stringify({ message, sha, branch: REPO.branch }),
+      });
+      return false;
     });
+    if (missing) throw new Error('仓库里找不到这个文件，可能已经被删掉了');
     state.tree?.delete(path);
   }
 
@@ -832,6 +857,12 @@
     }
     if (/\b404\b/.test(m)) {
       return '仓库或文件找不到（GitHub 404）—— 检查令牌是否勾选了 bqtj 仓库';
+    }
+    if (/\b409\b/.test(m)) {
+      return '这个文件在别处被改过（版本对不上，GitHub 409）—— 已自动重试过一次。还是不行就刷新页面再来，避免两个标签页同时改。';
+    }
+    if (/\b409\b/.test(m)) {
+      return '这个文件在别处被改过（版本对不上，GitHub 409）—— 已自动重试过一次。还是不行就刷新页面再来，避免两个标签页同时改。';
     }
     return m;
   }
