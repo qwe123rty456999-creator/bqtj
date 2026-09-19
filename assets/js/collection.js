@@ -46,9 +46,12 @@
     // 网盘下载区：本站不存大文件，只存分享链接 + 提取码
     let panBox = '';
     if (it.pan && it.pan.url) {
+      const panLabel = it.pan.code
+        ? `📥 ${esc(it.pan.name || '网盘')}下载`
+        : '📥 直接下载';           // 没有提取码 = 直链，点了就开始下
       panBox = `<div class="pan">
         <a class="btn btn-sm btn-primary" href="${esc(it.pan.url)}" target="_blank" rel="noopener">
-          📥 ${esc(it.pan.name || '网盘')}下载</a>
+          ${panLabel}</a>
         ${it.pan.code
           ? `<span class="code-pill">提取码 <code>${esc(it.pan.code)}</code>
              <button data-copy-code="${esc(it.pan.code)}">复制</button></span>`
