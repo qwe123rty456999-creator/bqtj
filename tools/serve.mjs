@@ -62,8 +62,32 @@ async function resolveFile(urlPath) {
   return null;
 }
 
+/* 本地模拟 Pages Functions 的下载计数：仅内存，重启清零。
+   线上由 functions/_middleware.js + D1 负责，这里只是让本地预览能看到效果。 */
+const hits = new Map();
+
 const server = createServer(async (req, res) => {
   const urlPath = req.url || '/';
+  const purePath = decodeURIComponent(urlPath.split('?')[0]);
+
+  // GET /api/counts
+  if (purePath === '/api/counts') {
+    const counts = Object.fromEntries(hits);
+    let total = 0;
+    for (const v of hits.values()) total += v;
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'no-store',
+    });
+    res.end(JSON.stringify({ enabled: true, local: true, total, counts }));
+    return;
+  }
+
+  // 字幕下载计数
+  if (req.method === 'GET' && purePath.startsWith('/files/subs/')) {
+    hits.set(purePath, (hits.get(purePath) || 0) + 1);
+  }
+
   let file = await resolveFile(urlPath);
   let status = 200;
 
@@ -103,6 +127,8 @@ server.listen(PORT, () => {
   console.log('\n🚀 本地预览已启动');
   console.log(`   首页      http://localhost:${PORT}/`);
   console.log(`   字幕库    http://localhost:${PORT}/subs/`);
-  console.log(`   小游戏    http://localhost:${PORT}/games/`);
+  console.log(`   上传助手  http://localhost:${PORT}/admin/`);
+  console.log('\n   注：本地也会模拟下载计数（仅内存，重启清零）；');
+  console.log('       线上真实统计由 functions/ + D1 负责。');
   console.log('\n   按 Ctrl+C 停止\n');
 });

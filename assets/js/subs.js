@@ -8,6 +8,7 @@
 
   const state = {
     all: [],
+    counts: new Map(),   // path → 下载次数（没有统计后端时为空）
     kw: getParam('q'),
     lang: getParam('lang'),
     ext: getParam('ext'),
@@ -59,6 +60,9 @@
     list.sort((a, b) => {
       if (field === 'name') return mul * String(a.name).localeCompare(String(b.name), 'zh-CN');
       if (field === 'size') return mul * ((a.size || 0) - (b.size || 0));
+      if (field === 'count') {
+        return mul * ((state.counts.get(a.path) || 0) - (state.counts.get(b.path) || 0));
+      }
       return mul * String(a.mtime || '').localeCompare(String(b.mtime || ''));
     });
     return list;
@@ -69,6 +73,11 @@
   function rowHTML(f) {
     const langTag = f.lang
       ? `<span class="tag ${esc(f.langClass || '')}">${esc(f.lang)}</span>`
+      : '';
+
+    const n = state.counts.get(f.path);
+    const countTag = n
+      ? `<span class="count-badge" title="统计到的下载次数">⬇ ${n}</span>`
       : '';
 
     return `
@@ -82,6 +91,7 @@
             <span>${humanSize(f.size)}</span>
             <span>·</span>
             <span title="${esc(f.mtime)}">${relTime(f.mtime)}</span>
+            ${countTag}
           </div>
           <div class="file-path" title="${esc(f.path)}">${esc(f.path)}</div>
         </div>
@@ -296,6 +306,14 @@
     try {
       const data = await loadJSON('/assets/data/subs.json');
       state.all = data.items || [];
+
+      // 下载次数是可选功能：没部署统计后端时静默跳过，页面照常工作
+      try {
+        const c = await loadJSON('/api/counts');
+        if (c && c.enabled && c.counts) {
+          Object.entries(c.counts).forEach(([k, v]) => state.counts.set(k, v));
+        }
+      } catch { /* 忽略 */ }
 
       if (!state.all.length) {
         $list.className = '';

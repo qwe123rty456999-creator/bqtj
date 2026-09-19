@@ -1,8 +1,9 @@
 /* ==========================================================================
-   admin.js — 字幕上传助手
+   admin.js — 字幕上传助手 + 下载统计
    ① 浏览器选字幕 → 经 GitHub Contents API 提交到仓库
    ② 自动追加条目到 assets/data/subs.json（含语言识别、名称清洗）
-   ③ 令牌只存在本机 localStorage，绝不写入仓库
+   ③ 展示 /api/counts 的下载次数
+   令牌只存在本机 localStorage，绝不写入仓库
    ========================================================================== */
 
 (function () {
@@ -13,16 +14,18 @@
 
   const $ = (id) => document.getElementById(id);
   const ui = {
-    token: $('token'), connBox: $('connBox'), connMsg: $('connMsg'), repoText: $('repoText'),
+    setupCard: $('setupCard'), token: $('token'),
+    connBox: $('connBox'), connMsg: $('connMsg'),
     drop: $('drop'), picker: $('picker'), dest: $('dest'), batchLang: $('batchLang'),
     upList: $('upList'), upActions: $('upActions'), log: $('log'),
+    statSummary: $('statSummary'), statTable: $('statTable'), maxSize: $('maxSize'),
   };
 
   const state = { token: '', files: [], tree: null };
   let seq = 0;
 
-  ui.repoText.textContent = `${REPO.owner}/${REPO.repo}`;
   if (!ui.dest.value) ui.dest.value = 'files/subs/';
+  ui.maxSize.textContent = humanSize(MAX);
 
   /* ======================= 通用工具 ======================= */
 
@@ -158,7 +161,7 @@
     return res;
   }
 
-  /* ======================= 连接 ======================= */
+  /* ======================= 设置（令牌） ======================= */
 
   function setConn(cls, msg) {
     ui.connBox.className = 'conn ' + cls;
@@ -191,10 +194,9 @@
     state.token = v;
     localStorage.setItem(LS_KEY, v);
     log('令牌已保存到本机浏览器', 'ok');
-    await verify(false);
+    const ok = await verify(false);
+    if (ok) ui.setupCard.open = false;   // 配好了就收起来，页面回到「只有上传」
   });
-
-  $('btnVerify').addEventListener('click', () => verify(false));
 
   $('btnForget').addEventListener('click', () => {
     localStorage.removeItem(LS_KEY);
@@ -202,6 +204,7 @@
     ui.token.value = '';
     state.tree = null;
     setConn('off', '令牌已清除');
+    ui.setupCard.open = true;
     log('已清除本机保存的令牌', 'warn');
   });
 
@@ -210,9 +213,11 @@
     if (saved) {
       state.token = saved;
       ui.token.value = saved;
+      ui.setupCard.open = false;   // 已配置 → 折叠，页面主体只剩上传
       verify(true);
     } else {
-      setConn('off', '尚未连接，先把令牌填到下面并保存');
+      ui.setupCard.open = true;    // 首次使用 → 展开，引导配置
+      setConn('off', '尚未配置，先填令牌并保存');
     }
   }
 
@@ -294,7 +299,11 @@
   /* ======================= 上传 ======================= */
 
   $('btnUploadAll').addEventListener('click', async () => {
-    if (!state.token) { log('先在第 1 步保存令牌', 'err'); return; }
+    if (!state.token) {
+      ui.setupCard.open = true;
+      log('还没配置令牌 —— 已帮你展开「上传设置」，填好保存再点上传', 'err');
+      return;
+    }
     const dest = normalizeDest(ui.dest.value);
     const targets = state.files.filter((f) => f.size <= MAX && f.status !== 'ok');
     if (!targets.length) { log('没有待上传的文件', 'warn'); return; }
@@ -330,7 +339,7 @@
       try {
         await patchSubsIndex(done, dest);
       } catch (e) {
-        log(`字幕库索引更新失败：${e.message}（文件已上传，可点「上传」重试）`, 'err');
+        log(`字幕库索引更新失败：${e.message}（文件已上传，可再点一次上传重试）`, 'err');
       }
     }
 
@@ -399,8 +408,69 @@
     log(`字幕库索引已更新：新增 ${added} 条，累计 ${data.count} 条`, 'ok');
   }
 
+  /* ======================= 下载统计 ======================= */
+
+  async function loadStats() {
+    ui.statSummary.textContent = '加载中…';
+    ui.statTable.innerHTML = '';
+
+    try {
+      const res = await fetch('/api/counts', { cache: 'no-store' });
+      const data = await res.json();
+
+      if (!data.enabled) {
+        ui.statSummary.innerHTML = data.reason === 'not-bound'
+          ? `统计未开启。<br><span style="color:var(--text-dim)">${esc(data.hint || '')}</span>`
+          : `统计不可用${data.error ? '：' + esc(data.error) : ''}`;
+        return;
+      }
+
+      const entries = Object.entries(data.counts || {}).sort((a, b) => b[1] - a[1]);
+      if (!entries.length) {
+        ui.statSummary.textContent = '还没有下载记录。等有人从字幕库下载后，这里就会出现数据。';
+        return;
+      }
+
+      ui.statSummary.innerHTML =
+        `共 <b>${data.total}</b> 次下载 · 涉及 <b>${entries.length}</b> 个文件` +
+        (entries.length > 100 ? '（下表只显示前 100）' : '');
+
+      const max = entries[0][1];
+      ui.statTable.innerHTML = `
+        <table class="stat-table">
+          <thead>
+            <tr><th>文件</th><th>作品</th><th class="num">下载</th><th class="bar-cell"></th></tr>
+          </thead>
+          <tbody>
+            ${entries.slice(0, 100).map(([p, n]) => {
+              const segs = p.split('/').filter(Boolean);
+              const name = segs[segs.length - 1] || p;
+              const group = segs.slice(2, -1).join('/') || '未分类';
+              return `<tr>
+                <td>
+                  <a href="${esc(fileUrl(p))}" target="_blank" rel="noopener">${esc(name)}</a>
+                  <div class="path-cell">${esc(p)}</div>
+                </td>
+                <td>${esc(group)}</td>
+                <td class="num">${n}</td>
+                <td class="bar-cell"><div class="mini-bar" style="width:${Math.max(3, Math.round((n / max) * 100))}%"></div></td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>`;
+    } catch (e) {
+      ui.statSummary.innerHTML =
+        `读取统计失败：${esc(e.message)}` +
+        `<br><span style="color:var(--text-dim)">本地预览时统计接口不可用是正常的 —— ` +
+        `Pages Functions 只在 Cloudflare 上运行。</span>`;
+    }
+  }
+
+  $('btnReloadStats').addEventListener('click', loadStats);
+
   /* ======================= 初始化 ======================= */
 
   renderList();
-  setTimeout(() => { if (!state.token) log('提示：先在「1」保存 GitHub 令牌，才能上传。', 'warn'); }, 300);
+  loadStats();
+  setTimeout(() => { if (!state.token) log('提示：先在「上传设置」里保存 GitHub 令牌，才能上传。', 'warn'); }, 300);
 })();

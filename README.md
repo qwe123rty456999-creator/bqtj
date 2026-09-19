@@ -190,6 +190,46 @@ node tools/build-subs-index.mjs --src "D:\我的字幕" --copy
 
 ---
 
+## 下载次数统计（可选）
+
+字幕库每个文件旁边的 `⬇ N`、以及上传助手第 2 步的排行榜，都来自
+`functions/` 里的两个 Pages Functions：
+
+| 文件 | 作用 |
+|---|---|
+| `functions/_middleware.js` | 拦截 `/files/subs/*` 的下载请求并计数 |
+| `functions/api/counts.js` | `GET /api/counts` 返回所有次数（JSON） |
+
+**原理**：Cloudflare Pages 会把仓库根目录的 `functions/` 当作 Pages Functions 运行，
+**不需要单独部署 Worker**。计数在 `waitUntil()` 里异步写库，**不阻塞下载**；
+统计出错会被吞掉，绝不影响访客。
+
+**去重**：同一访客（IP + UA 的哈希，不存明文 IP）12 小时内重复下载同一个文件只算一次，
+所以数字更接近「有多少人下过」，而不是「请求了几次」。
+
+### 开启方法
+
+不配置的话整站照常工作，只是不显示次数。要开启：
+
+1. Cloudflare Dashboard → **Storage & databases** → **D1** → 创建数据库（名字随意，如 `bqtj-counts`）
+2. 进入你的 **Pages 项目** → **设置** → **绑定** → 添加 → **D1 数据库**
+   - 变量名必须正好是 **`COUNTS`**（大小写敏感）
+   - 选择刚创建的数据库
+3. 重新部署一次（绑定变更需要重新部署才生效）
+
+表结构不用手动建 —— 首次请求时会自动 `CREATE TABLE IF NOT EXISTS`。
+
+### 本地预览
+
+`tools/serve.mjs` 里有一个内存版模拟实现（重启清零），所以本地也能看到次数变化、方便调 UI。
+**真实的 Pages Functions 只在 Cloudflare 上运行，本地不会跑。**
+
+### 免费额度
+
+D1 免费版：5 GB 存储、每天 10 万行写入 / 500 万行读取 —— 对字幕站远超所需。
+
+---
+
 ## 域名与 DNS 实测状态（2026-09-19）
 
 | 检查项 | 实测结果 | 含义 |

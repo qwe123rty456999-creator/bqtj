@@ -14,6 +14,10 @@
 /assets/data/*
   Cache-Control: public, max-age=300
 
+# 统计接口：绝不缓存
+/api/*
+  Cache-Control: no-store
+
 # 字幕文件：允许跨域下载，缓存久一点
 /files/subs/*
   Cache-Control: public, max-age=86400
