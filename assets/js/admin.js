@@ -34,6 +34,50 @@
   const state = { token: '', files: [], tree: null };
   let seq = 0;
 
+  /* --------------------------- 发送状态提示 --------------------------- */
+  /**
+   * 每次和 GitHub 通信都过这里。
+   * 国内访问 api.github.com 经常很慢、甚至根本没回应 —— 不给反馈的话用户只能干等，
+   * 分不清「还在发」和「早就卡死了」。所以：发出去时亮「正在发送」，
+   * 拿到状态码时说「GitHub 已回应（HTTP xxx）」，连不上就直接说发不出去。
+   */
+  let toastTimer = 0;
+  function sendState(kind, msg) {
+    const el = $('sendToast');
+    if (!el) return;
+    clearTimeout(toastTimer);
+    el.className = 'send-toast ' + kind;
+    el.textContent = msg;
+    el.hidden = false;
+    // 「发送中」不自动消失；结果停几秒再收，失败多停一会儿好让人看清原因
+    if (kind !== 'sending') {
+      toastTimer = setTimeout(() => { el.hidden = true; }, kind === 'bad' ? 7000 : 2600);
+    }
+  }
+
+  /* 请求超时：不给超时的话，连不上时会一直转，看不出是「在发」还是「已经死了」 */
+  const REQ_TIMEOUT = 20000;
+  const timeoutSignal = () =>
+    (typeof AbortSignal !== 'undefined' && AbortSignal.timeout)
+      ? AbortSignal.timeout(REQ_TIMEOUT) : undefined;
+
+  /** 把 fetch 抛出的网络错误翻译成一句话 */
+  function sendFailReason(e) {
+    if (e && e.name === 'TimeoutError') return `等不到回应（${REQ_TIMEOUT / 1000} 秒超时）`;
+    if (e && e.name === 'AbortError') return '请求被中断';
+    return '请求发不出去（网络不通或被拦截）';
+  }
+
+  /**
+   * 把 fetch 抛出的网络错误包成统一的人话错误。
+   * 浏览器原始信息是 "Failed to fetch" / "Load failed"，用户看了不知道该怎么办。
+   */
+  function netError(e) {
+    const err = new Error(sendFailReason(e));
+    err.sendFailed = true;
+    return err;
+  }
+
   let countsMap = new Map();   // path → 下载次数（来自 /api/counts）
   let mgItems = [];            // 字幕管理的当前列表（来自 subs.json）
   let statEntries = [];        // 下载统计原始数据 [[path, 次数], ...]
@@ -131,9 +175,19 @@
     if (opts.body) headers['Content-Type'] = 'application/json';
     if (opts.accept) headers.Accept = opts.accept;
 
-    const res = await fetch(repoBase() + path, {
-      method: opts.method || 'GET', headers, body: opts.body,
-    });
+    sendState('sending', '正在发送请求…');
+    let res;
+    try {
+      res = await fetch(repoBase() + path, {
+        method: opts.method || 'GET', headers, body: opts.body, signal: timeoutSignal(),
+      });
+    } catch (e) {
+      const why = sendFailReason(e);
+      sendState('bad', '发送失败：' + why);
+      throw netError(e);
+    }
+    // 能拿到状态码就说明「发出去了、GitHub 也回应了」—— 这正是用户要确认的
+    sendState(res.ok ? 'ok' : 'bad', `GitHub 已回应（HTTP ${res.status}）`);
 
     if (opts.raw) {
       if (!res.ok) {
@@ -217,11 +271,20 @@
 
   async function verify(silent) {
     if (!state.token) { setConn('off', '还没填令牌'); return false; }
-    setConn('', '正在验证…');
+    setConn('', '正在发送请求给 GitHub…');
+    sendState('sending', '正在发送请求给 GitHub…');
     try {
       // 这里直接用 fetch 而不是 gh()，因为需要读响应头来判断令牌类型
-      const res = await fetch(repoBase(), { headers: { Authorization: `Bearer ${state.token}` } });
+      let res;
+      try {
+        res = await fetch(repoBase(), {
+          headers: { Authorization: `Bearer ${state.token}` }, signal: timeoutSignal(),
+        });
+      } catch (e) {
+        throw netError(e);
+      }
       const repo = await res.json();
+      sendState(res.ok ? 'ok' : 'bad', `GitHub 已回应（HTTP ${res.status}）`);
       if (!res.ok) throw new Error(`HTTP ${res.status}：${repo.message || res.status}`);
 
       /* 细粒度令牌（fine-grained）不会返回 x-oauth-scopes 头。
@@ -245,7 +308,9 @@
       if (!silent) log(`连接成功：${repo.full_name}（${tree.size} 个文件）`, 'ok');
       return true;
     } catch (e) {
-      setConn('off', `连接失败：${esc(e.message)}`);
+      const why = e.sendFailed ? e.message : esc(e.message);
+      setConn('off', `连接失败：${why}`);
+      sendState('bad', '连接失败：' + why);
       if (!silent) log(`连接失败：${e.message}`, 'err');
       return false;
     }
@@ -257,7 +322,17 @@
     state.token = v;
     localStorage.setItem(LS_KEY, v);
     log('令牌已保存到本机浏览器', 'ok');
+    // 保存后要去 GitHub 验一下，这段得等网络 —— 按钮变成「发送中…」并禁用，
+    // 否则用户会反复点，看不出到底有没有发出去
+    const btn = $('btnSave');
+    const old = btn.textContent;
+    btn.disabled = true;
+    btn.setAttribute('aria-busy', 'true');
+    btn.textContent = '发送中…';
     const ok = await verify(false);
+    btn.disabled = false;
+    btn.removeAttribute('aria-busy');
+    btn.textContent = old;
     if (ok) ui.setupCard.open = false;   // 配好了就收起来，页面回到「只有上传」
   });
 
@@ -830,6 +905,9 @@
         </div>
 
         <div class="mg-edit">
+          <input class="input" data-name maxlength="80"
+                 placeholder="显示名称（只改网站上显示的名字，文件名和下载链接都不变）"
+                 value="${esc(it.name || '')}">
           <input class="input" data-desc maxlength="120"
                  placeholder="说明（显示在名字下方，留空则清除）"
                  value="${esc(it.desc || '')}">
@@ -948,17 +1026,22 @@
     if (item) pickThumb(item, row, file);
   });
 
-  /** 保存说明 / 原视频 / 下载视频：只改索引，不动字幕文件 */
+  /** 保存名称 / 说明 / 原视频 / 下载视频：只改索引，不动字幕文件 */
   async function saveItem(item, row, btn) {
     if (!needToken('保存')) return;
 
     const val = (sel) => (row.querySelector(sel)?.value || '').trim();
     const next = {
+      name: val('input[data-name]'),
       desc: val('input[data-desc]'),
       videoUrl: val('input[data-video]'),
       videoDl: val('input[data-videodl]'),
     };
-    const FIELDS = ['desc', 'videoUrl', 'videoDl'];
+    // 名称只改显示用的那一份（subs.json 里的 name），不动 files/subs 下的文件名 ——
+    // 改文件名会改掉下载链接，该字幕的下载统计也会从 0 重算。
+    if (!next.name) { setNote(row, '名称不能为空', 'err'); row.querySelector('input[data-name]').focus(); return; }
+
+    const FIELDS = ['name', 'desc', 'videoUrl', 'videoDl'];
 
     if (FIELDS.every((k) => (item[k] || '') === next[k])) {
       setNote(row, '没有变化');

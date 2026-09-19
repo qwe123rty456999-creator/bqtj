@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=12">
+<link rel="stylesheet" href="/assets/css/style.css?v=13">
 </head>
 <body>
 
@@ -33,7 +33,7 @@
   <div class="page-head">
     <div class="breadcrumb"><a href="/">首页</a> / <a href="/games/">游戏</a> / 游戏管理</div>
     <h1>游戏管理</h1>
-    <p>只登记信息和封面/截图，游戏本体放在 123 云盘，不占仓库空间。提交后约 1 分钟线上生效。</p>
+    <p>只登记信息和封面/截图，游戏本体放在云盘，不占仓库空间。提交后约 1 分钟线上生效。</p>
   </div>
 
   <!-- ============ 设置（和字幕上传助手共用同一个令牌） ============ -->
@@ -149,20 +149,42 @@
     <div class="log" id="log" hidden></div>
   </section>
 
-  <!-- ============ ② 现有游戏 ============ -->
+  <!-- ============ ② 现有游戏（展开需密码，和字幕管理一样） ============ -->
   <details class="admin-card" id="listCard" open>
     <summary><span class="num">2</span>现有游戏</summary>
 
-    <div class="card-tools">
-      <input class="input" type="search" id="gSearch" autocomplete="off" placeholder="搜索游戏名">
-      <button class="btn btn-sm" id="btnReload">刷新列表</button>
-      <span class="result-info" id="listInfo">加载中…</span>
+    <!-- 未解锁：只显示这一块 -->
+    <div id="listLock">
+      <p class="hint" style="margin-top:0">
+        这一栏能修改和删除游戏，所以需要访问密码。
+      </p>
+      <div class="field">
+        <label for="listPwd">访问密码</label>
+        <input class="input" type="password" id="listPwd" autocomplete="off" spellcheck="false"
+               placeholder="输入访问密码">
+      </div>
+      <div class="file-actions">
+        <button class="btn btn-primary" id="listUnlock">解锁</button>
+      </div>
+      <div class="result-info" id="listLockMsg" style="margin-top:10px"></div>
     </div>
 
-    <div class="mg-list" id="gList"><div class="result-info">加载中…</div></div>
+    <!-- 解锁后才显示 -->
+    <div id="listBody" hidden>
+      <div class="card-tools">
+        <input class="input" type="search" id="gSearch" autocomplete="off" placeholder="搜索游戏名">
+        <button class="btn btn-sm" id="btnReload">刷新列表</button>
+        <span class="result-info" id="listInfo">加载中…</span>
+      </div>
+
+      <div class="mg-list" id="gList"><div class="result-info">加载中…</div></div>
+    </div>
   </details>
 
 </main>
+
+<!-- 发送状态提示：每次和 GitHub 通信都会亮一下，用来看清请求到底发出去没有 -->
+<div class="send-toast" id="sendToast" role="status" aria-live="polite" hidden></div>
 
 <footer class="site-footer">
   <div class="container">
@@ -173,6 +195,6 @@
 
 <script src="/assets/js/config.js?v=3"></script>
 <script src="/assets/js/site.js?v=12"></script>
-<script src="/assets/js/games-admin.js?v=5"></script>
+<script src="/assets/js/games-admin.js?v=6"></script>
 </body>
 </html>

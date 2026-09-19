@@ -1065,6 +1065,35 @@ details.admin-card > summary .num {
 .conn .conn-msg { flex: 1 1 190px; color: var(--text-muted); }
 .conn .conn-msg b { color: var(--text); }
 
+/* 发送状态提示（两个管理页共用）。
+   每次和 GitHub 通信都会亮一下 —— 国内访问 api.github.com 经常慢或超时，
+   得能一眼看出「请求到底发出去没有、GitHub 有没有回应」。
+   固定在底部中间，pointer-events:none 所以不挡操作。 */
+.send-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 60;
+  max-width: min(92vw, 460px);
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13.5px;
+  line-height: 1.5;
+  text-align: center;
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.18);
+  pointer-events: none;
+}
+.send-toast.sending { border-color: var(--accent); color: var(--accent); }
+.send-toast.ok { border-color: var(--ok); color: var(--ok); }
+.send-toast.bad { border-color: var(--danger); color: var(--danger); }
+
+/* 保存/发送类按钮的忙碌态：禁用后文字换成「发送中…」，避免连点发两次 */
+.btn[aria-busy="true"] { opacity: 0.7; cursor: default; }
+
 /* 日志 / 代码块 */
 .log {
   margin-top: 14px;

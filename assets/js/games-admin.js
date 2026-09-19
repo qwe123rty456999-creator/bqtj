@@ -37,7 +37,9 @@
     const el = $('log');
     el.hidden = false;
     const line = document.createElement('div');
-    line.className = 'log-line ' + kind;
+    // 类名要和 CSS 对上（.log .l-ok / .l-err / .l-info / .l-warn）。
+    // 原来写的是 'log-line ' + kind，两边对不上，所以日志一直是灰的。
+    line.className = kind === 'bad' ? 'l-err' : (kind ? 'l-' + kind : '');
     line.textContent = msg;
     el.appendChild(line);
     el.scrollTop = el.scrollHeight;
@@ -51,12 +53,69 @@
 
   const newId = () => 'g' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
 
+  /* --------------------------- 发送状态提示 --------------------------- */
+  /**
+   * 每次和 GitHub 通信都过这里。
+   * 国内访问 api.github.com 经常很慢、甚至根本没回应 —— 不给反馈的话用户只能干等，
+   * 分不清「还在发」和「早就卡死了」。所以：发出去时亮「正在发送」，
+   * 拿到状态码时说「GitHub 已回应（HTTP xxx）」，连不上就直接说发不出去。
+   */
+  let toastTimer = 0;
+  function sendState(kind, msg) {
+    const el = $('sendToast');
+    if (!el) return;
+    clearTimeout(toastTimer);
+    el.className = 'send-toast ' + kind;
+    el.textContent = msg;
+    el.hidden = false;
+    // 「发送中」不自动消失；结果停几秒再收，失败多停一会儿好让人看清原因
+    if (kind !== 'sending') {
+      toastTimer = setTimeout(() => { el.hidden = true; }, kind === 'bad' ? 7000 : 2600);
+    }
+  }
+
+  /* 请求超时：不给超时的话，连不上时会一直转，看不出是「在发」还是「已经死了」 */
+  const REQ_TIMEOUT = 20000;
+  const timeoutSignal = () =>
+    (typeof AbortSignal !== 'undefined' && AbortSignal.timeout)
+      ? AbortSignal.timeout(REQ_TIMEOUT) : undefined;
+
+  /** 把 fetch 抛出的网络错误翻译成一句话 */
+  function sendFailReason(e) {
+    if (e && e.name === 'TimeoutError') return `等不到回应（${REQ_TIMEOUT / 1000} 秒超时）`;
+    if (e && e.name === 'AbortError') return '请求被中断';
+    return '请求发不出去（网络不通或被拦截）';
+  }
+
+  /**
+   * 把 fetch 抛出的网络错误包成统一的人话错误。
+   * 浏览器原始信息是 "Failed to fetch" / "Load failed"，用户看了不知道该怎么办。
+   */
+  function netError(e) {
+    const err = new Error(sendFailReason(e));
+    err.sendFailed = true;
+    return err;
+  }
+
   /* --------------------------- GitHub 调用 --------------------------- */
   async function gh(path, opts = {}) {
     const headers = { Authorization: `Bearer ${token}` };
     if (opts.body) headers['Content-Type'] = 'application/json';
     if (opts.accept) headers.Accept = opts.accept;
-    const res = await fetch(repoBase() + path, { method: opts.method || 'GET', headers, body: opts.body });
+
+    sendState('sending', '正在发送请求…');
+    let res;
+    try {
+      res = await fetch(repoBase() + path, {
+        method: opts.method || 'GET', headers, body: opts.body, signal: timeoutSignal(),
+      });
+    } catch (e) {
+      const why = sendFailReason(e);
+      sendState('bad', '发送失败：' + why);
+      throw netError(e);
+    }
+    // 能拿到状态码就说明「发出去了、GitHub 也回应了」—— 这正是用户要确认的
+    sendState(res.ok ? 'ok' : 'bad', `GitHub 已回应（HTTP ${res.status}）`);
     const text = await res.text();
     let body = null;
     try { body = text ? JSON.parse(text) : null; } catch { body = text; }
@@ -350,17 +409,26 @@
 
   async function verify(silent) {
     if (!token) { setConn('off', '还没填令牌'); if (!silent) $('setupCard').open = true; return false; }
-    setConn('', '正在验证…');
+    setConn('', '正在发送请求给 GitHub…');
+    sendState('sending', '正在发送请求给 GitHub…');
     try {
-      const res = await fetch(repoBase(), { headers: { Authorization: `Bearer ${token}` } });
+      let res;
+      try {
+        res = await fetch(repoBase(), { headers: { Authorization: `Bearer ${token}` }, signal: timeoutSignal() });
+      } catch (e) {
+        throw netError(e);
+      }
       const repo = await res.json();
+      sendState(res.ok ? 'ok' : 'bad', `GitHub 已回应（HTTP ${res.status}）`);
       if (!res.ok) throw new Error(`HTTP ${res.status}：${repo.message || res.status}`);
       const fine = res.headers.get('x-oauth-scopes') === null;
       setConn('ok', `已连接 <b>${repo.full_name}</b>` + (fine ? '（细粒度令牌，权限以实际写入为准）' : ''));
       $('setupCard').open = false;
       return true;
     } catch (e) {
-      setConn('bad', '连接失败：' + e.message);
+      const why = e.sendFailed ? e.message : esc(e.message);
+      setConn('bad', '连接失败：' + why);
+      sendState('bad', '连接失败：' + why);
       if (!silent) $('setupCard').open = true;
       return false;
     }
@@ -552,7 +620,7 @@
   async function removeGame(id) {
     const g = data.items.find((x) => x.id === id);
     if (!g) return;
-    if (!confirm(`确定删除「${g.name}」？\n\n它的封面和截图也会一起从仓库里删掉，游戏本体在 123 云盘不受影响。`)) return;
+if (!confirm(`确定删除「${g.name}」？\n\n它的封面和截图也会一起从仓库里删掉，游戏本体在云盘不受影响。`)) return;
 
     clearLog();
     log('正在删除…');
@@ -573,6 +641,36 @@
     }
   }
 
+  /* --------------------- 「现有游戏」的访问密码 ---------------------
+     注意：这是前端校验，只能挡住随手点开的人，不是真正的安全措施
+     （任何人都能查看页面源码看到密码）。真正管住写入的是 GitHub 令牌。 */
+  const LIST_PWD = S.adminPassword || 'bqtj';
+  const listCard = $('listCard');
+  let listUnlocked = false;
+
+  function lockList(msg = '') {
+    listUnlocked = false;
+    $('listBody').hidden = true;
+    $('listLock').hidden = false;
+    $('listPwd').value = '';
+    $('listLockMsg').textContent = msg;
+  }
+
+  function unlockList() {
+    if ($('listPwd').value.trim() !== LIST_PWD) {
+      $('listLockMsg').textContent = '密码不对，再试一次。';
+      $('listPwd').select();
+      $('listPwd').focus();
+      return;
+    }
+    listUnlocked = true;
+    $('listLock').hidden = true;
+    $('listBody').hidden = false;
+    $('listPwd').value = '';
+    $('listLockMsg').textContent = '';
+    load();                       // 解锁后才去读游戏列表
+  }
+
   /* ------------------------------ 事件绑定 ------------------------------ */
   function bind() {
     /* 令牌 */
@@ -582,7 +680,21 @@
       if (!v) { setConn('bad', '令牌是空的'); return; }
       token = v;
       localStorage.setItem(TOKEN_KEY, v);
-      if (await verify()) { loadTree(true).catch(() => {}); load(); }
+      // 保存后要去 GitHub 验一下，这段得等网络 —— 按钮变成「发送中…」并禁用，
+      // 否则用户会反复点，看不出到底有没有发出去
+      const btn = $('btnSaveToken');
+      const old = btn.textContent;
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = '发送中…';
+      const ok = await verify();
+      btn.disabled = false;
+      btn.removeAttribute('aria-busy');
+      btn.textContent = old;
+      if (!ok) return;
+      loadTree(true).catch(() => {});
+      if (listUnlocked) load();
+      else $('listLockMsg').textContent = '输入密码后就能看到游戏列表。';
     });
     $('btnForget').addEventListener('click', () => {
       token = '';
@@ -693,6 +805,12 @@
       const del = e.target.closest('[data-del]');
       if (del) removeGame(del.getAttribute('data-del'));
     });
+
+    /* 「现有游戏」的密码门 */
+    $('listUnlock').addEventListener('click', unlockList);
+    $('listPwd').addEventListener('keydown', (e) => { if (e.key === 'Enter') unlockList(); });
+    // 收起时重新上锁 —— 下次展开还要再输一次
+    listCard.addEventListener('toggle', () => { if (!listCard.open && listUnlocked) lockList(); });
   }
 
   /* ------------------------------ 启动 ------------------------------ */
@@ -702,16 +820,18 @@
 
     if (!token) {
       $('setupCard').open = true;
-      $('listInfo').textContent = '';
-      $('gList').innerHTML =
-        '<div class="result-info">先在上面「上传设置」里保存 GitHub 令牌 —— 读取和修改游戏列表都要用它。</div>';
+      $('listLockMsg').textContent = '先在上面「上传设置」里保存 GitHub 令牌 —— 读取和修改游戏列表都要用它。';
       return;
     }
 
     verify(true).then((ok) => {
-      if (ok) { load(); return; }
-      $('listInfo').textContent = '';
-      $('gList').innerHTML = '<div class="result-info">令牌没通过验证，检查一下是不是过期或权限不对。</div>';
+      if (!ok) {
+        // 「上传设置」折叠着的话，失败原因就藏在里面看不见了 —— 展开它
+        $('setupCard').open = true;
+        $('listLockMsg').textContent = '令牌没通过验证，检查一下是不是过期或权限不对。';
+        return;
+      }
+      $('listLockMsg').textContent = '输入密码后就能看到游戏列表。';
     });
   });
 })();

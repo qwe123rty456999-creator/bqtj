@@ -339,13 +339,19 @@ async function main() {
   // 按时间倒序
   items.sort((a, b) => b.mtime.localeCompare(a.mtime));
 
-  /* 保留管理员在 /admin/ 里写的字段（说明、缩略图关联）。
+  /* 保留管理员在 /admin/ 里写的字段（名称、说明、缩略图关联）。
      脚本是整份重建索引的，不把旧文件里的这些字段搬过来就会静默丢掉。
-     按 path 对齐（path 唯一），文件被删掉的自然不会保留。 */
+     按 path 对齐（path 唯一），文件被删掉的自然不会保留。
+
+     关于 name：它默认由文件名推出来，但管理员在 /admin/ 里改过名字后
+     这里必须保留，否则下次重建（比如批量导入）会把改好的名字全部打回去。
+     副作用：又把字幕文件重命名的话，旧的自定义名会盖住新文件名 ——
+     想用新文件名，得先去 /admin/ 把名字改成和新文件名一致。
+     其他几个字段没这个问题。 */
   if (existsSync(OUT_FILE)) {
     try {
       const old = JSON.parse(await readFile(OUT_FILE, 'utf8'));
-      const KEEP = ['desc', 'thumb', 'videoUrl', 'videoDl'];
+      const KEEP = ['name', 'desc', 'thumb', 'videoUrl', 'videoDl'];
       const byPath = new Map(
         (old.items || []).filter((x) => x && x.path).map((x) => [x.path, x])
       );
@@ -360,10 +366,10 @@ async function main() {
         }
       }
       if (kept) {
-        console.log(`   保留已有备注字段（说明 / 缩略图 / 视频链接）共 ${kept} 条`);
+        console.log(`   保留已有字段（名称 / 说明 / 缩略图 / 视频链接）共 ${kept} 条`);
       }
     } catch {
-      console.warn('   ⚠  读取旧索引失败，本次未保留说明/缩略图（旧文件已损坏或不是 JSON）');
+      console.warn('   ⚠  读取旧索引失败，本次未保留名称/说明/缩略图（旧文件已损坏或不是 JSON）');
     }
   }
 
