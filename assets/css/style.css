@@ -1362,8 +1362,27 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 /* 管理页：多云盘链接行（可以无限加，每行 = 云盘名 + 链接 + 删除） */
 .link-list { display: flex; flex-direction: column; gap: 8px; }
 .link-row { display: flex; gap: 8px; align-items: center; }
-.link-row .link-name { flex: 0 0 150px; }
 .link-row .link-url { flex: 1 1 auto; min-width: 0; }
+
+/* 云盘名：用站内自定义下拉，不用原生 select / datalist。
+   原生展开后的候选列表由操作系统渲染，圆角和配色一律改不了。
+   复用上面那套 .dropdown 结构，菜单顶部是个输入框（列表里没有的云盘自己写）。 */
+.link-row .drive-pick { flex: 0 0 150px; }
+.drive-pick .dropdown-toggle { width: 100%; min-width: 0; }
+.drive-pick .dropdown-label { overflow: hidden; text-overflow: ellipsis; }
+/* 这一格在行首，菜单默认的 right:0 会往屏幕外长 → 改成左对齐 */
+.drive-pick .dropdown-menu {
+  left: 0;
+  right: auto;
+  min-width: 214px;
+  /* 实际高度由 JS 按上下剩余空间算（见 games-admin.js），这里只是默认值 */
+  max-height: 480px;
+}
+/* 下边放不下时由 JS 挂上 drop-up，改成往上弹 */
+.drive-pick .dropdown-menu.drop-up { top: auto; bottom: calc(100% + 5px); }
+.drive-sep { height: 1px; margin: 5px 4px; background: var(--border); }
+.drive-other { padding: 2px 4px 3px; }
+.drive-other .input { padding: 6px 9px; font-size: 13px; }
 
 /* 自定义的文件选择器。
    浏览器原生的 <input type="file"> 会画成「选择文件 | 未选择任何文件」——
@@ -1388,7 +1407,7 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   .shots { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
   .mg-act { margin-left: 0; }
   .link-row { flex-wrap: wrap; }
-  .link-row .link-name,
+  .link-row .drive-pick,
   .link-row .link-url { flex: 1 1 100%; }
 }
 

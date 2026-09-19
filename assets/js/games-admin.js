@@ -165,15 +165,131 @@
   /**
    * 一个游戏可以挂任意多个云盘链接（用户要求不设上限），所以这里是一组可增删的输入行。
    * 顺序就是页面上的按钮顺序，第一条不特殊。
+   *
+   * 云盘名用**站内自己的下拉**（复用 site.js 那套 .dropdown 样式），不用原生
+   * select / datalist —— 原生展开的候选列表由操作系统渲染，圆角和配色一律改不了。
+   * 菜单最后一行留了个输入框：列表里没有的云盘可以自己写，两种方式都要能用。
    */
+
+  /** 常用云盘名：直接读页面上的 <datalist id="driveNames">，想加名字改那段 HTML 就行 */
+  const driveNames = () =>
+    [...document.querySelectorAll('#driveNames option')].map((o) => o.value).filter(Boolean);
+
+  /**
+   * 下拉菜单的内容。每个链接行各生成一份，不共享 DOM ——
+   * 共享的话一行的选中高亮会显示到别的行上。
+   *
+   * 「自己写」的输入框故意放在**列表上方**：放下面时选项一多就被挤到滚动区外，
+   * “列表里没有的可以自己写”这个入口就没人看得到。
+   */
+  const driveMenuHTML = () =>
+    '<li class="drive-other" role="presentation">' +
+      '<input class="input drive-other-input" type="text" autocomplete="off" placeholder="其它云盘名（自己写）">' +
+    '</li>' +
+    '<li class="drive-sep" role="presentation"></li>' +
+    driveNames()
+      .map((n) => `<li class="dropdown-item" role="option" aria-selected="false">${esc(n)}</li>`)
+      .join('');
+
   const linkRowHTML = (name = '', url = '') => `<div class="link-row">
-      <input class="input link-name" list="driveNames" autocomplete="off" placeholder="云盘名，如 123云盘" value="${esc(name)}">
+      <div class="dropdown drive-pick">
+        <button class="dropdown-toggle" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="dropdown-label">选择云盘</span>
+          <span class="dropdown-arrow" aria-hidden="true"></span>
+        </button>
+        <ul class="dropdown-menu" role="listbox" hidden>${driveMenuHTML()}</ul>
+        <input class="link-name" type="hidden" value="">
+      </div>
       <input class="input link-url" autocomplete="off" placeholder="粘贴分享链接" value="${esc(url)}">
       <button class="btn btn-sm btn-danger link-del" type="button" title="删除这条">删除</button>
     </div>`;
 
+  /**
+   * 把云盘名写回一行：真正的值存在 hidden input 里（列取名还是只读 .link-name），
+   * 按钮上只显示名字。自己写的名字会回填到菜单里那个输入框，方便再改。
+   */
+  function setDriveName(row, name) {
+    const n = String(name || '').trim();
+    const custom = !!n && !driveNames().includes(n);
+    row.querySelector('.link-name').value = n;
+    row.querySelector('.dropdown-label').textContent = n || '选择云盘';
+    row.querySelectorAll('.dropdown-item').forEach((it) => {
+      it.setAttribute('aria-selected', String(it.textContent.trim() === n));
+    });
+    const other = row.querySelector('.drive-other-input');
+    if (other) other.value = custom ? n : '';
+  }
+
+  /** 收起所有云盘名菜单（点别处、按 Esc、选中一项都走这里） */
+  function closeAllDriveMenus() {
+    $('linkList').querySelectorAll('.drive-pick').forEach((p) => {
+      p.querySelector('.dropdown-menu').hidden = true;
+      p.querySelector('.dropdown-toggle').setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function bindDrivePicker(row) {
+    const pick = row.querySelector('.drive-pick');
+    const toggle = pick.querySelector('.dropdown-toggle');
+    const menu = pick.querySelector('.dropdown-menu');
+    const other = pick.querySelector('.drive-other-input');
+
+    toggle.addEventListener('click', () => {
+      const wasClosed = menu.hidden;
+      closeAllDriveMenus();          // 同时只留一个菜单开着
+      menu.hidden = !wasClosed;
+      toggle.setAttribute('aria-expanded', String(wasClosed));
+      if (!wasClosed) return;
+      // 按上下剩余空间定高 + 下面放不下就往上弹。
+      // 写死 max-height 挡不住这种情况：手机上表单滚到后半段时，
+      // 固定高度会让菜单直接顶出屏幕底部，最后几个云盘点不到。
+      const r = toggle.getBoundingClientRect();
+      const below = window.innerHeight - r.bottom - 14;
+      const above = r.top - 14;
+      const up = below < 300 && above > below;
+      menu.classList.toggle('drop-up', up);
+      // 下限给 140：再矮也够放下「自己写」那一格，重点是**绝不超出屏幕**
+      menu.style.maxHeight = Math.max(140, Math.min(480, up ? above : below)) + 'px';
+    });
+
+    menu.addEventListener('click', (e) => {
+      const item = e.target.closest('.dropdown-item');
+      if (!item) return;             // 点「自己写」那一格不该把菜单关掉
+      setDriveName(row, item.textContent.trim());
+      closeAllDriveMenus();
+      toggle.focus();
+    });
+
+    // 自己写的名字：按回车就生效
+    other.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      const v = other.value.trim();
+      if (v) setDriveName(row, v);
+      closeAllDriveMenus();
+      toggle.focus();
+    });
+
+    // 点走（失焦）也把名字收下，但**不关菜单** ——
+    // 否则点右上角箭头想收起菜单时，blur 先关了、紧接着 click 又打开，菜单永远关不掉。
+    other.addEventListener('blur', () => {
+      const v = other.value.trim();
+      if (v) setDriveName(row, v);
+    });
+  }
+
+  /** 清空一行（只剩一行时「删除」不能把行去掉，否则那块看着像坏了） */
+  function resetLinkRow(row) {
+    row.querySelector('.link-url').value = '';
+    setDriveName(row, '');
+  }
+
   function addLinkRow(name = '', url = '') {
     $('linkList').insertAdjacentHTML('beforeend', linkRowHTML(name, url));
+    const row = $('linkList').lastElementChild;
+    bindDrivePicker(row);
+    setDriveName(row, name);
+    return row;
   }
 
   function setLinks(list) {
@@ -478,20 +594,28 @@
 
     /* 云盘链接行：加一行 / 删一行 */
     $('btnAddLink').addEventListener('click', () => {
-      addLinkRow();
-      const rows = $('linkList').querySelectorAll('.link-row');
-      rows[rows.length - 1].querySelector('.link-name').focus();
+      addLinkRow().querySelector('.dropdown-toggle').focus();
     });
     $('linkList').addEventListener('click', (e) => {
       const del = e.target.closest('.link-del');
       if (!del) return;
       const rows = $('linkList').querySelectorAll('.link-row');
       // 至少留一行，否则整个区域看着像坏了
-      if (rows.length <= 1) {
-        rows[0].querySelectorAll('input').forEach((i) => { i.value = ''; });
-        return;
-      }
+      if (rows.length <= 1) { resetLinkRow(rows[0]); return; }
       del.closest('.link-row').remove();
+    });
+
+    /* 云盘名下拉：点别处 / 按 Esc 收起（同时只留一个开着） */
+    document.addEventListener('click', (e) => {
+      const cur = e.target.closest('.drive-pick');
+      $('linkList').querySelectorAll('.drive-pick').forEach((p) => {
+        if (p === cur) return;
+        p.querySelector('.dropdown-menu').hidden = true;
+        p.querySelector('.dropdown-toggle').setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeAllDriveMenus();
     });
 
     /* 图片选择：按钮去触发藏起来的 file input */
