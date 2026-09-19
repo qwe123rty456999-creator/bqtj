@@ -97,8 +97,9 @@
         + '</div></div>';
     }
 
-    return `<details class="game-card">
-  <summary class="game-head">
+    const shots = shotsHTML(g);
+    return `<article class="game-card${shots ? '' : ' no-shots'}">
+  <div class="game-head" role="button" tabindex="0" aria-expanded="false">
     ${coverHTML(g)}
     <div class="game-main">
       <div class="game-name">${esc(g.name || '未命名')}</div>
@@ -109,17 +110,48 @@
       </div>
     </div>
     <span class="game-toggle" aria-hidden="true"></span>
-  </summary>
-
-  <div class="game-body">
-    <div class="game-actions">
-      ${dlHTML}
-      <button class="btn" data-copy="${esc(code)}">复制提取码 ${esc(code)}</button>
-    </div>
-    ${shotsHTML(g)}
   </div>
-</details>`;
+
+  <!-- 下载和复制按钮不放在可折叠区里：手机上要先点「展开」才能下载太麻烦（用户反馈）。
+       手机端它一直露在外面，桌面端仍然跟截图一起收在展开里（见 style.css）。 -->
+  <div class="game-actions">
+    ${dlHTML}
+    <button class="btn" data-copy="${esc(code)}">复制提取码 ${esc(code)}</button>
+  </div>
+
+  ${shots ? `<div class="game-shots">${shots}</div>` : ''}
+</article>`;
   }).join('');
+
+  /* ------------------------- 卡片开合 ------------------------- */
+  /**
+   * 以前整张卡是一个 <details>，要点开才能看到下载和复制按钮。
+   * 手机端那样太麻烦（用户反馈），所以改成 JS 控制开合：
+   * 手机上按钮一直露在外面，这个开关只管截图。
+   *
+   * 为什么不用 <details> 了：收起时它会把里面所有东西一起藏掉；
+   * 而把按钮塞进 <summary> 也不行 —— 点 <summary> 里的按钮会顺带开合卡片，
+   * 那是浏览器原生行为，stopPropagation 拦不住，preventDefault 又会连带
+   * 把下载链接的跳转一起取消掉。
+   */
+  const toggleCard = (card) => {
+    const open = !card.classList.contains('open');
+    card.classList.toggle('open', open);
+    card.querySelector('.game-head')?.setAttribute('aria-expanded', String(open));
+  };
+
+  $list.addEventListener('click', (e) => {
+    const head = e.target.closest('.game-head');
+    if (!head || e.target.closest('.game-actions')) return;
+    toggleCard(head.closest('.game-card'));
+  });
+  $list.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const head = e.target.closest('.game-head');
+    if (!head) return;
+    e.preventDefault();
+    toggleCard(head.closest('.game-card'));
+  });
 
   /* ------------------------- 复制按钮（事件委托） ------------------------- */
   $list.addEventListener('click', (e) => {
@@ -147,6 +179,4 @@
 
   $box.addEventListener('click', closeBox);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$box.hidden) closeBox(); });
-
-  /* <details> 是原生折叠，不需要 JS —— 只有「展开/收起」那个标签用 CSS 切文字 */
 })();

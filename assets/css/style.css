@@ -654,6 +654,8 @@ select.control:focus { border-color: var(--accent); }
   border-radius: var(--radius-sm);
   box-shadow: 0 10px 24px rgba(16, 24, 40, 0.1);
 }
+/* 下边放不下时由 bindMoreMenu 挂上 drop-up，改成往上弹 */
+.more-menu.drop-up { top: auto; bottom: calc(100% + 6px); }
 
 .more-item {
   display: flex;
@@ -1182,17 +1184,16 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 
 .game-list { display: flex; flex-direction: column; gap: 12px; }
 
-/* 整张卡片就是一个 <details>：标题栏点开才展开截图和下载按钮。
-   用户明确要求「记得折叠」—— 这样一屏能扫完所有游戏，想看哪个再点开。
+/* 整张卡片。头部点开才展开截图（桌面端连下载/复制按钮一起展开）。
 
    注意：这里**不能**写 overflow:hidden 来收圆角 —— 多云盘时「选择云盘下载」
-   的弹出菜单是绝对定位的，会被裁掉。改成给标题栏和内容区各自设圆角。 */
+   的弹出菜单是绝对定位的，会被裁掉。改成给各块单独设圆角。 */
 .game-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
 }
-.game-card[open] { border-color: var(--border-strong); }
+.game-card.open { border-color: var(--border-strong); }
 
 .game-head {
   display: flex;
@@ -1200,12 +1201,15 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   gap: 12px;
   padding: 11px 14px;
   cursor: pointer;
-  list-style: none;                     /* 去掉原生三角，改用右边的「展开/收起」 */
   border-radius: var(--radius-sm);      /* 收起时它是唯一可见的块，四角都要圆 */
 }
-.game-head::-webkit-details-marker { display: none; }
 .game-head:hover { background: var(--surface-2); }
-.game-card[open] .game-head { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+.game-head:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+/* 展开了下面就还有内容，底部改成直角接上 */
+.game-card.open .game-head { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
 
 .game-cover {
   flex: 0 0 auto;
@@ -1248,21 +1252,43 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   color: var(--text-muted);
 }
 .game-toggle::after { content: '展开'; }
-.game-card[open] .game-toggle::after { content: '收起'; }
+.game-card.open .game-toggle::after { content: '收起'; }
 
-.game-body {
+/* 下载 / 复制提取码。
+   桌面：跟截图一起收在「展开」里（跟以前一样）；
+   手机：一直露在外面 —— 要先点一下「展开」才能下载太绕（用户要求）。 */
+.game-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 13px 14px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-soft);
+}
+.game-note { font-size: 13px; color: var(--text-muted); }
+
+/* 截图块 */
+.game-shots {
   padding: 13px 14px 15px;
   border-top: 1px solid var(--border);
   background: var(--bg-soft);
   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
 }
-.game-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.game-note { font-size: 13px; color: var(--text-muted); }
+/* 没有截图时，最后一个可见的块是 .game-actions，得由它收底部的圆角 */
+.game-actions:last-child { border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
+
+/* 桌面端收起状态：按钮和截图一起藏起来 */
+.game-card:not(.open) .game-actions,
+.game-card:not(.open) .game-shots { display: none; }
 
 /* 「选择云盘下载」那个弹出菜单：宽度跟着按钮走，条目左对齐。
    高度设上限：云盘多了（用户要求不设上限）菜单会很长，超出部分改为内部滚动，
    免得整块顶出屏幕外面点不到。 */
 .game-actions .more-menu {
+  /* 这个按钮在操作行的**行首**，菜单默认的 right:0 会往左长出屏幕
+     （实测手机上左侧被截掉 7px），改成左对齐往右长 */
+  left: 0;
+  right: auto;
   min-width: 160px;
   max-height: 62vh;
   overflow-y: auto;
@@ -1274,7 +1300,6 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px;
-  margin-top: 13px;
 }
 .shots a {
   display: block;
@@ -1409,6 +1434,17 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   .link-row { flex-wrap: wrap; }
   .link-row .drive-pick,
   .link-row .link-url { flex: 1 1 100%; }
+
+  /* 手机端：下载和复制按钮不用先「展开」就能看到 */
+  .game-card:not(.open) .game-actions {
+    display: flex;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  }
+  /* 按钮已经在外面了，这个开关只剩截图可管，说「展开」会让人以为还得再点一次 */
+  .game-toggle::after { content: '看截图'; }
+  .game-card.open .game-toggle::after { content: '收起截图'; }
+  /* 本来就没截图，开关没东西可开 */
+  .game-card.no-shots .game-toggle { display: none; }
 }
 
 /* ============================ 响应式 ============================ */

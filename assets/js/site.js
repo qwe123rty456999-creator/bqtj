@@ -288,6 +288,19 @@ function bindMoreMenu(container) {
       if (menu && !wasOpen) {
         menu.hidden = false;
         btn.setAttribute('aria-expanded', 'true');
+        // 按上下剩余空间定高 + 下面放不下就往上弹。
+        // 菜单项数不设上限（游戏可以挂任意多个云盘），写死 max-height 会让菜单
+        // 顶出屏幕底部，最后几项根本点不到。
+        //
+        // 注意先清掉上一次留下的内联高度，否则重新打开时会带着旧值。
+        menu.style.maxHeight = '';
+        const r = btn.getBoundingClientRect();
+        const below = window.innerHeight - r.bottom - 12;
+        const above = r.top - 12;
+        const up = below < 220 && above > below;
+        menu.classList.toggle('drop-up', up);
+        const room = up ? above : below;
+        if (menu.scrollHeight > room) menu.style.maxHeight = Math.max(120, room) + 'px';
       }
       return;
     }
