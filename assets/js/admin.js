@@ -31,8 +31,12 @@
 
   let countsMap = new Map();   // path → 下载次数（来自 /api/counts）
   let mgItems = [];            // 字幕管理的当前列表（来自 subs.json）
+  let statEntries = [];        // 下载统计原始数据 [[path, 次数], ...]
+  let statTotal = 0;
+  let statKw = '';             // 数据概览的搜索词
+  let mgKw = '';               // 字幕管理的搜索词
 
-  ui.maxSize.textContent = humanSize(MAX);
+  if (ui.maxSize) ui.maxSize.textContent = humanSize(MAX);   // 该元素可能已从页面移除
 
   /* ======================= 通用工具 ======================= */
 
@@ -484,34 +488,9 @@
       const entries = Object.entries(data.counts || {}).sort((a, b) => b[1] - a[1]);
       countsMap = new Map(entries);
       renderManage();   // 管理列表也顺便显示下载次数
-      if (!entries.length) {
-        ui.statSummary.textContent = '还没有下载记录。等有人从字幕库下载后，这里就会出现数据。';
-        return;
-      }
-
-      ui.statSummary.innerHTML =
-        `共 <b>${data.total}</b> 次下载 · 涉及 <b>${entries.length}</b> 个文件` +
-        (entries.length > 100 ? '（下表只显示前 100）' : '');
-
-      const max = entries[0][1];
-      ui.statTable.innerHTML = `
-        <table class="stat-table">
-          <thead><tr><th>文件</th><th class="num">下载</th><th class="bar-cell"></th></tr></thead>
-          <tbody>
-            ${entries.slice(0, 100).map(([p, n]) => {
-              const segs = p.split('/').filter(Boolean);
-              const name = segs[segs.length - 1] || p;
-              return `<tr>
-                <td>
-                  <a href="${esc(fileUrl(p))}" target="_blank" rel="noopener">${esc(name)}</a>
-                  <div class="path-cell">${esc(p)}</div>
-                </td>
-                <td class="num">${n}</td>
-                <td class="bar-cell"><div class="mini-bar" style="width:${Math.max(3, Math.round((n / max) * 100))}%"></div></td>
-              </tr>`;
-            }).join('')}
-          </tbody>
-        </table>`;
+      statEntries = entries;
+      statTotal = data.total || 0;
+      renderStatTable();
     } catch (e) {
       ui.statSummary.innerHTML =
         `读取统计失败：${e.name === 'AbortError' ? '请求超时' : esc(e.message)}` +
@@ -522,7 +501,54 @@
     }
   }
 
+  /** 渲染下载排行表（受 #statSearch 过滤） */
+  function renderStatTable() {
+    const kw = statKw.trim().toLowerCase();
+
+    if (!statEntries.length) {
+      ui.statSummary.textContent = '还没有下载记录。等有人从字幕库下载后，这里就会出现数据。';
+      ui.statTable.innerHTML = '';
+      return;
+    }
+
+    const list = kw
+      ? statEntries.filter(([p]) => p.toLowerCase().includes(kw))
+      : statEntries;
+
+    const sum = list.reduce((s, [, n]) => s + n, 0);
+
+    ui.statSummary.innerHTML = kw
+      ? `匹配 <b>${list.length}</b> / ${statEntries.length} 个文件 · 这些文件共 <b>${sum}</b> 次下载`
+      : `共 <b>${statTotal}</b> 次下载 · 涉及 <b>${statEntries.length}</b> 个文件` +
+        (list.length > 100 ? '（下表只显示前 100 个）' : '');
+
+    if (!list.length) {
+      ui.statTable.innerHTML = '<div class="result-info">没有匹配的文件。</div>';
+      return;
+    }
+
+    const max = Math.max(...list.map(([, n]) => n)) || 1;
+    ui.statTable.innerHTML = `
+      <table class="stat-table">
+        <thead><tr><th>文件</th><th class="num">下载</th><th class="bar-cell"></th></tr></thead>
+        <tbody>
+          ${list.slice(0, 100).map(([p, n]) => {
+            const segs = p.split('/').filter(Boolean);
+            const name = segs[segs.length - 1] || p;
+            return `<tr>
+              <td>
+                <a href="${esc(fileUrl(p))}" target="_blank" rel="noopener">${esc(name)}</a>
+              </td>
+              <td class="num">${n}</td>
+              <td class="bar-cell"><div class="mini-bar" style="width:${Math.max(3, Math.round((n / max) * 100))}%"></div></td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>`;
+  }
+
   $('btnReloadStats').addEventListener('click', loadStats);
+  $('statSearch').addEventListener('input', (e) => { statKw = e.target.value; renderStatTable(); });
 
   /* ======================= 字幕管理（改说明 / 删除） ======================= */
 
@@ -577,6 +603,13 @@
     }
   }
 
+  /** 管理列表的搜索匹配：名字 / 文件名 / 路径 / 说明（空格分词 = AND） */
+  function matchMg(it, kw) {
+    if (!kw) return true;
+    const hay = (it.name + ' ' + (it.file || '') + ' ' + it.path + ' ' + (it.desc || '')).toLowerCase();
+    return kw.toLowerCase().split(/\s+/).filter(Boolean).every((w) => hay.includes(w));
+  }
+
   function renderManage() {
     if (!mgUI.list) return;
 
@@ -587,9 +620,20 @@
       return;
     }
 
-    mgUI.info.textContent = `共 ${mgItems.length} 个字幕`;
+    const kw = mgKw.trim();
+    const list = mgItems.filter((it) => matchMg(it, kw));
 
-    mgUI.list.innerHTML = mgItems.map((it) => {
+    mgUI.info.textContent = kw
+      ? `匹配 ${list.length} / ${mgItems.length}`
+      : `共 ${mgItems.length} 个字幕`;
+
+    if (!list.length) {
+      mgUI.list.innerHTML =
+        '<div class="empty"><h3>没有匹配的字幕</h3><p>换个关键词试试。</p></div>';
+      return;
+    }
+
+    mgUI.list.innerHTML = list.map((it) => {
       const n = countsMap.get(it.path);
       return `
       <div class="mg-row" data-path="${esc(it.path)}">
@@ -613,13 +657,48 @@
           <button class="btn btn-sm btn-primary" data-act="save">保存说明</button>
           <button class="btn btn-sm btn-danger" data-act="del">删除字幕</button>
         </div>
-
-        <div class="mg-path">${esc(it.path)}</div>
       </div>`;
     }).join('');
   }
 
   mgUI.reload.addEventListener('click', loadManage);
+
+  $('mgSearch').addEventListener('input', (e) => { mgKw = e.target.value; renderManage(); });
+
+  /* ---- 展开「字幕管理」需要访问密码 ----
+     注意：这是前端校验，只能挡住随手点开的人，不是真正的安全措施
+     （任何人都能查看页面源码看到密码）。真正管住写入的是 GitHub 令牌。 */
+  const MG_PWD = S.adminPassword || 'bqtj';
+  const mgCard = $('mgCard');
+  let mgUnlocked = false;
+
+  function lockManage(msg = '') {
+    mgUnlocked = false;
+    $('mgLock').hidden = false;
+    $('mgBody').hidden = true;
+    $('mgPwd').value = '';
+    $('mgLockMsg').textContent = msg;
+  }
+
+  function unlockManage() {
+    if ($('mgPwd').value.trim() !== MG_PWD) {
+      lockManage('密码不对');
+      $('mgPwd').focus();
+      return;
+    }
+    mgUnlocked = true;
+    $('mgLock').hidden = true;
+    $('mgBody').hidden = false;
+    $('mgLockMsg').textContent = '';
+    $('mgPwd').value = '';
+    loadManage();
+  }
+
+  $('mgUnlock').addEventListener('click', unlockManage);
+  $('mgPwd').addEventListener('keydown', (e) => { if (e.key === 'Enter') unlockManage(); });
+
+  // 收起时重新上锁 —— 下次展开还要再输一次
+  mgCard.addEventListener('toggle', () => { if (!mgCard.open && mgUnlocked) lockManage(); });
 
   mgUI.list.addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-act]');
@@ -691,6 +770,6 @@
 
   renderList();
   loadStats();
-  loadManage();
+  // 字幕管理要输密码解锁后才加载（unlockManage 里调 loadManage）
   setTimeout(() => { if (!state.token) log('提示：先在「上传设置」里保存 GitHub 令牌，才能上传。', 'warn'); }, 300);
 })();

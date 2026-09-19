@@ -68,11 +68,6 @@
   <!-- ============ ① 上传 ============ -->
   <section class="admin-card">
     <h2><span class="num">1</span>上传字幕</h2>
-    <p class="hint">
-      把字幕文件拖进来，或点击选择（支持多选）。文件会放进 <code>files/subs/</code>，
-      语言按文件名自动判断（认不出就按<b>简体中文</b>），上传后<b>自动追加到字幕库索引</b>并触发部署。
-      单个文件上限 <b id="maxSize">20 MB</b>。
-    </p>
 
     <div class="drop" id="drop">
       <b>拖字幕文件到这里，或点击选择</b>
@@ -90,10 +85,10 @@
     <div class="log" id="log" hidden></div>
   </section>
 
-  <!-- ============ ② 数据概览 + 下载统计 ============ -->
-  <section class="admin-card">
-    <h2><span class="num">2</span>数据概览</h2>
-    <p class="hint">
+  <!-- ============ ② 数据概览 + 下载统计（默认折叠） ============ -->
+  <details class="admin-card" id="statCard">
+    <summary><span class="num">2</span>数据概览</summary>
+    <p class="hint" style="margin-top:0">
       下载次数来自访客的真实下载请求。同一访客 12 小时内重复下载同一个文件只计一次，
       所以这个数字更接近「有多少人下过」。
     </p>
@@ -104,34 +99,58 @@
       <div class="stat"><b>—</b><span>最近更新</span></div>
     </div>
 
-    <div class="result-info" id="statSummary">加载中…</div>
-    <div class="table-wrap" id="statTable"></div>
-
-    <div class="file-actions" style="margin-top:14px">
+    <div class="card-tools">
+      <input class="input" type="search" id="statSearch" autocomplete="off"
+             placeholder="搜索文件名">
       <button class="btn btn-sm" id="btnReloadStats">刷新</button>
       <a class="btn btn-sm" href="/subs/?sort=count-desc">按下载量排序查看</a>
     </div>
-  </section>
 
-  <!-- ============ ③ 字幕管理 ============ -->
-  <section class="admin-card">
-    <h2><span class="num">3</span>字幕管理</h2>
-    <p class="hint">
-      给字幕写一句说明，或者删掉不要的字幕。说明会显示在首页和字幕库的文件名下方，
-      并且能被搜索到。改动直接提交到 GitHub，Cloudflare 随后自动部署，约 1 分钟后生效。
-    </p>
+    <div class="result-info" id="statSummary">加载中…</div>
+    <div class="table-wrap" id="statTable"></div>
+  </details>
 
-    <div class="file-actions" style="margin-bottom:14px">
-      <button class="btn btn-sm" id="btnReloadMg">刷新列表</button>
-      <span class="result-info" id="mgInfo" style="margin:0"></span>
+  <!-- ============ ③ 字幕管理（展开需密码，默认折叠） ============ -->
+  <details class="admin-card" id="mgCard">
+    <summary><span class="num">3</span>字幕管理</summary>
+
+    <!-- 未解锁：只显示这一块 -->
+    <div id="mgLock">
+      <p class="hint" style="margin-top:0">
+        这一栏能删除字幕，所以展开时需要访问密码。
+      </p>
+      <div class="field">
+        <label for="mgPwd">访问密码</label>
+        <input class="input" type="password" id="mgPwd" autocomplete="off" spellcheck="false"
+               placeholder="输入访问密码">
+      </div>
+      <div class="file-actions">
+        <button class="btn btn-primary" id="mgUnlock">解锁</button>
+      </div>
+      <div class="result-info" id="mgLockMsg" style="margin-top:10px"></div>
     </div>
 
-    <div class="mg-list" id="mgList">
-      <div class="result-info">加载中…</div>
-    </div>
+    <!-- 解锁后才显示 -->
+    <div id="mgBody" hidden>
+      <p class="hint" style="margin-top:0">
+        给字幕写一句说明，或者删掉不要的字幕。说明会显示在首页和字幕库的文件名下方，
+        并且能被搜索到。改动直接提交到 GitHub，Cloudflare 随后自动部署，约 1 分钟后生效。
+      </p>
 
-    <div class="log" id="mgLog" hidden></div>
-  </section>
+      <div class="card-tools">
+        <input class="input" type="search" id="mgSearch" autocomplete="off"
+               placeholder="搜索字幕名 / 说明">
+        <button class="btn btn-sm" id="btnReloadMg">刷新列表</button>
+        <span class="result-info" id="mgInfo"></span>
+      </div>
+
+      <div class="mg-list" id="mgList">
+        <div class="result-info">加载中…</div>
+      </div>
+
+      <div class="log" id="mgLog" hidden></div>
+    </div>
+  </details>
 
 </main>
 
