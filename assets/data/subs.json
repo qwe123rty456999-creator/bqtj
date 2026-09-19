@@ -1,19 +1,32 @@
 {
-  "generated": "2026-09-19T03:58:00.601Z",
+  "generated": "2026-09-19T06:03:25.731Z",
   "root": "files/subs",
-  "count": 2,
+  "count": 3,
   "stats": {
     "languages": {
-      "简中": 2
+      "简中": 3
     },
     "formats": {
-      "ass": 2
+      "ass": 3
     },
-    "groups": {
-      "示例番剧": 2
-    }
+    "groups": {}
   },
   "items": [
+    {
+      "name": "ソンギラー - 重音テト × 足立レイ[吉田夜世]",
+      "file": "ソンギラー - 重音テト × 足立レイ[吉田夜世] [IaENkT9cDcc].ass",
+      "path": "/files/subs/ソンギラー - 重音テト × 足立レイ[吉田夜世] [IaENkT9cDcc].ass",
+      "ext": "ass",
+      "size": 5822,
+      "mtime": "2026-08-27T07:11:29.530Z",
+      "lang": "简中",
+      "langClass": "zh-hans",
+      "langSource": "auto",
+      "group": "",
+      "groupTitle": "",
+      "tags": [],
+      "url": ""
+    },
     {
       "name": "Miku's sick fantasy",
       "file": "Miku's sick fantasy [0wuGD-S7QlY].ass",
