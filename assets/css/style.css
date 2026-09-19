@@ -194,6 +194,7 @@ kbd {
   background: var(--surface);
   color: var(--text);
   font-size: 14px;
+  line-height: 1.4;   /* 必须显式设：<button> 默认 line-height:normal，而 <a> 会继承 body 的 1.65，两者高度会差 5px */
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;

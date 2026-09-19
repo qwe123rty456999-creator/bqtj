@@ -50,38 +50,6 @@
 
   /* ----------------------------- 渲染 ----------------------------- */
 
-  /**
-   * 「更多」菜单里的项。顺序固定：1 分享链接 → 2 原视频 → 3 下载视频。
-   * 后两项由管理员在 /admin/ 里填，没填就不出现。
-   */
-  function moreItems(f) {
-    const list = [{ kind: 'copy', label: '分享链接', path: f.path }];
-    if (f.videoUrl) list.push({ kind: 'link', label: '原视频', href: f.videoUrl, blank: true });
-    if (f.videoDl) list.push({ kind: 'link', label: '下载视频', href: f.videoDl, dl: true });
-    return list;
-  }
-
-  function moreMenu(f) {
-    const list = moreItems(f);
-    // 只有一项时不加编号 —— 孤零零一个「1」看着很怪
-    const numbered = list.length > 1;
-
-    const body = list.map((it, i) => {
-      const label = (numbered ? `<span class="more-num">${i + 1}</span>` : '') + esc(it.label);
-      return it.kind === 'copy'
-        ? `<button class="more-item" data-copy="${esc(it.path)}">${label}</button>`
-        : `<a class="more-item" href="${esc(it.href)}"` +
-          (it.blank ? ' target="_blank" rel="noopener"' : '') +
-          (it.dl ? ' download' : '') + `>${label}</a>`;
-    }).join('');
-
-    return `
-      <div class="more">
-        <button class="btn btn-sm" data-act="more" aria-expanded="false" aria-haspopup="true">更多</button>
-        <div class="more-menu" hidden>${body}</div>
-      </div>`;
-  }
-
   function rowHTML(f) {
     const n = state.counts.get(f.path);
     return `
@@ -101,7 +69,7 @@
         </div>
         <div class="file-actions">
           <a class="btn btn-sm btn-primary" href="${esc(fileUrl(f.path))}" download>下载</a>
-          ${moreMenu(f)}
+          ${moreMenuHTML(f)}
         </div>
       </div>`;
   }
@@ -220,42 +188,9 @@
     }
   });
 
-  // 「更多」菜单：点按钮开合，点别处关掉
-  function closeAllMenus() {
-    $list.querySelectorAll('.more-menu').forEach((m) => { m.hidden = true; });
-    $list.querySelectorAll('[data-act="more"]').forEach((b) => b.setAttribute('aria-expanded', 'false'));
-  }
-
-  $list.addEventListener('click', (e) => {
-    const more = e.target.closest('[data-act="more"]');
-    if (more) {
-      const menu = more.parentElement.querySelector('.more-menu');
-      const wasOpen = menu && !menu.hidden;
-      closeAllMenus();
-      if (menu && !wasOpen) {
-        menu.hidden = false;
-        more.setAttribute('aria-expanded', 'true');
-      }
-      return;
-    }
-    // 点菜单里的链接/按钮后也顺手收起
-    if (e.target.closest('.more-menu')) { closeAllMenus(); return; }
-    closeAllMenus();
-  });
-
-  // 点页面其他地方也收起。
-  // 必须挂在 document 上 —— 点在列表外面时事件不会冒泡到 $list，挂在 $list 上收不掉。
-  document.addEventListener('click', (e) => {
-    if (e.target.closest('.more')) return;   // 菜单/按钮自己的点击由上面的监听器处理
-    closeAllMenus();
-  });
-
-  // 复制直链
-  $list.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-copy]');
-    if (!btn) return;
-    copyText(new URL(fileUrl(btn.getAttribute('data-copy')), location.origin).href, btn);
-  });
+  // 「更多」菜单与「分享链接」的事件委托（实现在 site.js，首页用的是同一份）
+  bindMoreMenu($list);
+  bindCopyButtons($list);
 
   function resetAll() {
     state.kw = '';

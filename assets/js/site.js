@@ -166,6 +166,78 @@ async function copyText(text, btn) {
   }
 }
 
+/* ----------------------------- 列表里的「更多」菜单 ----------------------------- */
+
+/**
+ * 生成「更多」菜单。顺序固定：1 分享链接 → 2 原视频 → 3 下载视频。
+ * 后两项由管理员在 /admin/ 里填，没填就不出现。
+ * 只有一项时不加编号 —— 孤零零一个「1」看着很怪。
+ */
+function moreMenuHTML(f) {
+  const list = [{ kind: 'copy', label: '分享链接', path: f.path }];
+  if (f.videoUrl) list.push({ kind: 'link', label: '原视频', href: f.videoUrl, blank: true });
+  if (f.videoDl) list.push({ kind: 'link', label: '下载视频', href: f.videoDl, dl: true });
+
+  const numbered = list.length > 1;
+  const body = list.map((it, i) => {
+    const label = (numbered ? `<span class="more-num">${i + 1}</span>` : '') + esc(it.label);
+    return it.kind === 'copy'
+      ? `<button class="more-item" data-copy="${esc(it.path)}">${label}</button>`
+      : `<a class="more-item" href="${esc(it.href)}"` +
+        (it.blank ? ' target="_blank" rel="noopener"' : '') +
+        (it.dl ? ' download' : '') + `>${label}</a>`;
+  }).join('');
+
+  return '<div class="more">' +
+    '<button class="btn btn-sm" data-act="more" aria-expanded="false" aria-haspopup="true">更多</button>' +
+    `<div class="more-menu" hidden>${body}</div></div>`;
+}
+
+/**
+ * 菜单开合：容器内做事件委托。
+ * 「点页面别处收起」必须挂在 document 上 —— 点在列表外面时事件不会冒泡到容器，挂在容器上收不掉。
+ */
+function bindMoreMenu(container) {
+  if (!container || container.dataset.moreBound) return;
+  container.dataset.moreBound = '1';
+
+  const closeAll = () => {
+    container.querySelectorAll('.more-menu').forEach((m) => { m.hidden = true; });
+    container.querySelectorAll('[data-act="more"]').forEach((b) => b.setAttribute('aria-expanded', 'false'));
+  };
+
+  container.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-act="more"]');
+    if (btn) {
+      const menu = btn.parentElement.querySelector('.more-menu');
+      const wasOpen = menu && !menu.hidden;
+      closeAll();
+      if (menu && !wasOpen) {
+        menu.hidden = false;
+        btn.setAttribute('aria-expanded', 'true');
+      }
+      return;
+    }
+    closeAll();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.more')) return;   // 菜单/按钮自己的点击交给上面的监听器
+    closeAll();
+  });
+}
+
+/** 「复制直链」（包括「更多」菜单里的「分享链接」） */
+function bindCopyButtons(container) {
+  if (!container || container.dataset.copyBound) return;
+  container.dataset.copyBound = '1';
+  container.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-copy]');
+    if (!btn) return;
+    copyText(new URL(fileUrl(btn.getAttribute('data-copy')), location.origin).href, btn);
+  });
+}
+
 /* ----------------------------- URL 查询参数 ----------------------------- */
 function getParam(key) {
   return new URLSearchParams(location.search).get(key) || '';
