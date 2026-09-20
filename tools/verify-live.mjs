@@ -12,7 +12,7 @@ const CHECKS = [
   ['/assets/js/subs.js', ['matchKeywords', 'search-scope: name + desc + ext', '!item.path', '!item.file']],
   ['/games/admin/', ['listPwd', 'sendToast', '无需提取码', 'style.css?v=14', 'site.js?v=12', 'config.js?v=4', 'games-admin.js?v=8']],
   ['/admin/', ['sendToast', 'style.css?v=14', 'site.js?v=12', 'config.js?v=4', 'admin.js?v=5']],
-  ['/games/', ['按自己喜好下载', 'style.css?v=14', 'site.js?v=12', 'games.js?v=5']],
+  ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', 'style.css?v=14', 'site.js?v=12', 'games.js?v=5']],
   ['/subs/', ['style.css?v=14', 'site.js?v=12', 'subs.js?v=4']],
   ['/', ['style.css?v=14', 'site.js?v=12']],
   [
