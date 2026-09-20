@@ -242,14 +242,14 @@ function cleanUrl(u) {
 }
 
 /**
- * 生成「更多」菜单。顺序固定：1 分享链接 → 2 原视频链接 → 3 下载原视频。
+ * 生成「更多」菜单。顺序固定：1 复制下载链接 → 2 观看原视频(需VPN) → 3 下载视频(提取码bqtj)。
  * 后两项由管理员在 /admin/ 里填，没填就不出现。
  * 只有一项时不加编号 —— 孤零零一个「1」看着很怪。
  */
 function moreMenuHTML(f) {
   const list = [{ kind: 'copy', label: '复制下载链接', path: f.path }];
-  if (f.videoUrl) list.push({ kind: 'link', label: '原视频链接（需 VPN）', href: cleanUrl(f.videoUrl), blank: true });
-  if (f.videoDl) list.push({ kind: 'link', label: '下载原视频（提取码 bqtj）', href: cleanUrl(f.videoDl), dl: true });
+  if (f.videoUrl) list.push({ kind: 'link', label: '观看原视频(需VPN)', href: cleanUrl(f.videoUrl), blank: true });
+  if (f.videoDl) list.push({ kind: 'link', label: '下载视频(提取码bqtj)', href: cleanUrl(f.videoDl), dl: true });
 
   const numbered = list.length > 1;
   const body = list.map((it, i) => {
