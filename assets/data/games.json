@@ -1,5 +1,52 @@
 {
-  "generated": "2026-09-19T14:16:10.932Z",
-  "count": 0,
-  "items": []
+  "generated": "2026-09-20T05:04:13.006Z",
+  "count": 1,
+  "items": [
+    {
+      "id": "gmu9cq47yr2q",
+      "cover": "/files/games/gmu9cq47yr2q/cover.jpg",
+      "shots": [],
+      "mtime": "2026-09-20T05:04:09.695Z",
+      "created": "2026-09-20T05:04:09.694Z",
+      "name": "初音未来粉丝游戏",
+      "brief": "初音未来粉丝同人游戏。原作者：soaterP。本汉化已获授权，免费分享，请勿用于商业用途。",
+      "links": [
+        {
+          "name": "中国移动云盘",
+          "url": "https://yun.139.com/shareweb/#/w/i/2xTrG73E8b1xb",
+          "code": "xe48"
+        },
+        {
+          "name": "光鸭云盘",
+          "url": "https://www.guangyapan.com/s/1948634755775356981_aq3ElAkdka5MsSkS",
+          "code": ""
+        },
+        {
+          "name": "123云盘",
+          "url": "https://4006412047.share.123pan.cn/123pan/EZnQwh-oBY53",
+          "code": ""
+        },
+        {
+          "name": "蓝奏云",
+          "url": "https://wwaom.lanzn.com/iem8e498x6zg",
+          "code": ""
+        },
+        {
+          "name": "夸克网盘",
+          "url": "https://pan.quark.cn/s/9b6235f7afc4",
+          "code": ""
+        },
+        {
+          "name": "迅雷云盘",
+          "url": "https://pan.xunlei.com/s/VP1xB9ckU54Ke0xw5-DVnxYaA1?pwd=yrqb",
+          "code": "yrqb"
+        },
+        {
+          "name": "百度网盘",
+          "url": "https://pan.baidu.com/s/1Jhaqxu6HXddHgieGaXHsYg?pwd=bqtj",
+          "code": "bqtj"
+        }
+      ]
+    }
+  ]
 }
