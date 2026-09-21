@@ -67,12 +67,19 @@
     .map((s) => '<p>' + esc(s) + '</p>')
     .join('');
 
+  /* 云盘按钮：名字后面直接标出这个云盘自己的提取码 / 「无需提取码」。
+     2026-09-21 改（用户要求「网盘后面显示提取码或无需提取码」）——
+     各盘的码不一定一样，访客得先知道点哪个要哪个码。
+     码同时仍会在点击时自动复制（site.js 的 copyCodeOnOpen），两件事不冲突。 */
   const drivesHTML = links.length
     ? '<div class="gd-drives">' + links.map((l) => {
         const label = esc(l.name || '下载');
+        const code = l.code
+          ? `<span class="gd-drive-code">提取码 ${esc(l.code)}</span>`
+          : '<span class="gd-drive-code none">无需提取码</span>';
         return `<a class="gd-drive" href="${esc(l.url)}" target="_blank" rel="noopener"` +
           (l.code ? ` data-code="${esc(l.code)}"` : '') +
-          `><span class="gd-drive-name">${label}</span></a>`;
+          `><span class="gd-drive-name">${label}</span>${code}</a>`;
       }).join('') + '</div>'
     : '<p class="gd-hint">这个条目还没有填下载链接。</p>';
 
@@ -102,8 +109,8 @@
       <p class="gd-hint">${
         links.length
           ? (hasCode
-              ? '点下面的网盘就会打开分享页，<b>需要提取码的会自动复制到剪贴板</b>，粘贴一下就行。'
-              : '点下面的网盘直接打开分享页，不需要提取码。')
+              ? '点下面的网盘直接打开分享页。右边标着「提取码」的，点开时会<b>自动复制到剪贴板</b>，粘贴一下就行。'
+              : '点下面的网盘直接打开分享页，这些都不需要提取码。')
           : '还没填下载链接。'
       }</p>
       ${drivesHTML}

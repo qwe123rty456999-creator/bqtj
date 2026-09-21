@@ -7,24 +7,24 @@
 // 访客实际请求的就是带版本号的地址，那才是该核对的东西。
 const BASE = 'https://bqtj.pages.dev';
 const CHECKS = [
-  ['/assets/css/style.css?v=15', ['.filepick', '.drive-pick', '.link-code', '.send-toast', '.more-menu.drop-up', '.more-hint', '.gd-drive', '.gd-cover', '.gd-sec', '.textarea', '!more-code']],
+  ['/assets/css/style.css?v=16', ['.filepick', '.drive-pick', '.link-code', '.send-toast', '.more-menu.drop-up', '.gd-drive', '.gd-cover', '.gd-sec', '.gd-drive-code', '.textarea', '!more-code', '!game-actions', '!game-shots', '!more-hint']],
   ['/assets/js/site.js?v=14', ['function setNav', 'navBackdrop', "classList.toggle('drop-up'", 'copyCodeOnOpen', 'bindDriveCodeCopy', 'gameLinksOf', 'gameDetailUrl', 'siteToast', 'legacyCopy']],
-  // 列表页只留简介 + 下载 + 进详情；提取码按钮和列表内截图都已移除。
-  // 负向检查只盯实现标记（data-copy / shotsHTML / codesOf）——
+  // 列表页整张卡就是一个进详情页的链接：下载按钮、菜单、提取码按钮全删了。
+  // 负向检查只盯实现标记（dlHTML / data-act / data-copy / shotsHTML / codesOf）——
   // 别去查中文文案：代码注释里会提到历史写法，一查就误报（踩过一次）。
-  ['/assets/js/games.js?v=6', ['gameDetailUrl', 'bindDriveCodeCopy', 'more-hint', '选择云盘下载', '查看详情', '!data-copy', '!shotsHTML', '!codesOf']],
-  ['/assets/js/game-detail.js?v=1', ['gameLinksOf', 'bindDriveCodeCopy', 'gd-drive', 'gd-drives', 'lightbox', '详细介绍']],
+  ['/assets/js/games.js?v=7', ['gameDetailUrl', 'gameLinksOf', '还没填下载链接', '!dlHTML', '!bindMoreMenu', '!data-act', '!data-copy', '!shotsHTML', '!codesOf']],
+  ['/assets/js/game-detail.js?v=2', ['gameLinksOf', 'bindDriveCodeCopy', 'gd-drive-code', '无需提取码', 'gd-drives', 'lightbox', '详细介绍']],
   ['/assets/js/admin.js?v=5', ['sendState', 'netError', 'data-name', 'withShaRetry']],
   ['/assets/js/games-admin.js?v=9', ['sendState', 'withShaRetry', 'LIST_PWD', 'link-code', '无需码', 'gDetail', '看详情']],
   ['/assets/js/config.js?v=4', ['defaultExtractCode']],
   // 搜索只能匹配看得见的内容：haystack 里不能再出现原始文件名 / path（见 subs.js 注释）
   ['/assets/js/subs.js?v=4', ['matchKeywords', 'search-scope: name + desc + ext', '!item.path', '!item.file']],
-  ['/games/admin/', ['listPwd', 'sendToast', 'gDetail', 'style.css?v=15', 'site.js?v=14', 'config.js?v=4', 'games-admin.js?v=9']],
-  ['/admin/', ['sendToast', 'style.css?v=15', 'site.js?v=14', 'config.js?v=4', 'admin.js?v=5']],
-  ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '会自动复制到剪贴板', 'style.css?v=15', 'site.js?v=14', 'games.js?v=6', '!复制提取码']],
-  ['/games/detail.html?id=gmu9cq47yr2q', ['game-detail.js?v=1', 'site.js?v=14', 'gdBox', 'lightbox']],
-  ['/subs/', ['style.css?v=15', 'site.js?v=14', 'subs.js?v=4']],
-  ['/', ['style.css?v=15', 'site.js?v=14']],
+  ['/games/admin/', ['listPwd', 'sendToast', 'gDetail', 'style.css?v=16', 'site.js?v=14', 'config.js?v=4', 'games-admin.js?v=9']],
+  ['/admin/', ['sendToast', 'style.css?v=16', 'site.js?v=14', 'config.js?v=4', 'admin.js?v=5']],
+  ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '点卡片进详情页', '会自动复制到剪贴板', 'style.css?v=16', 'site.js?v=14', 'games.js?v=7', '!复制提取码', '!选择云盘下载']],
+  ['/games/detail.html?id=gmu9cq47yr2q', ['game-detail.js?v=2', 'site.js?v=14', 'gdBox', 'lightbox']],
+  ['/subs/', ['style.css?v=16', 'site.js?v=14', 'subs.js?v=4']],
+  ['/', ['style.css?v=16', 'site.js?v=14']],
   [
     '/about',
     [
@@ -36,7 +36,7 @@ const CHECKS = [
       '国内因后缀强制重置导致连不上',
       '只有一个自建的下载计数',
       '整理了 ASS / SRT 格式的字幕文件',
-      'style.css?v=15',
+      'style.css?v=16',
       'site.js?v=14',
       'config.js?v=4',
       '!SSA',

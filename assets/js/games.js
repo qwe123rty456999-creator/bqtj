@@ -1,12 +1,13 @@
 /* ==========================================================================
    games.js — 游戏列表页
-   依赖 site.js：esc / fileUrl / relTime / renderError / gameLinksOf /
-                gameDetailUrl / bindDriveCodeCopy / bindMoreMenu
+   依赖 site.js：esc / fileUrl / relTime / renderError / gameLinksOf / gameDetailUrl
+
+   本页只负责「挑游戏」：整张卡片就是一个链接，点进 /games/detail.html?id=xxx。
+   下载、提取码、截图、详细介绍全在详情页（game-detail.js）。
 
    2026-09-21 改版（用户反馈：一排「复制提取码 xxx」按钮很难看）：
-   - 列表里不再展开截图、不再摆提取码按钮；卡片只留简介 + 下载 + 进详情页。
-   - 点云盘直接跳转，需要提取码的由 site.js 的 copyCodeOnOpen 自动复制。
-   - 截图和详细介绍全部移到 /games/detail.html?id=xxx（见 game-detail.js）。
+   - 第一次：列表里去掉截图和提取码按钮，卡片下方留「选择云盘下载 + 查看详情」。
+   - 第二次（用户要求「移除下面两个，必须打开详情」）：那两个按钮也删了。
    ========================================================================== */
 
 (async function () {
@@ -58,41 +59,19 @@
   $list.className = 'game-list';
   $list.innerHTML = sorted.map((g) => {
     const links = gameLinksOf(g);
-    const solo = links.length === 1;
     const detail = gameDetailUrl(g.id);
 
     /* 名字下面那行小字：大小（旧数据可能还有）· 版本 · 时间 · 网盘数。
-       2026-09-21 改：这里原来还写「提取码 aaa / bbb / ccc」，
-       云盘一多就有三个码挤在同一行 —— 用户反馈难看不直观。
-       提取码改成点云盘时自动复制，页面上不再显示。 */
-    const subBits = [g.size, g.version, when(g.mtime), links.length ? links.length + ' 个网盘' : '']
-      .filter(Boolean);
+       2026-09-21 第二次改：这里原本还写「提取码 aaa / bbb / ccc」，
+       云盘一多就挤成一片；后来干脆连下载按钮也不放了（见下）。 */
+    const subBits = [g.size, g.version, when(g.mtime),
+      links.length ? links.length + ' 个网盘' : '还没填下载链接'].filter(Boolean);
 
-    /* 下载入口：
-       - 只有一个云盘 → 直接一个主色按钮
-       - 有多个云盘 → 一个按钮，点开再选（用站点自己的菜单组件，不用原生 select）
-       点了就直接跳转；需要提取码的交给 site.js 的 copyCodeOnOpen 自动复制，
-       所以这里只在 data-code 上挂着码，菜单里不显示它。 */
-    let dlHTML;
-    if (!links.length) {
-      dlHTML = '<span class="game-note">这个条目还没填下载链接。</span>';
-    } else if (solo) {
-      dlHTML = `<a class="btn btn-primary" href="${esc(links[0].url)}" target="_blank" rel="noopener"`
-        + (links[0].code ? ` data-code="${esc(links[0].code)}"` : '')
-        + `>去 ${esc(links[0].name || '网盘')} 下载</a>`;
-    } else {
-      dlHTML = '<div class="more">'
-        + '<button class="btn btn-primary" data-act="more" type="button" aria-expanded="false" aria-haspopup="true">选择云盘下载</button>'
-        + '<div class="more-menu" hidden>'
-        + (links.some((l) => l.code) ? '<div class="more-hint">点云盘会自动复制提取码</div>' : '')
-        + links.map((l) => `<a class="more-item" href="${esc(l.url)}" target="_blank" rel="noopener"`
-            + (l.code ? ` data-code="${esc(l.code)}"` : '')
-            + `>${esc(l.name || '下载')}</a>`).join('')
-        + '</div></div>';
-    }
-
-    /* 整张卡片的头部就是一个链接，直接进详情页 ——
-       截图和详细介绍都挪到那边去了，留在列表里只会让卡片变长。 */
+    /* 整张卡片只有头部这一个链接，直接进详情页。
+       2026-09-21 第二次改（用户要求「移除下面两个，必须打开详情」）：
+       原来下面还有「选择云盘下载」+「查看详情」两个按钮，现在全删了 ——
+       下载、提取码、截图、详细介绍一律去详情页看，列表只负责挑游戏。
+       所以这里不再需要 dlHTML / bindMoreMenu / bindDriveCodeCopy。 */
     return `<article class="game-card">
   <a class="game-head" href="${esc(detail)}">
     ${coverHTML(g)}
@@ -103,17 +82,6 @@
     </div>
     <span class="game-go" aria-hidden="true">详情</span>
   </a>
-
-  <div class="game-actions">
-    ${dlHTML}
-    <a class="btn" href="${esc(detail)}">查看详情</a>
-  </div>
 </article>`;
   }).join('');
-
-  /* 点云盘自动复制提取码（实现在 site.js，和详情页同一套） */
-  bindDriveCodeCopy($list);
-
-  /* 多云盘时的「选择云盘下载」菜单（site.js 里的组件，和字幕库的「更多」同一套） */
-  bindMoreMenu($list);
 })();

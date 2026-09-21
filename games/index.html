@@ -10,7 +10,7 @@
 
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=15">
+<link rel="stylesheet" href="/assets/css/style.css?v=16">
 <script>
 /* 提前请求游戏索引，与 CSS/JS 并行（见首页里的同一段注释） */
 window.__gamesJson = fetch('/assets/data/games.json', { cache: 'no-cache' });
@@ -40,16 +40,16 @@ window.__gamesJson = fetch('/assets/data/games.json', { cache: 'no-cache' });
     <div class="page-head">
       <div class="breadcrumb"><a href="/">首页</a> / 游戏</div>
       <h1>游戏</h1>
-      <p>分享一些游戏，点卡片进详情页看截图和详细介绍。</p>
+      <p>分享一些游戏，点卡片进详情页看截图、介绍和下载方式。</p>
     </div>
   </div>
 
-  <!-- 提取码不再单独列出来：点云盘下载时会自动复制到剪贴板，这里先讲清楚 -->
+  <!-- 列表上已经没有下载按钮了（都得进详情页），这里先把怎么下载讲清楚 -->
   <div class="container">
     <div class="notice">
       <div>
         <b>下载说明：</b>考虑到不同人的常用网盘不一样，于是上传到多个云盘，<b>按自己喜好下载</b>。<br>
-        点云盘会直接打开分享页，<b>需要提取码的会自动复制到剪贴板</b>，粘贴一下就行。<br>
+        <b>点卡片进详情页</b>就能看到每个网盘的提取码；点网盘时提取码还会自动复制到剪贴板，粘贴一下就行。<br>
         <b>免责声明：</b>本站分享的游戏仅供学习交流，请勿用于商业用途。游戏版权归原作者或相关权利人所有，如有侵权请联系删除。
       </div>
     </div>
@@ -76,6 +76,6 @@ window.__gamesJson = fetch('/assets/data/games.json', { cache: 'no-cache' });
 
 <script src="/assets/js/config.js?v=4"></script>
 <script src="/assets/js/site.js?v=14"></script>
-<script src="/assets/js/games.js?v=6"></script>
+<script src="/assets/js/games.js?v=7"></script>
 </body>
 </html>

@@ -1217,14 +1217,15 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 
 .game-list { display: flex; flex-direction: column; gap: 12px; }
 
-/* 整张卡片。头部整块是进详情页的链接。
+/* 整张卡片 = 一个进详情页的链接。
 
-   2026-09-21 改：以前头部点一下是「展开截图」，截图和下载按钮收在卡里；
-   云盘一多，下面会排出一行「复制提取码 xxx」按钮，很难看（用户反馈）。
-   现在截图和详细介绍全移到详情页，卡片不再折叠。
+   2026-09-21 的两次修改（都是用户反馈）：
+   1. 以前头部点一下是「展开截图」，云盘一多下面会排出一行「复制提取码 xxx」按钮，很难看。
+      截图和详细介绍移到了详情页。
+   2. 后来连下面那排「选择云盘下载 + 查看详情」也去掉了（「移除下面两个，必须打开详情」）——
+      现在整张卡只有 .game-head，点哪里都进详情页。
 
-   注意：这里**不能**写 overflow:hidden 来收圆角 —— 多云盘时「选择云盘下载」
-   的弹出菜单是绝对定位的，会被裁掉。改成给各块单独设圆角。 */
+   注意：.game-head 现在是唯一可见块，**四角都要圆**。 */
 .game-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1238,7 +1239,7 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   align-items: center;
   gap: 12px;
   padding: 11px 14px;
-  border-radius: var(--radius-sm) var(--radius-sm) 0 0;  /* 下面永远都有 .game-actions */
+  border-radius: var(--radius-sm);
   color: var(--text);
   text-decoration: none;
 }
@@ -1279,53 +1280,20 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   color: var(--text-dim);
 }
 
-/* 头部右边的「详情」小标签。点击由外层那个 <a> 负责，它只是个视觉提示 */
+/* 头部右边的「详情」标签。点击由外层那个 <a> 负责，它只是个视觉提示。
+   做成主色（用户要求「详情换个颜色」）——
+   卡片上已经没有别的按钮了，它是唯一告诉人「这里可以点」的东西。 */
 .game-go {
   flex: 0 0 auto;
-  padding: 4px 11px;
-  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border: 1px solid var(--accent);
   border-radius: var(--radius-sm);
+  background: var(--accent-soft);
   font-size: 13px;
-  color: var(--text-muted);
+  font-weight: 500;
+  color: var(--accent);
 }
-.game-head:hover .game-go { border-color: var(--border-strong); color: var(--text); }
-
-/* 下载按钮 + 「查看详情」。
-   现在卡片不折叠了，所以它永远可见（以前桌面端要展开才露出来）。 */
-.game-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 13px 14px;
-  border-top: 1px solid var(--border);
-  background: var(--bg-soft);
-  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-}
-.game-note { font-size: 13px; color: var(--text-muted); }
-
-/* 「选择云盘下载」那个弹出菜单：宽度跟着按钮走，条目左对齐。
-   高度设上限：云盘多了（用户要求不设上限）菜单会很长，超出部分改为内部滚动，
-   免得整块顶出屏幕外面点不到。 */
-.game-actions .more-menu {
-  /* 这个按钮在操作行的**行首**，菜单默认的 right:0 会往左长出屏幕
-     （实测手机上左侧被截掉 7px），改成左对齐往右长 */
-  left: 0;
-  right: auto;
-  min-width: 160px;
-  max-height: 62vh;
-  overflow-y: auto;
-}
-.game-actions .more-item { text-align: left; }
-
-/* 菜单顶部那行说明：「点云盘会自动复制提取码」。
-   提取码本身不再显示了，所以得有一句话讲清楚它会自动复制。 */
-.more-hint {
-  padding: 7px 12px 8px;
-  border-bottom: 1px solid var(--border);
-  font-size: 12px;
-  color: var(--text-dim);
-  white-space: nowrap;
-}
+.game-head:hover .game-go { background: var(--accent); color: #fff; }
 
 /* 截图网格：点一下开灯箱 */
 .shots {
@@ -1359,18 +1327,30 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 /* /games/detail.html?id=xxx —— 列表卡片点进来看到的那一页。
    列表只留简介，这里放完整信息：大封面 + 下载 + 详细介绍 + 截图。 */
 
+/* 详情页大封面。
+   ★ 用 `width: auto` 而不是 `width: 100%`：
+   封面图是上传时压缩过的小图（实测这一张只有 308×173），按 `width:100%` 会被拉到
+   781px 宽 —— 放大 2.5 倍，看着就是糊的（用户反馈）。
+   改成原尺寸显示（窄屏时靠 max-width 自动缩），**绝不放大**。
+   想要大的封面就得传一张尺寸更大的图，这方面改 CSS 没用。 */
 .gd-cover {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: 420px;
-  object-fit: cover;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 60vh;
+  margin-inline: auto;      /* 比容器窄时居中，不要贴左边 */
+  object-fit: contain;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface-2);
 }
+/* 没传封面时的占位块：没有原始尺寸可依，固定成 16:9 的一块 */
 .gd-cover.placeholder {
   display: grid;
   place-items: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 280px;
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 600;
@@ -1413,16 +1393,17 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 .gd-text p { margin: 0 0 12px; }
 .gd-text p:last-child { margin-bottom: 0; }
 
-/* 云盘按钮：每个占一格，宽度自适应。点一下直接跳转 + 自动复制提取码 */
+/* 云盘按钮：每个占一格。点一下直接跳转 + 自动复制提取码（如果有）。
+   名字后面标出这个盘自己的提取码 / 「无需提取码」——
+   各盘的码不一定一样，不写出来访客不知道该用哪个。 */
 .gd-drives {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 10px;
 }
 .gd-drive {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
   padding: 12px 14px;
   border: 1px solid var(--border-strong);
@@ -1442,11 +1423,21 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 .gd-drive::after { content: '›'; color: var(--text-dim); flex: 0 0 auto; }
 .gd-drive:hover::after { color: var(--accent); }
 .gd-drive-name {
+  flex: 1 1 auto;          /* 占满中间，把码和箭头顶到右边 */
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.gd-drive-code {
+  flex: 0 0 auto;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+/* 「无需提取码」比真的码更弱一级，避免抢注意力 */
+.gd-drive-code.none { color: var(--text-dim); }
+.gd-drive:hover .gd-drive-code { color: inherit; }
 
 @media (max-width: 720px) {
   .gd-sec { padding: 15px; }
