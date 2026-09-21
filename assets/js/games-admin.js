@@ -524,6 +524,7 @@
           </div>
           <div class="mg-act">
             <button class="btn btn-sm" data-edit="${esc(g.id)}">编辑</button>
+            <a class="btn btn-sm" href="/games/detail.html?id=${encodeURIComponent(g.id)}" target="_blank" rel="noopener">看详情</a>
             <button class="btn btn-sm btn-danger" data-del="${esc(g.id)}">删除</button>
           </div>
         </div>
@@ -538,6 +539,7 @@
     pendingShots = [];
     $('gName').value = '';
     $('gBrief').value = '';
+    $('gDetail').value = '';
     setLinks([]);
     $('gCover').value = '';
     $('gShots').value = '';
@@ -554,6 +556,7 @@
     pendingShots = [];
     $('gName').value = g.name || '';
     $('gBrief').value = g.brief || '';
+    $('gDetail').value = g.detail || '';
     setLinks(linksOfItem(g));
     $('gCover').value = '';
     $('gShots').value = '';
@@ -611,6 +614,7 @@
       item.id = id;
       item.name = name;
       item.brief = $('gBrief').value.trim();
+      item.detail = $('gDetail').value.trim();   // 详情页的「详细介绍」，纯文本、按行分段
       item.links = links;          // [{ name, url, code }]，code 可以为空 = 无需提取码
       delete item.url;             // 清掉早期版本的单个 url 字段
       delete item.code;            // 提取码现在挂在每条链接上，全局那个不再用

@@ -2,19 +2,22 @@
 // key 以 ! 开头表示「必须不包含」
 const BASE = 'https://bqtj.pages.dev';
 const CHECKS = [
-  ['/assets/css/style.css', ['.filepick', '.drive-pick', '.link-code', '.more-code', '.send-toast', '.more-menu.drop-up']],
-  ['/assets/js/site.js', ['function setNav', 'navBackdrop', "classList.toggle('drop-up'"]],
-  ['/assets/js/games.js', ['toggleCard', 'codesOf', 'more-code', 'legacyCode', '无需提取码']],
+  ['/assets/css/style.css', ['.filepick', '.drive-pick', '.link-code', '.send-toast', '.more-menu.drop-up', '.more-hint', '.gd-drive', '.gd-cover', '!more-code']],
+  ['/assets/js/site.js', ['function setNav', 'navBackdrop', "classList.toggle('drop-up'", 'copyCodeOnOpen', 'bindDriveCodeCopy', 'gameLinksOf', 'gameDetailUrl']],
+  // 列表页只留简介 + 下载 + 进详情；提取码按钮和列表内截图都已移除
+  ['/assets/js/games.js', ['gameDetailUrl', 'bindDriveCodeCopy', 'more-hint', '选择云盘下载', '查看详情', '!data-copy', '!shotsHTML', '!复制提取码']],
+  ['/assets/js/game-detail.js', ['gameLinksOf', 'bindDriveCodeCopy', 'gd-drive', 'gd-drives', 'lightbox']],
   ['/assets/js/admin.js', ['sendState', 'netError', 'data-name', 'withShaRetry']],
-  ['/assets/js/games-admin.js', ['sendState', 'withShaRetry', 'LIST_PWD', 'link-code', '无需码']],
+  ['/assets/js/games-admin.js', ['sendState', 'withShaRetry', 'LIST_PWD', 'link-code', '无需码', 'gDetail']],
   ['/assets/js/config.js', ['defaultExtractCode']],
   // 搜索只能匹配看得见的内容：haystack 里不能再出现原始文件名 / path（见 subs.js 注释）
   ['/assets/js/subs.js', ['matchKeywords', 'search-scope: name + desc + ext', '!item.path', '!item.file']],
-  ['/games/admin/', ['listPwd', 'sendToast', '无需提取码', 'style.css?v=14', 'site.js?v=13', 'config.js?v=4', 'games-admin.js?v=8']],
-  ['/admin/', ['sendToast', 'style.css?v=14', 'site.js?v=13', 'config.js?v=4', 'admin.js?v=5']],
-  ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', 'style.css?v=14', 'site.js?v=13', 'games.js?v=5']],
-  ['/subs/', ['style.css?v=14', 'site.js?v=13', 'subs.js?v=4']],
-  ['/', ['style.css?v=14', 'site.js?v=13']],
+  ['/games/admin/', ['listPwd', 'sendToast', 'gDetail', 'style.css?v=15', 'site.js?v=14', 'config.js?v=4', 'games-admin.js?v=9']],
+  ['/admin/', ['sendToast', 'style.css?v=15', 'site.js?v=14', 'config.js?v=4', 'admin.js?v=5']],
+  ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '会自动复制到剪贴板', 'style.css?v=15', 'site.js?v=14', 'games.js?v=6', '!复制提取码']],
+  ['/games/detail.html?id=gmu9cq47yr2q', ['game-detail.js?v=1', 'site.js?v=14', 'gdBox', 'lightbox']],
+  ['/subs/', ['style.css?v=15', 'site.js?v=14', 'subs.js?v=4']],
+  ['/', ['style.css?v=15', 'site.js?v=14']],
   [
     '/about',
     [
@@ -26,8 +29,8 @@ const CHECKS = [
       '国内因后缀强制重置导致连不上',
       '只有一个自建的下载计数',
       '整理了 ASS / SRT 格式的字幕文件',
-      'style.css?v=14',
-      'site.js?v=13',
+      'style.css?v=15',
+      'site.js?v=14',
       'config.js?v=4',
       '!SSA',
       '!VTT',
@@ -42,7 +45,7 @@ const CHECKS = [
 
 // 每个页面的左上角 logo 都要指向 B 站主页
 const BRAND = 'href="https://space.bilibili.com/1421373636" target="_blank" rel="noopener"';
-const BRAND_PAGES = ['/', '/subs/', '/games/', '/about', '/admin/', '/games/admin/', '/404.html'];
+const BRAND_PAGES = ['/', '/subs/', '/games/', '/games/detail.html', '/about', '/admin/', '/games/admin/', '/404.html'];
 
 let bad = 0;
 for (const [path, keys] of CHECKS) {

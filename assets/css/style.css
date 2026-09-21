@@ -868,6 +868,10 @@ details.admin-card > summary .num {
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
+/* 多行输入（如游戏的「详细介绍」）。
+   只允许竖向拉：允许横向拉的话，用户一拖就把整页撑出横向滚动条。 */
+.textarea { resize: vertical; min-height: 104px; line-height: 1.7; }
+
 .field-row { display: flex; gap: 12px; flex-wrap: wrap; }
 .field-row > .field { flex: 1 1 220px; margin-bottom: 13px; }
 
@@ -1213,7 +1217,11 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 
 .game-list { display: flex; flex-direction: column; gap: 12px; }
 
-/* 整张卡片。头部点开才展开截图（桌面端连下载/复制按钮一起展开）。
+/* 整张卡片。头部整块是进详情页的链接。
+
+   2026-09-21 改：以前头部点一下是「展开截图」，截图和下载按钮收在卡里；
+   云盘一多，下面会排出一行「复制提取码 xxx」按钮，很难看（用户反馈）。
+   现在截图和详细介绍全移到详情页，卡片不再折叠。
 
    注意：这里**不能**写 overflow:hidden 来收圆角 —— 多云盘时「选择云盘下载」
    的弹出菜单是绝对定位的，会被裁掉。改成给各块单独设圆角。 */
@@ -1221,24 +1229,24 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
+  transition: border-color 0.14s;
 }
-.game-card.open { border-color: var(--border-strong); }
+.game-card:hover { border-color: var(--border-strong); }
 
 .game-head {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 11px 14px;
-  cursor: pointer;
-  border-radius: var(--radius-sm);      /* 收起时它是唯一可见的块，四角都要圆 */
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;  /* 下面永远都有 .game-actions */
+  color: var(--text);
+  text-decoration: none;
 }
-.game-head:hover { background: var(--surface-2); }
+.game-head:hover { background: var(--surface-2); text-decoration: none; }
 .game-head:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  box-shadow: inset 0 0 0 3px var(--accent-soft);
 }
-/* 展开了下面就还有内容，底部改成直角接上 */
-.game-card.open .game-head { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
 
 .game-cover {
   flex: 0 0 auto;
@@ -1271,8 +1279,8 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   color: var(--text-dim);
 }
 
-/* 展开/收起标签：文字由 CSS 切，不用 JS */
-.game-toggle {
+/* 头部右边的「详情」小标签。点击由外层那个 <a> 负责，它只是个视觉提示 */
+.game-go {
   flex: 0 0 auto;
   padding: 4px 11px;
   border: 1px solid var(--border);
@@ -1280,12 +1288,10 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   font-size: 13px;
   color: var(--text-muted);
 }
-.game-toggle::after { content: '展开'; }
-.game-card.open .game-toggle::after { content: '收起'; }
+.game-head:hover .game-go { border-color: var(--border-strong); color: var(--text); }
 
-/* 下载 / 复制提取码。
-   桌面：跟截图一起收在「展开」里（跟以前一样）；
-   手机：一直露在外面 —— 要先点一下「展开」才能下载太绕（用户要求）。 */
+/* 下载按钮 + 「查看详情」。
+   现在卡片不折叠了，所以它永远可见（以前桌面端要展开才露出来）。 */
 .game-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1293,22 +1299,9 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   padding: 13px 14px;
   border-top: 1px solid var(--border);
   background: var(--bg-soft);
-}
-.game-note { font-size: 13px; color: var(--text-muted); }
-
-/* 截图块 */
-.game-shots {
-  padding: 13px 14px 15px;
-  border-top: 1px solid var(--border);
-  background: var(--bg-soft);
   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
 }
-/* 没有截图时，最后一个可见的块是 .game-actions，得由它收底部的圆角 */
-.game-actions:last-child { border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
-
-/* 桌面端收起状态：按钮和截图一起藏起来 */
-.game-card:not(.open) .game-actions,
-.game-card:not(.open) .game-shots { display: none; }
+.game-note { font-size: 13px; color: var(--text-muted); }
 
 /* 「选择云盘下载」那个弹出菜单：宽度跟着按钮走，条目左对齐。
    高度设上限：云盘多了（用户要求不设上限）菜单会很长，超出部分改为内部滚动，
@@ -1322,15 +1315,17 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   max-height: 62vh;
   overflow-y: auto;
 }
-.game-actions .more-item {
-  text-align: left;
-  /* 多云盘时每一项右边要挂自己的提取码，所以排成两栏 */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
+.game-actions .more-item { text-align: left; }
+
+/* 菜单顶部那行说明：「点云盘会自动复制提取码」。
+   提取码本身不再显示了，所以得有一句话讲清楚它会自动复制。 */
+.more-hint {
+  padding: 7px 12px 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-dim);
+  white-space: nowrap;
 }
-.more-code { font-size: 12px; color: var(--text-muted); flex: 0 0 auto; }
 
 /* 截图网格：点一下开灯箱 */
 .shots {
@@ -1359,6 +1354,104 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
   cursor: zoom-out;
 }
 .lightbox img { max-width: 100%; max-height: 100%; border-radius: 4px; }
+
+/* ============================ 游戏详情页 ============================ */
+/* /games/detail.html?id=xxx —— 列表卡片点进来看到的那一页。
+   列表只留简介，这里放完整信息：大封面 + 下载 + 详细介绍 + 截图。 */
+
+.gd-cover {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 420px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+.gd-cover.placeholder {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--text-muted);
+}
+
+.gd-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* 每一块内容用同一张卡片包起来，和列表页的 .game-card 一个视觉体系 */
+.gd-sec {
+  margin-top: 18px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.gd-sec > h2 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.gd-hint {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.gd-sec > .gd-hint:last-child { margin-bottom: 0; }
+
+/* 详细介绍：站主写的是纯文本，一段一个 <p>（见 game-detail.js） */
+.gd-text { font-size: 14.5px; line-height: 1.85; color: var(--text); }
+.gd-text p { margin: 0 0 12px; }
+.gd-text p:last-child { margin-bottom: 0; }
+
+/* 云盘按钮：每个占一格，宽度自适应。点一下直接跳转 + 自动复制提取码 */
+.gd-drives {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+.gd-drive {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.14s, border-color 0.14s, color 0.14s;
+}
+.gd-drive:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+}
+.gd-drive::after { content: '›'; color: var(--text-dim); flex: 0 0 auto; }
+.gd-drive:hover::after { color: var(--accent); }
+.gd-drive-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .gd-sec { padding: 15px; }
+  .gd-drives { grid-template-columns: 1fr; }
+}
 
 /* ---------- 游戏管理页（表单 + 预览） ---------- */
 
@@ -1468,24 +1561,13 @@ details.admin-card[open] > summary { margin-bottom: 14px; }
 @media (max-width: 720px) {
   .game-head { flex-wrap: wrap; }
   .game-cover { width: 128px; height: 72px; }
-  .game-toggle { margin-left: auto; }
+  .game-go { margin-left: auto; }
   .shots { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
   .mg-act { margin-left: 0; }
   .link-row { flex-wrap: wrap; }
   .link-row .drive-pick,
   .link-row .link-url,
   .link-row .link-code { flex: 1 1 100%; }
-
-  /* 手机端：下载和复制按钮不用先「展开」就能看到 */
-  .game-card:not(.open) .game-actions {
-    display: flex;
-    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-  }
-  /* 按钮已经在外面了，这个开关只剩截图可管，说「展开」会让人以为还得再点一次 */
-  .game-toggle::after { content: '看截图'; }
-  .game-card.open .game-toggle::after { content: '收起截图'; }
-  /* 本来就没截图，开关没东西可开 */
-  .game-card.no-shots .game-toggle { display: none; }
 }
 
 /* ============================ 响应式 ============================ */

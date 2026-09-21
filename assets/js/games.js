@@ -1,6 +1,12 @@
 /* ==========================================================================
-   games.js — 游戏页
-   依赖 site.js 里的：esc / fileUrl / cleanUrl / copyText / loadJSON / renderError
+   games.js — 游戏列表页
+   依赖 site.js：esc / fileUrl / relTime / renderError / gameLinksOf /
+                gameDetailUrl / bindDriveCodeCopy / bindMoreMenu
+
+   2026-09-21 改版（用户反馈：一排「复制提取码 xxx」按钮很难看）：
+   - 列表里不再展开截图、不再摆提取码按钮；卡片只留简介 + 下载 + 进详情页。
+   - 点云盘直接跳转，需要提取码的由 site.js 的 copyCodeOnOpen 自动复制。
+   - 截图和详细介绍全部移到 /games/detail.html?id=xxx（见 game-detail.js）。
    ========================================================================== */
 
 (async function () {
@@ -43,165 +49,71 @@
     return `<div class="game-cover placeholder">GAME</div>`;
   };
 
-  const shotsHTML = (g) => {
-    const shots = Array.isArray(g.shots) ? g.shots.filter(Boolean) : [];
-    if (!shots.length) return '';
-    return '<div class="shots">' + shots.map((s, i) =>
-      `<a class="shot" href="${esc(fileUrl(s))}" data-shot="${esc(fileUrl(s))}" title="点击放大">
-         <img src="${esc(fileUrl(s))}" alt="截图 ${i + 1}" loading="lazy">
-       </a>`).join('') + '</div>';
-  };
-
   /* 12 小时内的显示「刚刚 / N 小时前」，更早显示日期 —— 和字幕库保持一致 */
   const when = (iso) => (iso ? relTime(iso) : '');
 
-  /**
-   * 云盘链接归一化。
-   * 格式是 links: [{ name, url, code }]，可以有很多条；
-   * 提取码是**每个云盘各自的** —— 有的云盘不能设提取码、有的本来就不需要。
-   * 早期数据兼容：
-   *   - 整条用单个 url 字段的 → 当成一条「123云盘」
-   *   - 链接上没有 code 字段（undefined）→ 回落用条目上那个老的全局 code
-   *   - code 明确写成空字符串 → 就是这个云盘「无需提取码」
-   */
-  const linksOf = (g) => {
-    const legacyCode = String(g.code || '').trim();
-    const arr = Array.isArray(g.links) ? g.links : [];
-    const out = arr
-      .map((l) => ({
-        name: String((l && l.name) || '').trim(),
-        url: cleanUrl(l && l.url),
-        code: (l && (l.code === undefined || l.code === null))
-          ? legacyCode
-          : String(l.code || '').trim(),
-      }))
-      /* 只认 http(s) 链接 —— 管理页里随手打的测试内容（如 "123"）不该变成点了没反应的按钮 */
-      .filter((l) => /^https?:\/\//i.test(l.url));
-    if (out.length) return out;
-    const legacy = cleanUrl(g.url);
-    return /^https?:\/\//i.test(legacy) ? [{ name: '123云盘', url: legacy, code: legacyCode }] : [];
-  };
-
-  /** 用了哪些提取码（去重、去掉空的）。都一样就只写一个，都不需要就写「无需提取码」 */
-  const codesOf = (links) => [...new Set(links.map((l) => l.code).filter(Boolean))];
+  /* 云盘链接归一化用的是 site.js 里的 gameLinksOf —— 详情页也要用同一份，
+     各写一份迟早会改歪其中一边。 */
 
   $list.className = 'game-list';
   $list.innerHTML = sorted.map((g) => {
-    const links = linksOf(g);
-    const codes = codesOf(links);
+    const links = gameLinksOf(g);
     const solo = links.length === 1;
+    const detail = gameDetailUrl(g.id);
 
-    /* 名字下面那行小字：大小（旧数据可能还有）· 版本 · 时间 · 提取码 */
-    const subBits = [g.size, g.version, when(g.mtime)].filter(Boolean);
-    if (links.length) subBits.push(codes.length ? '提取码 ' + codes.join(' / ') : '无需提取码');
+    /* 名字下面那行小字：大小（旧数据可能还有）· 版本 · 时间 · 网盘数。
+       2026-09-21 改：这里原来还写「提取码 aaa / bbb / ccc」，
+       云盘一多就有三个码挤在同一行 —— 用户反馈难看不直观。
+       提取码改成点云盘时自动复制，页面上不再显示。 */
+    const subBits = [g.size, g.version, when(g.mtime), links.length ? links.length + ' 个网盘' : '']
+      .filter(Boolean);
 
     /* 下载入口：
-       - 只有一个云盘 → 直接一个主色按钮（跟旧版一样，不给访客多余的选择）
-       - 有多个云盘 → 一个按钮，点开再选（用站点自己的菜单组件，
-         不用浏览器原生的 select —— 原生展开后的样式改不了，跟站内其它下拉不一行）
-       多云盘时每一项后面标上它自己的提取码，否则访客不知道选哪个要哪个码。 */
-    const linkLabel = (l) => (l.name ? '去 ' + esc(l.name) + ' 下载' : '下载');
+       - 只有一个云盘 → 直接一个主色按钮
+       - 有多个云盘 → 一个按钮，点开再选（用站点自己的菜单组件，不用原生 select）
+       点了就直接跳转；需要提取码的交给 site.js 的 copyCodeOnOpen 自动复制，
+       所以这里只在 data-code 上挂着码，菜单里不显示它。 */
     let dlHTML;
     if (!links.length) {
       dlHTML = '<span class="game-note">这个条目还没填下载链接。</span>';
     } else if (solo) {
-      dlHTML = `<a class="btn btn-primary" href="${esc(links[0].url)}" target="_blank" rel="noopener">${linkLabel(links[0])}</a>`;
+      dlHTML = `<a class="btn btn-primary" href="${esc(links[0].url)}" target="_blank" rel="noopener"`
+        + (links[0].code ? ` data-code="${esc(links[0].code)}"` : '')
+        + `>去 ${esc(links[0].name || '网盘')} 下载</a>`;
     } else {
       dlHTML = '<div class="more">'
         + '<button class="btn btn-primary" data-act="more" type="button" aria-expanded="false" aria-haspopup="true">选择云盘下载</button>'
         + '<div class="more-menu" hidden>'
-        + links.map((l) => `<a class="more-item" href="${esc(l.url)}" target="_blank" rel="noopener">`
-            + `<span>${l.name ? esc(l.name) : '下载'}</span>`
-            + `<span class="more-code">${l.code ? esc(l.code) : '无需提取码'}</span>`
-          + '</a>').join('')
+        + (links.some((l) => l.code) ? '<div class="more-hint">点云盘会自动复制提取码</div>' : '')
+        + links.map((l) => `<a class="more-item" href="${esc(l.url)}" target="_blank" rel="noopener"`
+            + (l.code ? ` data-code="${esc(l.code)}"` : '')
+            + `>${esc(l.name || '下载')}</a>`).join('')
         + '</div></div>';
     }
 
-    /* 复制提取码：每个不同的码一个按钮（各云盘码不一样时要能分开拿）；
-       一个码都没有就直接写「无需提取码」，不给一个点了没用的按钮 */
-    const copyHTML = codes.length
-      ? codes.map((c) => `<button class="btn" data-copy="${esc(c)}">复制提取码 ${esc(c)}</button>`).join('')
-      : (links.length ? '<span class="game-note">无需提取码</span>' : '');
-
-    const shots = shotsHTML(g);
-    return `<article class="game-card${shots ? '' : ' no-shots'}">
-  <div class="game-head" role="button" tabindex="0" aria-expanded="false">
+    /* 整张卡片的头部就是一个链接，直接进详情页 ——
+       截图和详细介绍都挪到那边去了，留在列表里只会让卡片变长。 */
+    return `<article class="game-card">
+  <a class="game-head" href="${esc(detail)}">
     ${coverHTML(g)}
     <div class="game-main">
       <div class="game-name">${esc(g.name || '未命名')}</div>
       ${g.brief ? `<div class="game-brief">${esc(g.brief)}</div>` : ''}
-      <div class="game-sub">
-        ${subBits.map((m) => `<span>${esc(m)}</span>`).join('<span>·</span>')}
-      </div>
+      <div class="game-sub">${subBits.map((m) => `<span>${esc(m)}</span>`).join('<span>·</span>')}</div>
     </div>
-    <span class="game-toggle" aria-hidden="true"></span>
-  </div>
+    <span class="game-go" aria-hidden="true">详情</span>
+  </a>
 
-  <!-- 下载和复制按钮不放在可折叠区里：手机上要先点「展开」才能下载太麻烦（用户反馈）。
-       手机端它一直露在外面，桌面端仍然跟截图一起收在展开里（见 style.css）。 -->
   <div class="game-actions">
     ${dlHTML}
-    ${copyHTML}
+    <a class="btn" href="${esc(detail)}">查看详情</a>
   </div>
-
-  ${shots ? `<div class="game-shots">${shots}</div>` : ''}
 </article>`;
   }).join('');
 
-  /* ------------------------- 卡片开合 ------------------------- */
-  /**
-   * 以前整张卡是一个 <details>，要点开才能看到下载和复制按钮。
-   * 手机端那样太麻烦（用户反馈），所以改成 JS 控制开合：
-   * 手机上按钮一直露在外面，这个开关只管截图。
-   *
-   * 为什么不用 <details> 了：收起时它会把里面所有东西一起藏掉；
-   * 而把按钮塞进 <summary> 也不行 —— 点 <summary> 里的按钮会顺带开合卡片，
-   * 那是浏览器原生行为，stopPropagation 拦不住，preventDefault 又会连带
-   * 把下载链接的跳转一起取消掉。
-   */
-  const toggleCard = (card) => {
-    const open = !card.classList.contains('open');
-    card.classList.toggle('open', open);
-    card.querySelector('.game-head')?.setAttribute('aria-expanded', String(open));
-  };
-
-  $list.addEventListener('click', (e) => {
-    const head = e.target.closest('.game-head');
-    if (!head || e.target.closest('.game-actions')) return;
-    toggleCard(head.closest('.game-card'));
-  });
-  $list.addEventListener('keydown', (e) => {
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-    const head = e.target.closest('.game-head');
-    if (!head) return;
-    e.preventDefault();
-    toggleCard(head.closest('.game-card'));
-  });
-
-  /* ------------------------- 复制按钮（事件委托） ------------------------- */
-  $list.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-copy]');
-    if (!btn) return;
-    copyText(btn.getAttribute('data-copy'), btn);
-  });
+  /* 点云盘自动复制提取码（实现在 site.js，和详情页同一套） */
+  bindDriveCodeCopy($list);
 
   /* 多云盘时的「选择云盘下载」菜单（site.js 里的组件，和字幕库的「更多」同一套） */
   bindMoreMenu($list);
-
-  /* ------------------------------ 截图放大 ------------------------------ */
-  const $box = document.getElementById('lightbox');
-  const $img = document.getElementById('lightboxImg');
-
-  const closeBox = () => { $box.hidden = true; $img.removeAttribute('src'); };
-
-  $list.addEventListener('click', (e) => {
-    const shot = e.target.closest('[data-shot]');
-    if (!shot) return;
-    e.preventDefault();
-    $img.src = shot.getAttribute('data-shot');
-    $box.hidden = false;
-  });
-
-  $box.addEventListener('click', closeBox);
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$box.hidden) closeBox(); });
 })();

@@ -230,6 +230,92 @@ async function copyText(text, btn) {
   }
 }
 
+/* --------------------- 点云盘时自动复制提取码 --------------------- */
+
+/**
+ * 底部提示条。
+ * 和两个管理页的 .send-toast 共用同一套样式，但那个元素只在管理页的 HTML 里，
+ * 所以这里按需创建一份，公开页面也能用。
+ * 连续点两次不会叠出两条：复用同一个元素，重置内容并重新计时。
+ */
+let siteToastTimer = 0;
+function siteToast(msg, kind = '') {
+  let el = document.getElementById('siteToast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'siteToast';
+    el.setAttribute('role', 'status');
+    el.setAttribute('aria-live', 'polite');
+    document.body.appendChild(el);
+  }
+  el.className = 'send-toast' + (kind ? ' ' + kind : '');
+  el.textContent = msg;
+  el.hidden = false;
+  clearTimeout(siteToastTimer);
+  siteToastTimer = setTimeout(() => { el.hidden = true; }, 3400);
+}
+
+/**
+ * 同步兜底复制。
+ * navigator.clipboard 在 http 页面、或用户拒绝了剪贴板权限时会失败，
+ * 这时用老的 execCommand —— 它必须在**用户手势里同步调用**才有效，
+ * 所以只在「已经确定异步那条失败了」的分支里用它。
+ */
+function legacyCopy(text) {
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    return ok;
+  } catch { return false; }
+}
+
+/**
+ * 点云盘链接时顺手把提取码复制到剪贴板（用户要求：不再单独显示提取码按钮）。
+ *
+ * 这里**绝对不能 await**：一 await 就脱离了「用户点击」这个上下文，
+ * 紧接着的跳转会被浏览器的弹窗拦截器当成脚本自发的弹窗挡掉。
+ * 所以复制只负责「发起」，跳转仍旧交给 <a target="_blank"> 自己完成。
+ *
+ * 复制失败也不拦跳转 —— 打不开网盘比抄不到码更糟，所以失败时直接把码写在提示里，
+ * 让用户能手抄。
+ */
+function copyCodeOnOpen(code) {
+  const c = String(code || '').trim();
+  if (!c) return;
+  const done = () => siteToast('提取码 ' + c + ' 已复制，去网盘粘贴就行', 'ok');
+  const failed = () => siteToast('没能自动复制，提取码是 ' + c + '（手动输入一下）', 'bad');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(c).then(done, () => { (legacyCopy(c) ? done : failed)(); });
+  } else {
+    (legacyCopy(c) ? done : failed)();
+  }
+}
+
+/**
+ * 委托绑定：任何带 data-code 的链接被点击时自动复制它的提取码。
+ * 用委托而不是逐个绑，是因为列表和详情页的按钮都是动态生成的。
+ *
+ * 去重标记用 WeakSet，不挂在 dataset 上 —— document 没有 dataset，
+ * 挂不上去会导致重复 bind、一次点击复制两遍、提示条闪两下。
+ */
+const codeCopyBound = new WeakSet();
+function bindDriveCodeCopy(root) {
+  const el = root || document;
+  if (codeCopyBound.has(el)) return;
+  codeCopyBound.add(el);
+  el.addEventListener('click', (e) => {
+    const a = e.target.closest('[data-code]');
+    if (a) copyCodeOnOpen(a.getAttribute('data-code'));
+  });
+}
+
 /* ----------------------------- 列表里的「更多」菜单 ----------------------------- */
 
 /**
@@ -239,6 +325,39 @@ async function copyText(text, btn) {
  */
 function cleanUrl(u) {
   return String(u || '').trim().split(/\s+/)[0] || '';
+}
+
+/**
+ * 把一个游戏条目里的云盘链接归一化成 [{ name, url, code }]。
+ *
+ * 列表页和详情页都要用，所以放在这里 —— 各写一份迟早会改歪其中一边。
+ * 提取码是**每个云盘各自的**：有的云盘不能设提取码、有的本来就不需要。
+ * 早期数据兼容：
+ *   - 整条用单个 url 字段的 → 当成一条「123云盘」
+ *   - 链接上没有 code 字段（undefined）→ 回落用条目上那个老的全局 code
+ *   - code 明确写成空字符串 → 就是这个云盘「无需提取码」
+ */
+function gameLinksOf(g) {
+  const legacyCode = String((g && g.code) || '').trim();
+  const arr = Array.isArray(g && g.links) ? g.links : [];
+  const out = arr
+    .map((l) => ({
+      name: String((l && l.name) || '').trim(),
+      url: cleanUrl(l && l.url),
+      code: (l && (l.code === undefined || l.code === null))
+        ? legacyCode
+        : String(l.code || '').trim(),
+    }))
+    /* 只认 http(s) 链接 —— 管理页里随手打的测试内容（如 "123"）不该变成点了没反应的按钮 */
+    .filter((l) => /^https?:\/\//i.test(l.url));
+  if (out.length) return out;
+  const legacy = cleanUrl(g && g.url);
+  return /^https?:\/\//i.test(legacy) ? [{ name: '123云盘', url: legacy, code: legacyCode }] : [];
+}
+
+/** 详情页地址。统一在这里拼，免得列表页和别处写法不一致 */
+function gameDetailUrl(id) {
+  return '/games/detail.html?id=' + encodeURIComponent(String(id || ''));
 }
 
 /**

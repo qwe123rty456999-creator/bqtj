@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=14">
+<link rel="stylesheet" href="/assets/css/style.css?v=15">
 </head>
 <body>
 
@@ -78,6 +78,17 @@
     <div class="field">
       <label for="gBrief">一句话简介</label>
       <input class="input" id="gBrief" autocomplete="off" placeholder="比如：一个自己写的横版跳跃小游戏">
+      <div class="tip">显示在列表卡片上、以及详情页标题下面。一行写完，别太长。</div>
+    </div>
+
+    <div class="field">
+      <label for="gDetail">详细介绍</label>
+      <textarea class="textarea" id="gDetail" rows="7"
+                placeholder="一段一行，空行分段。可以写玩法、操作、注意事项、版本说明、汉化情况……"></textarea>
+      <div class="tip">
+        纯文本，不需要写 HTML。留空的话详情页就不显示「详细介绍」这一块。
+        详情页地址是 <code>/games/detail.html?id=游戏编号</code>，列表页会自动链过去。
+      </div>
     </div>
 
     <div class="field">
@@ -89,7 +100,8 @@
       <div class="tip">
         同一个文件传到几个云盘就填几行，<b>不设上限</b>。访客点开卡片会看到一排按钮自己挑。
         <b>提取码每个云盘单独填</b>，写在链接旁边那一格。
-        有的云盘不能设提取码、或本来就不需要，那就留空，页面上会显示「无需提取码」。
+        有的云盘不能设提取码、或本来就不需要，那就留空。
+        访客点云盘时，填了码的会<b>自动复制到剪贴板</b>，页面上不会把码直接列出来。
       </div>
       <!-- 下面是「云盘名」下拉里的常用选项。想加别的云盘，在这里加一行 <option> 就行，
            页面上的下拉会自动带上它。列表里没有的云盘，在使用时直接手写也可以。 -->
@@ -125,7 +137,7 @@
           <span class="filepick-name" id="shotsName">还没有选择文件</span>
         </div>
         <input type="file" id="gShots" accept="image/*" multiple hidden>
-        <div class="tip">会在详情里排成网格，点一下放大。</div>
+        <div class="tip">会在详情页排成网格，点一下放大。</div>
       </div>
     </div>
 
@@ -184,7 +196,7 @@
 </footer>
 
 <script src="/assets/js/config.js?v=4"></script>
-<script src="/assets/js/site.js?v=13"></script>
-<script src="/assets/js/games-admin.js?v=8"></script>
+<script src="/assets/js/site.js?v=14"></script>
+<script src="/assets/js/games-admin.js?v=9"></script>
 </body>
 </html>

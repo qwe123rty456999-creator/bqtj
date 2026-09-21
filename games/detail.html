@@ -3,16 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>游戏 · 爆枪突击字幕库</title>
-<meta name="description" content="分享一些游戏，放在云盘，按自己喜好下载。">
-<meta name="keywords" content="爆枪突击,小游戏,游戏下载">
-<link rel="canonical" href="https://bqtj.pages.dev/games/">
-
+<title>游戏详情 · 爆枪突击字幕库</title>
+<meta name="description" content="游戏详细介绍、截图和云盘下载地址。">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
 <link rel="stylesheet" href="/assets/css/style.css?v=15">
 <script>
-/* 提前请求游戏索引，与 CSS/JS 并行（见首页里的同一段注释） */
+/* 提前请求游戏索引，与 CSS/JS 并行（同游戏列表页的写法） */
 window.__gamesJson = fetch('/assets/data/games.json', { cache: 'no-cache' });
 </script>
 </head>
@@ -36,29 +33,9 @@ window.__gamesJson = fetch('/assets/data/games.json', { cache: 'no-cache' });
 </header>
 
 <main>
-  <div class="container">
-    <div class="page-head">
-      <div class="breadcrumb"><a href="/">首页</a> / 游戏</div>
-      <h1>游戏</h1>
-      <p>分享一些游戏，点卡片进详情页看截图和详细介绍。</p>
-    </div>
-  </div>
-
-  <!-- 提取码不再单独列出来：点云盘下载时会自动复制到剪贴板，这里先讲清楚 -->
-  <div class="container">
-    <div class="notice">
-      <div>
-        <b>下载说明：</b>考虑到不同人的常用网盘不一样，于是上传到多个云盘，<b>按自己喜好下载</b>。<br>
-        点云盘会直接打开分享页，<b>需要提取码的会自动复制到剪贴板</b>，粘贴一下就行。<br>
-        <b>免责声明：</b>本站分享的游戏仅供学习交流，请勿用于商业用途。游戏版权归原作者或相关权利人所有，如有侵权请联系删除。
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="result-info" id="gameInfo">加载中…</div>
-    <div class="game-list" id="gameList"><div class="spinner"></div></div>
-  </div>
+  <!-- 整页内容由 game-detail.js 按 ?id= 渲染。
+       这里给个「加载中」的壳，避免 JS 没跑起来时整页白屏、看不出发生了什么。 -->
+  <div class="container" id="gdBox" style="padding:38px 0 8px"><div class="spinner"></div></div>
 </main>
 
 <footer class="site-footer">
@@ -72,10 +49,13 @@ window.__gamesJson = fetch('/assets/data/games.json', { cache: 'no-cache' });
   </div>
 </footer>
 
-<!-- 截图和放大查看都移到了详情页（/games/detail.html?id=xxx），列表里不再需要灯箱 -->
+<!-- 点截图放大看 -->
+<div class="lightbox" id="lightbox" hidden>
+  <img id="lightboxImg" alt="">
+</div>
 
 <script src="/assets/js/config.js?v=4"></script>
 <script src="/assets/js/site.js?v=14"></script>
-<script src="/assets/js/games.js?v=6"></script>
+<script src="/assets/js/game-detail.js?v=1"></script>
 </body>
 </html>
