@@ -1,17 +1,24 @@
 // 一次性脚本：核对线上是否已经是新版前端（部署约 1 分钟，查不到就等会儿再跑）
 // key 以 ! 开头表示「必须不包含」
+//
+// 注意：资源必须查**带 ?v= 的地址**。
+// /assets/* 在 _headers 里是 max-age=31536000, immutable —— 无参数的旧地址会被
+// Cloudflare 边缘缓存一年，部署完也一直返回旧副本（实测），拿它做判断会误报「没更新」。
+// 访客实际请求的就是带版本号的地址，那才是该核对的东西。
 const BASE = 'https://bqtj.pages.dev';
 const CHECKS = [
-  ['/assets/css/style.css', ['.filepick', '.drive-pick', '.link-code', '.send-toast', '.more-menu.drop-up', '.more-hint', '.gd-drive', '.gd-cover', '!more-code']],
-  ['/assets/js/site.js', ['function setNav', 'navBackdrop', "classList.toggle('drop-up'", 'copyCodeOnOpen', 'bindDriveCodeCopy', 'gameLinksOf', 'gameDetailUrl']],
-  // 列表页只留简介 + 下载 + 进详情；提取码按钮和列表内截图都已移除
-  ['/assets/js/games.js', ['gameDetailUrl', 'bindDriveCodeCopy', 'more-hint', '选择云盘下载', '查看详情', '!data-copy', '!shotsHTML', '!复制提取码']],
-  ['/assets/js/game-detail.js', ['gameLinksOf', 'bindDriveCodeCopy', 'gd-drive', 'gd-drives', 'lightbox']],
-  ['/assets/js/admin.js', ['sendState', 'netError', 'data-name', 'withShaRetry']],
-  ['/assets/js/games-admin.js', ['sendState', 'withShaRetry', 'LIST_PWD', 'link-code', '无需码', 'gDetail']],
-  ['/assets/js/config.js', ['defaultExtractCode']],
+  ['/assets/css/style.css?v=15', ['.filepick', '.drive-pick', '.link-code', '.send-toast', '.more-menu.drop-up', '.more-hint', '.gd-drive', '.gd-cover', '.gd-sec', '.textarea', '!more-code']],
+  ['/assets/js/site.js?v=14', ['function setNav', 'navBackdrop', "classList.toggle('drop-up'", 'copyCodeOnOpen', 'bindDriveCodeCopy', 'gameLinksOf', 'gameDetailUrl', 'siteToast', 'legacyCopy']],
+  // 列表页只留简介 + 下载 + 进详情；提取码按钮和列表内截图都已移除。
+  // 负向检查只盯实现标记（data-copy / shotsHTML / codesOf）——
+  // 别去查中文文案：代码注释里会提到历史写法，一查就误报（踩过一次）。
+  ['/assets/js/games.js?v=6', ['gameDetailUrl', 'bindDriveCodeCopy', 'more-hint', '选择云盘下载', '查看详情', '!data-copy', '!shotsHTML', '!codesOf']],
+  ['/assets/js/game-detail.js?v=1', ['gameLinksOf', 'bindDriveCodeCopy', 'gd-drive', 'gd-drives', 'lightbox', '详细介绍']],
+  ['/assets/js/admin.js?v=5', ['sendState', 'netError', 'data-name', 'withShaRetry']],
+  ['/assets/js/games-admin.js?v=9', ['sendState', 'withShaRetry', 'LIST_PWD', 'link-code', '无需码', 'gDetail', '看详情']],
+  ['/assets/js/config.js?v=4', ['defaultExtractCode']],
   // 搜索只能匹配看得见的内容：haystack 里不能再出现原始文件名 / path（见 subs.js 注释）
-  ['/assets/js/subs.js', ['matchKeywords', 'search-scope: name + desc + ext', '!item.path', '!item.file']],
+  ['/assets/js/subs.js?v=4', ['matchKeywords', 'search-scope: name + desc + ext', '!item.path', '!item.file']],
   ['/games/admin/', ['listPwd', 'sendToast', 'gDetail', 'style.css?v=15', 'site.js?v=14', 'config.js?v=4', 'games-admin.js?v=9']],
   ['/admin/', ['sendToast', 'style.css?v=15', 'site.js?v=14', 'config.js?v=4', 'admin.js?v=5']],
   ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '会自动复制到剪贴板', 'style.css?v=15', 'site.js?v=14', 'games.js?v=6', '!复制提取码']],
