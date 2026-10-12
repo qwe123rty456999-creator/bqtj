@@ -1,20 +1,35 @@
 {
-  "generated": "2026-09-19T18:41:47.997Z",
+  "generated": "2026-10-12T13:17:56.313Z",
   "root": "files/subs",
-  "count": 93,
+  "count": 94,
   "stats": {
     "languages": {
-      "简中": 87,
+      "简中": 88,
       "英语": 5,
       "日语": 1
     },
     "formats": {
-      "ass": 87,
-      "srt": 6
+      "srt": 7,
+      "ass": 87
     },
     "groups": {}
   },
   "items": [
+    {
+      "name": "BONK! [ft. Hatsune Miku] [mvbj6v_kTzg].zh-CN",
+      "file": "BONK! [ft. Hatsune Miku] [mvbj6v_kTzg].zh-CN.srt",
+      "path": "/files/subs/BONK! [ft. Hatsune Miku] [mvbj6v_kTzg].zh-CN.srt",
+      "ext": "srt",
+      "size": 3337,
+      "mtime": "2026-10-12T13:15:09.674Z",
+      "lang": "简中",
+      "langClass": "zh-hans",
+      "langSource": "auto",
+      "group": "",
+      "groupTitle": "",
+      "tags": [],
+      "url": ""
+    },
     {
       "name": "重音テトの髪型を変えてみた",
       "file": "🥖重音テトの髪型を変えてみた🥖 #shorts [NNS6ndyMhxI].ass",
