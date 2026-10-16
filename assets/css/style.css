@@ -341,11 +341,36 @@ kbd {
 }
 
 .breadcrumb {
-  font-size: 13px;
+  font-size: 14.5px;
   color: var(--text-dim);
   margin-bottom: 10px;
 }
-.breadcrumb a { color: var(--text-muted); }
+.breadcrumb a { color: var(--text-muted); font-weight: 500; }
+
+/* 面包屑下面那对「上一页 / 下一页」箭头（点击委托在 site.js）。
+   用户要求「返回调大」：整个站上唯一用来「返回」的就是上面那条面包屑，
+   所以面包屑字号也一并调大，而这对按钮比它再大一点、给足点击区域。
+   放在每个带面包屑的页面上（含三个 JS 渲染的详情页）—— 只放管理页的话，
+   点「上一页」退到没按钮的页面后，「下一页」就再也找不回来了。 */
+.hist-nav { display: flex; gap: 8px; margin: 0 0 12px; }
+.hist-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 15px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;      /* <button> 默认 normal，与 <a> 不一行 */
+  cursor: pointer;
+  transition: background 0.14s, border-color 0.14s, color 0.14s;
+}
+.hist-btn:hover { background: var(--surface-2); border-color: var(--accent); color: var(--accent); }
+.hist-btn:active { background: var(--accent-soft); }
 
 /* ============================ 提示条 ============================ */
 
@@ -968,6 +993,20 @@ details.admin-card > summary .num {
 }
 
 .mg-row .mg-head { display: flex; align-items: center; gap: 11px; }
+.mg-row .mg-toggle { flex: 0 0 auto; margin-left: auto; }
+/* ⚠️ .mg-row / .mg-head 是游戏管理页也用的类名，下面这一整段只在字幕管理
+   （#mgList）里生效 —— 不然游戏列表的整行会白得一个手型光标，
+   而它其实点不动（那边没有展开/收起这回事）。 */
+#mgList .mg-head { cursor: pointer; }
+
+/* 每行默认**收起**（用户反馈「现在显示的太多，不好找」）——
+   一行摊开是六个输入框 + 一排按钮，接近 600px 高，93 条根本翻不动。
+   点「编辑」（或点整行头部）才展开，再点一次「收起」。
+   ⚠️ 收起只是 display:none：输入框仍在 DOM 里，所以
+   captureDrafts() 收集未保存内容、以及草稿回填都不受影响。 */
+#mgList .mg-row:not(.open) .mg-edit,
+#mgList .mg-row:not(.open) .mg-tools,
+#mgList .mg-row:not(.open) .mg-crop { display: none; }
 
 /* 管理行左侧的缩略图预览（与公开列表同尺寸） */
 .mg-row .mg-thumb {

@@ -404,6 +404,63 @@
     el.classList.toggle('has-file', !!file);
   }
 
+  /* ----------------------- 缩略图（选填） -----------------------
+     用户问「上传略缩图呢？」—— 原来只有第 3 步（字幕管理）能挂缩略图，
+     新传的字幕得先去那边补一次。这里直接复用同一套处理：
+     readImage + makeThumb（居中裁 16:9、压到 640×360），上传时一起提交。 */
+  let upThumb = null;                            // { b64, dataUrl, from }
+
+  function showUpThumbPreview() {
+    const el = $('upThumbPreview');
+    if (!el) return;
+    if (!upThumb) { el.hidden = true; el.innerHTML = ''; return; }
+    el.hidden = false;
+    el.innerHTML = '<div class="pv-title">缩略图预览</div><div class="pv-grid">' +
+      '<div class="pv-item">' +
+        `<img src="${upThumb.dataUrl}" alt="">` +
+        `<span class="pv-tag">${esc(upThumb.from)} → ${THUMB_W}×${THUMB_H}</span>` +
+        '<button class="pv-del" type="button" data-cancel-upthumb title="取消">×</button>' +
+      '</div></div>';
+  }
+
+  {
+    const input = $('upThumb');
+    if (input) {
+      input.addEventListener('change', async () => {
+        const f = input.files && input.files[0];
+        input.value = '';                        // 清空，保证再选同一张也会触发 change
+        if (!f) return;
+        if (!/^image\//.test(f.type)) { log('缩略图只能选图片文件', 'err'); return; }
+        if (f.size > 8 * 1024 * 1024) { log('图片太大了（上限 8 MB）', 'err'); return; }
+        try {
+          const img = await readImage(f);
+          const t = makeThumb(img, img.naturalWidth, img.naturalHeight);
+          upThumb = { b64: dataUrlToB64(t.dataUrl), dataUrl: t.dataUrl, from: t.from };
+          const label = $('upThumbName');
+          if (label) {
+            label.textContent = `${f.name}（${humanSize(f.size)}）`;
+            label.classList.add('has-file');
+          }
+          showUpThumbPreview();
+          log(`缩略图已就绪：原图 ${t.from} → ${THUMB_W}×${THUMB_H}${t.needsCrop ? '（居中裁成 16:9）' : ''}`, 'info');
+        } catch (e) {
+          log(`缩略图读取失败：${e.message}`, 'err');
+        }
+      });
+    }
+  }
+
+  /* 预览里那个 × —— 取消已选的缩略图（不用重选文件就能撤） */
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('[data-cancel-upthumb]')) return;
+    upThumb = null;
+    showUpThumbPreview();
+    const label = $('upThumbName');
+    if (label) { label.textContent = '还没有选择图片'; label.classList.remove('has-file'); }
+    log('已取消缩略图', 'info');
+  });
+
+
   /** 用文件名自动填「显示名称」。只在那一栏还是空的、或还停在上次自动填的值时才覆盖。 */
   let lastNameAuto = '';
   function autoFillName(file) {
@@ -461,9 +518,13 @@
   function clearForm() {
     upFiles.ass = null;
     upFiles.srt = null;
+    upThumb = null;
     lastNameAuto = '';
     setPickLabel('ass', null);
     setPickLabel('srt', null);
+    showUpThumbPreview();
+    const tl = $('upThumbName');
+    if (tl) { tl.textContent = '还没有选择图片'; tl.classList.remove('has-file'); }
     ['upName', 'upDesc', 'upVideo', 'upVideoDl', 'upLyrics'].forEach((id) => {
       const el = $(id);
       if (el) el.value = '';
@@ -520,7 +581,15 @@
         log(`已上传 ${f.name} → ${p}`, 'ok');
       }
 
-      await saveSubEntry({ name, paths });
+      /* 缩略图和第 3 步用同一套命名：files/thumbs/<主名>.jpg */
+      let thumbPath = '';
+      if (upThumb) {
+        thumbPath = thumbPathFor({ file: (paths.ass || paths.srt).file });
+        log(`上传缩略图（${humanSize(Math.round(upThumb.b64.length * 0.75))}）…`, 'info');
+        await putFile(thumbPath, upThumb.b64, `上传缩略图 ${thumbPath}`);
+      }
+
+      await saveSubEntry({ name, paths, thumbPath: thumbPath ? '/' + thumbPath : '' });
       log('完成。Cloudflare 约 1 分钟后生效。', 'ok');
       clearForm();
     } catch (e) {
@@ -541,7 +610,7 @@
    *   列表缩略图、下载统计、管理页都以 path 为准，没有特殊情况不要让它来回变。
    *   （只有「先传 SRT、后来才补 ASS」这一种情况会让 path 从 srt 换成 ass，那是应该的。）
    */
-  async function saveSubEntry({ name, paths }) {
+  async function saveSubEntry({ name, paths, thumbPath }) {
     log('正在更新字幕库索引 assets/data/subs.json …', 'info');
     const data = JSON.parse(await readText('assets/data/subs.json'));
     data.items = data.items || [];
@@ -584,6 +653,7 @@
     }
 
     item.name = name;
+    if (thumbPath) item.thumb = thumbPath;
     setOrDelete(item, 'desc', $('upDesc').value.trim());
     setOrDelete(item, 'videoUrl', cleanUrl($('upVideo').value));
     setOrDelete(item, 'videoDl', cleanUrl($('upVideoDl').value));
@@ -960,6 +1030,12 @@
     videoUrl: 'input[data-video]', videoDl: 'input[data-videodl]',
   };
 
+  /* 展开着的行。默认全部收起（用户反馈「现在显示的太多，不好找」——
+     一行摊开是六个输入框 + 一排按钮，93 条根本翻不动）。
+     保存 / 补传缩略图后会 renderManage() 整表重建 —— 不记住的话
+     刚编辑完的那行会自己收起，还得重新点开，所以用 Set 存住。 */
+  const openRows = new Set();
+
   function captureDrafts() {
     mgUI.list.querySelectorAll('.mg-row').forEach((row) => {
       const p = row.getAttribute('data-path');
@@ -1008,8 +1084,9 @@
       const d = drafts.get(it.path) || {};
       /* 有草稿（用户改过还没保存）就用草稿，否则用数据里的值 */
       const val = (k) => (k in d ? d[k] : (it[k] || ''));
+      const open = openRows.has(it.path);
       return `
-      <div class="mg-row" data-path="${esc(it.path)}">
+      <div class="mg-row${open ? ' open' : ''}" data-path="${esc(it.path)}">
         <div class="mg-head">
           <div class="mg-thumb${it.thumb ? '' : ' no-thumb'}">
             ${it.thumb
@@ -1029,6 +1106,8 @@
               ${it.videoDl ? '<span class="state">有下载直链</span>' : ''}
             </div>
           </div>
+          <button class="btn btn-sm mg-toggle" type="button" data-act="toggle"
+                  aria-expanded="${open ? 'true' : 'false'}">${open ? '收起' : '编辑'}</button>
         </div>
 
         <div class="mg-edit">
@@ -1140,6 +1219,30 @@
     if (n) { n.textContent = text; n.className = 'mg-note' + (kind ? ' ' + kind : ''); }
   }
 
+  /**
+   * 展开 / 收起一行。
+   * 只切 class 和按钮文字，**不重渲染** —— 表里有 90 多行，
+   * 每点一次就重建一遍 DOM 又慢、还会把滚动位置抖掉。
+   */
+  function toggleRow(btn) {
+    const row = btn.closest('.mg-row');
+    if (!row) return;
+    const open = !row.classList.contains('open');
+    row.classList.toggle('open', open);
+    btn.textContent = open ? '收起' : '编辑';
+    btn.setAttribute('aria-expanded', String(open));
+    const p = row.getAttribute('data-path');
+    if (open) openRows.add(p); else openRows.delete(p);
+  }
+
+  /* 点整行头部也能展开 / 收起（点在按钮、输入框上时交给它们自己处理） */
+  mgUI.list.addEventListener('click', (e) => {
+    if (!e.target.closest('.mg-head')) return;
+    if (e.target.closest('button, a, input, textarea, label, select')) return;
+    const btn = e.target.closest('.mg-row')?.querySelector('[data-act="toggle"]');
+    if (btn) toggleRow(btn);
+  });
+
   mgUI.list.addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-act]');
     if (!btn || btn.disabled) return;
@@ -1148,6 +1251,7 @@
     if (!item) return;
 
     switch (btn.dataset.act) {
+      case 'toggle':       return toggleRow(btn);
       case 'save':         return saveItem(item, row, btn);
       case 'del':          return removeSub(item, row, btn);
       case 'add-variant':  return row.querySelector(`input[data-var-input="${btn.dataset.kind}"]`)?.click();

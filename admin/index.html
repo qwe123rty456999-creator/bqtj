@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=18">
+<link rel="stylesheet" href="/assets/css/style.css?v=20">
 </head>
 <body>
 
@@ -32,6 +32,10 @@
 
   <div class="page-head">
     <div class="breadcrumb"><a href="/">首页</a> / 上传助手</div>
+    <div class="hist-nav">
+      <button class="hist-btn" type="button" data-hist="back" title="回上一个页面">← 上一页</button>
+      <button class="hist-btn" type="button" data-hist="forward" title="前进到下一个页面">下一页 →</button>
+    </div>
     <h1>上传助手</h1>
     <p>一次传一条字幕：选文件、填好基本信息，提交后自动更新索引，约 1 分钟后线上可搜。</p>
   </div>
@@ -100,6 +104,20 @@
       否则别人下载时会分不清是不是同一首。
       已经传过的字幕后来想补 SRT，到下面第 3 步的列表里也能加。
     </div>
+
+    <div class="field" style="margin-top:14px">
+      <label for="upThumb">缩略图 <span class="h2-tail">选填</span></label>
+      <div class="filepick">
+        <button class="btn" type="button" data-pick="upThumb">选择图片</button>
+        <span class="filepick-name" id="upThumbName">还没有选择图片</span>
+      </div>
+      <input type="file" id="upThumb" accept="image/*" hidden>
+      <div class="tip">
+        上传前会<b>居中裁成 16:9</b>并压到 640×360（列表里按 160×90 显示）。
+        不上传就用灰底占位图。
+      </div>
+    </div>
+    <div class="preview" id="upThumbPreview" hidden></div>
 
     <div class="field" style="margin-top:14px">
       <label for="upName">显示名称</label>
@@ -230,7 +248,7 @@
 </footer>
 
 <script src="/assets/js/config.js?v=4"></script>
-<script src="/assets/js/site.js?v=16"></script>
-<script src="/assets/js/admin.js?v=6"></script>
+<script src="/assets/js/site.js?v=18"></script>
+<script src="/assets/js/admin.js?v=7"></script>
 </body>
 </html>

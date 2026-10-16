@@ -119,6 +119,10 @@
   $box.innerHTML = `
     <div class="page-head">
       <div class="breadcrumb"><a href="/">首页</a> / <a href="/subs/">字幕库</a> / ${esc(name)}</div>
+      <div class="hist-nav">
+        <button class="hist-btn" type="button" data-hist="back" title="回上一个页面">← 上一页</button>
+        <button class="hist-btn" type="button" data-hist="forward" title="前进到下一个页面">下一页 →</button>
+      </div>
       <h1>${esc(name)}</h1>
       ${item.desc ? `<p>${esc(item.desc)}</p>` : ''}
     </div>

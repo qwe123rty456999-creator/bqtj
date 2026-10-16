@@ -92,6 +92,26 @@ function markActiveNav() {
   });
 }
 
+/**
+ * 历史前进 / 后退按钮（2026-10-16 用户要求「在返回下面做一对箭头」）。
+ * 按钮是 `data-hist="back"` / `data-hist="forward"` 一对，放在面包屑下面。
+ *
+ * 直接用 history.back() / forward()，不自己记路径 —— 用户可能从任何地方进来
+ * （首页、字幕库、另一个管理页、收藏夹），只有浏览器自己知道上一个页面是哪个。
+ * 没有历史可退时浏览器什么都不做，不用额外判断：history.length 不可靠
+ * （同标签页里新开的页面它是 1，但用户仍可能想回上一页）。
+ *
+ * 每个带面包屑的页面都放一份（含三个 JS 渲染的详情页）：
+ * 只在管理页放的话，点「上一页」退到没按钮的页面上，就再也点不到「下一页」了。
+ * 挂在 document 上做委托，所以 JS 后渲染出来的详情页也照样生效。
+ */
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-hist]');
+  if (!b) return;
+  if (b.getAttribute('data-hist') === 'back') history.back();
+  else history.forward();
+});
+
 /* ----------------------------- 小工具 ----------------------------- */
 
 /** 转义 HTML，防止文件名里的特殊字符破坏页面 */

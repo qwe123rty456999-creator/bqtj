@@ -10,7 +10,7 @@
 
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=18">
+<link rel="stylesheet" href="/assets/css/style.css?v=20">
 <script>
 /* 提前请求游戏索引，与 CSS/JS 并行（见首页里的同一段注释） */
 window.__gamesJson = fetch('/assets/data/games.json', { cache: 'no-cache' });
@@ -39,6 +39,10 @@ window.__gamesJson = fetch('/assets/data/games.json', { cache: 'no-cache' });
   <div class="container">
     <div class="page-head">
       <div class="breadcrumb"><a href="/">首页</a> / 游戏</div>
+      <div class="hist-nav">
+        <button class="hist-btn" type="button" data-hist="back" title="回上一个页面">← 上一页</button>
+        <button class="hist-btn" type="button" data-hist="forward" title="前进到下一个页面">下一页 →</button>
+      </div>
       <h1>游戏</h1>
       <p>分享一些游戏，点卡片进详情页看截图、介绍和下载方式。</p>
     </div>
@@ -75,7 +79,7 @@ window.__gamesJson = fetch('/assets/data/games.json', { cache: 'no-cache' });
 <!-- 截图和放大查看都移到了详情页（/games/detail.html?id=xxx），列表里不再需要灯箱 -->
 
 <script src="/assets/js/config.js?v=4"></script>
-<script src="/assets/js/site.js?v=16"></script>
+<script src="/assets/js/site.js?v=18"></script>
 <script src="/assets/js/games.js?v=7"></script>
 </body>
 </html>
