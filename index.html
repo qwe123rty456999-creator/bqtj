@@ -17,7 +17,7 @@
 
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=20">
+<link rel="stylesheet" href="/assets/css/style.css?v=21">
 <script>
 /* 把字幕库索引的请求提前发出去，与 CSS/JS 并行下载。
    否则它要等脚本都就绪后才能发出，白白多等一个往返（实测国内大概 250ms+）。
@@ -59,6 +59,13 @@ window.__subsJson = fetch('/assets/data/subs.json', { cache: 'no-cache' });
         <input type="search" name="q" placeholder="搜索字幕" autocomplete="off" aria-label="搜索字幕">
         <button class="btn btn-primary" type="submit">搜索</button>
       </form>
+
+      <!-- 首页没有面包屑，但也要有这对箭头：从详情页点面包屑「首页」退回来后，
+           「下一页」得能把你送回刚刚那一页（用户 2026-10-16 反馈的正是这个） -->
+      <div class="hist-nav">
+        <button class="hist-btn" type="button" data-hist="back" title="回上一个页面">← 上一页</button>
+        <button class="hist-btn" type="button" data-hist="forward" title="前进到下一个页面">下一页 →</button>
+      </div>
     </div>
   </section>
 
@@ -101,7 +108,7 @@ window.__subsJson = fetch('/assets/data/subs.json', { cache: 'no-cache' });
 </footer>
 
 <script src="/assets/js/config.js?v=4"></script>
-<script src="/assets/js/site.js?v=18"></script>
+<script src="/assets/js/site.js?v=19"></script>
 <script>
 /* 首页：最新收录 */
 (async function () {
@@ -122,13 +129,14 @@ window.__subsJson = fetch('/assets/data/subs.json', { cache: 'no-cache' });
       .slice(0, 8);
 
     $latest.className = 'file-list';
+    /* 整行可点 → 字幕详情页，和字幕库完全一致（用户问「在首页为什么不能点击字幕」） */
     $latest.innerHTML = recent.map((f) => `
-      <div class="file-row">
+      <div class="file-row" data-href="${esc(subDetailUrl(f.path))}">
         ${f.thumb
           ? `<img class="file-thumb" src="${esc(fileUrl(f.thumb))}" alt="" loading="lazy">`
           : `<div class="file-thumb placeholder ${esc(f.ext)}">${esc(f.ext)}</div>`}
         <div class="file-main">
-          <div class="file-name">${esc(f.name)}</div>
+          <a class="file-name" href="${esc(subDetailUrl(f.path))}">${esc(f.name)}</a>
           ${f.desc ? `<div class="file-desc">${esc(f.desc)}</div>` : ''}
           <div class="file-sub">
             <span>${humanSize(f.size)}</span>
@@ -142,6 +150,7 @@ window.__subsJson = fetch('/assets/data/subs.json', { cache: 'no-cache' });
         </div>
       </div>`).join('');
 
+    bindRowClick($latest);
     bindMoreMenu($latest);
     bindCopyButtons($latest);
   } catch (err) {

@@ -92,24 +92,84 @@ function markActiveNav() {
   });
 }
 
-/**
- * 历史前进 / 后退按钮（2026-10-16 用户要求「在返回下面做一对箭头」）。
- * 按钮是 `data-hist="back"` / `data-hist="forward"` 一对，放在面包屑下面。
+/* ------------------------------------------------------------------
+ * 「上一页 / 下一页」按钮（2026-10-16 用户要求「在返回下面做一对箭头」）
  *
- * 直接用 history.back() / forward()，不自己记路径 —— 用户可能从任何地方进来
- * （首页、字幕库、另一个管理页、收藏夹），只有浏览器自己知道上一个页面是哪个。
- * 没有历史可退时浏览器什么都不做，不用额外判断：history.length 不可靠
- * （同标签页里新开的页面它是 1，但用户仍可能想回上一页）。
+ * 按钮是 `data-hist="back"` / `data-hist="forward"` 一对，放在面包屑下面，
+ * 每个带面包屑的页面都有一份（含三个 JS 渲染的详情页；点击挂在 document 上做委托）。
  *
- * 每个带面包屑的页面都放一份（含三个 JS 渲染的详情页）：
- * 只在管理页放的话，点「上一页」退到没按钮的页面上，就再也点不到「下一页」了。
- * 挂在 document 上做委托，所以 JS 后渲染出来的详情页也照样生效。
- */
+ * ★ 为什么不能只用 history.back() / forward()（第一版就是这么写的，被用户否掉）：
+ *   面包屑上的「首页」「字幕库」是普通的 <a> 链接，点它 = 一次**新的**导航，
+ *   浏览器会直接把「前进」那半边历史丢掉 → 回到上面那页后，「下一页」再也点不动。
+ *   用户原话：「我点击上面那个小的返回不能使用下面这个下一页」。
+ *
+ * ★ 所以自己记一条**站内**浏览栈（sessionStorage，关掉标签页即清空）：
+ *   list = 访问过的页面（站点内的 path+search），i = 现在停在第几个。
+ *   - 每次加载：地址如果在本栈**更靠前**的位置出现过 → 把 i 移回去（= 一次后退），
+ *     后面的记录**原样保留**（关键），并记下 jump = 跳过来之前待的那一页。
+ *   - 「上一页」= i-1；「下一页」优先跳 jump（用户说的「刚刚返回的页面」），否则 i+1。
+ *   - 栈里没有可去的地方时，回退到浏览器原生历史（可能是从搜索结果/收藏夹进来的，
+ *     这种情况下只有浏览器知道上一页是哪儿）。
+ * ------------------------------------------------------------------ */
+const NAV_KEY = 'bqtj-nav';
+const NAV_MAX = 60;
+
+/** 当前页在栈里的键：只认 path + query，不看 hash */
+function navHere() {
+  return location.pathname + location.search;
+}
+
+function navRead() {
+  try {
+    const s = JSON.parse(sessionStorage.getItem(NAV_KEY) || '');
+    if (s && Array.isArray(s.list) && typeof s.i === 'number' && s.i >= 0 && s.i < s.list.length) return s;
+  } catch (e) { /* 无痕模式 / 数据被清 → 当空栈 */ }
+  return { list: [], i: -1 };
+}
+
+function navWrite(s) {
+  try { sessionStorage.setItem(NAV_KEY, JSON.stringify(s)); } catch (e) { /* 写不进去就算了，按钮退回原生行为 */ }
+}
+
+function navEnter() {
+  const url = navHere();
+  const s = navRead();
+  if (s.list[s.i] === url) return;                  // 原地刷新：位置不动
+  for (let j = s.i - 1; j >= 0; j--) {              // 往回找 = 一次「后退」（面包屑、上一页、浏览器后退）
+    if (s.list[j] === url) { s.jump = s.i; s.i = j; navWrite(s); return; }
+  }
+  for (let j = s.i + 1; j < s.list.length; j++) {   // 往前找 = 走的正是「下一页」或浏览器前进
+    if (s.list[j] === url) { s.i = j; delete s.jump; navWrite(s); return; }
+  }
+  s.list = s.list.slice(0, s.i + 1);                // 新的一页：旧的前进记录作废
+  s.list.push(url);
+  if (s.list.length > NAV_MAX) s.list = s.list.slice(-NAV_MAX);
+  s.i = s.list.length - 1;
+  delete s.jump;
+  navWrite(s);
+}
+
+function navGo(step) {
+  const s = navRead();
+  let j = s.i + step;
+  // 「下一页」优先回到「刚刚返回的那一页」—— 面包屑可能一下退了两级
+  if (step > 0 && typeof s.jump === 'number' && s.jump > s.i && s.jump < s.list.length) j = s.jump;
+  if (j < 0 || j >= s.list.length) {
+    if (step < 0) history.back(); else history.forward();
+    return;
+  }
+  s.i = j;
+  delete s.jump;
+  navWrite(s);
+  location.href = s.list[j];
+}
+
+navEnter();
+
 document.addEventListener('click', (e) => {
   const b = e.target.closest('[data-hist]');
   if (!b) return;
-  if (b.getAttribute('data-hist') === 'back') history.back();
-  else history.forward();
+  navGo(b.getAttribute('data-hist') === 'back' ? -1 : 1);
 });
 
 /* ----------------------------- 小工具 ----------------------------- */
@@ -500,6 +560,25 @@ function bindCopyButtons(container) {
     const btn = e.target.closest('[data-copy]');
     if (!btn) return;
     copyText(new URL(fileUrl(btn.getAttribute('data-copy')), location.origin).href, btn);
+  });
+}
+
+/**
+ * 整行可点 → 字幕详情页（首页「最新收录」和字幕库共用这一份实现）。
+ *
+ * 用法：行元素上挂 `data-href="<详情页地址>"`，名字做成真正的 `<a class="file-name">`
+ * （可中键、可右键复制链接），然后 `bindRowClick(列表容器)`。
+ * ⚠️ 不能把整行包进 `<a>` —— 行里已经有「下载」和「更多」两个链接/按钮，
+ * HTML 不允许 `<a>` 嵌套（浏览器会把结构拆开）。
+ * 点在链接 / 按钮 / 菜单里时直接放行，否则点「下载」会又下载又跳页。
+ */
+function bindRowClick(container) {
+  if (!container || container.dataset.rowBound) return;
+  container.dataset.rowBound = '1';
+  container.addEventListener('click', (e) => {
+    if (e.target.closest('a, button, .more-menu')) return;
+    const row = e.target.closest('.file-row[data-href]');
+    if (row) location.href = row.getAttribute('data-href');
   });
 }
 

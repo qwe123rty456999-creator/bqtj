@@ -252,14 +252,8 @@
   bindMoreMenu($list);
   bindCopyButtons($list);
 
-  /* 整行可点 → 字幕详情页。
-     点在链接 / 按钮 / 菜单上时直接放行，交给它们自己的行为 ——
-     否则点「下载」会又下载又跳页。 */
-  $list.addEventListener('click', (e) => {
-    if (e.target.closest('a, button, .more-menu')) return;
-    const row = e.target.closest('.file-row[data-href]');
-    if (row) location.href = row.getAttribute('data-href');
-  });
+  /* 整行可点 → 字幕详情页（实现搬到了 site.js，首页「最新收录」用的是同一份） */
+  bindRowClick($list);
 
   function resetAll() {
     state.kw = '';
