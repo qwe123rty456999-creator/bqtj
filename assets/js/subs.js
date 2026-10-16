@@ -102,13 +102,19 @@
   function rowHTML(f) {
     const n = state.counts.get(f.path);
     const vs = subsVariantsOf(f);
+    const detail = subDetailUrl(f.path);
+    /* 整行可点 → 字幕详情页（2026-10-16 用户要求「整个显示的都可以点击」）。
+       ⚠️ **不能**把整行包进 <a>：行里已经有「下载」和「更多」两个 <a>/<button>，
+       HTML 不允许 <a> 嵌套 <a>（浏览器会把结构拆开）。
+       所以：名字做成真正的链接（可中键、可右键、能右键复制链接），
+       其余区域的点击用下面的事件委托补上 —— 点在链接/按钮/菜单里时不跳转。 */
     return `
-      <div class="file-row">
+      <div class="file-row" data-href="${esc(detail)}">
         ${f.thumb
           ? `<img class="file-thumb" src="${esc(fileUrl(f.thumb))}" alt="" loading="lazy">`
           : `<div class="file-thumb placeholder ${esc(f.ext)}">${esc(f.ext)}</div>`}
         <div class="file-main">
-          <div class="file-name">${mark(f.name, state.kw.trim())}</div>
+          <a class="file-name" href="${esc(detail)}">${mark(f.name, state.kw.trim())}</a>
           ${f.desc ? `<div class="file-desc">${esc(f.desc)}</div>` : ''}
           <div class="file-sub">
             <span>${humanSize(f.size)}</span>
@@ -245,6 +251,15 @@
   // 「更多」菜单与「分享链接」的事件委托（实现在 site.js，首页用的是同一份）
   bindMoreMenu($list);
   bindCopyButtons($list);
+
+  /* 整行可点 → 字幕详情页。
+     点在链接 / 按钮 / 菜单上时直接放行，交给它们自己的行为 ——
+     否则点「下载」会又下载又跳页。 */
+  $list.addEventListener('click', (e) => {
+    if (e.target.closest('a, button, .more-menu')) return;
+    const row = e.target.closest('.file-row[data-href]');
+    if (row) location.href = row.getAttribute('data-href');
+  });
 
   function resetAll() {
     state.kw = '';

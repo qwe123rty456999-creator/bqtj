@@ -390,6 +390,14 @@ function lyricsUrl(id) {
 }
 
 /**
+ * 字幕详情页地址（2026-10-16 用户要求「整行可点 → 字幕详情页」）。
+ * 和歌词页一样用 path 当 id，同样只在这里拼一次。
+ */
+function subDetailUrl(id) {
+  return '/subs/detail/?id=' + encodeURIComponent(String(id || ''));
+}
+
+/**
  * 生成「更多」菜单。顺序固定：
  *   1 复制下载链接 → 2 观看原视频(需VPN) → 3 下载视频(提取码bqtj) → 4 原版歌词预览
  * 后三项由管理员在 /admin/ 里填，没填就不出现。

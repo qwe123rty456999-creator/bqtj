@@ -7,8 +7,8 @@
 // 访客实际请求的就是带版本号的地址，那才是该核对的东西。
 const BASE = 'https://bqtj.pages.dev';
 const CHECKS = [
-  ['/assets/css/style.css?v=17', ['.filepick', '.drive-pick', '.link-code', '.send-toast', '.more-menu.drop-up', '.gd-drive', '.gd-cover', '.gd-sec', '.gd-drive-code', '.textarea', '.more-dl', '.dl-hint', '.ly-text', '.mg-lyrics', '.mg-variants', '!more-code', '!game-actions', '!game-shots', '!more-hint']],
-  ['/assets/js/site.js?v=15', ['function setNav', 'navBackdrop', "classList.toggle('drop-up'", 'copyCodeOnOpen', 'bindDriveCodeCopy', 'gameLinksOf', 'gameDetailUrl', 'siteToast', 'legacyCopy', 'subsVariantsOf', 'lyricsUrl', '原版歌词预览']],
+  ['/assets/css/style.css?v=18', ['.filepick', '.drive-pick', '.link-code', '.send-toast', '.more-menu.drop-up', '.gd-drive', '.gd-cover', '.gd-sec', '.gd-drive-code', '.textarea', '.more-dl', '.dl-hint', '.ly-text', '.mg-lyrics', '.mg-variants', '.sd-thumb', '.sd-sec', '.sd-dl', 'a.file-name', '!more-code', '!game-actions', '!game-shots', '!more-hint']],
+  ['/assets/js/site.js?v=16', ['function setNav', 'navBackdrop', "classList.toggle('drop-up'", 'copyCodeOnOpen', 'bindDriveCodeCopy', 'gameLinksOf', 'gameDetailUrl', 'siteToast', 'legacyCopy', 'subsVariantsOf', 'lyricsUrl', 'subDetailUrl', '原版歌词预览']],
   // 列表页整张卡就是一个进详情页的链接：下载按钮、菜单、提取码按钮全删了。
   // ⚠️ 负向检查必须选**不会出现在注释里的写法**（`let dlHTML` / `bindMoreMenu(` 而不是裸的
   // `dlHTML` / `bindMoreMenu`）—— 代码注释里会解释「这里不再需要 dlHTML」，
@@ -18,17 +18,19 @@ const CHECKS = [
   // 上传助手：一次一条 + 基本信息 + ASS/SRT 配对；歌词是能往下展开的 textarea
   ['/assets/js/admin.js?v=6', ['sendState', 'netError', 'withShaRetry', 'saveSubEntry', 'uploadVariant', 'removeVariant', 'captureDrafts', "'lyrics'", '!patchSubsIndex', '!renderList(', '!btnUploadAll']],
   ['/assets/js/lyrics.js?v=1', ['subsVariantsOf', 'ly-text', '原版歌词', 'ly-actions', '找不到这条字幕']],
+  ['/assets/js/sub-detail.js?v=1', ['subsVariantsOf', 'lyricsUrl', 'sd-thumb', 'sd-dl', 'sd-lyric', '打开完整歌词页', '找不到这条字幕']],
   ['/assets/js/games-admin.js?v=9', ['sendState', 'withShaRetry', 'LIST_PWD', 'link-code', '无需码', 'gDetail', '看详情']],
   ['/assets/js/config.js?v=4', ['defaultExtractCode']],
   // 搜索只能匹配看得见的内容：haystack 里不能再出现原始文件名 / path（见 subs.js 注释）
-  ['/assets/js/subs.js?v=5', ['matchKeywords', 'search-scope: name + desc + variant kinds', 'downloadHTML', 'more-dl', 'dl-kind', '!item.path', '!item.file']],
-  ['/games/admin/', ['listPwd', 'sendToast', 'gDetail', 'style.css?v=17', 'site.js?v=15', 'config.js?v=4', 'games-admin.js?v=9']],
-  ['/admin/', ['sendToast', 'id="upAss"', 'id="upSrt"', 'id="upLyrics"', 'id="btnUploadOne"', 'style.css?v=17', 'site.js?v=15', 'config.js?v=4', 'admin.js?v=6', '!id="btnUploadAll"', '!id="picker"']],
-  ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '点卡片进详情页', '会自动复制到剪贴板', 'style.css?v=17', 'site.js?v=15', 'games.js?v=7', '!复制提取码', '!选择云盘下载']],
-  ['/games/detail.html?id=gmu9cq47yr2q', ['game-detail.js?v=2', 'site.js?v=15', 'gdBox', 'lightbox']],
-  ['/subs/', ['style.css?v=17', 'site.js?v=15', 'subs.js?v=5']],
-  ['/subs/lyrics/', ['lyrics.js?v=1', 'site.js?v=15', 'lyBox']],
-  ['/', ['style.css?v=17', 'site.js?v=15']],
+  ['/assets/js/subs.js?v=6', ['matchKeywords', 'search-scope: name + desc + variant kinds', 'downloadHTML', 'more-dl', 'dl-kind', 'subDetailUrl', 'data-href', '!item.path', '!item.file']],
+  ['/games/admin/', ['listPwd', 'sendToast', 'gDetail', 'style.css?v=18', 'site.js?v=16', 'config.js?v=4', 'games-admin.js?v=9']],
+  ['/admin/', ['sendToast', 'id="upAss"', 'id="upSrt"', 'id="upLyrics"', 'id="btnUploadOne"', 'style.css?v=18', 'site.js?v=16', 'config.js?v=4', 'admin.js?v=6', '!id="btnUploadAll"', '!id="picker"']],
+  ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '点卡片进详情页', '会自动复制到剪贴板', 'style.css?v=18', 'site.js?v=16', 'games.js?v=7', '!复制提取码', '!选择云盘下载']],
+  ['/games/detail.html?id=gmu9cq47yr2q', ['game-detail.js?v=2', 'site.js?v=16', 'gdBox', 'lightbox']],
+  ['/subs/', ['style.css?v=18', 'site.js?v=16', 'subs.js?v=6']],
+  ['/subs/lyrics/', ['lyrics.js?v=1', 'site.js?v=16', 'lyBox']],
+  ['/subs/detail/', ['sub-detail.js?v=1', 'site.js?v=16', 'sdBox']],
+  ['/', ['style.css?v=18', 'site.js?v=16']],
   [
     '/about',
     [
@@ -41,8 +43,8 @@ const CHECKS = [
       '国内因后缀强制重置导致连不上',
       '只有一个自建的下载计数',
       '自制的 ASS / SRT 格式的字幕文件',
-      'style.css?v=17',
-      'site.js?v=15',
+      'style.css?v=18',
+      'site.js?v=16',
       'config.js?v=4',
       '!怎么找字幕',                     // 整节已删
       '!不用跟我打招呼',                 // 这句已删
@@ -59,7 +61,7 @@ const CHECKS = [
 
 // 每个页面的左上角 logo 都要指向 B 站主页
 const BRAND = 'href="https://space.bilibili.com/1421373636" target="_blank" rel="noopener"';
-const BRAND_PAGES = ['/', '/subs/', '/subs/lyrics/', '/games/', '/games/detail.html', '/about', '/admin/', '/games/admin/', '/404.html'];
+const BRAND_PAGES = ['/', '/subs/', '/subs/detail/', '/subs/lyrics/', '/games/', '/games/detail.html', '/about', '/admin/', '/games/admin/', '/404.html'];
 
 let bad = 0;
 for (const [path, keys] of CHECKS) {
