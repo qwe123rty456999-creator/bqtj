@@ -353,8 +353,6 @@ kbd {
    放在每个带面包屑的页面上（含三个 JS 渲染的详情页）—— 只放管理页的话，
    点「上一页」退到没按钮的页面后，「下一页」就再也找不回来了。 */
 .hist-nav { display: flex; gap: 8px; margin: 0 0 12px; }
-/* 首页没有面包屑，这对箭头放在首屏搜索框下面 —— 那里是居中排的，箭头也跟着居中 */
-.hero .hist-nav { justify-content: center; margin: 22px 0 0; }
 .hist-btn {
   display: inline-flex;
   align-items: center;

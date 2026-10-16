@@ -108,6 +108,8 @@ function markActiveNav() {
  *   - 每次加载：地址如果在本栈**更靠前**的位置出现过 → 把 i 移回去（= 一次后退），
  *     后面的记录**原样保留**（关键），并记下 jump = 跳过来之前待的那一页。
  *   - 「上一页」= i-1；「下一页」优先跳 jump（用户说的「刚刚返回的页面」），否则 i+1。
+ *   - ★ **首页是起点**：落到首页就把记录清空、从头记（用户要求「退回到这里全部重新记」），
+ *     所以首页上不放这对箭头 —— 那里没有上一个/下一个。
  *   - 栈里没有可去的地方时，回退到浏览器原生历史（可能是从搜索结果/收藏夹进来的，
  *     这种情况下只有浏览器知道上一页是哪儿）。
  * ------------------------------------------------------------------ */
@@ -117,6 +119,14 @@ const NAV_MAX = 60;
 /** 当前页在栈里的键：只认 path + query，不看 hash */
 function navHere() {
   return location.pathname + location.search;
+}
+
+/**
+ * 是不是全站的起点（首页）。首页同时也是 `/index.html`。
+ */
+function navIsRoot(url) {
+  const p = url.split('?')[0];
+  return p === '/' || p === '/index.html';
 }
 
 function navRead() {
@@ -147,10 +157,24 @@ function navFind(list, url, from, dir) {
   return -1;
 }
 
+/** 面包屑那种父子关系：parent 是不是 child 的上一级（只看路径，不看查询串） */
+function navIsAncestor(parent, child) {
+  const a = parent.split('?')[0];
+  const b = child.split('?')[0];
+  return a !== b && b.startsWith(a);
+}
+
 function navEnter() {
   const url = navHere();
+
+  /* ★ 首页是全站的起点：退回到这里就**全部重新记**（用户 2026-10-16 要求）——
+     记录清空，从这一页开始重新数。于是首页上没有「上一页 / 下一页」可言，
+     那对箭头也只放在带面包屑的页面上（首页本来就没有面包屑）。 */
+  if (navIsRoot(url)) { navWrite({ list: [url], i: 0 }); return; }
+
   const s = navRead();
-  if (s.list[s.i] === url) return;                  // 原地刷新：位置不动
+  const from = s.list[s.i];                         // 这次加载前待的那一页
+  if (from === url) return;                         // 原地刷新：位置不动
 
   const back = navFind(s.list, url, s.i - 1, -1);   // 往回找 = 一次「后退」（面包屑、上一页、浏览器后退）
   if (back >= 0) { s.jump = s.i; s.i = back; navWrite(s); return; }
@@ -158,7 +182,24 @@ function navEnter() {
   const fwd = navFind(s.list, url, s.i + 1, 1);     // 往前找 = 走的正是「下一页」或浏览器前进
   if (fwd >= 0) { s.i = fwd; delete s.jump; navWrite(s); return; }
 
-  s.list = s.list.slice(0, s.i + 1);                // 新的一页：旧的前进记录作废
+  /* 新地址正好是刚才那一页的**上一级**（面包屑那种父子关系）→ 把它插在那一页
+     **前面**，把路径补成「首页 → 字幕库 → 详情」，而不是接在末尾。
+     接末尾的话它就成了更靠后的一页，「下一页」就再也回不到详情了。
+     这个分支只在记录里**没有**这个上级时才会走到（有的话上面两档就已经命中）——
+     比如首页直接点一条字幕进详情，记录里就只有 首页 → 详情。 */
+  if (from && navIsAncestor(url, from)) {
+    s.list.splice(s.i, 0, url);
+    if (s.list.length > NAV_MAX) {
+      const cut = s.list.length - NAV_MAX;
+      s.list = s.list.slice(cut);
+      s.i = Math.max(0, s.i - cut);
+    }
+    delete s.jump;
+    navWrite(s);
+    return;
+  }
+
+  s.list = s.list.slice(0, s.i + 1);                // 普通新的一页：旧的前进记录作废
   s.list.push(url);
   if (s.list.length > NAV_MAX) s.list = s.list.slice(-NAV_MAX);
   s.i = s.list.length - 1;
@@ -170,7 +211,9 @@ function navGo(step) {
   const s = navRead();
   let j = s.i + step;
   // 「下一页」优先回到「刚刚返回的那一页」—— 面包屑可能一下退了两级
-  if (step > 0 && typeof s.jump === 'number' && s.jump > s.i && s.jump < s.list.length) j = s.jump;
+  if (step > 0 && typeof s.jump === 'number' && s.jump >= 0 && s.jump < s.list.length && s.jump !== s.i) {
+    j = s.jump;
+  }
   if (j < 0 || j >= s.list.length) {
     if (step < 0) history.back(); else history.forward();
     return;

@@ -17,7 +17,7 @@
 
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=21">
+<link rel="stylesheet" href="/assets/css/style.css?v=22">
 <script>
 /* 把字幕库索引的请求提前发出去，与 CSS/JS 并行下载。
    否则它要等脚本都就绪后才能发出，白白多等一个往返（实测国内大概 250ms+）。
@@ -60,12 +60,8 @@ window.__subsJson = fetch('/assets/data/subs.json', { cache: 'no-cache' });
         <button class="btn btn-primary" type="submit">搜索</button>
       </form>
 
-      <!-- 首页没有面包屑，但也要有这对箭头：从详情页点面包屑「首页」退回来后，
-           「下一页」得能把你送回刚刚那一页（用户 2026-10-16 反馈的正是这个） -->
-      <div class="hist-nav">
-        <button class="hist-btn" type="button" data-hist="back" title="回上一个页面">← 上一页</button>
-        <button class="hist-btn" type="button" data-hist="forward" title="前进到下一个页面">下一页 →</button>
-      </div>
+      <!-- 首页不放「上一页 / 下一页」：首页是全站的起点，退回这里就重新开始记
+           （见 site.js 的 navEnter），所以这里没有上一个/下一个可去 -->
     </div>
   </section>
 
@@ -108,7 +104,7 @@ window.__subsJson = fetch('/assets/data/subs.json', { cache: 'no-cache' });
 </footer>
 
 <script src="/assets/js/config.js?v=4"></script>
-<script src="/assets/js/site.js?v=20"></script>
+<script src="/assets/js/site.js?v=21"></script>
 <script>
 /* 首页：最新收录 */
 (async function () {
