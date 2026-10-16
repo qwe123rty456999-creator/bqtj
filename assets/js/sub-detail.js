@@ -89,6 +89,7 @@
   ].filter(Boolean);
 
   /* 版权 / 使用说明：ASS 一行、SRT 另起一行（用户要求「srt 字幕介绍另起一行」）。
+     文案要写成完整的句子 —— 之前把三四个短句用逗号串成一大句，用户反馈「太粗糙」。
      第一行总是带着「请勿用于商业用途 / 如需使用请标注译者」这两条约定 ——
      不管这个条目只有 ASS 还是只有 SRT，访客都得看到它们。
      只有 SRT 的条目不能写「ASS 字幕…」，所以那种情况把约定挪到 SRT 那一行。 */
@@ -97,13 +98,13 @@
   const pledge = '<b>请勿用于商业用途</b>，<b>如需使用请标注译者</b>';
 
   const noticeLines = [];
-  if (hasAss) noticeLines.push(`ASS 字幕由我个人制作，可自由下载使用，${pledge}。`);
+  if (hasAss) noticeLines.push(`ASS 字幕由我个人制作，可自由下载使用。${pledge}。`);
   if (hasSrt) {
     noticeLines.push(hasAss
-      ? 'SRT 字幕已对好时间轴，方便你在它基础上再做一版。'
-      : `SRT 字幕已对好时间轴，由我个人制作，可自由下载使用，${pledge}。`);
+      ? 'SRT 字幕已对好时间轴，方便你在它的基础上再做一版。'
+      : `SRT 字幕由我个人制作，时间轴已对好，可自由下载使用。${pledge}。`);
   }
-  if (!noticeLines.length) noticeLines.push(`字幕由我个人制作，可自由下载使用，${pledge}。`);
+  if (!noticeLines.length) noticeLines.push(`字幕由我个人制作，可自由下载使用。${pledge}。`);
 
   $box.removeAttribute('style');
   $box.innerHTML = `
@@ -121,7 +122,7 @@
       <h2>下载</h2>
       <p class="sd-hint">${
         vs.length > 1
-          ? 'ASS 是我自己制作的，SRT 是没有加工的。'
+          ? 'ASS 是我自己制作的，SRT 则是未经加工的原始版本。'
           : (vs.length === 1 ? '点击即可下载。' : '')
       }</p>
       <div class="sd-dl">${dlButtons}</div>
