@@ -121,7 +121,7 @@
       <h2>下载</h2>
       <p class="sd-hint">${
         vs.length > 1
-          ? '两种格式内容一样，按你要用的挑：ASS 带样式，SRT 是纯文本。'
+          ? 'ASS 是我自己制作的，SRT 是没有加工的。'
           : (vs.length === 1 ? '点击即可下载。' : '')
       }</p>
       <div class="sd-dl">${dlButtons}</div>
