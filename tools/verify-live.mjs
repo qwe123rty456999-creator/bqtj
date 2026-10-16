@@ -18,7 +18,7 @@ const CHECKS = [
   // 上传助手：一次一条 + 基本信息 + ASS/SRT 配对；歌词是能往下展开的 textarea
   ['/assets/js/admin.js?v=6', ['sendState', 'netError', 'withShaRetry', 'saveSubEntry', 'uploadVariant', 'removeVariant', 'captureDrafts', "'lyrics'", '!patchSubsIndex', '!renderList(', '!btnUploadAll']],
   ['/assets/js/lyrics.js?v=1', ['subsVariantsOf', 'ly-text', '原版歌词', 'ly-actions', '找不到这条字幕']],
-  ['/assets/js/sub-detail.js?v=1', ['subsVariantsOf', 'lyricsUrl', 'sd-thumb', 'sd-dl', 'sd-lyric', '打开完整歌词页', '找不到这条字幕']],
+  ['/assets/js/sub-detail.js?v=2', ['subsVariantsOf', 'lyricsUrl', 'sd-thumb', 'sd-dl', 'sd-lyric', '打开完整歌词页', 'ASS 字幕由我个人制作', '如需使用请标注译者', 'SRT 字幕已对好时间轴', '找不到这条字幕']],
   ['/assets/js/games-admin.js?v=9', ['sendState', 'withShaRetry', 'LIST_PWD', 'link-code', '无需码', 'gDetail', '看详情']],
   ['/assets/js/config.js?v=4', ['defaultExtractCode']],
   // 搜索只能匹配看得见的内容：haystack 里不能再出现原始文件名 / path（见 subs.js 注释）
@@ -29,7 +29,7 @@ const CHECKS = [
   ['/games/detail.html?id=gmu9cq47yr2q', ['game-detail.js?v=2', 'site.js?v=16', 'gdBox', 'lightbox']],
   ['/subs/', ['style.css?v=18', 'site.js?v=16', 'subs.js?v=6']],
   ['/subs/lyrics/', ['lyrics.js?v=1', 'site.js?v=16', 'lyBox']],
-  ['/subs/detail/', ['sub-detail.js?v=1', 'site.js?v=16', 'sdBox']],
+  ['/subs/detail/', ['sub-detail.js?v=2', 'site.js?v=16', 'sdBox']],
   ['/', ['style.css?v=18', 'site.js?v=16']],
   [
     '/about',

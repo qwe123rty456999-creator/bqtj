@@ -88,6 +88,23 @@
     count ? count + ' 次下载' : '',
   ].filter(Boolean);
 
+  /* 版权 / 使用说明：ASS 一行、SRT 另起一行（用户要求「srt 字幕介绍另起一行」）。
+     第一行总是带着「请勿用于商业用途 / 如需使用请标注译者」这两条约定 ——
+     不管这个条目只有 ASS 还是只有 SRT，访客都得看到它们。
+     只有 SRT 的条目不能写「ASS 字幕…」，所以那种情况把约定挪到 SRT 那一行。 */
+  const hasAss = vs.some((v) => v.kind === 'ass');
+  const hasSrt = vs.some((v) => v.kind === 'srt');
+  const pledge = '<b>请勿用于商业用途</b>，<b>如需使用请标注译者</b>';
+
+  const noticeLines = [];
+  if (hasAss) noticeLines.push(`ASS 字幕由我个人制作，可自由下载使用，${pledge}。`);
+  if (hasSrt) {
+    noticeLines.push(hasAss
+      ? 'SRT 字幕已对好时间轴，方便你在它基础上再做一版。'
+      : `SRT 字幕已对好时间轴，由我个人制作，可自由下载使用，${pledge}。`);
+  }
+  if (!noticeLines.length) noticeLines.push(`字幕由我个人制作，可自由下载使用，${pledge}。`);
+
   $box.removeAttribute('style');
   $box.innerHTML = `
     <div class="page-head">
@@ -118,13 +135,7 @@
     </section>` : ''}
 
     <div class="notice">
-      <div>
-        字幕由我个人制作，可自由下载使用，<b>请勿用于商业用途</b>。${
-          vs.some((v) => v.kind === 'srt')
-            ? '想在它基础上再做一版的话，建议下 SRT —— 时间轴已经对好了。'
-            : ''
-        }
-      </div>
+      <div>${noticeLines.join('<br>')}</div>
     </div>
 
     <div class="sd-actions">
