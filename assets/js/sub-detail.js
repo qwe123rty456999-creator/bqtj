@@ -88,6 +88,15 @@
     count ? count + ' 次下载' : '',
   ].filter(Boolean);
 
+  /* 下载区介绍：用户 2026-10-16 给的原文（一字不改，只按站内排版补了
+     拉丁字母与中文之间的空格、以及句末句号）。
+     两种格式各占一行；只有一种格式时就只显示那一句。 */
+  const FORMAT_HINT = {
+    ass: 'ASS 字幕由我制作，含特效/样式。',
+    srt: 'SRT 为原歌词文本，在此基础上我重新校对并调整了时间轴，以适配视频。',
+  };
+  const hintLines = vs.map((v) => FORMAT_HINT[v.kind]).filter(Boolean);
+
   /* 版权 / 使用说明：ASS 一行、SRT 另起一行（用户要求「srt 字幕介绍另起一行」）。
      文案要写成完整的句子 —— 之前把三四个短句用逗号串成一大句，用户反馈「太粗糙」。
      第一行总是带着「请勿用于商业用途 / 如需使用请标注译者」这两条约定 ——
@@ -120,11 +129,7 @@
 
     <section class="sd-sec">
       <h2>下载</h2>
-      <p class="sd-hint">${
-        vs.length > 1
-          ? 'ASS 是我自己制作的，SRT 则是未经加工的原始版本。'
-          : (vs.length === 1 ? '点击即可下载。' : '')
-      }</p>
+      ${hintLines.length ? `<p class="sd-hint">${hintLines.join('<br>')}</p>` : ''}
       <div class="sd-dl">${dlButtons}</div>
     </section>
 
