@@ -8,7 +8,7 @@
 const BASE = 'https://bqtj.pages.dev';
 const CHECKS = [
   ['/assets/css/style.css?v=21', ['.filepick', '.drive-pick', '.link-code', '.send-toast', '.more-menu.drop-up', '.gd-drive', '.gd-cover', '.gd-sec', '.gd-drive-code', '.textarea', '.more-dl', '.dl-hint', '.ly-text', '.mg-lyrics', '.mg-variants', '.sd-thumb', '.sd-sec', '.sd-dl', 'a.file-name', '.hist-btn', '!more-code', '!game-actions', '!game-shots', '!more-hint']],
-  ['/assets/js/site.js?v=19', ['function setNav', 'navBackdrop', "classList.toggle('drop-up'", 'copyCodeOnOpen', 'bindDriveCodeCopy', 'gameLinksOf', 'gameDetailUrl', 'siteToast', 'legacyCopy', 'subsVariantsOf', 'lyricsUrl', 'subDetailUrl', 'bindRowClick', '原版歌词预览', "[data-hist]", 'navEnter', 'navGo', 'history.back()', 'history.forward()']],
+  ['/assets/js/site.js?v=20', ['function setNav', 'navBackdrop', "classList.toggle('drop-up'", 'copyCodeOnOpen', 'bindDriveCodeCopy', 'gameLinksOf', 'gameDetailUrl', 'siteToast', 'legacyCopy', 'subsVariantsOf', 'lyricsUrl', 'subDetailUrl', 'bindRowClick', '原版歌词预览', "[data-hist]", 'navEnter', 'navGo', 'history.back()', 'history.forward()']],
   // 列表页整张卡就是一个进详情页的链接：下载按钮、菜单、提取码按钮全删了。
   // ⚠️ 负向检查必须选**不会出现在注释里的写法**（`let dlHTML` / `bindMoreMenu(` 而不是裸的
   // `dlHTML` / `bindMoreMenu`）—— 代码注释里会解释「这里不再需要 dlHTML」，
@@ -23,14 +23,14 @@ const CHECKS = [
   ['/assets/js/config.js?v=4', ['defaultExtractCode']],
   // 搜索只能匹配看得见的内容：haystack 里不能再出现原始文件名 / path（见 subs.js 注释）
   ['/assets/js/subs.js?v=7', ['matchKeywords', 'search-scope: name + desc + variant kinds', 'downloadHTML', 'more-dl', 'dl-kind', 'subDetailUrl', 'bindRowClick', 'data-href', '!item.path', '!item.file']],
-  ['/games/admin/', ['listPwd', 'sendToast', 'gDetail', 'data-hist="back"', 'style.css?v=21', 'site.js?v=19', 'config.js?v=4', 'games-admin.js?v=9']],
-  ['/admin/', ['sendToast', 'id="upAss"', 'id="upSrt"', 'id="upLyrics"', 'id="upThumb"', 'id="btnUploadOne"', 'data-hist="back"', 'data-hist="forward"', 'style.css?v=21', 'site.js?v=19', 'config.js?v=4', 'admin.js?v=7', '!id="btnUploadAll"', '!id="picker"']],
-  ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '点卡片进详情页', '会自动复制到剪贴板', 'data-hist="back"', 'data-hist="forward"', 'style.css?v=21', 'site.js?v=19', 'games.js?v=7', '!复制提取码', '!选择云盘下载']],
-  ['/games/detail.html?id=gmu9cq47yr2q', ['game-detail.js?v=3', 'site.js?v=19', 'gdBox', 'lightbox']],
-  ['/subs/', ['data-hist="back"', 'data-hist="forward"', 'style.css?v=21', 'site.js?v=19', 'subs.js?v=7']],
-  ['/subs/lyrics/', ['lyrics.js?v=2', 'site.js?v=19', 'lyBox']],
-  ['/subs/detail/', ['sub-detail.js?v=6', 'site.js?v=19', 'sdBox']],
-  ['/', ['data-hist="back"', 'data-hist="forward"', 'style.css?v=21', 'site.js?v=19', 'data-href', 'bindRowClick', 'subDetailUrl']],
+  ['/games/admin/', ['listPwd', 'sendToast', 'gDetail', 'data-hist="back"', 'style.css?v=21', 'site.js?v=20', 'config.js?v=4', 'games-admin.js?v=9']],
+  ['/admin/', ['sendToast', 'id="upAss"', 'id="upSrt"', 'id="upLyrics"', 'id="upThumb"', 'id="btnUploadOne"', 'data-hist="back"', 'data-hist="forward"', 'style.css?v=21', 'site.js?v=20', 'config.js?v=4', 'admin.js?v=7', '!id="btnUploadAll"', '!id="picker"']],
+  ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '点卡片进详情页', '会自动复制到剪贴板', 'data-hist="back"', 'data-hist="forward"', 'style.css?v=21', 'site.js?v=20', 'games.js?v=7', '!复制提取码', '!选择云盘下载']],
+  ['/games/detail.html?id=gmu9cq47yr2q', ['game-detail.js?v=3', 'site.js?v=20', 'gdBox', 'lightbox']],
+  ['/subs/', ['data-hist="back"', 'data-hist="forward"', 'style.css?v=21', 'site.js?v=20', 'subs.js?v=7']],
+  ['/subs/lyrics/', ['lyrics.js?v=2', 'site.js?v=20', 'lyBox']],
+  ['/subs/detail/', ['sub-detail.js?v=6', 'site.js?v=20', 'sdBox']],
+  ['/', ['data-hist="back"', 'data-hist="forward"', 'style.css?v=21', 'site.js?v=20', 'data-href', 'bindRowClick', 'subDetailUrl']],
   [
     '/about',
     [
@@ -45,7 +45,7 @@ const CHECKS = [
       '自制的 ASS / SRT 格式的字幕文件',
       'data-hist="back"',
       'style.css?v=21',
-      'site.js?v=19',
+      'site.js?v=20',
       'config.js?v=4',
       '!怎么找字幕',                     // 整节已删
       '!不用跟我打招呼',                 // 这句已删

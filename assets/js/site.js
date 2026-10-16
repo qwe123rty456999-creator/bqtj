@@ -131,16 +131,33 @@ function navWrite(s) {
   try { sessionStorage.setItem(NAV_KEY, JSON.stringify(s)); } catch (e) { /* 写不进去就算了，按钮退回原生行为 */ }
 }
 
+/**
+ * 在栈里找某一页，返回下标（找不到返回 -1）。
+ * `dir` = -1 往回找、+1 往前找。
+ *
+ * 先精确匹配（路径 + 查询串）；都不中时，**只在当前页没有查询串**的情况下降级到只看路径：
+ *   `/subs/` 要能对上 `/subs/?q=关键词`（从首页搜索进来的那一页），
+ *   `/` 要能对上 `/?cb=xxx` 这种带了参数的地址。
+ * 反过来不降级 —— `/subs/?q=a` 和 `/subs/?q=b` 是两次不同的搜索，不能当成同一页。
+ */
+function navFind(list, url, from, dir) {
+  for (let j = from; j >= 0 && j < list.length; j += dir) if (list[j] === url) return j;
+  if (url.includes('?')) return -1;
+  for (let j = from; j >= 0 && j < list.length; j += dir) if (list[j].split('?')[0] === url) return j;
+  return -1;
+}
+
 function navEnter() {
   const url = navHere();
   const s = navRead();
   if (s.list[s.i] === url) return;                  // 原地刷新：位置不动
-  for (let j = s.i - 1; j >= 0; j--) {              // 往回找 = 一次「后退」（面包屑、上一页、浏览器后退）
-    if (s.list[j] === url) { s.jump = s.i; s.i = j; navWrite(s); return; }
-  }
-  for (let j = s.i + 1; j < s.list.length; j++) {   // 往前找 = 走的正是「下一页」或浏览器前进
-    if (s.list[j] === url) { s.i = j; delete s.jump; navWrite(s); return; }
-  }
+
+  const back = navFind(s.list, url, s.i - 1, -1);   // 往回找 = 一次「后退」（面包屑、上一页、浏览器后退）
+  if (back >= 0) { s.jump = s.i; s.i = back; navWrite(s); return; }
+
+  const fwd = navFind(s.list, url, s.i + 1, 1);     // 往前找 = 走的正是「下一页」或浏览器前进
+  if (fwd >= 0) { s.i = fwd; delete s.jump; navWrite(s); return; }
+
   s.list = s.list.slice(0, s.i + 1);                // 新的一页：旧的前进记录作废
   s.list.push(url);
   if (s.list.length > NAV_MAX) s.list = s.list.slice(-NAV_MAX);
