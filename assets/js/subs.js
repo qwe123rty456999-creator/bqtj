@@ -3,6 +3,9 @@
    说明：本站内容全是同一部作品的简体中文字幕，所以不做语言 / 格式 / 作品
         这类分类筛选，只保留搜索和排序。
    数据来自 assets/data/subs.json（由 tools/build-subs-index.mjs 或上传助手生成）
+
+   2026-10-16：一条字幕可以有 ASS + SRT 两个版本（见 site.js 的 subsVariantsOf），
+   两个都有时「下载」按钮会变成二选一的菜单。
    ========================================================================== */
 
 (function () {
@@ -30,7 +33,7 @@
    * 空格分隔的多关键词 = AND 匹配。
    *
    * ⚠️ 只能匹配「屏幕上看得见的东西」。
-   * search-scope: name + desc + ext
+   * search-scope: name + desc + variant kinds
    *
    * 2026-09-19 修：原来还把原始文件名和文件的完整路径一起拼进 hay，
    * 等于能搜到用户根本看不到的文字 ——
@@ -47,8 +50,10 @@
     const hay = (item.name + ' ' + (item.desc || '')).toLowerCase();
     // 格式（ass / srt）单独按「整个词相等」比：它显示在列表行的角标上。
     // 用 includes 的话搜 "s" 会把所有 .ass 都带出来，那就又回到上面那个坑了。
+    // 一条字幕可能两个版本都有，所以看的是全部版本而不是单个 ext。
+    const kinds = subsVariantsOf(item).map((v) => v.kind);
     return kw.toLowerCase().split(/\s+/).filter(Boolean).every((w) =>
-      hay.includes(w) || String(item.ext || '').toLowerCase() === w
+      hay.includes(w) || kinds.includes(w)
     );
   }
 
@@ -70,8 +75,33 @@
 
   /* ----------------------------- 渲染 ----------------------------- */
 
+  /**
+   * 下载入口。
+   * - 只有一个版本（现在大多数条目）→ 直接一个下载按钮，和以前完全一样
+   * - ASS + SRT 都有 → 点开的菜单让访客自己选，并写清楚两个的区别：
+   *     ASS 是成品（带样式），SRT 是调好时间轴的纯文本、方便自己再做一版。
+   * 复用 site.js 那套 .more 菜单组件：bindMoreMenu 管的是容器里**所有** .more，
+   * 所以一行里同时有「下载」菜单和「更多」菜单也没问题。
+   */
+  function downloadHTML(f) {
+    const vs = subsVariantsOf(f);
+    if (!vs.length) return '';
+    if (vs.length === 1) {
+      return `<a class="btn btn-sm btn-primary" href="${esc(fileUrl(vs[0].path))}" download>下载</a>`;
+    }
+    const items = vs.map((v) =>
+      `<a class="more-item dl-item" href="${esc(fileUrl(v.path))}" download>` +
+      `<span class="dl-kind">${esc(v.kind.toUpperCase())}</span>` +
+      `<span class="dl-hint">${esc(v.hint)}</span></a>`).join('');
+    return '<div class="more more-dl">' +
+      '<button class="btn btn-sm btn-primary" data-act="more" type="button" ' +
+      'aria-expanded="false" aria-haspopup="true">下载</button>' +
+      `<div class="more-menu" hidden>${items}</div></div>`;
+  }
+
   function rowHTML(f) {
     const n = state.counts.get(f.path);
+    const vs = subsVariantsOf(f);
     return `
       <div class="file-row">
         ${f.thumb
@@ -83,12 +113,13 @@
           <div class="file-sub">
             <span>${humanSize(f.size)}</span>
             <span>·</span>
+            ${vs.length ? `<span class="tag">${vs.map((v) => v.kind.toUpperCase()).join(' / ')}</span>` : ''}
             <span title="${esc(f.mtime)}">${relTime(f.mtime)}</span>
             ${n ? `<span class="count-badge">${n} 次下载</span>` : ''}
           </div>
         </div>
         <div class="file-actions">
-          <a class="btn btn-sm btn-primary" href="${esc(fileUrl(f.path))}" download>下载</a>
+          ${downloadHTML(f)}
           ${moreMenuHTML(f)}
         </div>
       </div>`;

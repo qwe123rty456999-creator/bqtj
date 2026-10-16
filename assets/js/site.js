@@ -361,14 +361,46 @@ function gameDetailUrl(id) {
 }
 
 /**
- * 生成「更多」菜单。顺序固定：1 复制下载链接 → 2 观看原视频(需VPN) → 3 下载视频(提取码bqtj)。
- * 后两项由管理员在 /admin/ 里填，没填就不出现。
+ * 一条字幕可能有两个版本（2026-10-16 用户要求）：
+ *   ASS —— 自己做的成品，带样式
+ *   SRT —— 调好时间轴的纯文本，方便别人自己再加工一版
+ *
+ * 老数据只有 path / ext 一个文件，这里统一归一化，**不用改数据**：
+ *   - 没有任何 ass/srt 字段 → 按 ext 把那个文件当成唯一的版本
+ *   - 写了 ass/srt 字段 → 以字段为准（admin 配对后会写）
+ * 返回顺序固定 ASS 在前。
+ */
+function subsVariantsOf(it) {
+  const src = it || {};
+  const ass = String(src.ass || (src.ext === 'ass' ? src.path : '') || '');
+  const srt = String(src.srt || (src.ext === 'srt' ? src.path : '') || '');
+  const out = [];
+  if (ass) out.push({ kind: 'ass', path: ass, hint: '带样式，我自己做的' });
+  if (srt) out.push({ kind: 'srt', path: srt, hint: '已对好时间轴，方便自己做一版' });
+  return out;
+}
+
+/**
+ * 原版歌词预览页地址。
+ * id 用条目的 path（下载统计 / 缩略图 / 管理都以 path 为主键），
+ * 全站只在这里拼一次，改路径不会漏掉某处。
+ */
+function lyricsUrl(id) {
+  return '/subs/lyrics/?id=' + encodeURIComponent(String(id || ''));
+}
+
+/**
+ * 生成「更多」菜单。顺序固定：
+ *   1 复制下载链接 → 2 观看原视频(需VPN) → 3 下载视频(提取码bqtj) → 4 原版歌词预览
+ * 后三项由管理员在 /admin/ 里填，没填就不出现。
  * 只有一项时不加编号 —— 孤零零一个「1」看着很怪。
  */
 function moreMenuHTML(f) {
   const list = [{ kind: 'copy', label: '复制下载链接', path: f.path }];
   if (f.videoUrl) list.push({ kind: 'link', label: '观看原视频(需VPN)', href: cleanUrl(f.videoUrl), blank: true });
   if (f.videoDl) list.push({ kind: 'link', label: '下载视频(提取码bqtj)', href: cleanUrl(f.videoDl), dl: true });
+  /* 歌词预览是站内页面（/subs/lyrics/?id=…），用 path 当 id */
+  if (f.lyrics) list.push({ kind: 'link', label: '原版歌词预览', href: lyricsUrl(f.path), blank: true });
 
   const numbered = list.length > 1;
   const body = list.map((it, i) => {

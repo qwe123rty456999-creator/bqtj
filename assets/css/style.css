@@ -677,6 +677,19 @@ select.control:focus { border-color: var(--accent); }
 /* 复制成功后的短暂提示（比单纯变文字更显眼） */
 .more-item.copied { color: var(--ok); }
 
+/* 「下载」二选一菜单：一条字幕同时有 ASS 和 SRT 时才出现。
+   比普通「更多」菜单宽，而且每项要写清楚两个版本的区别，
+   所以允许换行（.more-item 默认是 nowrap）。 */
+.more-dl .more-menu { min-width: 238px; }
+.more-dl .dl-item {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  white-space: normal;
+}
+.dl-kind { font-family: var(--font-mono); font-size: 13.5px; font-weight: 600; }
+.dl-hint { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
 /* 菜单项里的提示看不到（菜单已收起），会挂到「更多」按钮上，这里给它同样的绿色 */
 .btn.copied {
   color: var(--ok);
@@ -1013,6 +1026,86 @@ details.admin-card > summary .num {
 }
 .mg-row .mg-edit .input { width: 100%; background: var(--surface); }
 .mg-row .mg-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+
+/* 原版歌词：单独一块、能往下展开的文本框。
+   用户明确要求「添加原歌词时应该往下打开，而不是一行输出完，和描述分开」——
+   所以它是一块带虚线框的独立区域，夹在「说明」和「链接」之间。 */
+.mg-row .mg-lyrics {
+  margin-top: 3px;
+  padding: 10px 12px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+.mg-lyrics-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 7px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+.mg-lyrics-head .h2-tail { margin-left: 0; font-size: 12px; }
+.mg-row .mg-lyrics .textarea {
+  width: 100%;
+  min-height: 96px;
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+
+/* 这条字幕现有的文件版本（ASS / SRT） */
+.mg-variants { display: inline-flex; align-items: center; gap: 5px; }
+.mg-variants b {
+  padding: 2px 7px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.mg-variants .v-ass { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.mg-variants .v-srt { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+.mg-variants .v-none { color: var(--text-dim); }
+
+/* ============================ 原版歌词页 ============================ */
+/* /subs/lyrics/?id=xxx —— 从列表「更多 → 原版歌词预览」点进来看到的那一页 */
+
+.ly-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 10px 0 2px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.ly-sec {
+  margin-top: 16px;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.ly-sec > h2 { margin: 0 0 10px; font-size: 16px; font-weight: 600; }
+
+/* 歌词是站主粘进来的纯文本，靠 pre-wrap 保留换行（不用 <br> 拼） */
+.ly-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 14.5px;
+  line-height: 1.95;
+  color: var(--text);
+}
+
+.ly-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
 
 .state {
   display: inline-flex;

@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=16">
+<link rel="stylesheet" href="/assets/css/style.css?v=17">
 </head>
 <body>
 
@@ -33,7 +33,7 @@
   <div class="page-head">
     <div class="breadcrumb"><a href="/">首页</a> / 上传助手</div>
     <h1>上传助手</h1>
-    <p>拖入字幕，自动提交并更新索引，Cloudflare 随后自动部署，约 1 分钟后线上可搜。</p>
+    <p>一次传一条字幕：选文件、填好基本信息，提交后自动更新索引，约 1 分钟后线上可搜。</p>
   </div>
 
   <!-- ============ 设置（默认折叠，没配过令牌时自动展开） ============ -->
@@ -66,21 +66,80 @@
     </div>
   </details>
 
-  <!-- ============ ① 上传 ============ -->
+  <!-- ============ ① 上传（一次一条） ============ -->
   <section class="admin-card">
     <h2><span class="num">1</span>上传字幕</h2>
 
-    <div class="drop" id="drop">
-      <b>拖字幕文件到这里，或点击选择</b>
-      <span>.ass · .ssa · .srt · .vtt · .sub · .idx · .sup</span>
+    <p class="hint" style="margin-top:0">
+      一次传一条，选文件的同时就能把基本信息填完。
+      同一条字幕可以<b>同时选 ASS 和 SRT 两个文件</b>：
+      ASS 是你做好的成品（带样式），SRT 是调好时间轴的纯文本，方便别人自己再做一版。
+      只传一个也行。
+    </p>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="upAss">ASS 文件 <span class="h2-tail">带样式的成品</span></label>
+        <div class="filepick">
+          <button class="btn" type="button" data-pick="upAss">选择 .ass</button>
+          <span class="filepick-name" id="upAssName">还没有选择文件</span>
+        </div>
+        <input type="file" id="upAss" accept=".ass,.ssa" hidden>
+      </div>
+      <div class="field">
+        <label for="upSrt">SRT 文件 <span class="h2-tail">选填</span></label>
+        <div class="filepick">
+          <button class="btn" type="button" data-pick="upSrt">选择 .srt</button>
+          <span class="filepick-name" id="upSrtName">还没有选择文件</span>
+        </div>
+        <input type="file" id="upSrt" accept=".srt" hidden>
+      </div>
     </div>
-    <input type="file" id="picker" multiple hidden>
+    <div class="tip" style="margin-top:-6px">
+      两个文件的主名要一样（如 <code>歌名.ass</code> + <code>歌名.srt</code>），
+      否则别人下载时会分不清是不是同一首。
+      已经传过的字幕后来想补 SRT，到下面第 3 步的列表里也能加。
+    </div>
 
-    <div class="up-list" id="upList"></div>
+    <div class="field" style="margin-top:14px">
+      <label for="upName">显示名称</label>
+      <input class="input" id="upName" maxlength="80" autocomplete="off"
+             placeholder="选文件后会自动填，可以改">
+      <div class="tip">只影响网站上显示的名字，文件名和下载链接都不变。</div>
+    </div>
 
-    <div class="file-actions" style="margin-top:16px" id="upActions" hidden>
-      <button class="btn btn-primary" id="btnUploadAll">全部上传</button>
-      <button class="btn" id="btnClearList">清空列表</button>
+    <div class="field">
+      <label for="upDesc">说明</label>
+      <input class="input" id="upDesc" maxlength="120" autocomplete="off"
+             placeholder="一句话介绍，显示在名字下方，也能被搜到">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="upVideo">原视频链接</label>
+        <input class="input" id="upVideo" autocomplete="off"
+               placeholder="YouTube / B站（需 VPN 才能看）">
+      </div>
+      <div class="field">
+        <label for="upVideoDl">下载原视频链接</label>
+        <input class="input" id="upVideoDl" autocomplete="off"
+               placeholder="如蓝奏云（提取码 bqtj）">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="upLyrics">原版歌词 <span class="h2-tail">选填</span></label>
+      <textarea class="textarea" id="upLyrics" rows="8"
+                placeholder="整段粘进来就行，保留换行。填了之后列表的「更多」里会多一项「原版歌词预览」。"></textarea>
+      <div class="tip">
+        这里是<b>歌词原文</b>（一行一句），和上面的「说明」是两回事 ——
+        说明是一句话介绍，歌词是给访客看的原版全文。
+      </div>
+    </div>
+
+    <div class="file-actions" style="margin-top:16px">
+      <button class="btn btn-primary" id="btnUploadOne">上传这一条</button>
+      <button class="btn" id="btnClearForm">清空表单</button>
     </div>
 
     <div class="log" id="log" hidden></div>
@@ -134,9 +193,12 @@
     <!-- 解锁后才显示 -->
     <div id="mgBody" hidden>
       <p class="hint" style="margin-top:0">
-        改显示名称、写说明、挂原视频 / 下载视频链接，或者删掉不要的字幕。
+        改显示名称、写说明、填原版歌词、挂原视频 / 下载视频链接，或者删掉不要的字幕。
         <b>改名只改网站上显示的名字</b>，文件名和下载链接都不变。
-        说明会显示在名字下方并能被搜索到；两个链接<b>填了才会</b>在列表的「更多」里出现。
+        说明会显示在名字下方并能被搜索到；
+        歌词填了之后，「更多」里才会多一项「原版歌词预览」；两个链接也是<b>填了才会</b>出现。
+        每行下面的按钮能<b>补传 / 更换 / 移除 ASS、SRT</b> ——
+        两个都有时，列表上的「下载」会让访客自己选。
         改动直接提交到 GitHub，Cloudflare 随后自动部署，约 1 分钟后生效。
       </p>
 
@@ -168,7 +230,7 @@
 </footer>
 
 <script src="/assets/js/config.js?v=4"></script>
-<script src="/assets/js/site.js?v=14"></script>
-<script src="/assets/js/admin.js?v=5"></script>
+<script src="/assets/js/site.js?v=15"></script>
+<script src="/assets/js/admin.js?v=6"></script>
 </body>
 </html>

@@ -336,12 +336,59 @@ async function main() {
     });
   }
 
+  /* 把同名的 ASS / SRT 并成一条（2026-10-16）。
+
+     站点上一条字幕可以带 ASS + SRT 两个下载选项，靠**主名相同**配对
+     （见 assets/js/site.js 的 subsVariantsOf）。
+     脚本原本是「一个文件一条」，成对时会产生两条重复条目，所以在这里合并：
+       · ASS 当主版本（path / file / ext / size / mtime 都跟它走，站点列表和下载统计都认 path）
+       · SRT 挂到 srt 字段
+       · 只有 SRT 的条目就保持它当主版本
+     其余格式（vtt / sub / idx / sup）不参与配对。
+
+     注意：这里**不靠**旧索引里的 ass/srt 字段，而是从磁盘重新推 ——
+     文件被删掉后旧字段会指向不存在的文件，从磁盘推永远是对的。 */
+  const merged = [];
+  const byBase = new Map();
+  for (const it of items) {
+    if (it.ext !== 'ass' && it.ext !== 'srt') { merged.push(it); continue; }
+
+    const base = it.path.replace(/\.[^.]+$/, '');
+    const prev = byBase.get(base);
+
+    if (!prev) {
+      byBase.set(base, it);
+      it[it.ext] = it.path;          // 自带一个版本字段（ass 或 srt）
+      merged.push(it);
+      continue;
+    }
+
+    /* 已经有一条了，把这一条当成另一个版本挂上去 */
+    prev[it.ext] = it.path;
+    if (it.ext === 'ass') {
+      /* 补上的这条是 ASS → 升级为主版本 */
+      prev.path = it.path;
+      prev.file = it.file;
+      prev.ext = 'ass';
+      prev.size = it.size;
+      prev.mtime = it.mtime;
+      prev.lang = it.lang;
+      prev.langClass = it.langClass;
+      prev.langSource = it.langSource;
+    }
+  }
+  items.length = 0;
+  items.push(...merged);
+
   // 按时间倒序
   items.sort((a, b) => b.mtime.localeCompare(a.mtime));
 
-  /* 保留管理员在 /admin/ 里写的字段（名称、说明、缩略图关联）。
+  /* 保留管理员在 /admin/ 里写的字段（名称、说明、缩略图关联、歌词）。
      脚本是整份重建索引的，不把旧文件里的这些字段搬过来就会静默丢掉。
      按 path 对齐（path 唯一），文件被删掉的自然不会保留。
+
+     ⚠️ ass / srt 两个版本字段**故意不在这里保留** —— 它们由上面的同名合并
+     从磁盘重新推出来，从磁盘推永远是对的；旧索引里的值可能在文件删掉后指向空气。
 
      关于 name：它默认由文件名推出来，但管理员在 /admin/ 里改过名字后
      这里必须保留，否则下次重建（比如批量导入）会把改好的名字全部打回去。
@@ -351,7 +398,7 @@ async function main() {
   if (existsSync(OUT_FILE)) {
     try {
       const old = JSON.parse(await readFile(OUT_FILE, 'utf8'));
-      const KEEP = ['name', 'desc', 'thumb', 'videoUrl', 'videoDl'];
+      const KEEP = ['name', 'desc', 'thumb', 'videoUrl', 'videoDl', 'lyrics'];
       const byPath = new Map(
         (old.items || []).filter((x) => x && x.path).map((x) => [x.path, x])
       );
@@ -366,7 +413,7 @@ async function main() {
         }
       }
       if (kept) {
-        console.log(`   保留已有字段（名称 / 说明 / 缩略图 / 视频链接）共 ${kept} 条`);
+        console.log(`   保留已有字段（名称 / 说明 / 缩略图 / 视频链接 / 歌词）共 ${kept} 条`);
       }
     } catch {
       console.warn('   ⚠  读取旧索引失败，本次未保留名称/说明/缩略图（旧文件已损坏或不是 JSON）');

@@ -25,14 +25,12 @@
   const ui = {
     setupCard: $('setupCard'), token: $('token'),
     connBox: $('connBox'), connMsg: $('connMsg'),
-    drop: $('drop'), picker: $('picker'),
-    upList: $('upList'), upActions: $('upActions'), log: $('log'),
+    log: $('log'),
     statSummary: $('statSummary'), statTable: $('statTable'), maxSize: $('maxSize'),
     overview: $('overview'),
   };
 
-  const state = { token: '', files: [], tree: null };
-  let seq = 0;
+  const state = { token: '', tree: null };
 
   /* --------------------------- 发送状态提示 --------------------------- */
   /**
@@ -126,8 +124,6 @@
     const i = name.lastIndexOf('.');
     return i < 0 ? '' : name.slice(i + 1).toLowerCase();
   };
-  const SUB_EXTS = ['ass', 'ssa', 'srt', 'vtt', 'sub', 'idx', 'sup'];
-  const isSub = (ext) => SUB_EXTS.includes(ext);
 
   /* ======================= 文件名处理（与本地索引脚本一致） ======================= */
 
@@ -384,163 +380,223 @@
     }
   }
 
-  /* ======================= 选文件 ======================= */
+  /* ======================= 选文件（一次一条） ======================= */
 
-  ui.drop.addEventListener('click', () => ui.picker.click());
-  ui.drop.addEventListener('dragover', (e) => { e.preventDefault(); ui.drop.classList.add('over'); });
-  ui.drop.addEventListener('dragleave', () => ui.drop.classList.remove('over'));
-  ui.drop.addEventListener('drop', (e) => {
-    e.preventDefault();
-    ui.drop.classList.remove('over');
-    addFiles(e.dataTransfer.files);
+  /**
+   * 2026-10-16 用户要求改造：原来是「一次拖一堆文件 → 批量上传 → 再跑到第 3 步
+   * 一条条补说明」，改成**一次传一条**，选文件的当下就把基本信息填完。
+   * 同一个条目的 ASS 和 SRT 一次选中即可，省得传完再回来补。
+   */
+  const upFiles = { ass: null, srt: null };      // 当前表单选中的两个文件
+  const UP_INPUT = { ass: 'upAss', srt: 'upSrt' };
+  const UP_LABEL = { ass: 'upAssName', srt: 'upSrtName' };
+
+  /** 文件主名（去掉扩展名）—— 判断 ASS / SRT 是不是同一首的依据 */
+  function baseNameOf(fileName) {
+    return String(fileName || '').replace(/\.[^.]+$/, '');
+  }
+  const fileOf = (p) => String(p || '').split('/').pop();
+
+  function setPickLabel(kind, file) {
+    const el = $(UP_LABEL[kind]);
+    if (!el) return;
+    el.textContent = file ? `${file.name}（${humanSize(file.size)}）` : '还没有选择文件';
+    el.classList.toggle('has-file', !!file);
+  }
+
+  /** 用文件名自动填「显示名称」。只在那一栏还是空的、或还停在上次自动填的值时才覆盖。 */
+  let lastNameAuto = '';
+  function autoFillName(file) {
+    const el = $('upName');
+    if (!el) return;
+    const cur = el.value.trim();
+    if (cur && cur !== lastNameAuto) return;      // 用户自己改过，别动它
+    lastNameAuto = cleanName(baseNameOf(file.name));
+    el.value = lastNameAuto;
+  }
+
+  /* 自定义文件选择器：普通按钮去触发藏起来的 <input type=file> */
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-pick]');
+    if (b) $(b.getAttribute('data-pick')).click();
   });
-  ui.picker.addEventListener('change', () => { addFiles(ui.picker.files); ui.picker.value = ''; });
 
-  function addFiles(list) {
-    const arr = [...list];
-    if (!arr.length) return;
-    let bad = 0;
-    for (const f of arr) {
+  Object.entries(UP_INPUT).forEach(([kind, id]) => {
+    const input = $(id);
+    if (!input) return;
+    input.addEventListener('change', () => {
+      const f = input.files && input.files[0];
+      input.value = '';                          // 清空，保证再选同一个文件也会触发 change
+      if (!f) return;
+
       const ext = extOf(f.name);
-      if (!isSub(ext)) { bad++; continue; }
-      state.files.push({ id: ++seq, file: f, name: f.name, size: f.size, ext, status: 'wait', note: '' });
-    }
-    renderList();
-    log(`加入 ${arr.length - bad} 个字幕文件${bad ? `（跳过 ${bad} 个非字幕文件）` : ''}`, bad ? 'warn' : 'info');
-  }
+      if (kind === 'ass' && ext !== 'ass' && ext !== 'ssa') {
+        log('ASS 那一栏只能选 .ass 或 .ssa', 'err');
+        return;
+      }
+      if (kind === 'srt' && ext !== 'srt') {
+        log('SRT 那一栏只能选 .srt', 'err');
+        return;
+      }
+      if (f.size > MAX) {
+        log(`${f.name} 有 ${humanSize(f.size)}，超过上限 ${humanSize(MAX)}`, 'err');
+        return;
+      }
 
-  function badge(it) {
-    const map = {
-      wait: ['wait', '待处理'], busy: ['busy', '上传中'],
-      ok: ['ok', '已上传'], err: ['err', '失败'], skip: ['skip', '太大'],
-    };
-    const [c, t] = map[it.status] || map.wait;
-    return `<span class="state ${c}">${t}</span>`;
-  }
+      upFiles[kind] = f;
+      setPickLabel(kind, f);
+      autoFillName(f);
 
-  function renderList() {
-    if (!state.files.length) {
-      ui.upList.innerHTML = '';
-      ui.upActions.hidden = true;
-      return;
-    }
-    ui.upActions.hidden = false;
-
-    ui.upList.innerHTML = state.files.map((it) => `
-      <div class="up-row" data-id="${it.id}">
-        <span class="up-icon">${esc(it.ext)}</span>
-        <div class="up-main">
-          <div class="up-name">${esc(it.name)}</div>
-          <div class="up-sub">
-            <span>${humanSize(it.size)}</span>
-            <span class="tag">${esc(it.ext)}</span>
-            ${badge(it)}
-            ${it.note ? `<span>${esc(it.note)}</span>` : ''}
-          </div>
-          ${it.status === 'busy' ? '<div class="bar"><i style="width:45%"></i></div>' : ''}
-        </div>
-        <div class="up-act">
-          <button class="btn btn-sm" data-act="del" data-id="${it.id}">移除</button>
-        </div>
-      </div>`).join('');
-
-    const pending = state.files.filter((f) => f.size <= MAX && f.status !== 'ok').length;
-    $('btnUploadAll').disabled = pending === 0;
-    $('btnUploadAll').textContent = pending ? `上传 ${pending} 个字幕` : '全部已上传';
-  }
-
-  ui.upList.addEventListener('click', (e) => {
-    const btn = e.target.closest('button[data-act="del"]');
-    if (!btn) return;
-    const id = Number(btn.getAttribute('data-id'));
-    const i = state.files.findIndex((f) => f.id === id);
-    if (i >= 0) { state.files.splice(i, 1); renderList(); }
+      /* 两个都选了但主名不一样 → 立刻提醒，别等点上传才发现 */
+      if (upFiles.ass && upFiles.srt &&
+          baseNameOf(upFiles.ass.name) !== baseNameOf(upFiles.srt.name)) {
+        log(`两个文件的主名不一样（${baseNameOf(upFiles.ass.name)} / ${baseNameOf(upFiles.srt.name)}），` +
+            '别人会分不清是不是同一首。建议改成一样，或只传其中一个。', 'warn');
+      } else {
+        log(`已选择 ${kind.toUpperCase()}：${f.name}`, 'info');
+      }
+    });
   });
 
-  $('btnClearList').addEventListener('click', () => { state.files = []; renderList(); });
+  function clearForm() {
+    upFiles.ass = null;
+    upFiles.srt = null;
+    lastNameAuto = '';
+    setPickLabel('ass', null);
+    setPickLabel('srt', null);
+    ['upName', 'upDesc', 'upVideo', 'upVideoDl', 'upLyrics'].forEach((id) => {
+      const el = $(id);
+      if (el) el.value = '';
+    });
+  }
+
+  $('btnClearForm').addEventListener('click', () => { clearForm(); log('表单已清空', 'info'); });
 
   /* ======================= 上传 ======================= */
 
-  $('btnUploadAll').addEventListener('click', async () => {
+  /** 有值就写、没值就删掉那个字段（subs.json 不留空串，保持干净） */
+  function setOrDelete(obj, key, val) {
+    if (val) obj[key] = val; else delete obj[key];
+  }
+
+  $('btnUploadOne').addEventListener('click', async () => {
     if (!state.token) {
       ui.setupCard.open = true;
       log('还没配置令牌 —— 已帮你展开「上传设置」，填好保存再点上传', 'err');
       return;
     }
-    const targets = state.files.filter((f) => f.size <= MAX && f.status !== 'ok');
-    if (!targets.length) { log('没有待上传的文件', 'warn'); return; }
+
+    const picked = [['ass', upFiles.ass], ['srt', upFiles.srt]].filter(([, f]) => f);
+    if (!picked.length) {
+      log('先选一个字幕文件（ASS、SRT 都行，也可以两个一起选）', 'err');
+      return;
+    }
+
+    const name = $('upName').value.trim();
+    if (!name) {
+      log('「显示名称」不能为空', 'err');
+      $('upName').focus();
+      return;
+    }
+
+    if (upFiles.ass && upFiles.srt &&
+        baseNameOf(upFiles.ass.name) !== baseNameOf(upFiles.srt.name)) {
+      log('两个文件的主名不一样，先改成一致再传（文件名决定它们是不是同一条字幕）', 'err');
+      return;
+    }
+
     if (!(await verify(true))) return;
 
-    log(`开始上传 ${targets.length} 个文件到 ${DEST} …`, 'info');
-    const done = [];
-    let ok = 0, fail = 0;
-
-    for (const it of targets) {
-      it.status = 'busy';
-      renderList();
-      const path = `${DEST}/${it.name}`;
-      try {
-        await putFile(path, await fileToBase64(it.file), `上传字幕 ${it.name}`);
-        it.status = 'ok';
-        it.note = path;
-        done.push(it);
-        ok++;
-        log(`完成 ${it.name} → ${path}`, 'ok');
-      } catch (e) {
-        it.status = 'err';
-        it.note = e.message;
-        fail++;
-        log(`失败 ${it.name}：${e.message}`, 'err');
+    const btn = $('btnUploadOne');
+    btn.disabled = true;
+    btn.textContent = '上传中…';
+    try {
+      const paths = {};
+      for (const [kind, f] of picked) {
+        const p = `${DEST}/${f.name}`;
+        log(`上传 ${f.name}（${humanSize(f.size)}）…`, 'info');
+        await putFile(p, await fileToBase64(f), `上传字幕 ${f.name}`);
+        paths[kind] = { path: '/' + p, file: f.name, size: f.size, lastModified: f.lastModified };
+        log(`已上传 ${f.name} → ${p}`, 'ok');
       }
-      renderList();
+
+      await saveSubEntry({ name, paths });
+      log('完成。Cloudflare 约 1 分钟后生效。', 'ok');
+      clearForm();
+    } catch (e) {
+      log(`上传失败：${friendlyErr(e)}`, 'err');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '上传这一条';
     }
-
-    log(`上传结束：成功 ${ok}，失败 ${fail}`, fail ? 'warn' : 'ok');
-
-    if (done.length) {
-      try {
-        await patchSubsIndex(done);
-      } catch (e) {
-        log(`字幕库索引更新失败：${friendlyErr(e)}（文件已上传，可再点一次上传重试）`, 'err');
-      }
-    }
-
-    if (ok) log('Cloudflare 会自动重新部署，约 1 分钟后线上可搜。', 'info');
   });
 
-  /** 把新上传的字幕追加进 assets/data/subs.json */
-  async function patchSubsIndex(files) {
+  /**
+   * 把这一条写进 subs.json。
+   *
+   * 关键点：
+   * - **先按文件路径、再按主名找已有条目** —— 这样「之前只传了 ass，现在单独补一个 srt」
+   *   会挂到同一条上，而不是新建一条重复的。
+   * - 条目的 path / file / ext / size 始终跟着**主版本**走，主版本优先 ASS：
+   *   列表缩略图、下载统计、管理页都以 path 为准，没有特殊情况不要让它来回变。
+   *   （只有「先传 SRT、后来才补 ASS」这一种情况会让 path 从 srt 换成 ass，那是应该的。）
+   */
+  async function saveSubEntry({ name, paths }) {
     log('正在更新字幕库索引 assets/data/subs.json …', 'info');
     const data = JSON.parse(await readText('assets/data/subs.json'));
     data.items = data.items || [];
 
-    const have = new Set(data.items.map((x) => x.path));
-    let added = 0;
+    const first = paths.ass || paths.srt;
 
-    for (const it of files) {
-      const p = `/${DEST}/${it.name}`;
-      if (have.has(p)) continue;
-      const lang = detectLang(it.name) || DEFAULT_LANG;
-      data.items.unshift({
-        name: cleanName(it.name.replace(/\.[^.]+$/, '')),
-        file: it.name,
-        path: p,
-        ext: it.ext,
-        size: it.size,
-        mtime: new Date(it.file.lastModified || Date.now()).toISOString(),
-        lang,
-        langClass: LANG_CLASS[lang] || '',
-        langSource: 'auto',
-        group: '',
-        groupTitle: '',
-        tags: [],
-        url: '',
-      });
-      added++;
+    let item = data.items.find((x) =>
+      x.path === first.path || x.ass === first.path || x.srt === first.path);
+    if (!item) {
+      /* 再按主名找：覆盖「已有 X.ass，这次只传 X.srt」的情况 */
+      const base = baseNameOf(first.file);
+      item = data.items.find((x) => baseNameOf(x.file || '') === base);
     }
 
-    await saveIndex(data, `更新字幕库索引（新增 ${added} 条）`);
-    log(`字幕库索引已更新：新增 ${added} 条，累计 ${data.count} 条`, 'ok');
+    const isNew = !item;
+    if (isNew) {
+      item = {
+        path: '', file: '', ext: '', size: 0, mtime: '',
+        lang: '', langClass: '', langSource: 'auto', tags: [], url: '',
+      };
+      data.items.unshift(item);
+    }
+
+    if (paths.ass) item.ass = paths.ass.path;
+    if (paths.srt) item.srt = paths.srt.path;
+
+    const primaryKind = item.ass ? 'ass' : 'srt';
+    const primaryPath = item.ass || item.srt;
+    item.path = primaryPath;
+    item.file = fileOf(primaryPath);
+    item.ext = extOf(item.file);
+
+    /* size / mtime 只有「这次传的正好是主版本」时才更新，
+       否则补传一个 SRT 会把列表上显示的大小改成 SRT 的。 */
+    if (paths[primaryKind]) {
+      item.size = paths[primaryKind].size;
+      item.mtime = new Date(paths[primaryKind].lastModified || Date.now()).toISOString();
+    } else if (!item.mtime) {
+      item.mtime = new Date().toISOString();
+    }
+
+    item.name = name;
+    setOrDelete(item, 'desc', $('upDesc').value.trim());
+    setOrDelete(item, 'videoUrl', cleanUrl($('upVideo').value));
+    setOrDelete(item, 'videoDl', cleanUrl($('upVideoDl').value));
+    setOrDelete(item, 'lyrics', $('upLyrics').value.trim());
+
+    if (!item.lang) {
+      const lang = detectLang(item.file) || DEFAULT_LANG;
+      item.lang = lang;
+      item.langClass = LANG_CLASS[lang] || '';
+    }
+
+    await saveIndex(data, `${isNew ? '新增' : '更新'}字幕：${name}`);
+    log(`索引已更新：${isNew ? '新增' : '更新'} 1 条，累计 ${data.count} 条`, 'ok');
   }
 
   /** 重算 subs.json 的计数与统计（新增 / 改说明 / 删除后都要跑一次） */
@@ -889,8 +945,41 @@
     return kw.toLowerCase().split(/\s+/).filter(Boolean).every((w) => hay.includes(w));
   }
 
+  /* ----------------------- 未保存内容的「草稿」 -----------------------
+     renderManage() 是整段重建 innerHTML，而输入框的值只活在 DOM 里。
+     所以只要触发一次重渲染（保存缩略图、补传 SRT、切搜索词、删掉别的条目……），
+     用户正在编辑但还没点「保存」的内容就会被打回 subs.json 里的旧值 ——
+     用户实测报过「保存略缩图会丢失前面已经输入的内容」，根因就在这里。
+
+     解法：渲染前先把每行输入框的当前值存成草稿，渲染时优先用草稿。
+     保存成功后就把它从草稿里去掉（数据已经是新的了）。 */
+  const drafts = new Map();          // item.path → { name, desc, lyrics, videoUrl, videoDl }
+  const DRAFT_FIELDS = ['name', 'desc', 'lyrics', 'videoUrl', 'videoDl'];
+  const DRAFT_SEL = {
+    name: 'input[data-name]', desc: 'input[data-desc]', lyrics: 'textarea[data-lyrics]',
+    videoUrl: 'input[data-video]', videoDl: 'input[data-videodl]',
+  };
+
+  function captureDrafts() {
+    mgUI.list.querySelectorAll('.mg-row').forEach((row) => {
+      const p = row.getAttribute('data-path');
+      const d = {};
+      for (const k of DRAFT_FIELDS) {
+        const el = row.querySelector(DRAFT_SEL[k]);
+        if (el) d[k] = el.value;
+      }
+      if (Object.keys(d).length) drafts.set(p, d);
+    });
+  }
+
   function renderManage() {
     if (!mgUI.list) return;
+
+    /* 先抢在重建 DOM 之前，把还没保存的输入收进草稿 */
+    captureDrafts();
+    for (const k of [...drafts.keys()]) {
+      if (!mgItems.some((x) => x.path === k)) drafts.delete(k);
+    }
 
     if (!mgItems.length) {
       mgUI.list.innerHTML =
@@ -914,6 +1003,11 @@
 
     mgUI.list.innerHTML = list.map((it) => {
       const n = countsMap.get(it.path);
+      const vs = subsVariantsOf(it);
+      const kinds = vs.map((v) => v.kind);
+      const d = drafts.get(it.path) || {};
+      /* 有草稿（用户改过还没保存）就用草稿，否则用数据里的值 */
+      const val = (k) => (k in d ? d[k] : (it[k] || ''));
       return `
       <div class="mg-row" data-path="${esc(it.path)}">
         <div class="mg-head">
@@ -927,8 +1021,10 @@
             <div class="up-sub">
               <span>${humanSize(it.size)}</span>
               <span title="${esc(it.mtime)}">${relTime(it.mtime)}</span>
+              ${vs.length ? `<span class="tag">${kinds.map((k) => k.toUpperCase()).join(' / ')}</span>` : ''}
               ${n ? `<span class="count-badge">${n} 次下载</span>` : ''}
               ${it.desc ? '<span class="state ok">已有说明</span>' : ''}
+              ${it.lyrics ? '<span class="state ok">已有歌词</span>' : ''}
               ${it.videoUrl ? '<span class="state">有原视频</span>' : ''}
               ${it.videoDl ? '<span class="state">有下载直链</span>' : ''}
             </div>
@@ -938,16 +1034,25 @@
         <div class="mg-edit">
           <input class="input" data-name maxlength="80"
                  placeholder="显示名称（只改网站上显示的名字，文件名和下载链接都不变）"
-                 value="${esc(it.name || '')}">
+                 value="${esc(val('name'))}">
           <input class="input" data-desc maxlength="120"
                  placeholder="说明（显示在名字下方，留空则清除）"
-                 value="${esc(it.desc || '')}">
+                 value="${esc(val('desc'))}">
+          <!-- 歌词单独一块、能往下展开（用户要求：别挤在一行里，和说明分开） -->
+          <div class="mg-lyrics">
+            <div class="mg-lyrics-head">
+              原版歌词
+              <span class="h2-tail">填了之后列表的「更多 → 原版歌词预览」才会出现</span>
+            </div>
+            <textarea class="textarea" data-lyrics rows="6"
+                      placeholder="整段粘进来就行，保留换行（一行一句）。留空则清除。">${esc(val('lyrics'))}</textarea>
+          </div>
           <input class="input" data-video maxlength="600"
                  placeholder="原视频链接，如 YouTube / B站（需 VPN 才能看；留空则不显示）"
-                 value="${esc(it.videoUrl || '')}">
+                 value="${esc(val('videoUrl'))}">
           <input class="input" data-videodl maxlength="2000"
                  placeholder="下载原视频链接，如蓝奏云（提取码 bqtj；只填链接，别把「密码:xxxx」一起粘进来）"
-                 value="${esc(it.videoDl || '')}">
+                 value="${esc(val('videoDl'))}">
           <div class="mg-btns">
             <button class="btn btn-sm btn-primary" data-act="save">保存</button>
             <button class="btn btn-sm btn-danger" data-act="del">删除字幕</button>
@@ -955,10 +1060,22 @@
         </div>
 
         <div class="mg-tools">
+          <!-- 两个版本各占一格：点一下就能补传 / 更换 -->
+          <span class="mg-variants" title="这条字幕现有的文件">
+            ${vs.length
+              ? vs.map((v) => `<b class="v-${v.kind}">${v.kind.toUpperCase()}</b>`).join('')
+              : '<b class="v-none">没有文件</b>'}
+          </span>
+          <button class="btn btn-sm" data-act="add-variant" data-kind="ass">${kinds.includes('ass') ? '更换 ASS' : '补传 ASS'}</button>
+          <button class="btn btn-sm" data-act="add-variant" data-kind="srt">${kinds.includes('srt') ? '更换 SRT' : '补传 SRT'}</button>
+          ${kinds.length > 1 ? '<button class="btn btn-sm btn-danger" data-act="del-variant" data-kind="srt">移除 SRT</button>' : ''}
+
           <button class="btn btn-sm" data-act="thumb">${it.thumb ? '更换缩略图' : '选择缩略图'}</button>
           ${it.thumb ? '<button class="btn btn-sm" data-act="thumb-clear">移除缩略图</button>' : ''}
           <span class="mg-note"></span>
           <input type="file" accept="image/*" hidden data-thumb-input>
+          <input type="file" accept=".ass,.ssa" hidden data-var-input="ass">
+          <input type="file" accept=".srt" hidden data-var-input="srt">
         </div>
 
         <div class="mg-crop" hidden>
@@ -1033,6 +1150,8 @@
     switch (btn.dataset.act) {
       case 'save':         return saveItem(item, row, btn);
       case 'del':          return removeSub(item, row, btn);
+      case 'add-variant':  return row.querySelector(`input[data-var-input="${btn.dataset.kind}"]`)?.click();
+      case 'del-variant':  return removeVariant(item, row, btn.dataset.kind);
       case 'thumb':        return row.querySelector('input[data-thumb-input]')?.click();
       case 'thumb-clear':  return clearThumb(item, row, btn);
       case 'thumb-ok':     return confirmThumb(item, row, btn);
@@ -1057,7 +1176,114 @@
     if (item) pickThumb(item, row, file);
   });
 
-  /** 保存名称 / 说明 / 原视频 / 下载视频：只改索引，不动字幕文件 */
+  // 补传 / 更换 ASS、SRT
+  mgUI.list.addEventListener('change', (e) => {
+    const input = e.target.closest('input[data-var-input]');
+    if (!input || !input.files || !input.files[0]) return;
+    const row = input.closest('.mg-row');
+    const kind = input.getAttribute('data-var-input');
+    const file = input.files[0];
+    input.value = '';
+    const item = rowItem(row);
+    if (item) uploadVariant(item, row, kind, file);
+  });
+
+  /**
+   * 补传 / 更换一个版本（ASS 或 SRT）。
+   *
+   * ★ 文件名会被改成**和条目现有主名一致**（如条目是 `歌名.ass`，补传的 srt 就叫 `歌名.srt`）——
+   *   站上「下载」二选一是靠主名判断两个文件是不是同一首的，名字不一致会让人看不懂。
+   * ★ 之前只有 SRT、现在补上 ASS 时，主版本会从 SRT 换成 ASS（列表缩略图 / 下载统计都认 path，
+   *   ASS 是成品，应该当主）。
+   */
+  async function uploadVariant(item, row, kind, file) {
+    if (!needToken(`上传 ${kind.toUpperCase()}`)) return;
+
+    const isAss = kind === 'ass';
+    const ext = extOf(file.name);
+    if (isAss ? (ext !== 'ass' && ext !== 'ssa') : ext !== 'srt') {
+      setNote(row, `这一栏只能选 ${isAss ? '.ass / .ssa' : '.srt'} 文件`, 'err');
+      return;
+    }
+    if (file.size > MAX) {
+      setNote(row, `${humanSize(file.size)} 超过上限 ${humanSize(MAX)}`, 'err');
+      return;
+    }
+
+    const oldPath = item.path;
+    const base = baseNameOf(item.file || item.ass || item.srt || '') || baseNameOf(file.name);
+    const target = `${base}.${isAss ? (ext === 'ssa' ? 'ssa' : 'ass') : 'srt'}`;
+    const path = `${DEST}/${target}`;
+
+    setNote(row, '上传中…');
+    try {
+      await putFile(path, await fileToBase64(file), `上传 ${kind.toUpperCase()}：${target}`);
+
+      const data = JSON.parse(await readText('assets/data/subs.json'));
+      const t = (data.items || []).find((x) => x.path === oldPath);
+      if (!t) throw new Error('索引里找不到这个条目，可能已被删除');
+
+      t[kind] = '/' + path;
+      /* 主版本优先 ASS */
+      const primary = t.ass || t.srt;
+      t.path = primary;
+      t.file = fileOf(primary);
+      t.ext = extOf(t.file);
+      if (isAss) t.size = file.size;
+      if (!t.mtime) t.mtime = new Date().toISOString();
+
+      await saveIndex(data, `补传 ${kind.toUpperCase()}：${item.name}`);
+
+      /* 内存里的条目也跟着改，免得要重新拉一次列表 */
+      item[kind] = '/' + path;
+      item.path = primary;
+      item.file = t.file;
+      item.ext = t.ext;
+      if (isAss) item.size = file.size;
+
+      /* path 可能变了（SRT 主 → ASS 主），两边旧草稿都清掉再重渲染 */
+      drafts.delete(oldPath);
+      drafts.delete(item.path);
+      renderManage();
+      mglog(`已上传 ${kind.toUpperCase()}：${path}`, 'ok');
+    } catch (e) {
+      setNote(row, friendlyErr(e), 'err');
+      mglog(`上传 ${kind.toUpperCase()} 失败：${friendlyErr(e)}`, 'err');
+    }
+  }
+
+  /** 移除一个版本（只允许在另一个还在的时候用，否则整条就空了） */
+  async function removeVariant(item, row, kind) {
+    const path = item[kind];
+    if (!path) return;
+    const other = kind === 'ass' ? item.srt : item.ass;
+    if (!other) {
+      setNote(row, '至少要留一个文件 —— 想整条删掉请用「删除字幕」', 'err');
+      return;
+    }
+    if (!needToken(`移除 ${kind.toUpperCase()}`)) return;
+    if (!confirm(`移除这个 ${kind.toUpperCase()} 吗？\n\n${path}\n\n文件会从仓库删除，另一个版本保留。`)) return;
+
+    setNote(row, '移除中…');
+    try {
+      await deleteFile(String(path).replace(/^\//, ''), `删除 ${kind.toUpperCase()}：${item.name}`);
+
+      const data = JSON.parse(await readText('assets/data/subs.json'));
+      const t = (data.items || []).find((x) => x.path === item.path);
+      if (t) delete t[kind];
+      await saveIndex(data, `移除 ${kind.toUpperCase()}：${item.name}`);
+
+      delete item[kind];
+      drafts.delete(item.path);
+      renderManage();
+      mglog(`已移除 ${kind.toUpperCase()}：${path}`, 'ok');
+    } catch (e) {
+      setNote(row, friendlyErr(e), 'err');
+      mglog(`移除 ${kind.toUpperCase()} 失败：${friendlyErr(e)}`, 'err');
+    }
+  }
+
+  /** 保存名称 / 说明 / 原版歌词 / 原视频 / 下载视频：只改索引，不动字幕文件 */
   async function saveItem(item, row, btn) {
     if (!needToken('保存')) return;
 
@@ -1065,6 +1291,7 @@
     const next = {
       name: val('input[data-name]'),
       desc: val('input[data-desc]'),
+      lyrics: val('textarea[data-lyrics]'),
       videoUrl: val('input[data-video]'),
       videoDl: val('input[data-videodl]'),
     };
@@ -1072,9 +1299,10 @@
     // 改文件名会改掉下载链接，该字幕的下载统计也会从 0 重算。
     if (!next.name) { setNote(row, '名称不能为空', 'err'); row.querySelector('input[data-name]').focus(); return; }
 
-    const FIELDS = ['name', 'desc', 'videoUrl', 'videoDl'];
+    const FIELDS = ['name', 'desc', 'lyrics', 'videoUrl', 'videoDl'];
 
     if (FIELDS.every((k) => (item[k] || '') === next[k])) {
+      drafts.delete(item.path);          // 内容和数据一致，草稿没意义了
       setNote(row, '没有变化');
       return;
     }
@@ -1095,6 +1323,7 @@
 
       await saveIndex(data, `更新字幕信息：${item.name}`);
       Object.assign(item, next);
+      drafts.delete(item.path);          // 已落盘，草稿清掉
       renderManage();
       mglog(`已保存：${item.name}`, 'ok');
     } catch (e) {
@@ -1105,10 +1334,13 @@
     }
   }
 
-  /** 删除：先删仓库里的文件，再从索引里去掉条目 */
+  /** 删除：先删仓库里的文件（ASS / SRT 都删），再从索引里去掉条目 */
   async function removeSub(item, row, btn) {
     if (!needToken('删除字幕')) return;
-    if (!confirm(`确定删除这个字幕吗？\n\n${item.file}\n\n文件会从仓库删除，索引条目也会移除。`)) return;
+
+    const vs = subsVariantsOf(item);
+    const listTxt = vs.length ? vs.map((v) => '· ' + v.path).join('\n') : item.file;
+    if (!confirm(`确定删除这个字幕吗？\n\n${listTxt}\n\n文件会从仓库删除，索引条目也会移除。`)) return;
 
     const old = btn.textContent;
     btn.disabled = true;
@@ -1123,7 +1355,16 @@
         }
       }
 
-      await deleteFile(item.path, `删除字幕 ${item.file}`);
+      // 主版本删不掉就中止（保持仓库和索引一致）；另一个版本失败只警告
+      for (const [i, v] of vs.entries()) {
+        const rel = String(v.path).replace(/^\//, '');
+        try {
+          await deleteFile(rel, `删除字幕 ${fileOf(v.path)}`);
+        } catch (err) {
+          if (i === 0) throw err;
+          mglog(`${v.kind.toUpperCase()} 没删掉（继续）：${err.message}`, 'warn');
+        }
+      }
 
       const data = JSON.parse(await readText('assets/data/subs.json'));
       data.items = (data.items || []).filter((x) => x.path !== item.path);
@@ -1131,6 +1372,7 @@
 
       const i = mgItems.findIndex((x) => x.path === item.path);
       if (i >= 0) mgItems.splice(i, 1);
+      drafts.delete(item.path);
       renderManage();
       mglog(`已删除：${item.file}`, 'ok');
     } catch (e) {
@@ -1142,7 +1384,6 @@
 
   /* ======================= 初始化 ======================= */
 
-  renderList();
   loadStats();
   // 字幕管理要输密码解锁后才加载（unlockManage 里调 loadManage）
   setTimeout(() => { if (!state.token) log('提示：先在「上传设置」里保存 GitHub 令牌，才能上传。', 'warn'); }, 300);

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>原版歌词 · 爆枪突击字幕库</title>
+<meta name="description" content="查看字幕对应的原版歌词。">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
+<link rel="stylesheet" href="/assets/css/style.css?v=17">
+<script>
+/* 提前请求索引，与 CSS/JS 并行（同字幕库的做法） */
+window.__subsJson = fetch('/assets/data/subs.json', { cache: 'no-cache' });
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="https://space.bilibili.com/1421373636" target="_blank" rel="noopener" title="爆枪突击的 B 站主页">
+      <img class="brand-logo" src="/assets/img/logo.png" alt="">
+      <span>爆枪突击字幕库</span>
+    </a>
+    <button class="icon-btn nav-toggle" id="navToggle" aria-label="菜单">菜单</button>
+    <nav class="nav" id="siteNav">
+      <a href="/" data-nav="home">首页</a>
+      <a href="/subs/" data-nav="subs">字幕库</a>
+      <a href="/games/" data-nav="games">游戏</a>
+      <a href="/about" data-nav="about">关于</a>
+      <button class="icon-btn" id="themeBtn" aria-label="切换主题">深色</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- 整页由 lyrics.js 按 ?id= 渲染（id 是字幕条目的 path）。
+       先给个「加载中」的壳，免得到 JS 没跑起来时整页白屏、看不出发生了什么。 -->
+  <div class="container" id="lyBox" style="max-width:820px;padding:38px 0 8px"><div class="spinner"></div></div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© <span data-year></span> 爆枪突击字幕库</div>
+    <div>
+      <a href="/subs/">字幕库</a> ·
+      <a href="/games/">游戏</a> ·
+      <a href="/about">关于</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/config.js?v=4"></script>
+<script src="/assets/js/site.js?v=15"></script>
+<script src="/assets/js/lyrics.js?v=1"></script>
+</body>
+</html>
