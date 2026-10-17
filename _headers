@@ -48,6 +48,11 @@
 /api/*
   Cache-Control: no-store
 
+# Service Worker 脚本本身：允许浏览器存一份，但每次启动都要回源确认有没有新版
+# （浏览器对 sw.js 的更新检查本来就绕 HTTP 缓存，这条只是保险）
+/sw.js
+  Cache-Control: no-cache
+
 # 字幕文件：允许跨域下载，但**不缓存**。
 # 2026-10-17 改：原来是 max-age=86400（内容很少变）。但主域名 bqtj.top 现在挂在
 # 腾讯云 EdgeOne 后面，而 EdgeOne 的全局缓存策略是「遵循源站 Cache-Control」，

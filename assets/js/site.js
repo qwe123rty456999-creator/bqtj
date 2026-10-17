@@ -708,6 +708,23 @@ function getParam(key) {
   return new URLSearchParams(location.search).get(key) || '';
 }
 
+/* ----------------------------- Service Worker ----------------------------- */
+/* 全站预缓存 + 10 分钟后台刷新，实现见 /sw.js 顶部那大段注释。
+   效果：第一次进站把 12 个页面和 2 个索引全部拉一遍，之后每次点击都走本机缓存
+   （0ms），数据最多旧 10 分钟 —— 到期是在后台悄悄换，不阻塞任何一次导航。
+
+   · 管理后台不注册：改完数据要立刻看到真实结果
+   · 只在 https 下注册：file:// 和本地 http 没有 SW
+   · 本地开发想绕过它：DevTools → Application → Service Workers → Unregister */
+(function initServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  if (location.protocol !== 'https:') return;
+  if (/^\/(admin|games\/admin)(\/|$)/.test(location.pathname)) return;
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch(() => {});
+  });
+})();
+
 /** 把当前筛选状态写进地址栏，便于分享 / 刷新后保持 */
 function setParams(obj) {
   const p = new URLSearchParams(location.search);
