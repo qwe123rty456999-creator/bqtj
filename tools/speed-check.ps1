@@ -35,26 +35,30 @@ function Get-Ms($seconds) {
   return [int]([math]::Round($seconds * 1000))
 }
 
-# TCP  ~= 1 RTT            -> how far the edge node is
-# TLS  TCP + handshake     -> 2 RTT for TLS 1.3 without resumption
-# TTFB TLS + server + origin fetch (when MISS)
+# DNS  = time_namelookup    解析域名（含 CNAME 链，最容易被忽略的一段）
+# TCP  = connect - namelookup  纯握手 ≈ 1 RTT -> 判断边缘节点远近
+# TLS  = appconnect - connect  握手
+# TTFB = starttransfer        首字节（MISS 时还含跨境回源）
 function Probe([string]$url, [string]$label) {
-  $tcp = @(); $tls = @(); $ttfb = @(); $code = ''; $ip = ''
+  $dns = @(); $tcp = @(); $tls = @(); $ttfb = @(); $code = ''; $ip = ''
   for ($i = 0; $i -lt $N; $i++) {
-    $out = & curl.exe --noproxy '*' -s -o NUL -m 20 -w '%{http_code} %{time_connect} %{time_appconnect} %{time_starttransfer} %{remote_ip}' $url
+    $out = & curl.exe --noproxy '*' -s -o NUL -m 25 -w '%{http_code} %{time_namelookup} %{time_connect} %{time_appconnect} %{time_starttransfer} %{remote_ip}' $url
     $p = $out -split ' '
-    if ($p.Count -ge 5) {
+    if ($p.Count -ge 6) {
       $code = $p[0]
-      $tcp += [double]$p[1]
-      $tls += [double]$p[2]
-      $ttfb += [double]$p[3]
-      $ip = $p[4]
+      $nl = [double]$p[1]; $cn = [double]$p[2]; $ap = [double]$p[3]; $st = [double]$p[4]
+      $dns += $nl
+      $tcp += ($cn - $nl)
+      $tls += ($ap - $cn)
+      $ttfb += $st
+      $ip = $p[5]
     }
   }
   [pscustomobject]@{
     Target = $label
     Code = $code
     EdgeIP = $ip
+    'DNS min/med' = ((Get-Ms (Get-Min $dns)).ToString() + ' / ' + (Get-Ms (Get-Median $dns)).ToString())
     'TCP min/med' = ((Get-Ms (Get-Min $tcp)).ToString() + ' / ' + (Get-Ms (Get-Median $tcp)).ToString())
     'TLS min/med' = ((Get-Ms (Get-Min $tls)).ToString() + ' / ' + (Get-Ms (Get-Median $tls)).ToString())
     'TTFB min/med' = ((Get-Ms (Get-Min $ttfb)).ToString() + ' / ' + (Get-Ms (Get-Median $ttfb)).ToString())
