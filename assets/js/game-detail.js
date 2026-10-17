@@ -31,7 +31,7 @@
   try {
     const res = window.__gamesJson
       ? await window.__gamesJson
-      : await fetch('/assets/data/games.json', { cache: 'no-cache' });
+      : await fetch('/assets/data/games.json');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     data = await res.json();
   } catch (err) {

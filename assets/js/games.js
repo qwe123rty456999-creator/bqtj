@@ -14,10 +14,11 @@
   const $list = document.getElementById('gameList');
   const $info = document.getElementById('gameInfo');
 
-  /* 复用一个已经发出去的请求（<head> 里就发了），省一个往返 */
+  /* 复用一个已经发出去的请求（<head> 里就发了），省一个往返。
+     不带 no-cache：让浏览器缓存在 60 秒内直接命中（原因见 site.js 的 loadJSON）。 */
   let data;
   try {
-    const res = window.__gamesJson ? await window.__gamesJson : await fetch('/assets/data/games.json', { cache: 'no-cache' });
+    const res = window.__gamesJson ? await window.__gamesJson : await fetch('/assets/data/games.json');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     data = await res.json();
   } catch (err) {

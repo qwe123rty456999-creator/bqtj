@@ -312,15 +312,15 @@ async function loadJSON(url) {
     // 页面 head 里已经把字幕库索引的请求提前发出去了（见 window.__subsJson），
     // 直接复用那个 Promise —— 否则要等 CSS/JS 都下载完才能发出，白等一个往返。
     //
-    // 这里显式写 cache:'no-cache'（每次都跟服务器验证一下再决定用不用本地副本）。
-    //
-    // 2026-09-19 改：以前为了省一个往返故意不写，理由是"数据最多旧 60 秒可以接受"。
-    // 但实际用下来，站主传完字幕刷新页面看不到新内容，反复以为是缓存没清干净——
-    // 这个文件只有 2 KB，拿确定性换几百毫秒很值。
-    // （_headers 里 /assets/data/* 也同步改成了 max-age=0, must-revalidate。）
+    // 2026-10-17 改回「用缓存」：2026-09-19 曾为了「站主传完字幕立刻看到新内容」
+    // 写成 cache:'no-cache'，代价是**每个页面**都强制多一次往返 —— 实测 172–582ms，
+    // 而且发生在文档之后、列表渲染之前，是首屏最大的一笔固定开销。
+    // 站主自己的需要由 /admin/ 承担（那边读的是 no-store，永远是新的）；
+    // 前台给访客用缓存，最多旧 60 秒（EdgeOne 规则里 /assets/data/* 就是这个值）。
+    // 想立刻看最新数据：Ctrl+F5，或在 EdgeOne 控制台「立即删除」清一次。
     const res = (url === '/assets/data/subs.json' && window.__subsJson)
       ? await window.__subsJson
-      : await fetch(url, { cache: 'no-cache' });
+      : await fetch(url);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     return await res.json();
   } catch (err) {

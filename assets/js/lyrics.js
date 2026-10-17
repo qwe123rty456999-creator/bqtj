@@ -34,7 +34,7 @@
   try {
     const res = window.__subsJson
       ? await window.__subsJson
-      : await fetch('/assets/data/subs.json', { cache: 'no-cache' });
+      : await fetch('/assets/data/subs.json');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     data = await res.json();
   } catch (err) {
