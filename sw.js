@@ -14,9 +14,10 @@
 
    所以用户感受到的是：第一次进站慢一点，之后每一次点都是瞬间。
 
-   ⚠️ 千万别让它接管这几个路径：
-     · /api/*          —— 下载次数要实时
-     · /files/subs/*   —— 下载计数中间件必须收到请求
+   ⚠️ 哪些路径**不**接管（或特殊处理）：
+     · /api/counts     —— 例外，进缓存但只缓存 60 秒（只是下载次数徽章，晚 1 分钟无感）
+     · 其它 /api/*     —— 一律放行，不进缓存
+     · /files/subs/*   —— 下载计数中间件必须收到真实请求，绝不缓存
      · /admin/ /games/admin/ —— 管理后台永远要最新的
 
    想强制让所有访客丢掉旧缓存：把下面的 VERSION 改一下即可（activate 会清旧表）。
@@ -24,7 +25,8 @@
 
 const VERSION = 'v1';
 const CACHE = 'bqtj-' + VERSION;
-const TTL = 10 * 60 * 1000;          // 10 分钟
+const TTL = 10 * 60 * 1000;          // 10 分钟：页面 / 索引 / 图片
+const TTL_COUNTS = 60 * 1000;        // 60 秒：下载次数（变化快，但晚 1 分钟无感）
 
 /* 预缓存的页面壳（数据是靠 JS 拉 subs.json/games.json 渲染的，壳很小） */
 const SHELLS = [
@@ -107,7 +109,11 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
-  if (SKIP.some((re) => re.test(url.pathname))) return;
+
+  // /api/counts 例外：它只是个下载次数徽章，进缓存用 60 秒 TTL。
+  // 其它 /api/* 仍然一律放行（以后加别的接口默认不回缓存）。
+  const isCounts = url.pathname === '/api/counts';
+  if (!isCounts && SKIP.some((re) => re.test(url.pathname))) return;
 
   const isNav = req.mode === 'navigate';
   const isData = url.pathname.startsWith('/assets/data/');
@@ -115,7 +121,9 @@ self.addEventListener('fetch', (event) => {
   // img 没有版本号（logo.png 会被直接覆盖），必须跟其它内容一样按 TTL 刷新。
   const isVersioned = /^\/assets\/(css|js)\//.test(url.pathname);
   const isAsset = isVersioned || url.pathname.startsWith('/assets/img/');
-  if (!isNav && !isData && !isAsset) return;
+  if (!isNav && !isData && !isAsset && !isCounts) return;
+
+  const ttl = isCounts ? TTL_COUNTS : TTL;
 
   // 导航页按「路径」存（?id=xxx 的详情页共用一个壳）；
   // 资源必须带 ?v= 存，否则新版本会命中旧文件。
@@ -130,7 +138,7 @@ self.addEventListener('fetch', (event) => {
       if (hit) {
         if (!isVersioned) {
           const t = Date.parse(hit.headers.get('date') || '');
-          if (!Number.isFinite(t) || Date.now() - t >= TTL) {
+          if (!Number.isFinite(t) || Date.now() - t >= ttl) {
             try {
               event.waitUntil(refresh(cache, key, url.href));
             } catch (_) { /* 事件已结束就放弃这次后台刷新 */ }
