@@ -1486,6 +1486,78 @@
     }
   }
 
+  /* ======================= 全站强制刷新缓存 ======================= */
+
+  /**
+   * 「立即刷新全站缓存」。
+   *
+   * 线上有三层缓存，各自最长滞留时间：
+   *   1. 访客浏览器的 Service Worker —— 10 分钟 ← 「改了看不到」基本都是它
+   *   2. 腾讯云 EdgeOne 节点 —— HTML / 数据 60 秒（自动过期，不用管）
+   *   3. Cloudflare Pages —— 部署完就是最新的
+   *
+   * Service Worker 的缓存名里带版本号（sw.js 顶部的 VERSION），版本号一变，
+   * activate 就会把所有旧缓存删掉，访客下次打开页面整站重新下载。
+   *
+   * 所以这个按钮只做一件事：把 GitHub 上的 sw.js 版本号 +1 提交。
+   * 不需要腾讯云密钥，也不用登录任何控制台。
+   */
+  const SW_VERSION_RE = /const VERSION = 'v(\d+)';/;
+
+  async function bumpSwVersion() {
+    const src = await readText('sw.js');
+    const m = src.match(SW_VERSION_RE);
+    if (!m) throw new Error('sw.js 里找不到 VERSION，可能被改过结构');
+    const next = 'v' + (Number(m[1]) + 1);
+    await putFile(
+      'sw.js',
+      utf8ToBase64(src.replace(m[0], `const VERSION = '${next}';`)),
+      `chore(sw): 管理页强制刷新全站缓存 → ${next}`
+    );
+    return next;
+  }
+
+  /** 轮询线上 /sw.js，等 Cloudflare Pages 把新版部署出来 */
+  async function waitSwDeploy(version, onTick) {
+    const want = `const VERSION = '${version}';`;
+    for (let i = 0; i < 40; i++) {          // 最多等 4 分钟
+      await new Promise((r) => setTimeout(r, 6000));
+      onTick((i + 1) * 6);
+      try {
+        const txt = await (await fetch('/sw.js', { cache: 'reload' })).text();
+        if (txt.includes(want)) return true;
+      } catch { /* 网络抖一下就继续等 */ }
+    }
+    return false;
+  }
+
+  (function initPurge() {
+    const btn = $('btnPurgeAll');
+    const msg = $('purgeMsg');
+    if (!btn || !msg) return;
+    const set = (t) => { msg.textContent = t; };
+
+    btn.addEventListener('click', async () => {
+      if (!state.token) { set('先在「上传设置」里保存 GitHub 令牌。'); return; }
+      if (btn.disabled) return;
+      btn.disabled = true;
+      try {
+        set('正在把 sw.js 的版本号 +1 提交到 GitHub…');
+        const v = await bumpSwVersion();
+        set(`已提交（新版本 ${v}），等 Cloudflare Pages 部署…`);
+        const ok = await waitSwDeploy(v, (s) =>
+          set(`已提交（新版本 ${v}），等 Cloudflare Pages 部署…已等 ${s} 秒`));
+        set(ok
+          ? `完成：线上 sw.js 已是 ${v}。访客下次打开页面会整站重新下载（那一次稍慢），之后照常秒开。`
+          : `sw.js 已提交（${v}），但 4 分钟内没等到部署完成 —— 去 Cloudflare Pages 面板看下构建状态。`);
+      } catch (e) {
+        set('失败：' + (e && e.message ? e.message : e));
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  })();
+
   /* ======================= 初始化 ======================= */
 
   loadStats();
