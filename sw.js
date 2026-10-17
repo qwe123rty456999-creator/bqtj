@@ -104,7 +104,10 @@ self.addEventListener('fetch', (event) => {
 
   const isNav = req.mode === 'navigate';
   const isData = url.pathname.startsWith('/assets/data/');
-  const isAsset = /^\/assets\/(css|js|img)\//.test(url.pathname);
+  // css / js 的 URL 里带 ?v=，改了代码版本号就变，所以可以永久缓存；
+  // img 没有版本号（logo.png 会被直接覆盖），必须跟其它内容一样按 TTL 刷新。
+  const isVersioned = /^\/assets\/(css|js)\//.test(url.pathname);
+  const isAsset = isVersioned || url.pathname.startsWith('/assets/img/');
   if (!isNav && !isData && !isAsset) return;
 
   // 导航页按「路径」存（?id=xxx 的详情页共用一个壳）；
@@ -118,10 +121,12 @@ self.addEventListener('fetch', (event) => {
       const hit = await cache.match(key, matchOpts);
 
       if (hit) {
-        if (!isAsset) {
+        if (!isVersioned) {
           const t = Date.parse(hit.headers.get('date') || '');
           if (!Number.isFinite(t) || Date.now() - t >= TTL) {
-            event.waitUntil(refresh(cache, key, url.href));
+            try {
+              event.waitUntil(refresh(cache, key, url.href));
+            } catch (_) { /* 事件已结束就放弃这次后台刷新 */ }
           }
         }
         return hit;
