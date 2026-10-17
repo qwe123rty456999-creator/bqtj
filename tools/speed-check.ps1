@@ -21,26 +21,44 @@ function Get-Median($arr) {
   return ($s[$n / 2 - 1] + $s[$n / 2]) / 2
 }
 
+function Get-Min($arr) {
+  if (@($arr).Count -eq 0) { return 0 }
+  return ($arr | Measure-Object -Minimum).Minimum
+}
+
+function Get-Max($arr) {
+  if (@($arr).Count -eq 0) { return 0 }
+  return ($arr | Measure-Object -Maximum).Maximum
+}
+
+function Get-Ms($seconds) {
+  return [int]([math]::Round($seconds * 1000))
+}
+
+# TCP  ~= 1 RTT            -> how far the edge node is
+# TLS  TCP + handshake     -> 2 RTT for TLS 1.3 without resumption
+# TTFB TLS + server + origin fetch (when MISS)
 function Probe([string]$url, [string]$label) {
-  $ttfb = @()
-  $code = ''
-  $ip = ''
+  $tcp = @(); $tls = @(); $ttfb = @(); $code = ''; $ip = ''
   for ($i = 0; $i -lt $N; $i++) {
-    $out = & curl.exe --noproxy '*' -s -o NUL -m 20 -w '%{http_code} %{time_starttransfer} %{remote_ip}' $url
+    $out = & curl.exe --noproxy '*' -s -o NUL -m 20 -w '%{http_code} %{time_connect} %{time_appconnect} %{time_starttransfer} %{remote_ip}' $url
     $p = $out -split ' '
-    if ($p.Count -ge 3) {
+    if ($p.Count -ge 5) {
       $code = $p[0]
-      $ttfb += [double]$p[1]
-      $ip = $p[2]
+      $tcp += [double]$p[1]
+      $tls += [double]$p[2]
+      $ttfb += [double]$p[3]
+      $ip = $p[4]
     }
   }
-  $ms = @($ttfb | ForEach-Object { [int]([math]::Round($_ * 1000)) })
   [pscustomobject]@{
     Target = $label
-    Status = $code
+    Code = $code
     EdgeIP = $ip
-    MedianMs = [int]([math]::Round((Get-Median $ttfb) * 1000))
-    Runs = ($ms -join '/')
+    'TCP min/med' = ((Get-Ms (Get-Min $tcp)).ToString() + ' / ' + (Get-Ms (Get-Median $tcp)).ToString())
+    'TLS min/med' = ((Get-Ms (Get-Min $tls)).ToString() + ' / ' + (Get-Ms (Get-Median $tls)).ToString())
+    'TTFB min/med' = ((Get-Ms (Get-Min $ttfb)).ToString() + ' / ' + (Get-Ms (Get-Median $ttfb)).ToString())
+    Spread = ((Get-Ms (Get-Min $ttfb)).ToString() + '~' + (Get-Ms (Get-Max $ttfb)).ToString())
   }
 }
 
@@ -69,7 +87,8 @@ Write-Output '=== 3. EdgeOne cache status (2nd hit should be HIT) ==='
 }
 
 Write-Output ''
-Write-Output 'How to read this:'
-Write-Output '  - EdgeOne IP in Hong Kong + lower TTFB than pages.dev  => acceleration is working'
-Write-Output '  - EdgeOne IP in Singapore                              => you are routed on a long haul, gain is small'
-Write-Output '  - CSS second hit = HIT                                 => cache is doing its job (no cross-border round trip)'
+Write-Output 'How to read it:'
+Write-Output '  TCP(min) ~= 1 RTT  -> <60ms: node is near (HK/TW); 60-130ms: JP/SG; >200ms: far away'
+Write-Output '  CSS hit + TTFB close to TLS time -> served straight from the edge, no cross-border fetch'
+Write-Output '  HTML is never cached -> TTFB always includes the origin fetch (expected)'
+Write-Output '  If Spread is huge (e.g. 700~2600), the link is noisy: trust MIN, ignore the median'
