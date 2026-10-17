@@ -1184,9 +1184,14 @@
   function pagerHTML(pages) {
     if (pages <= 1) return '';
     const nums = [];
-    for (let i = 1; i <= pages; i++) {
-      if (i === 1 || i === pages || Math.abs(i - mgPage) <= 2) nums.push(i);
-      else if (nums[nums.length - 1] !== '…') nums.push('…');
+    if (pages <= 7) {
+      // 页数不多就全列出来 —— 否则会出现「1 2 3 … 5」这种只跳过一个数字的省略号
+      for (let i = 1; i <= pages; i++) nums.push(i);
+    } else {
+      for (let i = 1; i <= pages; i++) {
+        if (i === 1 || i === pages || Math.abs(i - mgPage) <= 2) nums.push(i);
+        else if (nums[nums.length - 1] !== '…') nums.push('…');
+      }
     }
     return `<div class="pager">
       <button type="button" data-act="prev-page"${mgPage <= 1 ? ' disabled' : ''}>上一页</button>
