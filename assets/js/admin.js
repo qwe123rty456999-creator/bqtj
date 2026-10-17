@@ -82,6 +82,8 @@
   let statTotal = 0;
   let statKw = '';             // 数据概览的搜索词
   let mgKw = '';               // 字幕管理的搜索词
+  let mgPage = 1;              // 字幕管理当前页（94 条全铺出来太长，改成一页一页翻）
+  const MG_PAGE_SIZE = 20;
 
   if (ui.maxSize) ui.maxSize.textContent = humanSize(MAX);   // 该元素可能已从页面移除
 
@@ -1067,9 +1069,16 @@
     const kw = mgKw.trim();
     const list = mgItems.filter((it) => matchMg(it, kw));
 
-    mgUI.info.textContent = kw
-      ? `匹配 ${list.length} / ${mgItems.length}`
-      : `共 ${mgItems.length} 个字幕`;
+    /* 分页：一页 20 条。页码越界会自动夹回来（搜索词变了、删了一条都会导致总数变小） */
+    const pages = Math.max(1, Math.ceil(list.length / MG_PAGE_SIZE));
+    if (mgPage > pages) mgPage = pages;
+    if (mgPage < 1) mgPage = 1;
+    const start = (mgPage - 1) * MG_PAGE_SIZE;
+    const pageList = list.slice(start, start + MG_PAGE_SIZE);
+
+    mgUI.info.textContent =
+      (kw ? `匹配 ${list.length} / ${mgItems.length}` : `共 ${mgItems.length} 个字幕`) +
+      (pages > 1 ? ` · 第 ${mgPage}/${pages} 页` : '');
 
     if (!list.length) {
       mgUI.list.innerHTML =
@@ -1077,7 +1086,7 @@
       return;
     }
 
-    mgUI.list.innerHTML = list.map((it) => {
+    mgUI.list.innerHTML = pageList.map((it) => {
       const n = countsMap.get(it.path);
       const vs = subsVariantsOf(it);
       const kinds = vs.map((v) => v.kind);
@@ -1168,12 +1177,41 @@
           </div>
         </div>
       </div>`;
-    }).join('');
+    }).join('') + pagerHTML(pages);
+  }
+
+  /** 分页控件（直接复用全站的 .pager 样式，不另写 CSS） */
+  function pagerHTML(pages) {
+    if (pages <= 1) return '';
+    const nums = [];
+    for (let i = 1; i <= pages; i++) {
+      if (i === 1 || i === pages || Math.abs(i - mgPage) <= 2) nums.push(i);
+      else if (nums[nums.length - 1] !== '…') nums.push('…');
+    }
+    return `<div class="pager">
+      <button type="button" data-act="prev-page"${mgPage <= 1 ? ' disabled' : ''}>上一页</button>
+      ${nums.map((n) => n === '…'
+        ? '<span class="gap">…</span>'
+        : `<button type="button" data-act="goto-page" data-page="${n}"${n === mgPage ? ' class="active"' : ''}>${n}</button>`
+      ).join('')}
+      <button type="button" data-act="next-page"${mgPage >= pages ? ' disabled' : ''}>下一页</button>
+    </div>`;
   }
 
   mgUI.reload.addEventListener('click', loadManage);
 
-  $('mgSearch').addEventListener('input', (e) => { mgKw = e.target.value; renderManage(); });
+  /* 翻页：这三个按钮不在 .mg-row 里，所以单独一条委托（下面那条会因为找不到 item 而直接返回） */
+  mgUI.list.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-act="prev-page"], button[data-act="next-page"], button[data-act="goto-page"]');
+    if (!btn || btn.disabled) return;
+    e.preventDefault();
+    const act = btn.dataset.act;
+    mgPage = act === 'goto-page' ? Number(btn.dataset.page) : mgPage + (act === 'next-page' ? 1 : -1);
+    renderManage();
+    mgUI.list.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  });
+
+  $('mgSearch').addEventListener('input', (e) => { mgKw = e.target.value; mgPage = 1; renderManage(); });
 
   /* ---- 展开「字幕管理」需要访问密码 ----
      注意：这是前端校验，只能挡住随手点开的人，不是真正的安全措施
@@ -1211,6 +1249,7 @@
   mgCard.addEventListener('toggle', () => { if (!mgCard.open && mgUnlocked) lockManage(); });
 
   function rowItem(row) {
+    if (!row) return null;          // 分页按钮之类不在 .mg-row 里
     return mgItems.find((x) => x.path === row.getAttribute('data-path'));
   }
 
