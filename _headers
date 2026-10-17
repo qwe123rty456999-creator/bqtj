@@ -34,10 +34,15 @@
 # `public, must-revalidate, max-age=0`（EdgeOne 在 HIT 时回传的是源站头，
 # 规则里的「浏览器缓存 TTL」不一定被套上去），所以必须从源站这一层给 60 秒。
 #
-# 数据最多旧 60 秒。站主自己传完想立刻看：Ctrl+F5，或清一次 EdgeOne 缓存。
+# 数据最多旧 5 分钟。站主自己传完想立刻看：Ctrl+F5，或清一次 EdgeOne 缓存。
 # （/admin/ 读这些文件用的是 no-store，永远是最新的，不受影响。）
+#
+# 2026-10-17 再改 60 → 300 秒：EdgeOne 会把节点缓存年龄 `Age` 一起发给浏览器，
+# 浏览器算出的真实新鲜期是 `max-age - Age`。给 60 秒时经常只剩十几秒，
+# 一次浏览里就会反复回来校验（实测 Firefox 每次都 304，一次跨境往返 250~400ms）。
+# 300 秒能覆盖一整轮浏览，且远大于节点 TTL（60 秒），不会被 Age 吃光。
 /assets/data/*
-  Cache-Control: public, max-age=60, must-revalidate
+  Cache-Control: public, max-age=300, must-revalidate
 
 # 统计接口：绝不缓存
 /api/*
