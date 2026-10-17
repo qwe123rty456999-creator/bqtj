@@ -37,9 +37,15 @@
 /api/*
   Cache-Control: no-store
 
-# 字幕文件：允许跨域下载，缓存久一点（内容很少变）
+# 字幕文件：允许跨域下载，但**不缓存**。
+# 2026-10-17 改：原来是 max-age=86400（内容很少变）。但主域名 bqtj.top 现在挂在
+# 腾讯云 EdgeOne 后面，而 EdgeOne 的全局缓存策略是「遵循源站 Cache-Control」，
+# 它就照着缓存一天 → 源站的下载计数中间件（functions/_middleware.js）收不到请求，
+# 下载次数不涨、去重也失效。字幕只有几 KB，每次回源毫无压力，所以改成 no-store。
+# （EdgeOne 那边另配了一条规则引擎规则 `URL Path 等于 /files/subs/* → 节点缓存 TTL 不缓存`，
+#   两处保持一致；这里是「配置跟着仓库走」的那一道保险。）
 /files/subs/*
-  Cache-Control: public, max-age=86400
+  Cache-Control: no-store
   Access-Control-Allow-Origin: *
 
 # 缩略图：更换时会用同名文件覆盖，不能长缓存，否则永远看到旧图
