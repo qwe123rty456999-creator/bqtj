@@ -1380,6 +1380,19 @@ details.admin-card > summary .num {
 }
 .top-meta { font-size: 12px; color: var(--text-muted); }
 
+/* 排行的名次列 + 「看下载排行」滚过去时闪一下 */
+.stat-table .rank-cell {
+  width: 44px;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.table-wrap.flash { animation: tbl-flash 1.2s ease-out; }
+@keyframes tbl-flash {
+  0% { background: var(--accent-soft); }
+  100% { background: transparent; }
+}
+
 .table-wrap { overflow-x: auto; }
 
 .stat-table {

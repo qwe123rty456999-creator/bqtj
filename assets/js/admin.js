@@ -903,12 +903,13 @@
     const max = Math.max(...list.map(([, n]) => n)) || 1;
     ui.statTable.innerHTML = `
       <table class="stat-table">
-        <thead><tr><th>文件</th><th class="num">下载</th><th class="bar-cell"></th></tr></thead>
+        <thead><tr><th class="rank-cell">#</th><th>文件</th><th class="num">下载</th><th class="bar-cell"></th></tr></thead>
         <tbody>
-          ${list.slice(0, 100).map(([p, n]) => {
+          ${list.slice(0, 100).map(([p, n], i) => {
             const segs = p.split('/').filter(Boolean);
             const name = segs[segs.length - 1] || p;
             return `<tr>
+              <td class="rank-cell">${i + 1}</td>
               <td>
                 <a href="${esc(fileUrl(p))}" target="_blank" rel="noopener">${esc(name)}</a>
               </td>
@@ -921,6 +922,17 @@
   }
 
   $('btnReloadStats').addEventListener('click', loadStats);
+
+  /* 「看下载排行」：不跳走，而是清空搜索把整张排行表展开，然后滚过去。
+     原来是个外链到 /subs/?sort=count-desc —— 用户反馈「点了只是跳走，不是排序」，
+     而这张表本来就是按下载量降序的，没必要离开当前页。 */
+  $('btnGoRank')?.addEventListener('click', () => {
+    const box = $('statSearch');
+    if (box && box.value) { box.value = ''; statKw = ''; renderStatTable(); }
+    ui.statTable.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    ui.statTable.classList.add('flash');
+    setTimeout(() => ui.statTable.classList.remove('flash'), 1200);
+  });
   $('statSearch').addEventListener('input', (e) => { statKw = e.target.value; renderStatTable(); });
 
   /* 时间范围切换（近 7 / 30 / 90 天 / 全部） */
