@@ -44,8 +44,7 @@ const CHECKS = [
       'https://bqtj.top/about',          // canonical 已换主域名
       '腾讯云 EdgeOne 加速',
       'bqtj.cc.cd',                      // 备用地址（已换成 bqtj.cc.cd）
-      '只有一个自建的下载计数',
-      '自制的 ASS / SRT',
+      'ASS / SRT',
       'style.css?v=26',
       'site.js?v=24',
       'config.js?v=4',
