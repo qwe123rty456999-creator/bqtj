@@ -48,7 +48,13 @@
   Cache-Control: no-store
   Access-Control-Allow-Origin: *
 
-# 缩略图：更换时会用同名文件覆盖，不能长缓存，否则永远看到旧图
+# 缩略图：更换时会用同名文件覆盖，所以不能设成 immutable。
+# 2026-10-17 改：原来是 max-age=0, must-revalidate —— 意思是"每次都得回源问一下"，
+# 而主域名走 EdgeOne 后这一问就是一次跨境往返（实测每张图 150~300ms，
+# 字幕库一页 8 张 = 8 次，这才是"缩略图慢"的真正原因）。
+# 改成 max-age=3600：1 小时内浏览器和 EdgeOne 节点都直接用副本、不回源；
+# 过期后必须重新校验（must-revalidate），所以你换了缩略图最多 1 小时生效。
+# 想立刻生效：浏览器 Ctrl+Shift+R，或在 EdgeOne 清一下 /files/thumbs/ 目录缓存。
 /files/thumbs/*
-  Cache-Control: public, max-age=0, must-revalidate
+  Cache-Control: public, max-age=3600, must-revalidate
   Access-Control-Allow-Origin: *
