@@ -195,15 +195,14 @@
     </div>
     <div class="top-list" id="topList"></div>
 
-    <div class="chart-head">
-      <div class="range-tabs" id="statSortTabs">
-        <button type="button" class="range-btn active" data-sort="n">按下载次数</button>
-        <button type="button" class="range-btn" data-sort="ts">按最近下载</button>
-      </div>
-      <span class="result-info" id="statSortInfo"></span>
-    </div>
-
+    <!-- 排序切换放在表格正上方、紧挨着搜索框 —— 原来单独一行摆在 Top3 下面，
+         和上方的「近7/30/90天」胶囊长得一样，用户反馈「找不到切换键」 -->
     <div class="card-tools">
+      <span style="font-size:13px;color:var(--text-muted)">排序</span>
+      <div class="range-tabs" id="statSortTabs">
+        <button type="button" class="range-btn active" data-sort="n">下载次数</button>
+        <button type="button" class="range-btn" data-sort="ts">最近下载</button>
+      </div>
       <input class="input" type="search" id="statSearch" autocomplete="off"
              placeholder="搜索文件名">
       <button class="btn btn-sm" id="btnReloadStats">刷新</button>
