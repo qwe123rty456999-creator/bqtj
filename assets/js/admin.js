@@ -16,10 +16,25 @@
   const DEST = 'files/subs';
   const DEFAULT_LANG = '简中';
 
-  /* 缩略图：公开列表里按 160×90 显示（16:9），上传前统一处理成 640×360 的 jpg */
+  /* 缩略图：公开列表里按 160×90 显示（16:9），详情页最大 640 宽。
+     所以存两张：640×360（详情页）+ 320×180（列表，2x 屏也够清晰）。
+     只存大图的话，列表要下 4 倍像素，实测字节数差 5 倍左右。 */
   const THUMB_W = 640;
   const THUMB_H = 360;
+  const THUMB_SMALL_W = 320;
+  const THUMB_SMALL_H = 180;
   const THUMB_DIR = 'files/thumbs';
+
+  /* WebP 比 JPEG 小 25~35%，canvas 能直接输出。老 Safari（14 以前）不支持就回退 jpg */
+  const THUMB_EXT = (() => {
+    try {
+      const c = document.createElement('canvas');
+      c.width = c.height = 1;
+      return c.toDataURL('image/webp').indexOf('data:image/webp') === 0 ? 'webp' : 'jpg';
+    } catch { return 'jpg'; }
+  })();
+  const THUMB_MIME = THUMB_EXT === 'webp' ? 'image/webp' : 'image/jpeg';
+  const THUMB_Q = 0.82;
 
   const $ = (id) => document.getElementById(id);
   const ui = {
@@ -424,7 +439,7 @@
     el.innerHTML = '<div class="pv-title">缩略图预览</div><div class="pv-grid">' +
       '<div class="pv-item">' +
         `<img src="${upThumb.dataUrl}" alt="">` +
-        `<span class="pv-tag">${esc(upThumb.from)} → ${THUMB_W}×${THUMB_H}</span>` +
+        `<span class="pv-tag">${esc(upThumb.from)} → ${THUMB_W}×${THUMB_H} ＋ ${THUMB_SMALL_W}×${THUMB_SMALL_H}</span>` +
         '<button class="pv-del" type="button" data-cancel-upthumb title="取消">×</button>' +
       '</div></div>';
   }
@@ -441,7 +456,12 @@
         try {
           const img = await readImage(f);
           const t = makeThumb(img, img.naturalWidth, img.naturalHeight);
-          upThumb = { b64: dataUrlToB64(t.dataUrl), dataUrl: t.dataUrl, from: t.from };
+          upThumb = {
+            b64: dataUrlToB64(t.dataUrl),
+            smallB64: dataUrlToB64(t.smallDataUrl),
+            dataUrl: t.dataUrl,
+            from: t.from,
+          };
           const label = $('upThumbName');
           if (label) {
             label.textContent = `${f.name}（${humanSize(f.size)}）`;
@@ -587,15 +607,25 @@
         log(`已上传 ${f.name} → ${p}`, 'ok');
       }
 
-      /* 缩略图和第 3 步用同一套命名：files/thumbs/<主名>.jpg */
-      let thumbPath = '';
+      /* 缩略图和第 3 步用同一套命名：files/thumbs/<主名>.webp
+         （列表另存一份 <主名>-s.webp，只下小图就够了） */
+      let thumbPath = '', thumbSmallPath = '';
       if (upThumb) {
-        thumbPath = thumbPathFor({ file: (paths.ass || paths.srt).file });
-        log(`上传缩略图（${humanSize(Math.round(upThumb.b64.length * 0.75))}）…`, 'info');
+        const stem = { file: (paths.ass || paths.srt).file };
+        thumbPath = thumbPathFor(stem);
+        thumbSmallPath = thumbSmallPathFor(stem);
+        log(`上传缩略图（${THUMB_W}×${THUMB_H} ${humanSize(Math.round(upThumb.b64.length * 0.75))}` +
+            ` + ${THUMB_SMALL_W}×${THUMB_SMALL_H} ${humanSize(Math.round(upThumb.smallB64.length * 0.75))}）…`, 'info');
         await putFile(thumbPath, upThumb.b64, `上传缩略图 ${thumbPath}`);
+        await putFile(thumbSmallPath, upThumb.smallB64, `上传缩略图 ${thumbSmallPath}`);
       }
 
-      await saveSubEntry({ name, paths, thumbPath: thumbPath ? '/' + thumbPath : '' });
+      await saveSubEntry({
+        name,
+        paths,
+        thumbPath: thumbPath ? '/' + thumbPath : '',
+        thumbSmallPath: thumbSmallPath ? '/' + thumbSmallPath : '',
+      });
       log('完成。Cloudflare 约 1 分钟后生效。', 'ok');
       clearForm();
     } catch (e) {
@@ -616,7 +646,7 @@
    *   列表缩略图、下载统计、管理页都以 path 为准，没有特殊情况不要让它来回变。
    *   （只有「先传 SRT、后来才补 ASS」这一种情况会让 path 从 srt 换成 ass，那是应该的。）
    */
-  async function saveSubEntry({ name, paths, thumbPath }) {
+  async function saveSubEntry({ name, paths, thumbPath, thumbSmallPath }) {
     log('正在更新字幕库索引 assets/data/subs.json …', 'info');
     const data = JSON.parse(await readText('assets/data/subs.json'));
     data.items = data.items || [];
@@ -659,7 +689,11 @@
     }
 
     item.name = name;
-    if (thumbPath) item.thumb = thumbPath;
+    if (thumbPath) {
+      item.thumb = thumbPath;
+      /* 列表用小图；老数据没有 thumbS 时前端会回退到 thumb */
+      item.thumbS = thumbSmallPath || thumbPath;
+    }
     setOrDelete(item, 'desc', $('upDesc').value.trim());
     setOrDelete(item, 'videoUrl', cleanUrl($('upVideo').value));
     setOrDelete(item, 'videoDl', cleanUrl($('upVideoDl').value));
@@ -793,9 +827,8 @@
       return `<a class="top-card" href="${esc(subDetailUrl(p))}">
         <span class="top-rank">${i + 1}</span>
         ${thumb
-          ? `<img class="top-thumb" src="${esc(thumb)}" alt="" loading="lazy">`
-          : '<span class="top-thumb no-thumb"></span>'}
-        <span class="top-main">
+          ? `<img class="top-thumb" src="${esc(thumb)}" alt="" width="160" height="90" loading="lazy" decoding="async">`
+          : '<span class="top-thumb no-thumb"></span>'}        <span class="top-main">
           <span class="top-name">${esc(name)}</span>
           <span class="top-meta">${n} 次下载</span>
         </span>
@@ -1008,12 +1041,18 @@
 
   /* ----------------------- 缩略图 ----------------------- */
 
-  const pendingThumb = new Map();   // item.path → 处理好的 jpg base64（等用户确认）
+  const pendingThumb = new Map();   // item.path → { b64, smallB64 }（处理好的两张，等用户确认）
 
-  /** 缩略图在仓库里的路径：与字幕同名，扩展名换成 .jpg */
+  /** 缩略图在仓库里的路径：与字幕同名，扩展名换成 .webp（或 .jpg） */
   function thumbPathFor(item) {
     const base = String(item.file || item.name).replace(/\.[^.]+$/, '');
-    return `${THUMB_DIR}/${base}.jpg`;
+    return `${THUMB_DIR}/${base}.${THUMB_EXT}`;
+  }
+
+  /** 列表用的小图：同目录，文件名末尾加 -s */
+  function thumbSmallPathFor(item) {
+    const base = String(item.file || item.name).replace(/\.[^.]+$/, '');
+    return `${THUMB_DIR}/${base}-s.${THUMB_EXT}`;
   }
 
   const dataUrlToB64 = (u) => String(u).split(',')[1] || '';
@@ -1028,10 +1067,23 @@
     });
   }
 
+  /** 把原图的 (sx,sy,sw,sh) 区域画到 w×h 的画布上，返回 dataURL */
+  function drawThumb(img, sx, sy, sw, sh, w, h) {
+    const cv = document.createElement('canvas');
+    cv.width = w;
+    cv.height = h;
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#ffffff';   // 透明 PNG 导成 jpg 会变黑，先铺白底
+    ctx.fillRect(0, 0, w, h);
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
+    return cv.toDataURL(THUMB_MIME, THUMB_Q);
+  }
+
   /**
-   * 居中裁成 16:9 并缩到 480×270，返回 jpeg 的 dataURL。
+   * 居中裁成 16:9，同时出两张：640×360（详情页）和320×180（列表）。
    * needsCrop  —— 原图比例不是 16:9（要切掉两边或上下）
-   * needsResize —— 原图大于 480×270
+   * needsResize —— 原图大于 640×360
    * 两个都为 false 时可以直接用，不必再问用户。
    */
   function makeThumb(img, w, h) {
@@ -1045,16 +1097,9 @@
     const cx = Math.round((w - cw) / 2);
     const cy = Math.round((h - ch) / 2);
 
-    const cv = document.createElement('canvas');
-    cv.width = THUMB_W;
-    cv.height = THUMB_H;
-    const ctx = cv.getContext('2d');
-    ctx.fillStyle = '#ffffff';   // 透明 PNG 导成 jpeg 会变黑，先铺白底
-    ctx.fillRect(0, 0, THUMB_W, THUMB_H);
-    ctx.drawImage(img, cx, cy, cw, ch, 0, 0, THUMB_W, THUMB_H);
-
     return {
-      dataUrl: cv.toDataURL('image/jpeg', 0.85),
+      dataUrl: drawThumb(img, cx, cy, cw, ch, THUMB_W, THUMB_H),
+      smallDataUrl: drawThumb(img, cx, cy, cw, ch, THUMB_SMALL_W, THUMB_SMALL_H),
       needsCrop,
       needsResize,
       from: `${w}×${h}`,
@@ -1074,11 +1119,14 @@
 
       if (!t.needsCrop && !t.needsResize) {
         setNote(row, `${t.from}，尺寸合适，正在上传…`);
-        await uploadThumb(item, dataUrlToB64(t.dataUrl), `${t.from}`);
+        await uploadThumb(item, { b64: dataUrlToB64(t.dataUrl), smallB64: dataUrlToB64(t.smallDataUrl) }, `${t.from}`);
         return;
       }
 
-      pendingThumb.set(item.path, dataUrlToB64(t.dataUrl));
+      pendingThumb.set(item.path, {
+        b64: dataUrlToB64(t.dataUrl),
+        smallB64: dataUrlToB64(t.smallDataUrl),
+      });
 
       row.querySelector('.mg-crop-img').src = t.dataUrl;
       row.querySelector('.mg-crop-note').innerHTML =
@@ -1094,36 +1142,40 @@
   }
 
   async function confirmThumb(item, row, btn) {
-    const b64 = pendingThumb.get(item.path);
-    if (!b64) { setNote(row, '没有待上传的图', 'err'); return; }
+    const pending = pendingThumb.get(item.path);
+    if (!pending) { setNote(row, '没有待上传的图', 'err'); return; }
     const old = btn.textContent;
     btn.disabled = true;
     btn.textContent = '上传中…';
     try {
-      await uploadThumb(item, b64, '已裁剪');
+      await uploadThumb(item, pending, '已裁剪');
     } finally {
       btn.disabled = false;
       btn.textContent = old;
     }
   }
 
-  async function uploadThumb(item, b64, how) {
+  async function uploadThumb(item, thumb, how) {
     if (!needToken('上传缩略图')) return;
     const path = thumbPathFor(item);
+    const smallPath = thumbSmallPathFor(item);
     try {
-      await putFile(path, b64, `上传缩略图 ${path}`);
+      await putFile(path, thumb.b64, `上传缩略图 ${path}`);
+      if (thumb.smallB64) await putFile(smallPath, thumb.smallB64, `上传缩略图 ${smallPath}`);
 
       // 把缩略图路径写回索引（重新读一次，避开别处的改动）
       const data = JSON.parse(await readText('assets/data/subs.json'));
       const target = (data.items || []).find((x) => x.path === item.path);
       if (!target) throw new Error('索引里找不到这个条目，可能已被删除');
       target.thumb = '/' + path;
+      if (thumb.smallB64) target.thumbS = '/' + smallPath;
       await saveIndex(data, `关联缩略图：${item.name}`);
 
       item.thumb = '/' + path;
+      if (thumb.smallB64) item.thumbS = '/' + smallPath;
       pendingThumb.delete(item.path);
       renderManage();
-      mglog(`缩略图已上传（${how}）：${path}`, 'ok');
+      mglog(`缩略图已上传（${how}）：${path}${thumb.smallB64 ? ' + ' + smallPath : ''}`, 'ok');
     } catch (e) {
       const msg = friendlyErr(e);
       mglog(`缩略图上传失败：${msg}`, 'err');
@@ -1141,14 +1193,19 @@
     btn.disabled = true;
     btn.textContent = '移除中…';
     try {
-      await deleteFile(String(item.thumb).replace(/^\//, ''), `删除缩略图 ${item.thumb}`);
+      /* 大图小图一起删；小图可能不存在（老数据只有 thumb），删失败不阻断 */
+      for (const p of [...new Set([item.thumb, item.thumbS].filter(Boolean))]) {
+        try { await deleteFile(String(p).replace(/^\//, ''), `删除缩略图 ${p}`); }
+        catch { /* 已经没有了就算了 */ }
+      }
 
       const data = JSON.parse(await readText('assets/data/subs.json'));
       const target = (data.items || []).find((x) => x.path === item.path);
-      if (target) delete target.thumb;
+      if (target) { delete target.thumb; delete target.thumbS; }
       await saveIndex(data, `解除缩略图关联：${item.name}`);
 
       delete item.thumb;
+      delete item.thumbS;
       renderManage();
       mglog(`已移除缩略图：${item.name}`, 'ok');
     } catch (e) {
@@ -1285,7 +1342,7 @@
         <div class="mg-head">
           <div class="mg-thumb${it.thumb ? '' : ' no-thumb'}">
             ${it.thumb
-              ? `<img src="${esc(fileUrl(it.thumb))}" alt="" loading="lazy">`
+              ? `<img src="${esc(fileUrl(it.thumbS || it.thumb))}" alt="" width="160" height="90" loading="lazy" decoding="async">`
               : esc(it.ext)}
           </div>
           <div class="up-main">
@@ -1682,9 +1739,10 @@
     btn.textContent = '删除中…';
     try {
       // 有缩略图就一并删掉；缩略图删失败不阻断字幕删除
-      if (item.thumb) {
+      for (const p of [item.thumb, item.thumbS]) {
+        if (!p) continue;
         try {
-          await deleteFile(String(item.thumb).replace(/^\//, ''), `删除缩略图 ${item.thumb}`);
+          await deleteFile(String(p).replace(/^\//, ''), `删除缩略图 ${p}`);
         } catch (err) {
           mglog(`缩略图没删掉（不影响字幕删除）：${err.message}`, 'warn');
         }

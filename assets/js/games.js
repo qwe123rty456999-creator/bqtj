@@ -46,7 +46,7 @@
 
   const coverHTML = (g) => {
     if (g.cover) {
-      return `<img class="game-cover" src="${esc(fileUrl(g.cover))}" alt="" loading="lazy">`;
+      return `<img class="game-cover" src="${esc(fileUrl(g.cover))}" alt="" width="160" height="90" loading="lazy" decoding="async">`;
     }
     return `<div class="game-cover placeholder">GAME</div>`;
   };

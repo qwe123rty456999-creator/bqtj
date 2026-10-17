@@ -54,7 +54,7 @@
   document.title = name + ' · 爆枪突击字幕库';
 
   const coverHTML = g.cover
-    ? `<img class="gd-cover" src="${esc(fileUrl(g.cover))}" alt="${esc(name)} 的封面">`
+      ? `<img class="gd-cover" src="${esc(fileUrl(g.cover))}" alt="${esc(name)} 的封面" width="640" height="360" decoding="async" fetchpriority="high">`
     : '<div class="gd-cover placeholder">GAME</div>';
 
   /* 详细介绍：一段一行，空行分段。
@@ -87,7 +87,7 @@
   const shotsHTML = shots.length
     ? '<div class="shots">' + shots.map((s, i) =>
         `<a class="shot" href="${esc(fileUrl(s))}" data-shot="${esc(fileUrl(s))}" title="点击放大">
-           <img src="${esc(fileUrl(s))}" alt="截图 ${i + 1}" loading="lazy">
+           <img src="${esc(fileUrl(s))}" alt="截图 ${i + 1}" width="640" height="360" loading="lazy" decoding="async">
          </a>`).join('') + '</div>'
     : '';
 

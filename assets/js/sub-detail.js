@@ -74,9 +74,9 @@
   const vs = subsVariantsOf(item);
   const lyrics = String(item.lyrics || '').trim();
 
-  /* 缩略图：上传时统一压到 640×360，所以这里放到 640 以内是清晰的，不要再放大 */
+  /* 缩略图：上传时统一存 640×360（详情页）+ 320×180（列表），这里用大图，别再放大 */
   const thumbHTML = item.thumb
-    ? `<img class="sd-thumb" src="${esc(fileUrl(item.thumb))}" alt="${esc(name)} 的缩略图">`
+    ? `<img class="sd-thumb" src="${esc(fileUrl(item.thumb))}" alt="${esc(name)} 的缩略图" width="640" height="360" decoding="async" fetchpriority="high">`
     : `<div class="sd-thumb placeholder">${esc(item.ext || 'sub')}</div>`;
 
   const dlButtons = vs.length

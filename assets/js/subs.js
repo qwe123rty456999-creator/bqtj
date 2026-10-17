@@ -111,7 +111,7 @@
     return `
       <div class="file-row" data-href="${esc(detail)}">
         ${f.thumb
-          ? `<img class="file-thumb" src="${esc(fileUrl(f.thumb))}" alt="" loading="lazy">`
+          ? `<img class="file-thumb" src="${esc(fileUrl(f.thumbS || f.thumb))}" alt="" width="160" height="90" loading="lazy" decoding="async">`
           : `<div class="file-thumb placeholder ${esc(f.ext)}">${esc(f.ext)}</div>`}
         <div class="file-main">
           <a class="file-name" href="${esc(detail)}">${mark(f.name, state.kw.trim())}</a>
