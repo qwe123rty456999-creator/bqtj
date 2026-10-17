@@ -1387,6 +1387,11 @@ details.admin-card > summary .num {
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
+.stat-table .ts-cell {
+  white-space: nowrap;
+  color: var(--text-muted);
+  font-size: 12.5px;
+}
 .table-wrap.flash { animation: tbl-flash 1.2s ease-out; }
 @keyframes tbl-flash {
   0% { background: var(--accent-soft); }

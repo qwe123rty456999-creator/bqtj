@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=24">
+<link rel="stylesheet" href="/assets/css/style.css?v=25">
 </head>
 <body>
 
@@ -195,6 +195,14 @@
     </div>
     <div class="top-list" id="topList"></div>
 
+    <div class="chart-head">
+      <div class="range-tabs" id="statSortTabs">
+        <button type="button" class="range-btn active" data-sort="n">按下载次数</button>
+        <button type="button" class="range-btn" data-sort="ts">按最近下载</button>
+      </div>
+      <span class="result-info" id="statSortInfo"></span>
+    </div>
+
     <div class="card-tools">
       <input class="input" type="search" id="statSearch" autocomplete="off"
              placeholder="搜索文件名">
@@ -284,6 +292,6 @@
 
 <script src="/assets/js/config.js?v=4"></script>
 <script src="/assets/js/site.js?v=24"></script>
-<script src="/assets/js/admin.js?v=13"></script>
+<script src="/assets/js/admin.js?v=14"></script>
 </body>
 </html>

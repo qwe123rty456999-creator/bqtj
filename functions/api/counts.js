@@ -2,7 +2,11 @@
  * functions/api/counts.js
  * ---------------------------------------------------------------------------
  * GET /api/counts
- *   返回 { enabled, total, counts: { "/files/subs/xxx.ass": 12, ... } }
+ *   返回 { enabled, total, counts: { "/files/subs/xxx.ass": 12, ... },
+ *          last: { "/files/subs/xxx.ass": 1760000000, ... } }
+ *
+ *  - `last` 是**最后一次下载的 Unix 秒**，管理页「按最近下载」排行用。
+ *    公开页面只读 counts，多一个字段对它无影响。
  *
  *  - 没绑定 D1 时返回 enabled: false，前端据此隐藏次数。
  *  - 绑定名优先看 COUNTS，其次 DB / bqtj —— 名字对不上会让统计静默失效，
@@ -56,7 +60,7 @@ export async function onRequestGet({ env }) {
   try {
     await ensureSchema(db);
     const { results } = await db
-      .prepare('SELECT path, count FROM downloads ORDER BY count DESC')
+      .prepare('SELECT path, count, last_ts FROM downloads ORDER BY count DESC')
       .all();
 
     /* 归一化 key：早期版本存的是 percent-encoded 路径，解码一下才能和
@@ -64,13 +68,16 @@ export async function onRequestGet({ env }) {
     const norm = (p) => { try { return decodeURIComponent(p); } catch { return p; } };
 
     const counts = {};
+    const last = {};
     let total = 0;
     for (const r of results || []) {
       const k = norm(r.path);
       counts[k] = (counts[k] || 0) + r.count;
       total += r.count;
+      /* 同一文件可能存在新旧两条记录（percent-encoded / 原始），取更晚的那次 */
+      last[k] = Math.max(last[k] || 0, r.last_ts || 0);
     }
-    return json({ enabled: true, total, counts });
+    return json({ enabled: true, total, counts, last });
   } catch (e) {
     return json({ enabled: false, reason: 'error', error: String(e && e.message || e), total: 0, counts: {} });
   }

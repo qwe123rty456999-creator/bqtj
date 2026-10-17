@@ -78,12 +78,16 @@
 
   let countsMap = new Map();   // path → 下载次数（来自 /api/counts）
   let mgItems = [];            // 字幕管理的当前列表（来自 subs.json）
-  let statEntries = [];        // 下载统计原始数据 [[path, 次数], ...]
+  let statEntries = [];        // 下载统计：[{ path, n, ts }]（ts = 最后一次下载，秒）
   let statTotal = 0;
   let statKw = '';             // 数据概览的搜索词
   let mgKw = '';               // 字幕管理的搜索词
   let mgPage = 1;              // 字幕管理当前页（94 条全铺出来太长，改成一页一页翻）
   const MG_PAGE_SIZE = 20;
+
+  let statSort = 'n';          // 'n' = 按下载次数（默认）, 'ts' = 按最近下载
+  let statPage = 1;
+  const STAT_PAGE_SIZE = 20;
 
   if (ui.maxSize) ui.maxSize.textContent = humanSize(MAX);   // 该元素可能已从页面移除
 
@@ -836,10 +840,11 @@
         return;
       }
 
-      const entries = Object.entries(data.counts || {}).sort((a, b) => b[1] - a[1]);
-      countsMap = new Map(entries);
+      statEntries = Object.entries(data.counts || {}).map(([p, n]) => ({
+        path: p, n, ts: (data.last && data.last[p]) || 0,
+      }));
+      countsMap = new Map(statEntries.map((r) => [r.path, r.n]));
       renderManage();   // 管理列表也顺便显示下载次数
-      statEntries = entries;
       statTotal = data.total || 0;
       renderStatTable();
 
@@ -874,7 +879,7 @@
     }
   }
 
-  /** 渲染下载排行表（受 #statSearch 过滤） */
+  /** 渲染下载排行（可按「下载次数」或「最近下载时间」，带搜索 + 分页） */
   function renderStatTable() {
     const kw = statKw.trim().toLowerCase();
 
@@ -885,40 +890,60 @@
     }
 
     const list = kw
-      ? statEntries.filter(([p]) => p.toLowerCase().includes(kw))
-      : statEntries;
+      ? statEntries.filter((r) => r.path.toLowerCase().includes(kw))
+      : statEntries.slice();
 
-    const sum = list.reduce((s, [, n]) => s + n, 0);
+    /* 两种排序：次数优先用次数、时间优先用时间；相等时用另一个维度兜底，
+       保证顺序稳定（否则每次刷新顺序都会跳） */
+    list.sort(statSort === 'ts'
+      ? (a, b) => (b.ts - a.ts) || (b.n - a.n)
+      : (a, b) => (b.n - a.n) || (b.ts - a.ts));
 
-    ui.statSummary.innerHTML = kw
-      ? `匹配 <b>${list.length}</b> / ${statEntries.length} 个文件 · 这些文件共 <b>${sum}</b> 次下载`
-      : `共 <b>${statTotal}</b> 次下载 · 涉及 <b>${statEntries.length}</b> 个文件` +
-        (list.length > 100 ? '（下表只显示前 100 个）' : '');
+    const sum = list.reduce((s, r) => s + r.n, 0);
+    const pages = Math.max(1, Math.ceil(list.length / STAT_PAGE_SIZE));
+    if (statPage > pages) statPage = pages;
+    if (statPage < 1) statPage = 1;
+    const from = (statPage - 1) * STAT_PAGE_SIZE;
+    const pageList = list.slice(from, from + STAT_PAGE_SIZE);
+
+    ui.statSummary.innerHTML =
+      (kw
+        ? `匹配 <b>${list.length}</b> / ${statEntries.length} 个文件`
+        : `共 <b>${statTotal}</b> 次下载 · 涉及 <b>${statEntries.length}</b> 个文件`) +
+      ` · 这些文件共 <b>${sum}</b> 次` +
+      (pages > 1 ? ` · 第 ${statPage}/${pages} 页` : '');
 
     if (!list.length) {
       ui.statTable.innerHTML = '<div class="result-info">没有匹配的文件。</div>';
       return;
     }
 
-    const max = Math.max(...list.map(([, n]) => n)) || 1;
+    const max = Math.max(...list.map((r) => r.n)) || 1;
     ui.statTable.innerHTML = `
       <table class="stat-table">
-        <thead><tr><th class="rank-cell">#</th><th>文件</th><th class="num">下载</th><th class="bar-cell"></th></tr></thead>
+        <thead><tr>
+          <th class="rank-cell">#</th>
+          <th>文件</th>
+          <th class="num">下载</th>
+          <th class="ts-cell">最近下载</th>
+          <th class="bar-cell"></th>
+        </tr></thead>
         <tbody>
-          ${list.slice(0, 100).map(([p, n], i) => {
-            const segs = p.split('/').filter(Boolean);
-            const name = segs[segs.length - 1] || p;
+          ${pageList.map((r, i) => {
+            const segs = r.path.split('/').filter(Boolean);
+            const name = segs[segs.length - 1] || r.path;
             return `<tr>
-              <td class="rank-cell">${i + 1}</td>
+              <td class="rank-cell">${from + i + 1}</td>
               <td>
-                <a href="${esc(fileUrl(p))}" target="_blank" rel="noopener">${esc(name)}</a>
+                <a href="${esc(fileUrl(r.path))}" target="_blank" rel="noopener">${esc(name)}</a>
               </td>
-              <td class="num">${n}</td>
-              <td class="bar-cell"><div class="mini-bar" style="width:${Math.max(3, Math.round((n / max) * 100))}%"></div></td>
+              <td class="num">${r.n}</td>
+              <td class="ts-cell">${r.ts ? relTime(r.ts * 1000) : '—'}</td>
+              <td class="bar-cell"><div class="mini-bar" style="width:${Math.max(3, Math.round((r.n / max) * 100))}%"></div></td>
             </tr>`;
           }).join('')}
         </tbody>
-      </table>`;
+      </table>` + pagerHTML(pages, statPage, 'stat');
   }
 
   $('btnReloadStats').addEventListener('click', loadStats);
@@ -933,7 +958,33 @@
     ui.statTable.classList.add('flash');
     setTimeout(() => ui.statTable.classList.remove('flash'), 1200);
   });
-  $('statSearch').addEventListener('input', (e) => { statKw = e.target.value; renderStatTable(); });
+  $('statSearch').addEventListener('input', (e) => {
+    statKw = e.target.value;
+    statPage = 1;
+    renderStatTable();
+  });
+
+  /* 排行表的两种排序：按下载次数 / 按最近下载时间 */
+  $('statSortTabs')?.addEventListener('click', (e) => {
+    const b = e.target.closest('.range-btn');
+    if (!b || b.classList.contains('active')) return;
+    statSort = b.dataset.sort;
+    statPage = 1;
+    [...document.querySelectorAll('#statSortTabs .range-btn')]
+      .forEach((x) => x.classList.toggle('active', x === b));
+    renderStatTable();
+  });
+
+  /* 排行表翻页 */
+  ui.statTable.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-act^="stat-"]');
+    if (!btn || btn.disabled) return;
+    e.preventDefault();
+    const act = btn.dataset.act;
+    statPage = act === 'stat-goto' ? Number(btn.dataset.page) : statPage + (act === 'stat-next' ? 1 : -1);
+    renderStatTable();
+    ui.statTable.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  });
 
   /* 时间范围切换（近 7 / 30 / 90 天 / 全部） */
   $('rangeTabs')?.addEventListener('click', (e) => {
@@ -1323,11 +1374,12 @@
           </div>
         </div>
       </div>`;
-    }).join('') + pagerHTML(pages);
+    }).join('') + pagerHTML(pages, mgPage, 'mg');
   }
 
-  /** 分页控件（直接复用全站的 .pager 样式，不另写 CSS） */
-  function pagerHTML(pages) {
+  /** 分页控件（字幕管理和下载排行共用；直接复用全站的 .pager 样式）
+   *  @param pages 总页数  @param cur 当前页  @param act 动作前缀（mg / stat） */
+  function pagerHTML(pages, cur, act) {
     if (pages <= 1) return '';
     const nums = [];
     if (pages <= 7) {
@@ -1335,17 +1387,17 @@
       for (let i = 1; i <= pages; i++) nums.push(i);
     } else {
       for (let i = 1; i <= pages; i++) {
-        if (i === 1 || i === pages || Math.abs(i - mgPage) <= 2) nums.push(i);
+        if (i === 1 || i === pages || Math.abs(i - cur) <= 2) nums.push(i);
         else if (nums[nums.length - 1] !== '…') nums.push('…');
       }
     }
     return `<div class="pager">
-      <button type="button" data-act="prev-page"${mgPage <= 1 ? ' disabled' : ''}>上一页</button>
+      <button type="button" data-act="${act}-prev"${cur <= 1 ? ' disabled' : ''}>上一页</button>
       ${nums.map((n) => n === '…'
         ? '<span class="gap">…</span>'
-        : `<button type="button" data-act="goto-page" data-page="${n}"${n === mgPage ? ' class="active"' : ''}>${n}</button>`
+        : `<button type="button" data-act="${act}-goto" data-page="${n}"${n === cur ? ' class="active"' : ''}>${n}</button>`
       ).join('')}
-      <button type="button" data-act="next-page"${mgPage >= pages ? ' disabled' : ''}>下一页</button>
+      <button type="button" data-act="${act}-next"${cur >= pages ? ' disabled' : ''}>下一页</button>
     </div>`;
   }
 
@@ -1353,11 +1405,11 @@
 
   /* 翻页：这三个按钮不在 .mg-row 里，所以单独一条委托（下面那条会因为找不到 item 而直接返回） */
   mgUI.list.addEventListener('click', (e) => {
-    const btn = e.target.closest('button[data-act="prev-page"], button[data-act="next-page"], button[data-act="goto-page"]');
+    const btn = e.target.closest('button[data-act^="mg-"]');
     if (!btn || btn.disabled) return;
     e.preventDefault();
     const act = btn.dataset.act;
-    mgPage = act === 'goto-page' ? Number(btn.dataset.page) : mgPage + (act === 'next-page' ? 1 : -1);
+    mgPage = act === 'mg-goto' ? Number(btn.dataset.page) : mgPage + (act === 'mg-next' ? 1 : -1);
     renderManage();
     mgUI.list.scrollIntoView({ block: 'start', behavior: 'smooth' });
   });
