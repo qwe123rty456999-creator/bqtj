@@ -521,20 +521,42 @@ function subsVariantsOf(it) {
 }
 
 /**
+ * 从文件名里取「视频 ID」——下载下来的字幕文件名末尾通常带 [xxxx]。
+ *   '/files/subs/BONK! [ft. Hatsune Miku] [mvbj6v_kTzg].zh-CN.srt' → 'mvbj6v_kTzg'
+ *
+ * 2026-10-17 用户要求「详情页地址太长，用视频 ID」：以前 ?id= 里塞的是整条
+ * 百分号编码后的路径（一百多字符），现在只放这一个 token。
+ *
+ * ⚠️ 只认**最后一对方括号**里的内容（(?=[^\[\]]*$)），因为标题本身经常也带
+ * 方括号（`[ft. Hatsune Miku]`），取第一个会取错。
+ * ⚠️ 长度卡 6~20 是为了不把 `[1080p]`、`[MV]` 这种误当 ID。实测全站 94 条
+ * 全部命中且无重复；万一以后有不带 ID 的文件，调用方会退回用完整 path。
+ */
+function videoIdOf(path) {
+  const m = String(path || '').match(/\[([A-Za-z0-9_-]{6,20})\](?=[^\[\]]*$)/);
+  return m ? m[1] : '';
+}
+
+/** 详情 / 歌词页共用的 ?id= ：优先用视频 ID，取不到才退回完整 path */
+function detailIdOf(path) {
+  return videoIdOf(path) || String(path || '');
+}
+
+/**
  * 原版歌词预览页地址。
- * id 用条目的 path（下载统计 / 缩略图 / 管理都以 path 为主键），
+ * id 用视频 ID（唯一、短）；老链接里塞的是完整 path，页面端两种都认。
  * 全站只在这里拼一次，改路径不会漏掉某处。
  */
 function lyricsUrl(id) {
-  return '/subs/lyrics/?id=' + encodeURIComponent(String(id || ''));
+  return '/subs/lyrics/?id=' + encodeURIComponent(detailIdOf(id));
 }
 
 /**
  * 字幕详情页地址（2026-10-16 用户要求「整行可点 → 字幕详情页」）。
- * 和歌词页一样用 path 当 id，同样只在这里拼一次。
+ * 和歌词页一样用视频 ID 当 id，同样只在这里拼一次。
  */
 function subDetailUrl(id) {
-  return '/subs/detail/?id=' + encodeURIComponent(String(id || ''));
+  return '/subs/detail/?id=' + encodeURIComponent(detailIdOf(id));
 }
 
 /**

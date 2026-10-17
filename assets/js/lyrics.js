@@ -1,5 +1,5 @@
 /* ==========================================================================
-   lyrics.js — 原版歌词预览页（/subs/lyrics/?id=<字幕条目的 path>）
+   lyrics.js — 原版歌词预览页（/subs/lyrics/?id=<视频 ID，如 mvbj6v_kTzg>）
 
    为什么是「一个页面 + ?id=」：
    歌词是站主在 /admin/ 里随手粘进去的多行文本，存在 subs.json 里。
@@ -50,7 +50,9 @@
   const item =
     items.find((x) => x.path === raw)
     || items.find((x) => '/' + String(x.file) === raw || String(x.file) === raw)
-    || items.find((x) => String(x.name) === raw);
+    || items.find((x) => String(x.name) === raw)
+    /* 新链接只带视频 ID（见 site.js 的 videoIdOf）；老链接仍然是完整 path */
+    || items.find((x) => videoIdOf(x.path) === raw);
 
   if (!item) {
     fail('找不到这条字幕', '它可能已经被删掉了，或者链接里的编号不对。');

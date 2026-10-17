@@ -1,5 +1,8 @@
 /* ==========================================================================
-   sub-detail.js — 字幕详情页（/subs/detail/?id=<字幕条目的 path>）
+   sub-detail.js — 字幕详情页（/subs/detail/?id=<视频 ID，如 mvbj6v_kTzg>）
+
+   2026-10-17：?id= 从「完整路径」改成「视频 ID」（见 site.js 的 videoIdOf）。
+   老链接（整条 path）仍然能用 —— 下面的查找会先试精确匹配 path。
 
    为什么要有这一页（2026-10-16 用户要求「整行可点 → 字幕详情页」）：
    列表里一行能放的信息太少 —— 缩略图只有 160×90、说明只有一行、
@@ -48,7 +51,10 @@
   const item =
     items.find((x) => x.path === id)
     || items.find((x) => '/' + String(x.file) === id || String(x.file) === id)
-    || items.find((x) => String(x.name) === id);
+    || items.find((x) => String(x.name) === id)
+    /* 新链接只带视频 ID（见 site.js 的 videoIdOf）；老链接仍然是完整 path，
+       上面三条先跑，所以旧书签不会失效。 */
+    || items.find((x) => videoIdOf(x.path) === id);
 
   if (!item) {
     fail('找不到这条字幕', '它可能已经被删掉了，或者链接里的编号不对。');

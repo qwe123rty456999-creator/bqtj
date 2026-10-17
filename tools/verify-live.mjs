@@ -27,10 +27,10 @@ const CHECKS = [
   ['/admin/', ['sendToast', 'id="upAss"', 'id="upSrt"', 'id="upLyrics"', 'id="upThumb"', 'id="btnUploadOne"', 'data-hist="back"', 'data-hist="forward"', 'style.css?v=22', 'site.js?v=21', 'config.js?v=4', 'admin.js?v=7', '!id="btnUploadAll"', '!id="picker"']],
   ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '点卡片进详情页', '会自动复制到剪贴板', 'data-hist="back"', 'data-hist="forward"', 'style.css?v=22', 'site.js?v=21', 'games.js?v=7', '!复制提取码', '!选择云盘下载']],
   ['/games/detail.html?id=gmu9cq47yr2q', ['game-detail.js?v=3', 'site.js?v=21', 'gdBox', 'lightbox']],
-  ['/subs/', ['data-hist="back"', 'data-hist="forward"', 'style.css?v=22', 'site.js?v=23', 'subs.js?v=7']],
-  ['/subs/lyrics/', ['lyrics.js?v=3', 'site.js?v=23', 'lyBox']],
-  ['/subs/detail/', ['sub-detail.js?v=7', 'site.js?v=23', 'sdBox']],
-  ['/', ['style.css?v=22', 'site.js?v=23', 'data-href', 'bindRowClick', 'subDetailUrl', 'https://bqtj.top/', '!data-hist']],
+  ['/subs/', ['data-hist="back"', 'data-hist="forward"', 'style.css?v=22', 'site.js?v=24', 'subs.js?v=7']],
+  ['/subs/lyrics/', ['lyrics.js?v=4', 'site.js?v=24', 'lyBox']],
+  ['/subs/detail/', ['sub-detail.js?v=8', 'site.js?v=24', 'sdBox']],
+  ['/', ['style.css?v=22', 'site.js?v=24', 'data-href', 'bindRowClick', 'subDetailUrl', 'https://bqtj.top/', '!data-hist']],
   ['/robots.txt', ['Sitemap: https://bqtj.top/sitemap.xml']],
   ['/sitemap.xml', ['<loc>https://bqtj.top/</loc>', '<loc>https://bqtj.top/subs/</loc>', '<loc>https://bqtj.top/about</loc>', '!bqtj.pages.dev']],
   [
@@ -49,7 +49,7 @@ const CHECKS = [
       '自制的 ASS / SRT 格式的字幕文件',
       'data-hist="back"',
       'style.css?v=22',
-      'site.js?v=23',
+      'site.js?v=24',
       'config.js?v=4',
       '!怎么找字幕',                     // 整节已删
       '!不用跟我打招呼',                 // 这句已删
