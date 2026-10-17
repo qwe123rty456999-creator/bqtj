@@ -280,9 +280,8 @@
 
       if (!state.all.length) {
         $list.className = '';
-        $list.innerHTML = `<div class="empty"><h3>字幕库还是空的</h3>
-          <p>去 <a href="/admin/">上传助手</a> 传几个字幕，或者把文件放进
-          <code>files/subs/</code> 后跑 <code>node tools/build-subs-index.mjs</code>。</p></div>`;
+        $list.innerHTML = `<div class="empty"><h3>字幕库暂时是空的</h3>
+          <p>整理好会陆续放上来，过几天再来看看。</p></div>`;
         $info.textContent = '共 0 个字幕';
         return;
       }

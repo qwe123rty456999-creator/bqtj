@@ -116,8 +116,8 @@ window.__subsJson = fetch('/assets/data/subs.json');
     const items = data.items || [];
 
     if (!items.length) {
-      $latest.innerHTML = `<div class="empty"><h3>字幕库还是空的</h3>
-        <p>去 <a href="/admin/">上传助手</a> 传几个字幕就会出现在这里。</p></div>`;
+      $latest.innerHTML = `<div class="empty"><h3>暂时还没有收录</h3>
+        <p>字幕整理好之后会出现在这里，过几天再来看看。</p></div>`;
       return;
     }
 

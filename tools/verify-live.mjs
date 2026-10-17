@@ -13,7 +13,7 @@ const CHECKS = [
   // ⚠️ 负向检查必须选**不会出现在注释里的写法**（`let dlHTML` / `bindMoreMenu(` 而不是裸的
   // `dlHTML` / `bindMoreMenu`）—— 代码注释里会解释「这里不再需要 dlHTML」，
   // 用裸标识符查必误报（这个坑踩过两次：一次是中文文案，一次就是这个）。
-  ['/assets/js/games.js?v=7', ['gameDetailUrl', 'gameLinksOf', '还没填下载链接', '!let dlHTML', '!bindMoreMenu(', '!data-act="more"', '!data-copy', '!shotsHTML', '!codesOf']],
+  ['/assets/js/games.js?v=9', ['gameDetailUrl', 'gameLinksOf', '还没填下载链接', '!let dlHTML', '!bindMoreMenu(', '!data-act="more"', '!data-copy', '!shotsHTML', '!codesOf']],
   ['/assets/js/game-detail.js?v=3', ['gameLinksOf', 'bindDriveCodeCopy', 'gd-drive-code', '无需提取码', 'gd-drives', 'lightbox', '详细介绍', 'hist-nav', 'data-hist="forward"']],
   // 上传助手：一次一条 + 基本信息 + ASS/SRT 配对；歌词是能往下展开的 textarea
   ['/assets/js/admin.js?v=7', ['sendState', 'netError', 'withShaRetry', 'saveSubEntry', 'uploadVariant', 'removeVariant', 'captureDrafts', 'openRows', 'toggleRow', 'upThumb', "'lyrics'", '!patchSubsIndex', '!renderList(', '!btnUploadAll']],
@@ -22,12 +22,12 @@ const CHECKS = [
   ['/assets/js/games-admin.js?v=9', ['sendState', 'withShaRetry', 'LIST_PWD', 'link-code', '无需码', 'gDetail', '看详情']],
   ['/assets/js/config.js?v=4', ['defaultExtractCode']],
   // 搜索只能匹配看得见的内容：haystack 里不能再出现原始文件名 / path（见 subs.js 注释）
-  ['/assets/js/subs.js?v=7', ['matchKeywords', 'search-scope: name + desc + variant kinds', 'downloadHTML', 'more-dl', 'dl-kind', 'subDetailUrl', 'bindRowClick', 'data-href', '!item.path', '!item.file']],
+  ['/assets/js/subs.js?v=8', ['matchKeywords', 'search-scope: name + desc + variant kinds', 'downloadHTML', 'more-dl', 'dl-kind', 'subDetailUrl', 'bindRowClick', 'data-href', '!item.path', '!item.file']],
   ['/games/admin/', ['listPwd', 'sendToast', 'gDetail', 'data-hist="back"', 'style.css?v=22', 'site.js?v=21', 'config.js?v=4', 'games-admin.js?v=9']],
   ['/admin/', ['sendToast', 'id="upAss"', 'id="upSrt"', 'id="upLyrics"', 'id="upThumb"', 'id="btnUploadOne"', 'data-hist="back"', 'data-hist="forward"', 'style.css?v=22', 'site.js?v=21', 'config.js?v=4', 'admin.js?v=7', '!id="btnUploadAll"', '!id="picker"']],
-  ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '点卡片进详情页', '会自动复制到剪贴板', 'data-hist="back"', 'data-hist="forward"', 'style.css?v=22', 'site.js?v=21', 'games.js?v=7', '!复制提取码', '!选择云盘下载']],
+  ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '点卡片进详情页', '会自动复制到剪贴板', 'data-hist="back"', 'data-hist="forward"', 'style.css?v=26', 'site.js?v=24', 'games.js?v=9', '!复制提取码', '!选择云盘下载']],
   ['/games/detail.html?id=gmu9cq47yr2q', ['game-detail.js?v=3', 'site.js?v=21', 'gdBox', 'lightbox']],
-  ['/subs/', ['data-hist="back"', 'data-hist="forward"', 'style.css?v=26', 'site.js?v=24', 'subs.js?v=7']],
+  ['/subs/', ['data-hist="back"', 'data-hist="forward"', 'style.css?v=26', 'site.js?v=24', 'subs.js?v=8']],
   ['/subs/lyrics/', ['lyrics.js?v=4', 'site.js?v=24', 'lyBox']],
   ['/subs/detail/', ['sub-detail.js?v=8', 'site.js?v=24', 'sdBox']],
   ['/', ['style.css?v=26', 'site.js?v=24', 'data-href', 'bindRowClick', 'subDetailUrl', 'https://bqtj.top/', '!data-hist']],

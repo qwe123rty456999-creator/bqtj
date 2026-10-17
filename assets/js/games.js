@@ -35,8 +35,8 @@
     if ($info) $info.textContent = '';
     $list.className = '';
     $list.innerHTML =
-      '<div class="empty"><h3>还没有游戏</h3>' +
-      '<p>去 <a href="/games/admin/">游戏管理</a> 添加一个就会出现在这里。</p></div>';
+      '<div class="empty"><h3>暂时还没有游戏</h3>' +
+      '<p>整理好之后会放上来，过几天再来看看。</p></div>';
     return;
   }
 
