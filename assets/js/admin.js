@@ -700,37 +700,139 @@
 
   /* ======================= 下载统计 ======================= */
 
+  let statRange = '7';        // 7 / 30 / 90 / all
+  let statItems = [];         // subs.json 里的条目（给 Top3 取缩略图和名字）
+  let statSeries = [];        // [{ d, n }]
+
+  /** 把上限取整到 1/2/5×10^k，坐标轴刻度才好看 */
+  function niceCeil(v) {
+    if (v <= 0) return 1;
+    const p = Math.pow(10, Math.floor(Math.log10(v)));
+    const n = v / p;
+    const step = n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10;
+    return step * p;
+  }
+
+  /**
+   * 折线图（纯 SVG，不引任何图表库）。
+   * 为什么是 SVG 而不是 canvas：要跟着容器宽度缩放、要能 hover、还要支持深色主题，
+   * SVG 用 currentColor / CSS 变量就能跟着走，canvas 得自己重画。
+   * 站点规范「禁止渐变」，所以面积填充用同一颜色的低透明度，不是 linearGradient。
+   */
+  function renderChart(series) {
+    const box = $('chartBox');
+    if (!box) return;
+    if (!series || !series.length) {
+      box.innerHTML = '<div class="result-info">还没有数据。</div>';
+      return;
+    }
+
+    const W = 680, H = 220, L = 40, R = 14, T = 14, B = 28;
+    const innerW = W - L - R;
+    const innerH = H - T - B;
+    const maxN = Math.max(1, ...series.map((p) => p.n));
+    const top = niceCeil(maxN);
+    const n = series.length;
+
+    const px = (i) => L + (n === 1 ? innerW / 2 : (innerW * i) / (n - 1));
+    const py = (v) => T + innerH * (1 - v / top);
+
+    const pts = series.map((p, i) => [px(i), py(p.n)]);
+    const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+    const area = `${line} L${px(n - 1).toFixed(1)} ${T + innerH} L${px(0).toFixed(1)} ${T + innerH} Z`;
+
+    /* 横向网格 + 纵轴刻度（0 / 一半 / 顶） */
+    const grid = [0, 0.5, 1].map((r) => {
+      const v = top * r;
+      const y = py(v);
+      return `<line class="ch-grid" x1="${L}" y1="${y.toFixed(1)}" x2="${W - R}" y2="${y.toFixed(1)}"/>
+              <text class="ch-axis" x="${L - 8}" y="${(y + 4).toFixed(1)}" text-anchor="end">${Math.round(v)}</text>`;
+    }).join('');
+
+    /* 横轴日期：最多 6 个，避免挤成一团 */
+    const every = Math.max(1, Math.ceil(n / 6));
+    const xLabels = series.map((p, i) => (i % every === 0 || i === n - 1
+      ? `<text class="ch-axis" x="${px(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${p.d.slice(5).replace('-', '/')}</text>`
+      : '')).join('');
+
+    /* 每个点放一个透明大圆 + <title>，鼠标悬停就能看到「日期 数量」（原生 tooltip，无需 JS） */
+    const dots = series.map((p, i) => (p.n
+      ? `<circle class="ch-dot" cx="${pts[i][0].toFixed(1)}" cy="${pts[i][1].toFixed(1)}" r="9">
+           <title>${p.d} · ${p.n} 次下载</title>
+         </circle>`
+      : '')).join('');
+
+    box.innerHTML = `
+      <svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img">
+        ${grid}
+        <path class="ch-area" d="${area}"/>
+        <path class="ch-line" d="${line}"/>
+        ${dots}
+        ${xLabels}
+      </svg>`;
+  }
+
+  /** 下载最多的 3 条（带缩略图，点进去是字幕详情页） */
+  function renderTop(top) {
+    const box = $('topList');
+    if (!box) return;
+    const list = (top || []).slice(0, 3);
+    $('topInfo').textContent = list.length ? '' : '';
+    if (!list.length) {
+      box.innerHTML = '<div class="result-info">这个时间段还没有下载记录。</div>';
+      return;
+    }
+    box.innerHTML = list.map(([p, n], i) => {
+      const it = statItems.find((x) => x.path === p) || {};
+      const name = it.name || String(p).split('/').pop();
+      const thumb = it.thumb ? fileUrl(it.thumb) : '';
+      return `<a class="top-card" href="${esc(subDetailUrl(p))}">
+        <span class="top-rank">${i + 1}</span>
+        ${thumb
+          ? `<img class="top-thumb" src="${esc(thumb)}" alt="" loading="lazy">`
+          : '<span class="top-thumb no-thumb"></span>'}
+        <span class="top-main">
+          <span class="top-name">${esc(name)}</span>
+          <span class="top-meta">${n} 次下载</span>
+        </span>
+      </a>`;
+    }).join('');
+  }
+
   async function loadStats() {
     ui.statSummary.textContent = '加载中…';
     ui.statTable.innerHTML = '';
 
     /* 概览：字幕总数 / 最近更新（来自 subs.json） */
     const ov = ui.overview ? ui.overview.querySelectorAll('.stat b') : [];
-    try {
-      const sres = await fetch('/assets/data/subs.json', { cache: 'no-store' });
-      const sdata = await sres.json();
-      const items = sdata.items || [];
-      const latest = items.map((i) => i.mtime || '').filter(Boolean).sort().pop() || '';
-      if (ov[0]) ov[0].textContent = items.length;
-      if (ov[2]) ov[2].textContent = latest ? latest.slice(5, 10).replace('-', '/') : '—';
-    } catch {
-      if (ov[0]) ov[0].textContent = '—';
-      if (ov[2]) ov[2].textContent = '—';
+    if (!statItems.length) {
+      try {
+        const sres = await fetch('/assets/data/subs.json', { cache: 'no-store' });
+        const sdata = await sres.json();
+        statItems = sdata.items || [];
+      } catch { statItems = []; }
     }
+    const latest = statItems.map((i) => i.mtime || '').filter(Boolean).sort().pop() || '';
+    if (ov[2]) ov[2].textContent = statItems.length || '—';
+    if (ov[3]) ov[3].textContent = latest ? latest.slice(5, 10).replace('-', '/') : '—';
 
     let timer;
     try {
       const ctrl = new AbortController();
-      timer = setTimeout(() => ctrl.abort(), 10000);
+      timer = setTimeout(() => ctrl.abort(), 12000);
 
+      /* 累计次数（表格 + 管理列表的「N 次下载」都用它） */
       const res = await fetch('/api/counts', { cache: 'no-store', signal: ctrl.signal });
       const data = await res.json();
-      if (ov[1]) ov[1].textContent = data.enabled ? data.total : '—';
 
       if (!data.enabled) {
+        if (ov[0]) ov[0].textContent = '—';
+        if (ov[1]) ov[1].textContent = '—';
         ui.statSummary.innerHTML = data.reason === 'not-bound'
           ? `统计未开启。<br><span style="color:var(--text-dim)">${esc(data.hint || '')}</span>`
           : `统计不可用${data.error ? '：' + esc(data.error) : ''}`;
+        renderChart([]);
+        renderTop([]);
         return;
       }
 
@@ -740,6 +842,28 @@
       statEntries = entries;
       statTotal = data.total || 0;
       renderStatTable();
+
+      /* 趋势 + Top3 */
+      const sres2 = await fetch('/api/stats?range=' + encodeURIComponent(statRange), {
+        cache: 'no-store', signal: ctrl.signal,
+      });
+      const s = await sres2.json();
+      if (!s.enabled) {
+        renderChart([]);
+        renderTop([]);
+        $('chartInfo').textContent = s.reason === 'not-bound' ? '' : (s.error || '统计不可用');
+        return;
+      }
+
+      if (ov[0]) ov[0].textContent = s.total || 0;
+      if (ov[1]) ov[1].textContent = s.today || 0;
+
+      statSeries = s.series || [];
+      const sum = statSeries.reduce((a, p) => a + p.n, 0);
+      $('chartInfo').textContent =
+        (statRange === 'all' ? '全部时间' : '近 ' + statRange + ' 天') + ' · 合计 ' + sum + ' 次';
+      renderChart(statSeries);
+      renderTop(s.top);
     } catch (e) {
       ui.statSummary.innerHTML =
         `读取统计失败：${e.name === 'AbortError' ? '请求超时' : esc(e.message)}` +
@@ -798,6 +922,16 @@
 
   $('btnReloadStats').addEventListener('click', loadStats);
   $('statSearch').addEventListener('input', (e) => { statKw = e.target.value; renderStatTable(); });
+
+  /* 时间范围切换（近 7 / 30 / 90 天 / 全部） */
+  $('rangeTabs')?.addEventListener('click', (e) => {
+    const b = e.target.closest('.range-btn');
+    if (!b || b.classList.contains('active')) return;
+    statRange = b.dataset.range;
+    [...document.querySelectorAll('#rangeTabs .range-btn')]
+      .forEach((x) => x.classList.toggle('active', x === b));
+    loadStats();
+  });
 
   /* ======================= 字幕管理（改说明 / 删除） ======================= */
 

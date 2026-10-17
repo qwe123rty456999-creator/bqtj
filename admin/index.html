@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=22">
+<link rel="stylesheet" href="/assets/css/style.css?v=23">
 </head>
 <body>
 
@@ -172,10 +172,28 @@
     </p>
 
     <div class="stats" id="overview" style="margin-bottom:16px">
+      <div class="stat"><b>—</b><span>总下载</span></div>
+      <div class="stat"><b>—</b><span>今日新增</span></div>
       <div class="stat"><b>—</b><span>个字幕</span></div>
-      <div class="stat"><b>—</b><span>次下载</span></div>
       <div class="stat"><b>—</b><span>最近更新</span></div>
     </div>
+
+    <div class="chart-head">
+      <div class="range-tabs" id="rangeTabs">
+        <button type="button" class="range-btn active" data-range="7">近 7 天</button>
+        <button type="button" class="range-btn" data-range="30">近 30 天</button>
+        <button type="button" class="range-btn" data-range="90">近 90 天</button>
+        <button type="button" class="range-btn" data-range="all">全部</button>
+      </div>
+      <span class="result-info" id="chartInfo"></span>
+    </div>
+    <div class="chart-box" id="chartBox"><div class="result-info">加载中…</div></div>
+
+    <div class="top-head">
+      <h3>下载最多</h3>
+      <span class="result-info" id="topInfo"></span>
+    </div>
+    <div class="top-list" id="topList"></div>
 
     <div class="card-tools">
       <input class="input" type="search" id="statSearch" autocomplete="off"
@@ -266,6 +284,6 @@
 
 <script src="/assets/js/config.js?v=4"></script>
 <script src="/assets/js/site.js?v=24"></script>
-<script src="/assets/js/admin.js?v=11"></script>
+<script src="/assets/js/admin.js?v=12"></script>
 </body>
 </html>

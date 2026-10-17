@@ -39,8 +39,25 @@ async function ensureSchema(db) {
        )`
     )
     .run();
+  /* 2026-10-17 新增：按天累计。管理页的趋势图（近7/30/90/全部）靠它，
+     downloads 表只有「累计总数」，做不出曲线。
+     从建表那天开始才会有数据，历史无法回溯。 */
+  await db
+    .prepare(
+      `CREATE TABLE IF NOT EXISTS download_daily (
+         day  TEXT NOT NULL,
+         path TEXT NOT NULL,
+         n    INTEGER NOT NULL DEFAULT 0,
+         PRIMARY KEY (day, path)
+       )`
+    )
+    .run();
   schemaReady = true;
 }
+
+/** 东八区日期字符串 YYYY-MM-DD（不用 UTC，否则国内凌晨 8 点才「换天」） */
+const dayOf = (ago = 0) =>
+  new Date(Date.now() + 8 * 3600 * 1000 - ago * 86400000).toISOString().slice(0, 10);
 
 async function fingerprint(ip, ua) {
   const data = new TextEncoder().encode(`${ip}|${ua}|${SALT}`);
@@ -91,6 +108,17 @@ async function recordDownload(env, request, path) {
            last_ts = ?3`
       )
       .bind(path, visitor, now)
+      .run();
+
+    /* 同一份计数再往「按天」表里加一笔（趋势图用）。
+       去重逻辑和上面一致：能走到这里的都已经过了 12 小时窗口。 */
+    await db
+      .prepare(
+        `INSERT INTO download_daily (day, path, n)
+         VALUES (?1, ?2, 1)
+         ON CONFLICT(day, path) DO UPDATE SET n = n + 1`
+      )
+      .bind(dayOf(), path)
       .run();
   } catch {
     /* 故意吞掉：统计永远不该影响下载 */
