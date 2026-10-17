@@ -83,7 +83,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-/* 后台换新：失败就保持旧副本，绝不抛错给页面 */
+/** 后台换新：失败就保持旧副本，绝不抛错给页面 */
 async function refresh(cache, key, url) {
   try {
     const res = await fetch(url, { cache: 'no-cache' });
@@ -91,6 +91,13 @@ async function refresh(cache, key, url) {
   } catch (_) {
     /* 离线 / 超时：继续用旧副本 */
   }
+}
+
+/** 存副本；任何失败都吞掉（存不下也不该让页面报错） */
+async function remember(cache, key, res) {
+  try {
+    if (res && res.ok) await cache.put(key, res.clone());
+  } catch (_) { /* ignore */ }
 }
 
 /* ---------------------------- 拦截 ---------------------------- */
@@ -133,7 +140,9 @@ self.addEventListener('fetch', (event) => {
       }
 
       const res = await fetch(req);
-      if (res && res.ok) event.waitUntil(cache.put(key, res.clone()));
+      try {
+        event.waitUntil(remember(cache, key, res));
+      } catch (_) { /* ignore */ }
       return res;
     })()
   );
