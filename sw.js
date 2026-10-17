@@ -20,13 +20,17 @@
      · /files/subs/*   —— 下载计数中间件必须收到真实请求，绝不缓存
      · /admin/ /games/admin/ —— 管理后台永远要最新的
 
+   用户上传的图（/files/thumbs/、/files/games/）也进缓存，但只存 1 小时：
+   换图是同名覆盖，存久了会一直看旧图。
+
    想强制让所有访客丢掉旧缓存：把下面的 VERSION 改一下即可（activate 会清旧表）。
    ========================================================================== */
 
-const VERSION = 'v16';
+const VERSION = 'v17';
 const CACHE = 'bqtj-' + VERSION;
-const TTL = 10 * 60 * 1000;          // 10 分钟：页面 / 索引 / 图片
+const TTL = 10 * 60 * 1000;          // 10 分钟：页面 / 索引
 const TTL_COUNTS = 60 * 1000;        // 60 秒：下载次数（变化快，但晚 1 分钟无感）
+const TTL_IMG = 60 * 60 * 1000;      // 1 小时：用户上传的图（同名覆盖，不能永久缓存）
 
 /* 预缓存的页面壳（数据是靠 JS 拉 subs.json/games.json 渲染的，壳很小）
    ⚠️ 这里只写「不会 302 的规范地址」。Cloudflare Pages 会自动把 /xxx.html
@@ -41,7 +45,7 @@ const SHELLS = [
   '/games/',
   '/games/detail',
   '/about',
-  '/404.html',
+  '/404',
 ];
 
 /* 页面壳的缓存键：把各种写法归一到同一个
@@ -130,10 +134,16 @@ self.addEventListener('fetch', (event) => {
   // css / js 的 URL 里带 ?v=，改了代码版本号就变，所以可以永久缓存；
   // img 没有版本号（logo.png 会被直接覆盖），必须跟其它内容一样按 TTL 刷新。
   const isVersioned = /^\/assets\/(css|js)\//.test(url.pathname);
-  const isAsset = isVersioned || url.pathname.startsWith('/assets/img/');
+  const isSiteImg = url.pathname.startsWith('/assets/img/');
+  /* 用户上传的图：游戏封面/截图（/files/games/）、字幕缩略图（/files/thumbs/）。
+     它们没有版本号、换图会同名覆盖，所以不能永久缓存，但仍必须进 SW ——
+     否则每进一次 /games/ 或 /subs/ 都要跨境重拉一遍封面，看着就像「没走 SW」。
+     ⚠️ /files/subs/* 不在此列：下载必须让中间件收到真实请求才能计数。*/
+  const isUserImg = /^\/files\/(thumbs|games)\//.test(url.pathname);
+  const isAsset = isVersioned || isSiteImg || isUserImg;
   if (!isNav && !isData && !isAsset && !isCounts) return;
 
-  const ttl = isCounts ? TTL_COUNTS : TTL;
+  const ttl = isCounts ? TTL_COUNTS : (isUserImg ? TTL_IMG : TTL);
 
   // 导航页按「归一化后的路径」存（?id=xxx 的详情页共用一个壳，
   // /games/detail.html 和 /games/detail 也共用一个）；

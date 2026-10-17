@@ -74,3 +74,11 @@
 /files/thumbs/*
   Cache-Control: public, max-age=3600, must-revalidate
   Access-Control-Allow-Origin: *
+
+# 游戏封面 / 截图：和缩略图一样，会被同名覆盖，所以 1 小时。
+# 2026-10-17 补：原来没有这一段，Pages 默认给 max-age=0, must-revalidate ——
+# 每进一次 /games/ 都要跨境回源验一次封面（实测 150~300ms），
+# 加上 SW 也只盖住了 HTML/JSON，图片没进缓存，所以游戏页看着"没走 SW"。
+/files/games/*
+  Cache-Control: public, max-age=3600, must-revalidate
+  Access-Control-Allow-Origin: *
