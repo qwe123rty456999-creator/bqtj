@@ -27,10 +27,10 @@ const CHECKS = [
   ['/admin/', ['sendToast', 'id="upAss"', 'id="upSrt"', 'id="upLyrics"', 'id="upThumb"', 'id="btnUploadOne"', 'data-hist="back"', 'data-hist="forward"', 'style.css?v=22', 'site.js?v=21', 'config.js?v=4', 'admin.js?v=7', '!id="btnUploadAll"', '!id="picker"']],
   ['/games/', ['按自己喜好下载', '仅供学习交流', '请勿用于商业用途', '如有侵权请联系删除', '点卡片进详情页', '会自动复制到剪贴板', 'data-hist="back"', 'data-hist="forward"', 'style.css?v=22', 'site.js?v=21', 'games.js?v=7', '!复制提取码', '!选择云盘下载']],
   ['/games/detail.html?id=gmu9cq47yr2q', ['game-detail.js?v=3', 'site.js?v=21', 'gdBox', 'lightbox']],
-  ['/subs/', ['data-hist="back"', 'data-hist="forward"', 'style.css?v=25', 'site.js?v=24', 'subs.js?v=7']],
+  ['/subs/', ['data-hist="back"', 'data-hist="forward"', 'style.css?v=26', 'site.js?v=24', 'subs.js?v=7']],
   ['/subs/lyrics/', ['lyrics.js?v=4', 'site.js?v=24', 'lyBox']],
   ['/subs/detail/', ['sub-detail.js?v=8', 'site.js?v=24', 'sdBox']],
-  ['/', ['style.css?v=25', 'site.js?v=24', 'data-href', 'bindRowClick', 'subDetailUrl', 'https://bqtj.top/', '!data-hist']],
+  ['/', ['style.css?v=26', 'site.js?v=24', 'data-href', 'bindRowClick', 'subDetailUrl', 'https://bqtj.top/', '!data-hist']],
   ['/robots.txt', ['Sitemap: https://bqtj.top/sitemap.xml']],
   ['/sitemap.xml', ['<loc>https://bqtj.top/</loc>', '<loc>https://bqtj.top/subs/</loc>', '<loc>https://bqtj.top/about</loc>', '!bqtj.pages.dev']],
   [
@@ -42,11 +42,11 @@ const CHECKS = [
       'B 站私信',
       'message.bilibili.com',            // 私信改成消息中心直达
       'https://bqtj.top/about',          // canonical 已换主域名
-      '走腾讯云 EdgeOne 加速',
+      '腾讯云 EdgeOne 加速',
       'bqtj.cc.cd',                      // 备用地址（已换成 bqtj.cc.cd）
       '只有一个自建的下载计数',
       '自制的 ASS / SRT',
-      'style.css?v=25',
+      'style.css?v=26',
       'site.js?v=24',
       'config.js?v=4',
       '!怎么找字幕',                     // 整节已删
