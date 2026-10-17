@@ -1,4 +1,4 @@
-# 爆枪突击字幕库（bqtj.pages.dev）
+# 爆枪突击字幕库（bqtj.top）
 
 只做一件事：**把爆枪突击的字幕整理好，让人点一下就能下载。**
 
@@ -31,8 +31,9 @@ node tools/build-subs-index.mjs
 
 | 地址 | 国内直连 | 用途 |
 | --- | --- | --- |
-| **https://bqtj.pages.dev** | ✅ 可直连 | **对外分享用这个** |
-| https://bqtj.cc.cd | ❌ 连接被重置 | 备用地址，需代理 |
+| **https://bqtj.top** | ✅ 可直连（腾讯云 EdgeOne 加速） | **对外分享用这个（主域名）** |
+| https://bqtj.pages.dev | ✅ 可直连（Cloudflare 直连） | 备用地址 / 源站，主地址出问题时用 |
+| https://bqtj.cc.cd | ❌ 连接被重置 | 已停用（`.cc.cd` 后缀被整段拉黑） |
 
 **2026-09 排查记录**（症状：手机不挂代理报「网络错误」，挂上代理才能打开）：
 
@@ -73,6 +74,11 @@ powershell -ExecutionPolicy Bypass -File tools\net-check.ps1 新域名.com
 换域名时，这几处要一起改（都指向「对外分享的那个域名」）：
 各页面的 `canonical`、首页的 `og:url` / `og:image`、`sitemap.xml`、`robots.txt`。
 页面内链一律用根相对路径（`/assets/...`、`/subs/`），所以网址本身不影响功能。
+
+> 目前主域名 = `bqtj.top`（DNS 在 Cloudflare，**灰云** CNAME → `bqtj.top.eo.dnse5.com`，
+> 由腾讯云 EdgeOne 加速，回源 `bqtj.pages.dev`）。`www.bqtj.top` 在 Cloudflare 边缘 301 到主域。
+> ⚠️ EdgeOne 的缓存里 **`/files/subs/` 必须设为不缓存** —— 否则文件被边缘缓存后，
+> 源站的下载计数（`functions/_middleware.js`）就收不到请求了。
 
 ---
 

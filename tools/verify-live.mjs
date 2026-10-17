@@ -30,7 +30,9 @@ const CHECKS = [
   ['/subs/', ['data-hist="back"', 'data-hist="forward"', 'style.css?v=22', 'site.js?v=21', 'subs.js?v=7']],
   ['/subs/lyrics/', ['lyrics.js?v=2', 'site.js?v=21', 'lyBox']],
   ['/subs/detail/', ['sub-detail.js?v=6', 'site.js?v=21', 'sdBox']],
-  ['/', ['style.css?v=22', 'site.js?v=21', 'data-href', 'bindRowClick', 'subDetailUrl', '!data-hist']],
+  ['/', ['style.css?v=22', 'site.js?v=21', 'data-href', 'bindRowClick', 'subDetailUrl', 'https://bqtj.top/', '!data-hist']],
+  ['/robots.txt', ['Sitemap: https://bqtj.top/sitemap.xml']],
+  ['/sitemap.xml', ['<loc>https://bqtj.top/</loc>', '<loc>https://bqtj.top/subs/</loc>', '<loc>https://bqtj.top/about</loc>', '!bqtj.pages.dev']],
   [
     '/about',
     [
@@ -40,7 +42,9 @@ const CHECKS = [
       '想委托翻译',
       'B 站私信',
       'message.bilibili.com',            // 私信改成消息中心直达
-      '国内因后缀强制重置导致连不上',
+      'https://bqtj.top/about',          // canonical 已换主域名
+      '走腾讯云 EdgeOne 加速',
+      '直连 Cloudflare',
       '只有一个自建的下载计数',
       '自制的 ASS / SRT 格式的字幕文件',
       'data-hist="back"',

@@ -57,9 +57,15 @@ async function recordDownload(env, request, path) {
     if (!db) return;
     await ensureSchema(db);
 
+    /* 访客 IP：优先取 X-Forwarded-For 的**第一跳**（真实客户端）。
+       为什么不直接用 CF-Connecting-IP：对外域名 bqtj.top 现在挂在腾讯云 EdgeOne 后面，
+       Cloudflare 看到的连接方是 **EdgeOne 节点**，CF-Connecting-IP 于是变成了节点 IP ——
+       同一节点下所有访客指纹一样，「12 小时只算一次」会退化成「一个节点只算一次」。
+       ⚠️ 代价：XFF 第一跳可以伪造（自己发个假头就能刷计数）。本站只是个下载计数，
+       宁可牺牲这点抗刷，也要让统计在有 CDN 的情况下还有点意义。 */
     const ip =
+      (request.headers.get('x-forwarded-for') || '').split(',')[0].trim() ||
       request.headers.get('CF-Connecting-IP') ||
-      request.headers.get('x-forwarded-for') ||
       '';
     const ua = request.headers.get('User-Agent') || '';
     const visitor = await fingerprint(ip, ua);
