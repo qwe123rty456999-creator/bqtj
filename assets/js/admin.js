@@ -947,17 +947,6 @@
   }
 
   $('btnReloadStats').addEventListener('click', loadStats);
-
-  /* 「看下载排行」：不跳走，而是清空搜索把整张排行表展开，然后滚过去。
-     原来是个外链到 /subs/?sort=count-desc —— 用户反馈「点了只是跳走，不是排序」，
-     而这张表本来就是按下载量降序的，没必要离开当前页。 */
-  $('btnGoRank')?.addEventListener('click', () => {
-    const box = $('statSearch');
-    if (box && box.value) { box.value = ''; statKw = ''; renderStatTable(); }
-    ui.statTable.scrollIntoView({ block: 'start', behavior: 'smooth' });
-    ui.statTable.classList.add('flash');
-    setTimeout(() => ui.statTable.classList.remove('flash'), 1200);
-  });
   $('statSearch').addEventListener('input', (e) => {
     statKw = e.target.value;
     statPage = 1;
