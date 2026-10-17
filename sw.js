@@ -23,26 +23,36 @@
    想强制让所有访客丢掉旧缓存：把下面的 VERSION 改一下即可（activate 会清旧表）。
    ========================================================================== */
 
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = 'bqtj-' + VERSION;
 const TTL = 10 * 60 * 1000;          // 10 分钟：页面 / 索引 / 图片
 const TTL_COUNTS = 60 * 1000;        // 60 秒：下载次数（变化快，但晚 1 分钟无感）
 
-/* 预缓存的页面壳（数据是靠 JS 拉 subs.json/games.json 渲染的，壳很小） */
+/* 预缓存的页面壳（数据是靠 JS 拉 subs.json/games.json 渲染的，壳很小）
+   ⚠️ 这里只写「不会 302 的规范地址」。Cloudflare Pages 会自动把 /xxx.html
+   重定向到 /xxx（/about.html → /about、/games/detail.html → /games/detail），
+   而 cache.add() 遇到重定向会直接 reject —— 之前列表里写了 12 条 .html，
+   实际有一半装不进去。现在靠下面的 navKey() 把 .html 归一到同一个键。 */
 const SHELLS = [
   '/',
-  '/index.html',
   '/subs/',
-  '/subs/index.html',
   '/subs/detail/',
   '/subs/lyrics/',
   '/games/',
-  '/games/index.html',
-  '/games/detail.html',
+  '/games/detail',
   '/about',
-  '/about.html',
   '/404.html',
 ];
+
+/* 页面壳的缓存键：把各种写法归一到同一个
+   /index.html → /            /subs/index.html → /subs/
+   /games/detail.html → /games/detail        /about.html → /about */
+function navKey(pathname) {
+  if (pathname === '/index.html') return '/';
+  if (pathname.endsWith('/index.html')) return pathname.slice(0, -'index.html'.length);
+  if (pathname.endsWith('.html') && pathname !== '/404.html') return pathname.slice(0, -'.html'.length);
+  return pathname;
+}
 
 /* 预缓存的数据索引 */
 const DATA = ['/assets/data/subs.json', '/assets/data/games.json'];
@@ -125,33 +135,45 @@ self.addEventListener('fetch', (event) => {
 
   const ttl = isCounts ? TTL_COUNTS : TTL;
 
-  // 导航页按「路径」存（?id=xxx 的详情页共用一个壳）；
+  // 导航页按「归一化后的路径」存（?id=xxx 的详情页共用一个壳，
+  // /games/detail.html 和 /games/detail 也共用一个）；
   // 资源必须带 ?v= 存，否则新版本会命中旧文件。
-  const key = isNav ? new Request(url.origin + url.pathname) : req;
+  const key = isNav ? new Request(url.origin + navKey(url.pathname)) : req;
   const matchOpts = isNav ? { ignoreSearch: true } : {};
 
   event.respondWith(
     (async () => {
-      const cache = await caches.open(CACHE);
-      const hit = await cache.match(key, matchOpts);
-
-      if (hit) {
-        if (!isVersioned) {
-          const t = Date.parse(hit.headers.get('date') || '');
-          if (!Number.isFinite(t) || Date.now() - t >= ttl) {
-            try {
-              event.waitUntil(refresh(cache, key, url.href));
-            } catch (_) { /* 事件已结束就放弃这次后台刷新 */ }
-          }
-        }
-        return hit;
-      }
-
-      const res = await fetch(req);
       try {
-        event.waitUntil(remember(cache, key, res));
-      } catch (_) { /* ignore */ }
-      return res;
+        const cache = await caches.open(CACHE);
+        const hit = await cache.match(key, matchOpts);
+
+        if (hit) {
+          if (!isVersioned) {
+            const t = Date.parse(hit.headers.get('date') || '');
+            if (!Number.isFinite(t) || Date.now() - t >= ttl) {
+              try {
+                event.waitUntil(refresh(cache, key, url.href));
+              } catch (_) { /* 事件已结束就放弃这次后台刷新 */ }
+            }
+          }
+          return hit;
+        }
+
+        // ⚠️⚠️ 这里绝对不能写 fetch(req)。
+        // 导航请求的 mode 是 'navigate'，而 fetch() 规范上不允许 mode 为 navigate 的
+        // Request → 直接抛 TypeError → respondWith 变成 rejected → 浏览器只会显示
+        // 「ERR_FAILED / 无法访问此页面」。2026-10-17 就是这样把 /games/detail.html?id=…
+        // 整页打挂的（命中预缓存时不会走到这里，所以只有"没缓存到的那几个页面"会中招）。
+        // 用 url.href（字符串）重建请求就没这个问题。
+        const res = await fetch(url.href);
+        try {
+          event.waitUntil(remember(cache, key, res));
+        } catch (_) { /* ignore */ }
+        return res;
+      } catch (_) {
+        // 任何意外都退回直接请求网络：宁可慢一点，也绝不能让页面白屏
+        return fetch(url.href);
+      }
     })()
   );
 });
